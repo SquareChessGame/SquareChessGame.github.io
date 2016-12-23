@@ -237,7 +237,7 @@ a{color:inherit;text-decoration:none}
 		</div>
 	</div>
 </header>
-<article style="margin-left:10px" onmouseover="Mnu(1)">
+<article style="margin-left:10px" onclick="Mnu(1)">
 	<div id="cHome" class="field2" data-page="Home" style="margin-top:20px">
 		<h1><font class="En">Welcome </font>/<font class="Ch"> 歡迎使用</font></h1>
 		<div style="font-size:20px;letter-spacing:2px;line-height:1.2">
@@ -396,6 +396,7 @@ function Rpt(btn){var v=[Id("RTt").value,Id("RCt").value]
 function RlS(m){var rls=[],md=m.replace("Square.","").split(":")
 	Id("cRule").childNodes[3].innerHTML=""
 	for(var i=0;i<md.length;i++)rls=Rls[md[i]](rls)
+	rls=Rls.System(rls)
 }
 </script>
 </html>
