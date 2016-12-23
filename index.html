@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no" />
+<meta name="mobile-web-app-capable" content="yes" />
+<link href="Pics/Icon.png" rel="shortcut icon">
+<title>Square Chess Game</title>
+<script src="Impo/jquery.min.js"></script>
+<script src="Core/Prun.js"></script>
+<script src="Core/Rule.js"></script>
+<style>@import "Core/Face.css";
+footer{
+	left:0px;
+	width:100%;
+	bottom:0px;
+	height:40px;
+	color:white;
+	font-size:16px;
+	position:fixed;
+	overflow:hidden;
+	line-height:40px;
+	text-align:center;
+	background-color:#758f9b;
+}
+#Home{
+	float:left;
+	height:40px;
+	width:350px;
+	color:white;
+	font-size:25px;
+	line-height:40px;
+	margin-left:40px;
+	background-size:25px 25px;
+	background-repeat:no-repeat;
+	background-position:7.5px 7.5px;
+	background-image:url(Pics/Logo.gif);
+}
+#Menu,#List{
+	height:40px;
+	width:430px;
+	float:right;
+	font-size:16px;
+	overflow:visible;
+	margin-right:10px;
+	font-family:Microsoft JhengHei UI;
+}
+#Menu hr,#List hr{width:0px;height:60%;float:right}
+#Copy{width:235px;margin-left:5px;float:left;font-family:Courier New;font-size:15px;}
+.Social{
+	width:35px;
+	height:35px;
+	float:right;
+	margin:2.5px;
+	cursor:pointer;
+	background-size:20px 20px;
+	background-repeat:no-repeat;
+	background-position:center center;
+}
+#LstB{
+	background-image:url(Pics/List.gif);
+	background-size:25px 25px;
+	background-repeat:no-repeat;
+	width:40px;height:40px;
+	background-position:center center;
+	transition:background 1s;
+}
+.page div:hover,#lLst div div:hover{color:#48585f}
+.page,.pPage{width:140px;float:right;font-weight:bold;overflow:visible}
+.pPage{width:100%}
+#lLst div div,.page div{
+	font-weight:bold;line-height:40px
+	height:0px;width:100%;float:left;
+	background-color:#758f9b;
+	text-decoration:none;overflow:hidden;
+}
+.tab{background-color:#758f9b;overflow:hidden}
+#pStart,#pAbout,#pOnline,#pReport,#pRules,.pTab{
+	background-position:right 5px;
+	background-size:30px 30px;
+	background-repeat:no-repeat;
+}
+article{
+	user-select:text;-ms-user-select:text;-moz-user-select:text;-webkit-user-select:text;
+	color:#48585f;font-family:CENTAUR;overflow:auto;
+}
+article::-webkit-scrollbar{width:0px;height:0px}
+article div{float:left;height:auto;width:100%}
+article div h1{font-size:20px;font-weight:normal}
+article div h1 .En{font-size:50px}
+article div h1 .Ch{letter-spacing:3px}
+article div div{height:auto;width:auto;float:none}
+#cImag{background-image:url(Pics/chsbd.png);background-repeat:no-repeat;background-position:center center;}
+.field,.field2{overflow:auto}
+#pStart{background-image:url(Pics/Start.gif)}
+#pStart:hover{background-image:url(Pics/Starth.gif)}
+#pAbout{background-image:url(Pics/About.gif)}
+#pAbout:hover{background-image:url(Pics/Abouth.gif)}
+#pOnline{background-image:url(Pics/Online.gif)}
+#pOnline:hover{background-image:url(Pics/Onlineh.gif)}
+#pReport{background-image:url(Pics/Report.gif)}
+#pReport:hover{background-image:url(Pics/Reporth.gif)}
+#pRules{background-image:url(Pics/Rules.gif)}
+#pRules:hover{background-image:url(Pics/Rulesh.gif)}
+.pTab{background-image:url(Pics/Down.gif)}
+.pTab:hover{background-image:url(Pics/Downh.gif)}
+#lLst div{overflow:auto;height:280px}
+#lLst div div:hover{background-color:#99bccc}
+a{color:inherit;text-decoration:none}
+#fb{background-image:url(Pics/fb.gif)}
+#tw{background-image:url(Pics/tw.gif)}
+#gp{background-image:url(Pics/gp.gif)}
+#fb:hover{background-image:url(Pics/fbh.gif)}
+#tw:hover{background-image:url(Pics/twh.gif)}
+#gp:hover{background-image:url(Pics/gph.gif)}
+</style>
+</head>
+<body onresize="Rsz()" onload="Ldr()" oncontextmenu="event.preventDefault()">
+<div id="NightMode" style="opacity:1">
+<header>
+	<div id="Home" onclick="Pge('Home')">Square Chess Game</div>
+	<div id="Menu" class="Computer">
+		<div class="page">
+			<div class="tab" id="Rules" onclick="Lst('rules','Main')">遊戲說明</div>
+				<div data-rules="Main" onmouseover="Lst('rules','CSub')" class="tab"><a>Square.Connect</a></div>
+				<div data-rules="CSub"><a>Connect:Attack</a></div>
+				<div data-rules="CSub"><a>Connect:Defend</a></div>
+				<div data-rules="CSub"><a>Connect:Scheme</a></div>
+				<div data-rules="Main" onmouseover="Lst('rules','BSub')" class="tab"><a>Square.Blocker</a></div>
+				<div data-rules="BSub"><a>Blocker:Forbid</a></div>
+				<div data-rules="Main" onmouseover="Lst('rules','DSub')" class="tab"><a>Square.Divider</a></div>
+				<div data-rules="DSub"><a>Divider:Zombie</a></div>
+				<div data-rules="DSub"><a>Divider:Follow</a></div>
+				<div data-rules="DSub"><a>Divider:Anomal</a></div>
+				<div data-rules="Main" onmouseover="Lst('rules','ASub')" class="tab"><a>Square.Adapter</a></div>
+				<div data-rules="ASub"><a>Adapter:Invert</a></div>
+				<div data-rules="ASub"><a>Adapter:Castle</a></div>
+				<div data-rules="Main" onmouseover="Lst('rules','OSub')" class="tab"><a>Other</a></div>
+				<div data-rules="OSub"><a>Gomoku</a></div>
+				<div data-rules="OSub"><a>GoLike</a></div>
+		</div><hr>
+		<div class="page">
+			<div class="tab" id="Online" onclick="Lst('btchs','Main')">線上對戰</div>
+				<div data-btchs="Main" onmouseover="Lst('btchs','CSub')" class="tab"><a>Square.Connect</a></div>
+				<div data-btchs="CSub"><a>Connect:Attack</a></div>
+				<div data-btchs="CSub"><a>Connect:Defend</a></div>
+				<div data-btchs="CSub"><a>Connect:Scheme</a></div>
+				<div data-btchs="Main" onmouseover="Lst('btchs','BSub')" class="tab"><a>Square.Blocker</a></div>
+				<div data-btchs="BSub"><a>Blocker:Forbid</a></div>
+				<div data-btchs="Main" onmouseover="Lst('btchs','DSub')" class="tab"><a>Square.Divider</a></div>
+				<div data-btchs="DSub"><a>Divider:Zombie</a></div>
+				<div data-btchs="DSub"><a>Divider:Follow</a></div>
+				<div data-btchs="DSub"><a>Divider:Anomal</a></div>
+				<div data-btchs="Main" onmouseover="Lst('btchs','ASub')" class="tab"><a>Square.Adapter</a></div>
+				<div data-btchs="ASub"><a>Adapter:Invert</a></div>
+				<div data-btchs="ASub"><a>Adapter:Castle</a></div>
+				<div data-btchs="Main" onmouseover="Lst('btchs','OSub')" class="tab"><a>Other</a></div>
+				<div data-btchs="OSub"><a>Gomoku</a></div>
+				<div data-btchs="OSub"><a>GoLike</a></div>
+		</div><hr>
+		<div class="page">
+			<div class="tab" id="Start" onclick="Lst('chess','Main')">開始遊戲</div>
+				<div data-chess="Main" onmouseover="Lst('chess','CSub')" class="tab"><a>Square.Connect</a></div>
+				<div data-chess="CSub"><a>Connect:Attack</a></div>
+				<div data-chess="CSub"><a>Connect:Defend</a></div>
+				<div data-chess="CSub"><a>Connect:Scheme</a></div>
+				<div data-chess="Main" onmouseover="Lst('chess','BSub')" class="tab"><a>Square.Blocker</a></div>
+				<div data-chess="BSub"><a>Blocker:Forbid</a></div>
+				<div data-chess="Main" onmouseover="Lst('chess','DSub')" class="tab"><a>Square.Divider</a></div>
+				<div data-chess="DSub"><a>Divider:Zombie</a></div>
+				<div data-chess="DSub"><a>Divider:Follow</a></div>
+				<div data-chess="DSub"><a>Divider:Anomal</a></div>
+				<div data-chess="Main" onmouseover="Lst('chess','ASub')" class="tab"><a>Square.Adapter</a></div>
+				<div data-chess="ASub"><a>Adapter:Invert</a></div>
+				<div data-chess="ASub"><a>Adapter:Castle</a></div>
+				<div data-chess="Main" onmouseover="Lst('chess','OSub')" class="tab"><a>Other</a></div>
+				<div data-chess="OSub"><a>Gomoku</a></div>
+				<div data-chess="OSub"><a>GoLike</a></div>
+		</div>
+	</div>
+	<div id="LstB" class="Mobile" onclick="Mnu()" style="display:none"></div>
+	<div id="lLst" class="Mobile" style="width:100%;font-size:16px;float:right;text-align:left">
+		<div style="width:80%;margin-left:10%">
+			<div id="pStart" onclick="Lst('chess','Main')" class="pPage">開始遊戲</div>
+				<div data-chess="Main" onclick="Lst('chess','CSub')" class="pTab"><a>Square.Connect</a></div>
+				<div data-chess="CSub"><a>Connect:Attack</a></div>
+				<div data-chess="CSub"><a>Connect:Defend</a></div>
+				<div data-chess="CSub"><a>Connect:Scheme</a></div>
+				<div data-chess="Main" onclick="Lst('chess','BSub')" class="pTab"><a>Square.Blocker</a></div>
+				<div data-chess="BSub"><a>Blocker:Forbid</a></div>
+				<div data-chess="Main" onclick="Lst('chess','DSub')" class="pTab"><a>Square.Divider</a></div>
+				<div data-chess="DSub"><a>Divider:Zombie</a></div>
+				<div data-chess="DSub"><a>Divider:Follow</a></div>
+				<div data-chess="DSub"><a>Divider:Anomal</a></div>
+				<div data-chess="Main" onclick="Lst('chess','ASub')" class="pTab"><a>Square.Adapter</a></div>
+				<div data-chess="ASub"><a>Adapter:Invert</a></div>
+				<div data-chess="ASub"><a>Adapter:Castle</a></div>
+				<div data-chess="Main" onclick="Lst('chess','OSub')" class="pTab"><a>Other</a></div>
+				<div data-chess="OSub"><a>Gomoku</a></div>
+				<div data-chess="OSub"><a>GoLike</a></div>
+			<div id="pOnline" onclick="Lst('btchs','Main')" class="pPage">線上對戰</div>
+				<div data-btchs="Main" onclick="Lst('btchs','CSub')" class="pTab"><a>Square.Connect</a></div>
+				<div data-btchs="CSub"><a>Connect:Attack</a></div>
+				<div data-btchs="CSub"><a>Connect:Defend</a></div>
+				<div data-btchs="CSub"><a>Connect:Scheme</a></div>
+				<div data-btchs="Main" onclick="Lst('btchs','BSub')" class="pTab"><a>Square.Blocker</a></div>
+				<div data-btchs="BSub"><a>Blocker:Forbid</a></div>
+				<div data-btchs="Main" onclick="Lst('btchs','DSub')" class="pTab"><a>Square.Divider</a></div>
+				<div data-btchs="DSub"><a>Divider:Zombie</a></div>
+				<div data-btchs="DSub"><a>Divider:Follow</a></div>
+				<div data-btchs="DSub"><a>Divider:Anomal</a></div>
+				<div data-btchs="Main" onclick="Lst('btchs','ASub')" class="pTab"><a>Square.Adapter</a></div>
+				<div data-btchs="ASub"><a>Adapter:Invert</a></div>
+				<div data-btchs="ASub"><a>Adapter:Castle</a></div>
+				<div data-btchs="Main" onclick="Lst('btchs','OSub')" class="pTab"><a>Other</a></div>
+				<div data-btchs="OSub"><a>Gomoku</a></div>
+				<div data-btchs="OSub"><a>GoLike</a></div>
+			<div id="pRules" onclick="Lst('rules','Main')" class="pPage">遊戲說明</div>
+				<div data-rules="Main" onclick="Lst('rules','CSub')" class="pTab"><a>Square.Connect</a></div>
+				<div data-rules="CSub"><a>Connect:Attack</a></div>
+				<div data-rules="CSub"><a>Connect:Defend</a></div>
+				<div data-rules="CSub"><a>Connect:Scheme</a></div>
+				<div data-rules="Main" onclick="Lst('rules','BSub')" class="pTab"><a>Square.Blocker</a></div>
+				<div data-rules="BSub"><a>Blocker:Forbid</a></div>
+				<div data-rules="Main" onclick="Lst('rules','DSub')" class="pTab"><a>Square.Divider</a></div>
+				<div data-rules="DSub"><a>Divider:Zombie</a></div>
+				<div data-rules="DSub"><a>Divider:Follow</a></div>
+				<div data-rules="DSub"><a>Divider:Anomal</a></div>
+				<div data-rules="Main" onclick="Lst('rules','ASub')" class="pTab"><a>Square.Adapter</a></div>
+				<div data-rules="ASub"><a>Adapter:Invert</a></div>
+				<div data-rules="ASub"><a>Adapter:Castle</a></div>
+				<div data-rules="Main" onclick="Lst('rules','OSub')" class="pTab"><a>Other</a></div>
+				<div data-rules="OSub"><a>Gomoku</a></div>
+				<div data-rules="OSub"><a>GoLike</a></div>
+			<div id="pAbout" class="pPage">關於我們</div>
+			<div id="pReport" class="pPage">回報問題</div>
+		</div>
+	</div>
+</header>
+<article style="margin-left:10px" onmouseover="Mnu(1)">
+	<div id="cHome" class="field2" data-page="Home" style="margin-top:20px">
+		<h1><font class="En">Welcome </font>/<font class="Ch"> 歡迎使用</font></h1>
+		<div style="font-size:20px;letter-spacing:2px;line-height:1.2">
+			<ol>
+				<li>最適大小:適應於不同大小裝置</li>
+				<li>新式規則:前所未見的遊戲規則</li>
+				<li>線上對戰:可與朋友在線上切磋</li>
+				<li>輔助標記:新手也能夠快速上手</li>
+			</ol>
+		</div>
+	</div>
+	<div id="cImag" class="field2" data-page="Home"></div>
+	<div id="cFunc" class="field2" data-page="Home">
+		<h1><font class="En">Function </font>/<font class="Ch"> 常用功能</font></h1>
+		<div style="font-size:20px;letter-spacing:2px;line-height:1.2">
+			<div>常用的一般功能:</div>
+				<ol class="Computer">
+					<li>點選格子或以鍵盤輸入座標(E5即按下E+5)來設置符號</li>
+					<li>滑鼠靠近空白處或按下]或[即可喚出選單</li>
+					<li>點選Clean或按下Del以清除棋盤</li>
+					<li>點選Undo或按下Ctrl+Z到上一步</li>
+					<li>點選Redo或按下Ctrl+Y到下一步</li>
+					<li>點選Goto或按下Ctrl+H到指定步</li>
+					<li>點選Addons或按下Ctrl+Alt做功能設定</li>
+				</ol>
+				<ol class="Mobile">
+					<li>點選格子來設置符號</li>
+					<li>點選Clean以清除棋盤</li>
+					<li>點選Undo到上一步</li>
+					<li>按住Undo到指定步</li>
+					<li>按住Clean做功能設定</li>
+				</ol>
+			<div>線上對戰可用的功能:</div>
+				<ol>
+					<li>點選GiveUp可以向對方認輸</li>
+					<li>點選右下方即時訊息即可傳送訊息</li>
+				</ol>
+		</div>
+	</div>
+	<div id="cNews" class="field2" data-page="Home">
+		<h1><font class="En">News </font>/<font class="Ch"> 最新消息</font></h1>
+	</div>
+	<div id="cRule" class="field2" data-page="Rule">
+		<h1><font class="En">Rule </font>/<font class="Ch"> 規則說明</font></h1>
+		<div style="font-size:20px;letter-spacing:2px;line-height:1.2">
+		</div>
+	</div>
+	<div id="cBoard" class="field2" data-page="Rule">
+		<table id="Board" style="background:gray;border:none" cellpadding="0" cellspacing="0">
+        </table>
+	</div>
+</article>
+<footer>
+	<div id="Copy">&copy 2016 Square Chess Game.</div>
+	<a id="gp" class="Social" onclick="alert('即將登場')"></a>
+	<a id="tw" class="Social" href="http://twitter.com/SquareChessGame"></a>
+	<a id="fb" class="Social" href="http://fb.me/SquareChessGame"></a>
+		<div id="List" class="Computer"><hr>
+		<div class="page"><div class="tab" id="Report">回報問題</div></div><hr>
+		<div class="page"><div class="tab" id="About">關於我們</div></div>
+	</div>
+</footer>
+</div>
+</body>
+<div id="fb-root"></div>
+<script>
+var link=$("#lLst div a,.page div a"),show="",page=$(".field,.field2")
+function Ldr(){Rsz();Hid();var page=["Start","Online","Rules","About","Report"],bd=""
+	for(var i=0;i<5;i++){
+		Id(page[i]).style.height="40px"
+		Id("p"+page[i]).style.height="40px"
+	}
+	for(var i=0;i<link.length;i++){
+		if(link[i].parentNode.getAttribute("data-chess"))link[i].href="chess.html?mode="+link[i].innerHTML
+		if(link[i].parentNode.getAttribute("data-btchs"))link[i].href="btchs.html?mode="+link[i].innerHTML
+		if(link[i].parentNode.getAttribute("data-rules"))link[i].addEventListener("click",function(){
+			RlS(this.innerHTML)
+		})
+		link[i].parentNode.style.transition="all 1s"
+	}Pge("Home")
+	for(cd2=1;cd2<10;cd2++){bd+="<tr>";for(cd1=65;cd1<74;cd1++){bd+="<td id='"+Chr(cd1)+cd2+"' class='bt'></td>"}bd+="</tr>"}Id("Board").innerHTML=bd;Bld.Cln()
+}
+function Pge(p){Rsz()
+	for(var i=0;i<page.length;i++){page[i].style.display=""
+		if(page[i].getAttribute("data-page")!=p)page[i].style.display="none"
+	}
+}
+function Lst(d,v){Hid(d,'Main')
+	if(show!=d+"/"+v)Shw(d,v)
+	else{
+		if(show.split("/").length==2&&show.split("/")[1]=="Main")Hid();show=""
+	}
+}
+function Shw(d,v){
+	for(var i=0;i<link.length;i++){
+		if(link[i].parentNode.getAttribute("data-"+d)!=v)continue
+		link[i].parentNode.style.height="40px"
+		link[i].parentNode.style.borderBottom="1px solid"
+	}show=d+"/"+v
+}
+function Hid(d,v){
+	for(var i=0;i<link.length;i++){
+		if(d)if(link[i].parentNode.getAttribute("data-"+d)==v)continue
+		link[i].parentNode.style.height="0px"
+		link[i].parentNode.style.borderBottom="none"
+	}
+}
+function Rsz(){
+	$("article").css("height",($(window).height()-80)+"px")
+	if($(window).width()<830){
+		$("article").css("margin-left","10px")
+		$("article").css("margin-right","10px")
+		$(".Computer").css("display","none")
+		$(".Mobile").css("display","")
+		Tag("header")[0].style.overflow="hidden"
+		Id("Home").style.marginLeft=(($(window).width()-40)/2)+"px"
+		Id("Home").innerHTML=""
+		$(".field,.field2").css("width","100%")
+		$(".bt").css("width",($("#cBoard").width()/9)+"px")
+		$(".bt").css("height",($("#cBoard").width()/9)+"px")
+		$("#cImag").css("background-size","85%")
+	}else{
+		$("article").css("margin-left","10%")
+		$("article").css("margin-right","10%")
+		$(".Computer").css("display","")
+		Tag("header")[0].style.height="40px"
+		Tag("header")[0].style.overflow="visible"
+		$(".Mobile").css("display","none")
+		Id("Home").style.marginLeft="40px"
+		Id("Home").innerHTML=doc.title
+		$(".field").css("width","100%")
+		$(".field2").css("width","50%")
+		$(".bt").css("width",($("#cBoard").height()/9)+"px")
+		$(".bt").css("height",($("#cBoard").height()/9)+"px")
+		$("#cImag").css("background-size","70%")
+	}
+	$("#cImag").css("height",($("#cImag").width()/747*500)+"px")
+}
+function Mnu(v){
+	if(Tag("header")[0].style.height=="320px"||v){
+		Tag("header")[0].style.height="40px";Hid()
+		Id("LstB").style.backgroundImage="url(Pics/List.gif)"
+	}else{
+		Tag("header")[0].style.height="320px"
+		Id("LstB").style.backgroundImage="url(Pics/Close.gif)"
+	}
+}
+function Rpt(btn){var v=[Id("RTt").value,Id("RCt").value]
+	if(v[0].length<4)return alert("標題不足四字");btn.style.backgroundColor="lightgray"
+	try{$.get(
+		"https://script.google.com/macros/s/AKfycbw5re7dDJCy7qGTdjaPFWfunwGoI_1LSOlWZ9APPahlf9pndBMv/exec",
+		{Typ:"P",title:"BY9.1:"+v[0],content:v[1]},
+		function(r){alert(r);Id("RTt").value="";Id("RCt").value="";btn.style.backgroundColor=""}
+	)}catch(e){alert("傳送失敗，將繼續重試");Rpt()}
+}
+function RlS(m){var rls=[],md=m.replace("Square.","").split(":")
+	Id("cRule").childNodes[3].innerHTML=""
+	for(var i=0;i<md.length;i++)rls=Rls[md[i]](rls)
+}
+</script>
+</html>
