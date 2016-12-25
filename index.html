@@ -114,9 +114,9 @@ article div div{height:auto;width:auto;float:none}
 #gp:hover{background-image:url(Pics/gph.gif)}
 input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-height:1.2;margin-top:20px}
 .con{
-	height:50px;background-color:#758f9b;width:50px;border-radius:25px;position:relative;overflow:visible;transition:all 2s;margin-top:10px
+	height:50px;background-color:#758f9b;width:50px;border-radius:25px;position:relative;overflow:visible;transition:all 2s;margin-top:10px;font-size:16px
 }
-.con:hover{width:340px;color:white}
+.con:hover{width:300px;color:white}
 .cont{
 	height:40px;width:40px;position:absolute;top:5px;left:5px;
 	background-color:white;border-radius:20px;background-size:80%;
@@ -244,8 +244,8 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 				<div data-rules="Main" onclick="Lst('rules','OSub')" class="pTab"><a>Other</a></div>
 				<div data-rules="OSub"><a>Gomoku</a></div>
 				<div data-rules="OSub"><a>GoLike</a></div>
-			<div id="pAbout" class="pPage">關於我們</div>
-			<div id="pReport" class="pPage">回報問題</div>
+			<div id="pAbout" class="pPage" onclick="Mnu();Ptg('#cAbout')">關於我們</div>
+			<div id="pReport" class="pPage" onclick="Mnu();Ptg('#cReport')">回報問題</div>
 		</div>
 	</div>
 </header>
@@ -301,19 +301,6 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 				</ol>
 		</div>
 	</div>
-	<div id="cRule" class="field2">
-		<h1><font class="En">Rule </font>/<font class="Ch"> 規則說明</font><font id="rlN"></font></h1>
-		<div>
-			<ol>
-				<li>點選上面的遊戲說明以取得規則說明</li>
-				<li>點選項目即可觀看圖解</li>
-			</ol>
-		</div>
-	</div>
-	<div id="cBoard" class="field2">
-		<table id="Board" style="background:gray;border:none;margin-top:80px" cellpadding="0" cellspacing="0" align="center">
-        </table>
-	</div>
 	<div id="cReport" class="field2">
 		<h1><font class="En">Report </font>/<font class="Ch"> 回報問題</font></h1>
 		<div>
@@ -333,23 +320,38 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 	</div>
 	<div id="cForm" class="field2">
 		<table align="center" class="Computer" style="margin-top:80px">
-			<tr>
-				<td><font color="red">*</font>標題<br>
-					<input type="text"/>
+			<tr align="center">
+				<td><div style="text-align:left"><font color="red">*</font>標題</div>
+					<input type="text" style="width:90%" id="r-titl"/>
 				</td>
 				<td width="50"></td>
-				<td>聯絡方式<br>
-				<input type="text"/>
+				<td><div style="text-align:left">聯絡方式</div>
+				<input type="text" style="width:90%" id="r-resp"/>
 				</td>
 			</tr>
 			<tr height="20"></tr>
-			<tr>
-				<td colspan="3">詳細內容<br><textarea style="width:99%;height:100px;border:solid 1px"></textarea></td>
+			<tr align="center">
+				<td colspan="3"><div style="text-align:left">詳細內容</div><textarea style="width:95%;height:100px;border:solid 1px" id="r-cont"></textarea></td>
 			</tr>
 			<tr height="10"></tr>
-			<tr><td colspan="3"><div style="float:right;width:80px;height:40px;background-color:#758f9b;color:white;line-height:40px;text-align:center">送出</div></td></tr>
+			<tr><td colspan="3"><div style="float:right;width:80px;height:40px;background-color:#758f9b;color:white;line-height:40px;text-align:center" onclick="Rpt(this)">送出</div></td></tr>
 			<tr height="20"></tr>
 		</table>
+		<table align="center" class="Mobile" style="100%">
+			<tr><td><input type="text" style="width:100%" id="mr-titl" placeholder="標題"/></td></tr>
+			<tr><td><input type="text" style="width:100%" id="mr-resp" placeholder="聯絡方式"/></td></tr>
+			<tr><td><textarea style="width:95%;height:100px;border:solid 1px" id="r-cont" placeholder="詳細內容"></textarea></td></tr>
+		</table>
+	</div>
+	<div id="cAbout" class="field">
+		<h1><font class="En">About </font>/<font class="Ch"> 關於我們</font></h1>
+		<p><h2>開發動機</h2>	
+		　　棋類遊戲因電玩遊戲而趨向沒落，我們藉9x9的棋盤設計多種遊戲規則，結合成一個新的棋盤遊戲平台，希望藉由這個迥然不同的棋盤遊戲平台再一次喚起大眾對於棋盤遊戲的熱忱。
+		</p>
+		<p><h2>採用技術</h2>
+		　　主要採用HTML5並使用github pages服務，線上對戰則應用了google firebase作為資料庫來達成，基本上只需要了解javascript，就可以做出一個有資料庫的小平台。
+		</p>
+		<div style="height:100px"></div>
 	</div>
 </article>
 <footer>
@@ -358,13 +360,12 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 	<a id="tw" class="Social" href="http://twitter.com/SquareChessGame"></a>
 	<a id="fb" class="Social" href="http://fb.me/SquareChessGame"></a>
 		<div id="List" class="Computer"><hr>
-		<div class="page"><div class="tab" id="Report">回報問題</div></div><hr>
-		<div class="page"><div class="tab" id="About">關於我們</div></div>
+		<div class="page" onclick="Ptg('#cReport')"><div class="tab" id="Report">回報問題</div></div><hr>
+		<div class="page" onclick="Ptg('#cAbout')"><div class="tab" id="About">關於我們</div></div>
 	</div>
 </footer>
 </div>
 </body>
-<div id="fb-root"></div>
 <script>
 var link=$("#lLst div a,.page div a"),show="",page=$(".field,.field2")
 function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
@@ -375,13 +376,10 @@ function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
 	for(var i=0;i<link.length;i++){
 		if(link[i].parentNode.getAttribute("data-chess"))link[i].href="chess.html?mode="+link[i].innerHTML
 		if(link[i].parentNode.getAttribute("data-btchs"))link[i].href="btchs.html?mode="+link[i].innerHTML
-		if(link[i].parentNode.getAttribute("data-rules"))link[i].addEventListener("click",function(){
-			RlS(this.innerHTML)
-		});link[i].parentNode.style.transition="all 1s"
-	}for(cd2=1;cd2<10;cd2++){bd+="<tr>";for(cd1=65;cd1<74;cd1++){bd+="<td id='"+Chr(cd1)+cd2+"' class='bt'></td>"}bd+="</tr>"}Id("Board").innerHTML=bd
-	$("#cForm input").focus(function(){this.style.borderBottom='3px solid #758f9b'})
-	$("#cForm input").blur(function(){this.style.borderBottom='1px solid #758f9b'})
-	Rsz();Hid();Bld.Cln()
+		if(link[i].parentNode.getAttribute("data-rules"))link[i].href="rules.html?mode="+link[i].innerHTML
+		link[i].parentNode.style.transition="all 1s"
+	}
+	Rsz();Hid()
 }
 function Lst(d,v){Hid(d,'Main')
 	if(show!=d+"/"+v)Shw(d,v)
@@ -416,8 +414,9 @@ function Rsz(){
 		$(".field,.field2").css("width","100%")
 		$("#cImag").css("background-size","85%")
 		$("#repa").css("margin-left","")
-		$(".bt").css("width",($("#cBoard").width()/10)+"px")
-		$(".bt").css("height",($("#cBoard").width()/10)+"px")
+		$("table.Mobile").css("width","100%")
+		$("table.Mobile").css("width",$("table.Mobile textarea").width())
+		$("table.Mobile input").css("width",$("table.Mobile textarea").width())
 	}else{
 		$("article").css("margin-left","10%")
 		$("article").css("margin-right","10%")
@@ -431,8 +430,6 @@ function Rsz(){
 		$(".field2").css("width","48%")
 		$(".field2").css("margin-left","1%")
 		$(".field2").css("margin-right","1%")
-		$(".bt").css("width",($("#cBoard").width()/9)+"px")
-		$(".bt").css("height",($("#cBoard").width()/9)+"px")
 		$("#cImag").css("background-size","70%")
 		$("#repa").css("margin-left","100px")
 	}
@@ -447,18 +444,19 @@ function Mnu(v){
 		Id("LstB").style.backgroundImage="url(Pics/Close.gif)"
 	}
 }
-function Rpt(btn){var v=[Id("RTt").value,Id("RCt").value]
-	if(v[0].length<4)return alert("標題不足四字");btn.style.backgroundColor="lightgray"
+function Rpt(btn){var t="r-";if($(window).width<830)t="mr-"
+	if(Id(t+"titl").value.length<4)return alert("標題不足四字");btn.style.backgroundColor="#48585f"
 	try{$.get(
-		"https://script.google.com/macros/s/AKfycbw5re7dDJCy7qGTdjaPFWfunwGoI_1LSOlWZ9APPahlf9pndBMv/exec",
-		{Typ:"P",title:"BY9.1:"+v[0],content:v[1]},
-		function(r){alert(r);Id("RTt").value="";Id("RCt").value="";btn.style.backgroundColor=""}
-	)}catch(e){alert("傳送失敗，將繼續重試");Rpt()}
+		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
+		{titl:Id(t+"titl").value,resp:Id(t+"resp").value,cont:Id(t+"cont").value},
+		function(r){
+			alert(r);Id(t+"titl").value="";Id(t+"cont").value="";
+			btn.style.backgroundColor="#758f9b"
+		}
+	)}catch(e){alert("傳送失敗，將繼續重試")}
 }
-function RlS(m){var rls=[],md=m.replace("Square.","").split(":")
-	Id("cRule").childNodes[3].innerHTML=""
-	for(var i=0;i<md.length;i++)rls=Rls[md[i]](rls)
-	rls=Rls.System(rls)
+function Ptg(t){
+	$("article").animate({scrollTop:$(t).offset().top-40+$("article")[0].scrollTop},1000)
 }
 </script>
 </html>
