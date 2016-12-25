@@ -86,9 +86,10 @@ article{
 }
 article::-webkit-scrollbar{width:0px;height:0px}
 article div{float:left;height:auto;width:100%}
-article div h1{font-size:20px;font-weight:normal}
-article div h1 .En{font-size:50px}
-article div h1 .Ch{letter-spacing:3px}
+h1{font-size:20px;font-weight:normal}
+h2{font-size:25px;font-weight:normal}
+h1 .En{font-size:50px}
+h1 .Ch{letter-spacing:3px}
 article div div{height:auto;width:auto;float:none}
 #cImag{background-image:url(Pics/chsbd.png);background-repeat:no-repeat;background-position:center center;}
 .field,.field2{overflow:auto;margin-top:20px;font-size:20px;letter-spacing:2px;line-height:1.2}
@@ -125,6 +126,7 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 .conx{
 	position:absolute;top:0px;left:55px;border:none;height:50px;line-height:50px;width:140px
 }
+p a{text-decoration:underline}
 </style>
 </head>
 <body onresize="Rsz()" onload="Ldr()" oncontextmenu="event.preventDefault()">
@@ -307,7 +309,7 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 			軟體故障和錯誤偶爾會發生於以上線的遊戲。<br>
 			如果您發現問題或是錯誤，請填寫表單回報給我們。
 		</div>
-		<div style="margin-top:40px">
+		<div style="margin-top:40px" class="Computer">
 			<div class="con" onclick="location='http://m.me/SquareChessGame'" style="cursor:pointer">
 				<div style="background-image:url('Pics/mng.gif')" class="cont"></div>
 				<a class="conx">m.me/SquareChessGame</a>
@@ -345,11 +347,13 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 	</div>
 	<div id="cAbout" class="field">
 		<h1><font class="En">About </font>/<font class="Ch"> 關於我們</font></h1>
-		<p><h2>開發動機</h2>	
+		<h2>開發動機</h2>	
+		<p>
 		　　棋類遊戲因電玩遊戲而趨向沒落，我們藉9x9的棋盤設計多種遊戲規則，結合成一個新的棋盤遊戲平台，希望藉由這個迥然不同的棋盤遊戲平台再一次喚起大眾對於棋盤遊戲的熱忱。
 		</p>
-		<p><h2>採用技術</h2>
-		　　主要採用HTML5並使用github pages服務，線上對戰則應用了google firebase作為資料庫來達成，基本上只需要了解javascript，就可以做出一個有資料庫的小平台。
+		<h2>採用技術</h2>
+		<p>
+		　　主要採用<a href="https://www.w3.org/TR/html5/">HTML5</a>並使用<a href="http://github.io">GitHub Pages</a>服務，線上對戰則應用了<a href="http://firebase.google.com">Google Firebase</a>作為資料庫來達成，所有功能皆使用了JavaScript。
 		</p>
 		<div style="height:100px"></div>
 	</div>
