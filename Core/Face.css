@@ -60,6 +60,7 @@ header{
 	line-height:40px;
 	text-align:center;
 	font-family:Consolas;
+	cursor:pointer;
 	transition:all 1s;
 	background-color:#758f9b;
 }
