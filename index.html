@@ -130,7 +130,7 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 <body onresize="Rsz()" onload="Ldr()" oncontextmenu="event.preventDefault()">
 <div id="NightMode" style="opacity:1">
 <header>
-	<div id="Home" onclick="Ptg('#cHome')"></div>
+	<div id="Home" onclick="$('article'.animate({scrollTop:0},1000)"></div>
 	<div id="Menu" class="Computer">
 		<div class="page">
 			<div class="tab" id="Rules" onclick="Lst('rules','Main')">遊戲說明</div>
