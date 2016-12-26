@@ -62,13 +62,13 @@ function Ldr(){
 	}
 }
 function Rsz(){
+	$("article").css("height",($(window).height()-40)+"px")
 	if($(window).width()<830)$("article div").css("width",($(window).width()-40)+"px")
 	else $("article div").css("width",($(window).width()/2-40)+"px");
-	var sz=Math.floor($("article div").width()/9)
+	var sz=Math.floor($("article div").width()/9);if(sz>Math.floor($("article").height()/9))sz=Math.floor($("article").height()/9)
 	$(".bt").css("width",sz+"px")
 	$(".bt").css("height",sz+"px")
 	$(".bt").css("font-size",(sz-15)+"px")
-	$("article").css("height",($(window).height()-40)+"px")
 }
 </script>
 </html>
