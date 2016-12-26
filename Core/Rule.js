@@ -43,7 +43,8 @@ var Rls={
 			"我方兩枚符號形成直線時，該直線區域將產生私區",
 			"符號須設置於我方符號口字，設置路徑間不得有對方符號",
 			"當五個我方符號呈一直線時獲勝",
-			"對方符號被我方符號包圍時，對方符號將變成殭屍符號"
+			"對方符號被我方符號包圍時，對方符號將變成殭屍符號",
+			"深色區域為我方封限區(Castle)"
 		],
 		[
 			function(){var cds="#E4,#E6,#D4,#D5,#D6,#F4,#F5,#F6";Rls.Brd.Scp("#E5:S:O|"+cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")},
@@ -116,6 +117,9 @@ var Rls={
 			},
 			function(){
 				Rls.Brd.Scp("#E4,#D5,#F5:S:O|#E5:S:X|#E6:S:O|#E5:S:Z/#E5:B:black/#E5:F:red|#E5:S:X/#E5:B:white/#E5:F:black|#E5:S:Z/#E5:B:black/#E5:F:red")
+			},
+			function(){var cds="#A1,#E1,#I1",c2s="#A9,#E9,#I9"
+				Rls.Brd.Scp(cds+":B:crimson/"+c2s+":B:royalblue|"+cds+","+c2s+":B:white|"+cds+":B:crimson/"+c2s+":B:royalblue")
 			}
 		]
 	]
@@ -186,7 +190,7 @@ Rls.Invert=function(r){
 	for(var i=0;i<r.length;i++)if(r[i].search("符號須設置於我方")>-1)r[i]=r[i].replace(r[i],"符號不得設置於我方符號"+r[i].replace("符號須設置於我方符號","").substr(0,2));return r
 }
 Rls.Castle=function(r){
-	r=Rls.add(r,"深色區域為我方封限區");r=Rls.add(r,Rls.Ara[0].replace("封區或",""));r=Rls.add(r,Rls.Ara[1].replace("限區或",""));return r
+	r=Rls.add(r,"深色區域為我方封限區(Castle)");r=Rls.add(r,Rls.Ara[0].replace("封區或",""));r=Rls.add(r,Rls.Ara[1].replace("限區或",""));return r
 }
 Rls.Gomoku=function(r){
 	r=Rls.add(r,Rls.Set[0])
