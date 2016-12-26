@@ -14,12 +14,12 @@
 @import "Core/Face.css";article{background-color:white;width:100%;margin-top:40px}
 #bk{
 	background-image:url(Pics/Back.gif);
-	background-repeat:no-repeat;
+	background-repeat:no-repeat;cursor:pointer;
 	background-position:10px center;float:left;
 	background-size:20px 20px;font-size:16px;
 	width:120px;height:40px;text-align:center
 }
-article div{margin:0px 20px;float:right}
+article div{margin:0px 20px;float:left}
 article{overflow:auto;user-select:text;-ms-user-select:text;-moz-user-select:text;-webkit-user-select:text;}
 </style>
 </head>
@@ -29,13 +29,13 @@ article{overflow:auto;user-select:text;-ms-user-select:text;-moz-user-select:tex
 	</header>
 	<article style="color:#758f9b">
 		<div>
-			<table id="Board" style="background:gray;border:none" cellpadding="0" cellspacing="0">
-			</table>
-		</div>
-		<div>
 			<h1 style="line-height:2"></h1>
 			<ul>
 			</ul>
+		</div>
+		<div>
+			<table id="Board" style="background:gray;border:none" cellpadding="0" cellspacing="0">
+			</table>
 		</div>
 	</article>
 </body>
@@ -56,7 +56,7 @@ function Ldr(){
 		if(Rls.Scr[0].indexOf(this.innerHTML)>-1)Rls.Scr[1][Rls.Scr[0].indexOf(this.innerHTML)]()
 	})
 	for(var i=0;i<$("li").length;i++){
-		if(Rls.Scr[0].indexOf($("li")[i].innerHTML)>-1)$("li")[i].style.color="red"
+		if(Rls.Scr[0].indexOf($("li")[i].innerHTML)>-1){$("li")[i].style.color="red";$("li")[i].style.cursor="pointer"}
 	}
 }
 function Rsz(){
