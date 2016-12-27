@@ -489,7 +489,7 @@ function Rpt(btn){var t="r-";if($(window).width<830)t="mr-"
 			alert(r);Id(t+"titl").value="";Id(t+"cont").value="";
 			btn.style.backgroundColor="#758f9b"
 		}
-	)}catch(e){alert("傳送失敗，將繼續重試")}
+	)}catch(e){if(confirm("傳送失敗,重試?"))Rpt(btn)}
 }
 function Ptg(t){
 	$("article").animate({scrollTop:$(t).offset().top-40+$("article")[0].scrollTop},1000)
