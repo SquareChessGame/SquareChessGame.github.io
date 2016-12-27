@@ -44,7 +44,8 @@ var Rls={
 			"符號須設置於我方符號口字，設置路徑間不得有對方符號",
 			"當五個我方符號呈一直線時獲勝",
 			"對方符號被我方符號包圍時，對方符號將變成殭屍符號",
-			"深色區域為我方封限區(Castle)"
+			"深色區域為我方封限區(Castle)",
+			"將符號組合成一塊，為一國土"
 		],
 		[
 			function(){var cds="#E4,#E6,#D4,#D5,#D6,#F4,#F5,#F6";Rls.Brd.Scp("#E5:S:O|"+cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")},
@@ -120,6 +121,9 @@ var Rls={
 			},
 			function(){var cds="#A1,#E1,#I1",c2s="#A9,#E9,#I9"
 				Rls.Brd.Scp(cds+":B:crimson/"+c2s+":B:royalblue|"+cds+","+c2s+":B:white|"+cds+":B:crimson/"+c2s+":B:royalblue")
+			},
+			function(){var cds="#E2,#E3,#D3,#D4,#D5,#F3,#F4,#G3,#E5"
+				Rls.Brd.Scp("#E2:S:O|#E3:S:O|#D3:S:O|#D4:S:O|#D5:S:O|#F3:S:O|#F4:S:O|#G3:S:O|#E5:S:O|"+cds+":B:indianred|"+cds+":B:white|"+cds+":B:indianred")
 			}
 		]
 	]
