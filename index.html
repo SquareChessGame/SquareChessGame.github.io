@@ -355,11 +355,11 @@ p a{text-decoration:underline}
 		<table align="center" class="Computer" style="margin-top:80px">
 			<tr align="center">
 				<td><div style="text-align:left"><font color="red">*</font>標題</div>
-					<input type="text" style="width:90%" id="r-titl"/>
+					<input type="text" style="width:100%" id="r-titl"/>
 				</td>
 				<td width="50"></td>
 				<td><div style="text-align:left">聯絡方式</div>
-				<input type="text" style="width:90%" id="r-resp"/>
+				<input type="text" style="width:80%" id="r-resp"/>
 				</td>
 			</tr>
 			<tr height="20"></tr>
@@ -482,7 +482,7 @@ function Mnu(v){
 	}
 }
 function Rpt(btn){var t="r-";if($(window).width<830)t="mr-"
-	if(Id(t+"titl").value.length<4)return alert("標題不足四字");btn.style.backgroundColor="#48585f"
+	if(Id(t+"titl").value.length<1)return alert("無標題");btn.style.backgroundColor="#48585f"
 	try{$.get(
 		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
 		{titl:Id(t+"titl").value,resp:Id(t+"resp").value,cont:Id(t+"cont").value},
