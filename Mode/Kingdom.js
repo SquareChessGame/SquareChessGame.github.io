@@ -25,12 +25,13 @@ Shl.Adn.Kingdom=function(){}
 Shl.Ckr.Kingdom=function(crd){if(Tn<2&&Sel("C3:G7").indexOf(crd)>-1&&Dft.Kingdom.Lmt)return 0;return 1}
 Shl.Opt.Kingdom=function(){
 	Id("OptionMenu").innerHTML+="Kingdom設定:<br>"
+	if(!Dft.System.Oln)OpS("Kingdom-Kdm","t","王國大小:",Dft.Kingdom.Kdm)
+	Id("OptionMenu").innerHTML+="輔助標記:<br>"
 	OpS("Kingdom-Ara","k","雙方區域",Dft.Kingdom.Ara)
 	OpS("Kingdom-Lmt","k","首回限制",Dft.Kingdom.Lmt)
-	if(!Dft.System.Oln)OpS("Kingdom-Kdm","t","王國大小:",Dft.Kingdom.Kdm)
 }
 Shl.OpK.Kingdom=function(){
 	Dft.Kingdom.Ara=Id("Kingdom-Ara").checked
 	Dft.Kingdom.Lmt=Id("Kingdom-Lmt").checked
-	if(!Dft.System.Oln&&Val(Id("Kingdom-Kdm").value)!=NaN)Dft.Kingdom.Kdm=Val(Id("Kingdom-Kdm").value)
+	if(!Dft.System.Oln&&Val(Id("Kingdom-Kdm").value)!=NaN&&Id("Kingdom-Kdm").value!="")Dft.Kingdom.Kdm=Val(Id("Kingdom-Kdm").value)
 }

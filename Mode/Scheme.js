@@ -24,7 +24,7 @@ Shl.Brd.Scheme=function(){}
 Shl.Adn.Scheme=function(){}
 Shl.Ckr.Scheme=function(crd){return 1}
 Shl.Opt.Scheme=function(){
-	Id("OptionMenu").innerHTML+="Scheme設定:<br>"
+	Id("OptionMenu").innerHTML+="Scheme設定:<br>輔助標記:<br>"
 	OpS("Scheme-Ara","k","雙方區域",Dft.Scheme.Ara)
 	OpS("Scheme-Lmt","k","首回限制",Dft.Scheme.Lmt)
 }
