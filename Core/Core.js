@@ -28,22 +28,24 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 	doc.body.appendChild(md)
 }
 function Rsz(){
-	var sz=$(window).width(),scn=1
+	var sz=$(window).width(),scn=1,rec=1
 	if($(window).height()-40<sz){sz=$(window).height()-40;scn=0}sz=Math.floor(sz/9)
 	$(".bt").css("width",sz+"px");$(".bt").css("height",sz+"px");$(".bt").css("font-size",sz-15+"px")
 	Id("NightMode").style.height=($(window).height()-40)+"px"
 	for(i=81;i<83;i++){if(!Class("bt")[i])break
 		if(i>80)Class("bt")[i].style.width=sz*4.5+"px"
 		if(!Class("bt")[i+1]&&i==81)Class("bt")[i].style.width=sz*9+"px"
-	}if(scn&&Id("LdA").style.display=="none")Id("QCtrl").style.display=""
+	}
+	if(scn&&Id("LdA").style.display=="none")Id("QCtrl").style.display=""
 	if(Id("QR")){
 		Id("QR").style.top=Math.floor(($(window).height()-40)/2)-75+"px"
 		Id("QR").style.right=Math.floor(($(window).width())/2)-75+"px"
-	}
-	Id("Board").style.display="";Id("UI").style.width=sz*9+"px"
+	}Id("UI").style.width=sz*9+"px"
 	Id("Rule").style.width=sz*9+"px";if(Id("Rule").style.height!="0px")Id("Rule").style.height=sz*9+"px"
 	if(Id("Setting").style.height!="0px")Id("Setting").style.height=($(window).height()-40)+"px"
-	Id("Recrd").style.width=$("#Board").offset().left+"px"
+	Id("Recrd").style.width=$("#Board").offset().left+"px";Id("Recrd").style.height="100%"
+	if($("#Board").offset().left<70)Id("Recrd").style.display="none"
+	else Id("Recrd").style.display=""
 }
 function Itf(){var bd=""
 	for(cd2=1;cd2<10;cd2++){bd+="<tr>";for(cd1=65;cd1<74;cd1++){bd+="<td id='"+Chr(cd1)+cd2+"' class='bt'></td>"}bd+="</tr>"}Id("Board").innerHTML=bd
@@ -166,7 +168,7 @@ function OpK(k){Id("Setting").style.height="0px";if(k)return
 		if(doc.webkitCancelFullScreen)doc.webkitCancelFullScreen()
 	}
 	if(Id("System-Rul").checked)Ctl("RSw",1);else Ctl("RSw",0)
-	if(!Id("System-Rec").checked)Id("Recrd").style.display="none"
+	if(!Id("System-Rec").checked)Id("Recrd").style.display="none";else Id("Recrd").style.display=""
 	Dft.System.Nxt=Id("System-Nxt").checked;Dft.System.Gst=Id("System-Gst").checked;
 	Dft.System.iTn=Id("System-iTn").checked;if(Dft.Tn==Tn)Cln();Mrk();Ctl("Rul")
 }
@@ -177,8 +179,8 @@ function OpS(id,typ,til,dft){var input="",ck="";if(dft)ck="checked"
 		case"k":input="<input type='checkbox' "+ck+" id='"+id+"' class='Opt' style='zoom:1.5'/>"+til;break
 	}Id("OptionMenu").innerHTML+="<label>"+input+"</label><br>"
 }
-function Jdg(msg){Log(msg)
-	if(msg){if(Dft.System.Oln)Upl(msg);else Cln(msg+",是否再來一局?");return 1}
+function Jdg(msg){
+	if(msg){Log(msg);if(Dft.System.Oln)Upl(msg);else Cln(msg+",是否再來一局?");return 1}
 }
 function Log(vlu){
 	Id("Recrd").innerHTML+="<div>"+vlu+"</div>";Id("Recrd").scrollTop=Id("Recrd").scrollHeight
