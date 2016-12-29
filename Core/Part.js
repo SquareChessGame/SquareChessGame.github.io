@@ -139,10 +139,8 @@ Ara.Rul=function(shl,ara){Shl.Ara[shl]=ara
 	}if(ck)return Scr(ara.O.All.length,ara.X.All.length)
 }
 Ara.Opt=function(shl){
-	Id("OptionMenu").innerHTML+="輔助標記:<br>"
-	OpS(shl+"-Ara","k","雙方區域",Dft[shl].Ara)
-	if(!Dft.System.Oln){
-		Id("OptionMenu").innerHTML+="判定方式:<br>"
+	OpS("","2","輔助標記");OpS(shl+"-Ara","k","雙方區域",Dft[shl].Ara)
+	if(!Dft.System.Oln){OpS("","2","判定方式")
 		OpS(shl+"-QJd-0/"+shl+"-QJd","r","不進行快速判定",Dft[shl].QJd==0)
 		OpS(shl+"-QJd-1/"+shl+"-QJd","r","快速判定初級",Dft[shl].QJd==1)
 		OpS(shl+"-QJd-2/"+shl+"-QJd","r","快速判定中級",Dft[shl].QJd==2)

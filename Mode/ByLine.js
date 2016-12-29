@@ -11,8 +11,7 @@ Shl.Ckr.ByLine=function(crd){
 }
 Shl.Opt.ByLine=function(){
 	OpS("","1","ByLine設定")
-	if(!Dft.System.Oln){
-		OpS("","2","區域判定")
+	if(!Dft.System.Oln){OpS("","2","區域判定")
 		OpS("ByLine-AJd-0/ByLine-AJd","r","優先",Dft.ByLine.AJd==0)
 		OpS("ByLine-AJd-1/ByLine-AJd","r","占據",Dft.ByLine.AJd==1)
 		OpS("ByLine-AJd-2/ByLine-AJd","r","共有",Dft.ByLine.AJd==2)

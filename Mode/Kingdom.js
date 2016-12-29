@@ -24,9 +24,9 @@ Shl.Brd.Kingdom=function(){}
 Shl.Adn.Kingdom=function(){}
 Shl.Ckr.Kingdom=function(crd){if(Tn<2&&Sel("C3:G7").indexOf(crd)>-1&&Dft.Kingdom.Lmt)return 0;return 1}
 Shl.Opt.Kingdom=function(){
-	Id("OptionMenu").innerHTML+="Kingdom設定:<br>"
+	OpS("","1","Kingdom設定")
 	if(!Dft.System.Oln)OpS("Kingdom-Kdm","t","王國大小:",Dft.Kingdom.Kdm)
-	Id("OptionMenu").innerHTML+="輔助標記:<br>"
+	OpS("","2","輔助標記")
 	OpS("Kingdom-Ara","k","雙方區域",Dft.Kingdom.Ara)
 	OpS("Kingdom-Lmt","k","首回限制",Dft.Kingdom.Lmt)
 }
