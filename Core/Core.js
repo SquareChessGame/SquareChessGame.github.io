@@ -6,7 +6,7 @@
 			"khaki","lightcoral","lightseagreen","black"
 		]
 	},Dft={
-		Set:1,Tn:0,Blk:[],
+		Set:1,Tn:0,Blk:[],Win:0,
 		Oln:{Typ:"",Id:"",Rgt:0,Cln:1,MdN:"",Msg:0,CkN:"",Lst:"",CkO:1,Ckr:0,MSw:1},
 		System:{Blk:0,Nxt:0,Crd:"",Dir:"",iTn:0,Qsr:0,Oln:0,Gst:0}
 	},
@@ -58,7 +58,7 @@ function Itf(){var bd=""
 }
 function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else ckr=confirm(msg)
 	if(ckr){Tn=0;Hst={Brd:[],Crd:[],Sel:[],Rut:[]}
-		Qre(Sel("All"),"Sym",2);Brd()
+		Qre(Sel("All"),"Sym",2);Brd();Dft.Win=0
 		Adn();Rul();Hst.Brd[Tn]=Rec();Dft.Tn=Tn
 	}
 }
@@ -180,7 +180,7 @@ function OpS(id,typ,til,dft){var input="",ck="";if(dft)ck="checked"
 	}Id("OptionMenu").innerHTML+="<label>"+input+"</label><br>"
 }
 function Jdg(msg){
-	if(msg){Log(msg);if(Dft.System.Oln)Upl(msg);else Cln(msg+",是否再來一局?");return 1}
+	if(msg){Log(msg);if(Dft.System.Oln)Upl(msg);else Cln(msg+",是否再來一局?");Dft.Win=1;return 1}
 }
 function Log(vlu){
 	Id("Recrd").innerHTML+="<div>"+vlu+"</div>";Id("Recrd").scrollTop=Id("Recrd").scrollHeight
