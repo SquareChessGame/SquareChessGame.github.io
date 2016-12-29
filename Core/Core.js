@@ -137,7 +137,7 @@ function Rul(){
 	for(var i=MdQ.length-1;i>-1;i--)if(Jdg(Shl.Rul[MdQ[i]]()))break;Mrk()
 }
 function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Dft.Oln.Id
-	Id("OptionMenu").innerHTML="系統內建:<br>"
+	Id("OptionMenu").childNodes[0].innerHTML="";OpS("","1","基本設定")
 	if(!Dft.System.Oln){
 		OpS("System-Blk","t","障礙數量:",Dft.System.Blk)
 		OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
@@ -174,10 +174,12 @@ function OpK(k){Id("Setting").style.height="0px";if(k)return
 }
 function OpS(id,typ,til,dft){var input="",ck="";if(dft)ck="checked"
 	switch(typ){
+		case"1":input="<font style='font-size:30px'>"+til+":</font>";break
+		case"2":input="<font style='font-size:20px'>"+til+":</font>";break
 		case"t":input=til+"<input type='text' id='"+id+"' placeholder='"+dft+"' class='Opt' style='width:40px;text-align:right'/>";break
 		case"r":var tid=id.split("/");input="<input type='radio' "+ck+" id='"+tid[0]+"' class='Opt' name='"+tid[1]+"' style='zoom:1.5'/>"+til;break
 		case"k":input="<input type='checkbox' "+ck+" id='"+id+"' class='Opt' style='zoom:1.5'/>"+til;break
-	}Id("OptionMenu").innerHTML+="<label>"+input+"</label><br>"
+	}Id("OptionMenu").childNodes[0].innerHTML+="<label>"+input+"</label><br>"
 }
 function Jdg(msg){
 	if(msg){Log(msg);if(Dft.System.Oln)Upl(msg);else Cln(msg+",是否再來一局?");Dft.Win=1;return 1}
