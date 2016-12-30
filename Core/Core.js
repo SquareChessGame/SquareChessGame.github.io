@@ -172,14 +172,18 @@ function OpK(k){Id("Setting").style.height="0px";if(k)return
 	Dft.System.Nxt=Id("System-Nxt").checked;Dft.System.Gst=Id("System-Gst").checked;
 	Dft.System.iTn=Id("System-iTn").checked;if(Dft.Tn==Tn)Cln();Mrk();Ctl("Rul")
 }
-function OpS(id,typ,til,dft){var input="",ck="";if(dft)ck="checked"
+function OpS(id,typ,til,dft){var input="",ck="",mg=10,ls=Id("OptionMenu").childNodes[0].childNodes
+	if(dft)ck="checked";
+	if(ls.length>1){mg=Val(ls[ls.length-2].style.marginLeft.split("px")[0])
+		if(ls[ls.length-2].childNodes[0].tagName!="INPUT")mg+=10
+	}
 	switch(typ){
-		case"1":input="<font style='font-size:25px'>"+til+":</font>";break
-		case"2":input="<font style='font-size:23px'>"+til+":</font>";break
+		case"1":mg=0;input="<font style='font-size:25px'>"+til+":</font>";break
+		case"2":mg=10;input="<font style='font-size:23px'>"+til+":</font>";break
 		case"t":input=til+"<input type='text' id='"+id+"' placeholder='"+dft+"' class='Opt' style='width:40px;text-align:right'/>";break
 		case"r":var tid=id.split("/");input="<input type='radio' "+ck+" id='"+tid[0]+"' class='Opt' name='"+tid[1]+"' style='zoom:1.5'/>"+til;break
 		case"k":input="<input type='checkbox' "+ck+" id='"+id+"' class='Opt' style='zoom:1.5'/>"+til;break
-	}Id("OptionMenu").childNodes[0].innerHTML+="<label>"+input+"</label><br>"
+	}Id("OptionMenu").childNodes[0].innerHTML+="<label style='margin-left:"+mg+"px'>"+input+"</label><br>"
 }
 function Jdg(msg){
 	if(msg){Log(msg);if(Dft.System.Oln)Upl(msg);else Cln(msg+",是否再來一局?");Dft.Win=1;return 1}
