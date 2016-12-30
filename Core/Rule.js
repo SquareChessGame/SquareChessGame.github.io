@@ -247,8 +247,7 @@ Rls.Kingdom=function(r){
 }
 Rls.Mirror=function(r){
 	r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
-	r=Rls.ext(r,Rls.Set[1],"第一回合O方符號不得設置於A1:I4之座標")
-	r=Rls.ext(r,Rls.Set[1],"第一回合X方符號不得設置於A6:I9之座標")
+	r=Rls.ext(r,Rls.Set[1],"第一回合O方符號不得設置於A1:I4之座標</li><li>第一回合X方符號不得設置於A6:I9之座標")
 	r=Rls.add(r,"A1:I4為對方反射區")
 	r=Rls.add(r,"A6:I9為我方反射區")
 	r=Rls.add(r,"我方設置符號於對方反射區時，我方反射區將產生符號")
