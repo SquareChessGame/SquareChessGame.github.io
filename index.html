@@ -7,6 +7,8 @@
 <link href="Pics/Icon.png" rel="shortcut icon">
 <title>Square Chess Game</title>
 <script src="Impo/jquery.min.js"></script>
+<script src="Impo/firebase.js"></script>
+<script src="Core/Gear.js"></script>
 <script src="Core/Prun.js"></script>
 <style>@import "Core/Face.css";
 footer{
@@ -409,6 +411,12 @@ p a{text-decoration:underline}
 <script>
 var link=$("#lLst div a,.page div a"),show="",page=$(".field,.field2")
 function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
+	if(location.search.length>1){
+		var id=location.search.replace("?","")
+		firebase.database().ref("Battle/"+id+"/ModeName").once("value",function(r){
+			if(r.val())location="btchs.html?mode="+r.val()+"#"+id
+		})
+	}
 	for(var i=0;i<5;i++){
 		Id(page[i]).style.height="40px"
 		Id("p"+page[i]).style.height="40px"
@@ -420,8 +428,7 @@ function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
 			if(link[i].parentNode.getAttribute("data-btchs"))link[i].href="btchs.html?mode="+link[i].innerHTML
 			if(link[i].parentNode.getAttribute("data-rules"))link[i].href="rules.html?mode="+link[i].innerHTML
 		}link[i].parentNode.style.transition="all 1s"
-	}
-	Rsz();Hid()
+	}Rsz();Hid()
 }
 function Lst(d,v){Hid(d,'Main')
 	if(show!=d+"/"+v)Shw(d,v)
