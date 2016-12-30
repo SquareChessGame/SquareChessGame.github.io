@@ -45,7 +45,12 @@ var Rls={
 			"當五個我方符號呈一直線時獲勝",
 			"對方符號被我方符號包圍時，對方符號將變成殭屍符號",
 			"深色區域為我方封限區(Castle)",
-			"將符號組合成一塊，為一國土"
+			"將符號組合成一塊，為一國土",
+			"第一回合O方符號不得設置於A1:I4之座標",
+			"第一回合X方符號不得設置於A6:I9之座標",
+			"A1:I4為對方反射區",
+			"A6:I9為我方反射區",
+			"我方設置符號於對方反射區時，我方反射區將產生符號"
 		],
 		[
 			function(){var cds="#E4,#E6,#D4,#D5,#D6,#F4,#F5,#F6";Rls.Brd.Scp("#E5:S:O|"+cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")},
@@ -124,6 +129,29 @@ var Rls={
 			},
 			function(){var cds="#E2,#E3,#D3,#D4,#D5,#F3,#F4,#G3,#E5"
 				Rls.Brd.Scp("#E2:S:O|#E3:S:O|#D3:S:O|#D4:S:O|#D5:S:O|#F3:S:O|#F4:S:O|#G3:S:O|#E5:S:O|"+cds+":B:indianred|"+cds+":B:white|"+cds+":B:indianred")
+			},
+			function(){var cds=""
+				for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<5;cd2++)cds+="#"+Chr(cd1)+cd2+","
+				cds=cds.substr(0,cds.length-1)
+				Rls.Brd.Scp(cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")				
+			},
+			function(){var cds=""
+				for(var cd1=65;cd1<74;cd1++)for(var cd2=6;cd2<10;cd2++)cds+="#"+Chr(cd1)+cd2+","
+				cds=cds.substr(0,cds.length-1)
+				Rls.Brd.Scp(cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")				
+			},
+			function(){var cds=""
+				for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<5;cd2++)cds+="#"+Chr(cd1)+cd2+","
+				cds=cds.substr(0,cds.length-1)
+				Rls.Brd.Scp(cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")				
+			},
+			function(){var cds=""
+				for(var cd1=65;cd1<74;cd1++)for(var cd2=6;cd2<10;cd2++)cds+="#"+Chr(cd1)+cd2+","
+				cds=cds.substr(0,cds.length-1)
+				Rls.Brd.Scp(cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")				
+			},
+			function(){
+				Rls.Brd.Scp("#E4:S:O|#E6:S:O|#E6:S:|#E6:S:O")
 			}
 		]
 	]
@@ -216,6 +244,15 @@ Rls.Kingdom=function(r){
 	r=Rls.add(r,"當國土有9個符號以上時為一王國")
 	r=Rls.add(r,"棋盤已滿，我方王國符號數較對方多時獲勝")
 	r=Rls.add(r,"棋盤已滿，我方王國符號數與對方相同，我方王國數較對方多時獲勝");return r
+}
+Rls.Mirror=function(r){
+	r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
+	r=Rls.ext(r,Rls.Set[1],"第一回合O方符號不得設置於A1:I4之座標")
+	r=Rls.ext(r,Rls.Set[1],"第一回合X方符號不得設置於A6:I9之座標")
+	r=Rls.add(r,"A1:I4為對方反射區")
+	r=Rls.add(r,"A6:I9為我方反射區")
+	r=Rls.add(r,"我方設置符號於對方反射區時，我方反射區將產生符號")
+	return r
 }
 Rls.System=function(r){
 	if(Rls.dft&&Dft.System.Blk)r=Rls.add(r,"將產生"+Dft.System.Blk+"個障礙物")
