@@ -2,7 +2,7 @@
 function Req(Typ,Jcd){Dft.Oln.CkN=RJC()
 	var id="",req={
 		ModeName:doc.title,BoardContent:"",LastActive:new Date().getTime(),CheckNum:Dft.Oln.CkN,PlayerX:"N",Message:{Content:""}
-	};Dft.Oln.MdN=doc.title
+	}
 	if(Jcd)id=Jcd
 	if(Typ=="J"){if(!Jcd)while(!id)id=prompt("輸入id");Dft.Oln.Typ="X"}
 	else{Dft.Oln.Typ="O";if(!Jcd)id=RJC()}Dft.Oln.Id=id

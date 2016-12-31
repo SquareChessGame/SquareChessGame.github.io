@@ -29,28 +29,26 @@ var Rls={
 	},
 	Scr:[
 		[
-			"符號須設置於我方符號周圍",
-			"第一回合雙方符號將分別位於A1與I9",
-			"深色區域為我方封限區(Attack)",
-			"淺色區域為我方封區(Attack)",
-			"不同色塊為一區域",
-			"第一回合雙方符號不得設置於C3:G7之座標",
-			"第一回合符號設置完成時，周圍將產生封限區",
-			"我方四枚符號形成矩形時，該矩形區域將產生私區",
-			"符號須設置於我方符號米字，設置路徑間不得有對方符號",
-			"第10回合後，若雙方符號接觸將變成殭屍符號",
-			"空白區域被符號包圍時，空白區域將產生私區",
-			"我方兩枚符號形成直線時，該直線區域將產生私區",
-			"符號須設置於我方符號口字，設置路徑間不得有對方符號",
-			"當五個我方符號呈一直線時獲勝",
-			"對方符號被我方符號包圍時，對方符號將變成殭屍符號",
-			"深色區域為我方封限區(Castle)",
-			"將符號組合成一塊，為一國土",
-			"第一回合O方符號不得設置於A1:I4之座標",
-			"第一回合X方符號不得設置於A6:I9之座標",
-			"A1:I4為對方反射區",
-			"A6:I9為我方反射區",
-			"我方設置符號於對方反射區時，我方反射區將產生符號"
+			"周圍",
+			"位於A1與I9",
+			"封限區(Attack)",
+			"封區(Attack)",
+			"色塊",
+			"C3:G7",
+			"周圍將產生封限區",
+			"形成矩形",
+			"米字",
+			"符號接觸",
+			"空白區域將產生私區",
+			"形成直線時",
+			"口字",
+			"五個",
+			"符號包圍",
+			"封限區(Castle)",
+			"國土",
+			"A1:I4",
+			"A6:I9",
+			"反射區將產生符號"
 		],
 		[
 			function(){var cds="#E4,#E6,#D4,#D5,#D6,#F4,#F5,#F6";Rls.Brd.Scp("#E5:S:O|"+cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")},
@@ -140,16 +138,6 @@ var Rls={
 				cds=cds.substr(0,cds.length-1)
 				Rls.Brd.Scp(cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")				
 			},
-			function(){var cds=""
-				for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<5;cd2++)cds+="#"+Chr(cd1)+cd2+","
-				cds=cds.substr(0,cds.length-1)
-				Rls.Brd.Scp(cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")				
-			},
-			function(){var cds=""
-				for(var cd1=65;cd1<74;cd1++)for(var cd2=6;cd2<10;cd2++)cds+="#"+Chr(cd1)+cd2+","
-				cds=cds.substr(0,cds.length-1)
-				Rls.Brd.Scp(cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")				
-			},
 			function(){
 				Rls.Brd.Scp("#E4:S:O|#E6:S:O|#E6:S:|#E6:S:O")
 			}
@@ -210,7 +198,7 @@ Rls.Follow=function(r){
 Rls.ByLine=function(r){var ajd=0;if(Rls.dft)ajd=Dft.ByLine.AJd;r=Rls.add(r,Rls.AJd[ajd]+"(ByLine)")
 	r=Rls.add(r,"我方兩枚符號形成直線時，該直線區域將產生私區");return r
 }
-Rls.Anomal=function(r){var ajd=0;if(Rls.dft)ajd=Dft.Anomal.AJd;r=Rls.add(r,Rls.AJd[ajd]+"(Anomal)")
+Rls.Anomal=function(r){
 	r=Rls.add(r,"空白區域被符號包圍時，空白區域將產生私區");return r
 }
 Rls.Adapter=function(r){var jdg=1
@@ -253,6 +241,10 @@ Rls.Mirror=function(r){
 	r=Rls.add(r,"我方設置符號於對方反射區時，我方反射區將產生符號")
 	return r
 }
+Rls.Newbie=function(r){
+	if(Rls.dft&&Dft.System.Nxt)r=Rls.add(r,"陰暗的區域為無法設置的區域")
+	return r
+}
 Rls.System=function(r){
 	if(Rls.dft&&Dft.System.Blk)r=Rls.add(r,"將產生"+Dft.System.Blk+"個障礙物")
 	var spc={
@@ -261,7 +253,9 @@ Rls.System=function(r){
 	}
 	for(var j=0;j<spc.n.length;j++)for(var i=0;i<r.length;i++)if(r[i].search(spc.n[j])>-1){
 		r=Rls.add(r,spc.n[j]+"即"+spc.d[j]);break
-	}return r
+	}
+	if(Rls.dft&&MdQ.indexOf("Newbie")<0)r=Rls.add(r,"<font onclick='Srt(0)' color='blue' style='cursor:pointer'>點此查看詳盡圖解</font>")
+	return r
 }
 Rls.Brd=function(s,t,v){var ob=$(s)
 	switch(t){
@@ -286,5 +280,9 @@ Rls.Brd.Qre=function(v){var spt=v.split("/");console.log(v)
 Rls.Brd.Scp=function(v){var spt=v.split("|");if(!Rls.Ply)return;Rls.Ply=0
 	for(var i=0;i<spt.length;i++)setTimeout("Rls.Brd.Qre('"+spt[i]+"')",(i+1)*500)
 	setTimeout("Rls.Brd.Cln()",(spt.length+1)*500)
+}
+function Srt(l){var t=["rules","chess"],s=location.search,n=":Newbie"
+	if(s.search(n)>-1){s=s.replace(n,"");n=""}
+	location=t[l]+".html"+s+n
 }
 if(typeof Shl=="object")Shl.Rls=Rls
