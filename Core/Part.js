@@ -1,4 +1,4 @@
-function Crd(crd,vct){var x=0,y=0;vct=Vct(vct)
+function Crd(crd,vct){var x=0,y=0,ox=0,oy=0;vct=Vct(vct)
 	if(typeof vct=="object"){
 		for(var i=0;i<vct.length;i++)vct[i]=Crd(crd,vct[i]);return vct
 	}
@@ -8,11 +8,21 @@ function Crd(crd,vct){var x=0,y=0;vct=Vct(vct)
 		case"R":x++;break
 		case"L":x--;break
 		case"C":x=0;y=0;break
+	}ox=Asc(crd[0])+x,oy=Val(Val(crd[1])+y)
+	if(Math.abs(x)==Math.abs(y)){
+		for(var i=1;i<Math.abs(x)+1;i++){
+			var s=Asc(crd[0])+(i*Math.sign(x)),
+				e=Val(crd[1])+(i*Math.sign(y))
+			if(s>73||s<65||e>9||e<1){
+				x=(i-1)*Math.sign(x);y=(i-1)*Math.sign(y);break
+			}
+		}
+	}else{
+		if(ox>73){x=(73-Asc(crd[0]))}
+		if(ox<65){x=(65-Asc(crd[0]))}
+		if(oy>9){y=(9-Val(crd[1]))}
+		if(oy<1){y=(1-Val(crd[1]))}
 	}
-	if(Val(Val(crd[1])+y)>9)y=(9-Val(crd[1]))
-	if(Val(Val(crd[1])+y)<1)y=(1-Val(crd[1]))
-	if(Asc(crd[0])+x>73)x=(73-Asc(crd[0]))
-	if(Asc(crd[0])+x<65)x=(65-Asc(crd[0]))
 	return Chr(Asc(crd[0])+x)+Val(Val(crd[1])+y)
 }
 function Vct(typ){
