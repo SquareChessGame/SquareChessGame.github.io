@@ -63,14 +63,13 @@ Sel.Now=function(t){if(Tn==0)return
 				Id("O0").style.left=$(crd).offset().left+"px"
 			}
 		break
-		case"P":var crd="#E5"
+		case"N":var crd="#"+Hst.Crd[Tn];Id("O0").style.display="none";Dft.Dir="";Dft.Crd=""
 			if(Id(crd.replace("#",""))){
 				Id("O0").style.height=$(crd).height()+"px"
 				Id("O0").style.top=$(crd).offset().top+"px"
 				Id("O0").style.left=$(crd).offset().left+"px"
 			}
 		break
-		case"N":Id("O0").style.display="none";Dft.Dir="";Dft.Crd="";break
 	}
 }
 function KUp(e){
@@ -80,7 +79,7 @@ function Mnu(v,p){var h=0;if(v)h=160;if(Id("Setting").style.height!="0px")h=0;Id
 	if(v)if(p){Id("menu").style.left="";Id("menu").style.right="0px"}
 	else{Id("menu").style.left="0px";Id("menu").style.right=""}
 }
-function Ctl(t,v){if(t=="Udo"||t=="Rdo")if(v&&v.length==3)return
+function Ctl(t,v){if(t=="Udo"||t=="Rdo")if(v&&v.length==3)return;Sel.Now("N")
 	if(!Dft.System.Oln)switch(t){
 		case"Cln":if(Tn!=Dft.Tn)Cln("確認清除棋盤?");else Cln();break
 		case"Udo":if(v)Rec(Ser(v)-1);else if(Tn>Dft.Tn)Rec(Tn-1);break

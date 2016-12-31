@@ -59,8 +59,8 @@ function Itf(){var bd=""
 }
 function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else ckr=confirm(msg)
 	if(ckr){Tn=0;Hst={Brd:[],Crd:[],Sel:[],Rut:[]}
-		Qre(Sel("All"),"Sym",2);Brd();Dft.Win=0
-		Adn();Rul();Hst.Brd[Tn]=Rec();Dft.Tn=Tn;Sel.Now("P")
+		Qre(Sel("All"),"Sym",2);Brd();Dft.Win=0;Id("Recrd").innerHTML=""
+		Adn();Rul();Hst.Brd[Tn]=Rec();Dft.Tn=Tn;Sel.Now("N")
 	}
 }
 function Set(crd){if(!Dft.Set)return;var ckr=Ckr(crd)
