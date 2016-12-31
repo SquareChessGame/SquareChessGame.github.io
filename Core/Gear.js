@@ -11,7 +11,7 @@ function Req(Typ,Jcd){Dft.Oln.CkN=RJC()
 			if(r.val()!=null&&Typ=="R"){id=RJC();return Req(Typ,id)}
 			if(Typ=="R")firebase.database().ref("Battle/"+id).update(req)
 			firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
-				if(Typ=="R"){var url="http://squarechessgame.github.io/jndir.html?"+id
+				if(Typ=="R"){var url="http://squarechessgame.github.io/jndir.html?"+doc.title+"/"+id
 					prompt("註冊成功,貼給朋友即可開始對戰",url)
 					Id("msgr").childNodes[1].setAttribute("data-href",url);Oln.Ffb();Ini();if(Dft.Oln.Ckr)Oln.Ckr()
 					Id("QR").style.background="url(http://chart.apis.google.com/chart?cht=qr&chs=150x150&chl="+url+")"
