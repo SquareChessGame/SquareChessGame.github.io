@@ -11,7 +11,7 @@ function KDw(e){
 		case   8:if(t)Ctl("Udo");break
 		case  13:if(!t)OpK();else if(!g)Ctl("Msg");else if(Dft.Dir=="")Ctl("Rdo");break
 		case  18:if(c)Opt();break
-		case  27:if(!g)Ctl("MSw",0);else OpK(1);break
+		case  27:if(!g)Ctl("MSw",0);else if(Id("O0").style.display!="none")Sel.Now("N");else OpK(1);break
 		case  35:Rec(Hst.Crd.length-1);break
 		case  37:if(c)Ctl("Udo");else{Dft.Dir+="L";Sel.Now("D")}break
 		case  38:if(c)Ctl("Cln");else{Dft.Dir+="F";Sel.Now("D")}break
@@ -49,25 +49,29 @@ function KDw(e){
 }
 Sel.Now=function(t){Id("O0").style.display="none";
 	if(Id("menu").style.left=="0px")Mnu(0,0);else Mnu(0,1)
-	Id("O0").style.height=$(crd).height()+"px"
+	Id("O0").style.height=$(crd).height()+"px";Id("O0").innerHTML=""
+	Id("O0").style.fontSize=($(crd).height()-10)+"px"
 	switch(t){
 		case"C":var crd="#"+Dft.Crd+"1";Id("O0").style.display=""
 			Id("O0").style.height=($(crd).height()*9)+"px"
-			Id("O0").style.top=$(crd).offset().top+"px"
+			Id("O0").innerHTML=Dft.Crd+"<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9"
+			Id("O0").style.top=($(crd).offset().top-1)+"px"
 			Id("O0").style.left=$(crd).offset().left+"px"
 		break
 		case"D":if(Tn==0)return;
 			var crd="#"+Crd(Hst.Crd[Tn],Dft.Dir);Id("O0").style.display=""
+			Id("O0").style.fontSize=($(crd).height()-20)+"px"
+			Id("O0").innerHTML=crd.replace("#","")
 			if(Id(crd.replace("#",""))){
 				Id("O0").style.height=$(crd).height()+"px"
-				Id("O0").style.top=$(crd).offset().top+"px"
+				Id("O0").style.top=($(crd).offset().top-1)+"px"
 				Id("O0").style.left=$(crd).offset().left+"px"
 			}
 		break
 		case"N":var crd="#"+Hst.Crd[Tn];Dft.Dir="";Dft.Crd=""
 			if(Id(crd.replace("#",""))){
 				Id("O0").style.height=$(crd).height()+"px"
-				Id("O0").style.top=$(crd).offset().top+"px"
+				Id("O0").style.top=($(crd).offset().top-1)+"px"
 				Id("O0").style.left=$(crd).offset().left+"px"
 			}
 		break

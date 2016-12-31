@@ -30,7 +30,8 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 function Rsz(){
 	var sz=$(window).width(),scn=1,rec=1
 	if($(window).height()-40<sz){sz=$(window).height()-40;scn=0}sz=Math.floor(sz/9)
-	$(".bt").css("width",sz+"px");$(".bt").css("height",sz+"px");$(".bt").css("font-size",sz-15+"px")
+	$(".bt").css("width",sz+"px");$(".bt").css("height",sz+"px")
+	$(".bt").css("font-size",sz-10+"px");$(".bt").css("line-height",sz+"px")
 	Id("NightMode").style.height=($(window).height()-40)+"px"
 	for(i=81;i<84;i++){if(!Class("bt")[i])break
 		if(Class("bt")[i].tagName=="DIV")continue
