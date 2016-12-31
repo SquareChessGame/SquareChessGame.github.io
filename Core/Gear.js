@@ -74,7 +74,7 @@ Oln.Opt=function(){Id("msgr").style.opacity=0
 		OpS("ORg-0/ORg","r","註冊房間",Dft.Oln.Rgt==0)
 		OpS("ORg-1/ORg","r","加入房間",Dft.Oln.Rgt==1)
 	}else{if(Tn<2)Id("msgr").style.opacity=1
-		Id("OptionMenu").innerHTML+="<input type='text' readonly value='"+Dft.Oln.Id+"' style='font-size:inherit;width:140px;text-align:center'/><br>"
+		Id("OptionMenu").childNodes[0].innerHTML+="<label style='margin-left:10px'><input type='text' readonly value='"+Dft.Oln.Id+"' style='font-size:inherit;width:140px;text-align:center'/></label><br>"
 	}OpS("Oln-MSw","k","訊息窗彈出",Dft.Oln.MSw)
 }
 Oln.OpK=function(){
