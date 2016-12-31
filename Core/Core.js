@@ -6,9 +6,9 @@
 			"khaki","lightcoral","lightseagreen","black"
 		]
 	},Dft={
-		Set:1,Tn:0,Blk:[],Win:0,
+		Set:1,Tn:0,Blk:[],Win:0,Crd:"",Dir:"",
 		Oln:{Typ:"",Id:"",Rgt:0,Cln:1,MdN:"",Msg:0,CkN:"",Lst:"",CkO:1,Ckr:0,MSw:1},
-		System:{Blk:0,Nxt:0,Crd:"",Dir:"",iTn:0,Qsr:0,Oln:0,Gst:0}
+		System:{Blk:0,Nxt:0,iTn:0,Qsr:0,Oln:0,Gst:0}
 	},
 	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{}}
@@ -57,12 +57,13 @@ function Itf(){var bd=""
 	$(".bt").on("taphold contextmenu",function(){if(Dft.System.Gst)Ctl("Rdo",this.id)})
 }
 function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else ckr=confirm(msg)
-	if(ckr){Tn=0;Hst={Brd:[],Crd:[],Sel:[],Rut:[]}
+	if(ckr){Tn=0;Hst={Brd:[],Crd:[],Sel:[],Rut:[]};Sel.Now("N")
 		Qre(Sel("All"),"Sym",2);Brd();Dft.Win=0
 		Adn();Rul();Hst.Brd[Tn]=Rec();Dft.Tn=Tn
 	}
 }
-function Set(crd){if(!Dft.Set)return;var ckr=Ckr(crd);if(Dft.System.Qsr)ckr=!Lmt(crd)
+function Set(crd){if(!Dft.Set)return;var ckr=Ckr(crd)
+	if(Dft.System.Qsr)ckr=!Lmt(crd)
 	if(ckr){
 		Qre(crd,"Sym",Tn%2);Log("第"+(Tn+1)+"回合:"+Sqr.Sym[Tn%2]+"方將符號設置於"+crd)
 		Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec()
@@ -96,7 +97,7 @@ function Qre(crd,atr,typ){var res=[],ckr=0
 	for(var i=0;i<res.length;i++)if(res[i]>9)res[i]=Chr(res[i]+55)
 	if(res.length>1)return res;return res[0]
 }
-function Rec(brd){var res=""
+function Rec(brd){var res="";Sel.Now("N")
 	if(typeof brd=="number"&&Hst.Brd[brd]){if(brd!=0)Log("前往至第"+brd+"回合")
 		Tn=brd;Rec(Hst.Brd[brd]);if(!Dft.System.Qsr)Rul();return
 	}
