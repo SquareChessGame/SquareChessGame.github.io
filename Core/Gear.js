@@ -28,8 +28,7 @@ function Req(Typ,Jcd){Dft.Oln.CkN=RJC()
 function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id)return
 	Dft.Set=0;var req={CheckNum:Dft.Oln.CkN,BoardContent:cnt};Atn(Dft.Oln.MdN)
 	if(!Dft.Oln.Ckr)req.LastActive=new Date().getTime()
-	try{firebase.database().ref("Battle/"+Dft.Oln.Id).update(req);Dft.Oln.Cln=1}
-	catch(e){if(confirm("暫時無法上傳，將繼續重試"))Upl(cnt)}
+	firebase.database().ref("Battle/"+Dft.Oln.Id).update(req);Dft.Oln.Cln=1
 }
 function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 	if(Dft.Oln.Typ=="X"||Dft.Oln.Typ=="V")Dft.Set=0;else Dft.Set=1
