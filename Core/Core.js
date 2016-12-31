@@ -32,9 +32,10 @@ function Rsz(){
 	if($(window).height()-40<sz){sz=$(window).height()-40;scn=0}sz=Math.floor(sz/9)
 	$(".bt").css("width",sz+"px");$(".bt").css("height",sz+"px");$(".bt").css("font-size",sz-15+"px")
 	Id("NightMode").style.height=($(window).height()-40)+"px"
-	for(i=81;i<83;i++){if(!Class("bt")[i])break
+	for(i=81;i<84;i++){if(!Class("bt")[i])break
+		if(Class("bt")[i].tagName=="DIV")continue
 		if(i>80)Class("bt")[i].style.width=sz*4.5+"px"
-		if(!Class("bt")[i+1]&&i==81)Class("bt")[i].style.width=sz*9+"px"
+		if(!Class("bt")[i+2]&&i==81)Class("bt")[i].style.width=sz*9+"px"
 	}
 	if(scn&&Id("LdA").style.display=="none")Id("QCtrl").style.display=""
 	if(Id("QR")){
@@ -45,7 +46,7 @@ function Rsz(){
 	if(Id("Setting").style.height!="0px")Id("Setting").style.height=($(window).height()-40)+"px"
 	Id("Recrd").style.width=$("#Board").offset().left+"px";Id("Recrd").style.height="100%"
 	if($("#Board").offset().left<70)Id("Recrd").style.display="none"
-	else Id("Recrd").style.display=""
+	else Id("Recrd").style.display="";Sel.Now("N")
 }
 function Itf(){var bd=""
 	for(cd2=1;cd2<10;cd2++){bd+="<tr>";for(cd1=65;cd1<74;cd1++){bd+="<td id='"+Chr(cd1)+cd2+"' class='bt'></td>"}bd+="</tr>"}Id("Board").innerHTML=bd

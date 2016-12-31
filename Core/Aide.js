@@ -48,7 +48,8 @@ function KDw(e){
 				}
 	}
 }
-Sel.Now=function(t){Id("O0").style.display=""
+Sel.Now=function(t){Id("O0").style.display="";
+	Id("O0").style.height=$(crd).height()+"px";Dft.Dir=""
 	switch(t){
 		case"C":var crd="#"+Dft.Crd+"1"
 			Id("O0").style.height=($(crd).height()*9)+"px"
