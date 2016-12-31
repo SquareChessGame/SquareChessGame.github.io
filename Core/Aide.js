@@ -13,10 +13,10 @@ function KDw(e){
 		case  18:if(c)Opt();break
 		case  27:if(!g)Ctl("MSw",0);else OpK(1);break
 		case  35:Rec(Hst.Crd.length-1);break
-		case  37:if(c)Ctl("Udo");else Dft.System.Dir+="L";break
-		case  38:if(c)Ctl("Cln");else Dft.System.Dir+="F";break
-		case  39:if(c)Ctl("Rdo");else Dft.System.Dir+="R";break
-		case  40:if(c)Ctl("Cln");else Dft.System.Dir+="B";break
+		case  37:if(c)Ctl("Udo");else Dft.System.Dir+="L";Sel.Now("D");break
+		case  38:if(c)Ctl("Cln");else Dft.System.Dir+="F";Sel.Now("D");break
+		case  39:if(c)Ctl("Rdo");else Dft.System.Dir+="R";Sel.Now("D");break
+		case  40:if(c)Ctl("Cln");else Dft.System.Dir+="B";Sel.Now("D");break
 		case  46:if(s)Cln();else Ctl("Cln");break
 		case  89:if(c)Ctl("Rdo");break
 		case  90:if(c)Ctl("Udo");break
@@ -29,7 +29,7 @@ function KDw(e){
 			if(m.style.right=="0px"){
 				if(m.style.width=="0px")Mnu(1,0);else Mnu(0,1)
 			}else Mnu(1,0);break
-		default:if(k>64&&k<74&&g)Dft.System.Crd=Chr(k)
+		default:if(k>64&&k<74&&g){Dft.System.Crd=Chr(k);Sel.Now("C")}
 				else if(k>48&&k<58||k>96&&k<106){var num=Chr(k);if(k>96)num=Chr(k-48)
 					if(m.style.width!="0px"){
 						if(!Dft.System.Oln)switch(Val(num)){
@@ -46,6 +46,14 @@ function KDw(e){
 						if(s)Ctl("Rdo",crd);else if(!c)Set(crd)
 					}
 				}
+	}
+}
+Sel.Now=function(t){
+	switch(t){
+		case"C":;break
+		case"D":var crd=Crd(Hst.Crd[Tn],Dft.System.Dir)
+			if(Id(crd))
+		break
 	}
 }
 function KUp(e){
