@@ -31,6 +31,7 @@ div{outline:none}
 .Opbt{height:40px;line-height:40px;text-align:center;background-color:#758f9b;float:right;width:100px;margin-left:5px;opacity:0.5}
 .Opbt:hover{opacity:1}
 #msgc{height:255px;width:100%;background-color:#99bccc;position:absolute;top:25px;left:0px;overflow:auto}
+#msgs{position:absolute;bottom:0px;right:0px;width:98%;height:20px}
 #Message{transition:all 1s;user-select:text;-ms-user-select:text;-moz-user-select:text;-webkit-user-select:text}
 #Message::-webkit-scrollbar{width:5px;height:5px}
 #send{position:absolute;bottom:0px;right:0px;opacity:0.2;width:40px;height:20px;background-color:#48585f;text-align:center;line-height:20px}
