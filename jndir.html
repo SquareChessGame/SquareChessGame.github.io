@@ -1,6 +1,9 @@
+<script src="Impo/firebase.js"></script>
 <script>
 if(location.search.length>1){
-	var spt=location.search.replace("?","").replace("%2F","/").split("/")
-	location="btchs.html?mode="+spt[0]+"#"+spt[1]
+	var id=location.search.replace("?","")
+	firebase.database().ref("Battle/"+id+"/ModeName").once("value",function(r){
+		if(r.val())location="btchs.html?mode="+r.val()+"#"+id
+	})
 }else location="index.html"
 </script>
