@@ -21,7 +21,7 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 	var md=doc.createElement("script");md.src="Mode/"+MdQ[v]+".js"
 	if(MdQ[v+1])md.onload=function(){MdL(v+1)}
 	else md.onload=function(){
-		Id("LdA").style.display="none";Itf();Cln();Rsz();Id("LdB").style.opacity=0
+		Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
 		if(typeof Ini!="undefined"){Dft.System.Oln=1;Joi()}
 	}
 	md.onerror=function(){alert("模式可能被移除或不存在");location="index.html"}
@@ -59,7 +59,7 @@ function Itf(){var bd=""
 	$(".bt").on("taphold contextmenu",function(){if(Dft.System.Gst)Ctl("Rdo",this.id)})
 }
 function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else ckr=confirm(msg)
-	if(ckr){Tn=0;Hst={Brd:[],Crd:[],Sel:[],Rut:[]}
+	if(ckr){Tn=0;Hst={Brd:[],Crd:["E5"],Sel:[],Rut:[]}
 		Qre(Sel("All"),"Sym",2);Brd();Dft.Win=0;Id("Recrd").innerHTML=""
 		Adn();Rul();Hst.Brd[Tn]=Rec();Dft.Tn=Tn;Sel.Now("N")
 	}
