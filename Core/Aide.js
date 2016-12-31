@@ -53,12 +53,12 @@ Sel.Now=function(t){Id("O0").style.display="none";
 	Id("O0").style.fontSize=($(crd).height()-10)+"px"
 	switch(t){
 		case"C":var crd="#"+Dft.Crd+"1";Id("O0").style.display=""
-			Id("O0").style.height=($(crd).height()*9)+"px"
+			Id("O0").style.height=($(crd).height()*9)+"px";Dft.Dir=""
 			Id("O0").innerHTML=Dft.Crd+"<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9"
 			Id("O0").style.top=($(crd).offset().top-1)+"px"
 			Id("O0").style.left=$(crd).offset().left+"px"
 		break
-		case"D":if(Tn==0)return;
+		case"D":if(Tn==0)return;Dft.Crd=""
 			var crd="#"+Crd(Hst.Crd[Tn],Dft.Dir);Id("O0").style.display=""
 			Id("O0").style.fontSize=($(crd).height()-20)+"px"
 			Id("O0").innerHTML=crd.replace("#","")
