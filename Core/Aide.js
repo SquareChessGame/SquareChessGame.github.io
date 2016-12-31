@@ -49,7 +49,7 @@ function KDw(e){
 	}
 }
 function KUp(e){
-	if(e.which<41&&e.which>36&&Dft.System.Dir!=""){Set(Crd(Hst.Crd[Tn],Dft.System.Dir));Dft.System.Dir=""}
+	if(e.which==16&&Dft.System.Dir!=""){Set(Crd(Hst.Crd[Tn],Dft.System.Dir));Dft.System.Dir=""}
 }
 function Mnu(v,p){var h=0;if(v)h=160;if(Id("Setting").style.height!="0px")h=0;Id("menu").style.width=h+"px"
 	if(v)if(p){Id("menu").style.left="";Id("menu").style.right="0px"}
