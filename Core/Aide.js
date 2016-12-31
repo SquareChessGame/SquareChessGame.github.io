@@ -47,7 +47,8 @@ function KDw(e){
 				}
 	}
 }
-Sel.Now=function(t){Id("O0").style.display="none"
+Sel.Now=function(t){Id("O0").style.display="none";
+	if(Id("menu").style.left=="0px")Mnu(0,0);else Mnu(0,1)
 	Id("O0").style.height=$(crd).height()+"px"
 	switch(t){
 		case"C":var crd="#"+Dft.Crd+"1";Id("O0").style.display=""
