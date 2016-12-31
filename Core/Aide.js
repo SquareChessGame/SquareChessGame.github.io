@@ -49,7 +49,7 @@ function KDw(e){
 	}
 }
 Sel.Now=function(t){Id("O0").style.display="";
-	Id("O0").style.height=$(crd).height()+"px";Dft.Dir=""
+	Id("O0").style.height=$(crd).height()+"px"
 	switch(t){
 		case"C":var crd="#"+Dft.Crd+"1"
 			Id("O0").style.height=($(crd).height()*9)+"px"
@@ -64,9 +64,9 @@ Sel.Now=function(t){Id("O0").style.display="";
 			}
 		break
 		case"N":var crd="#E5";Id("O0").style.display="none"
-			Id("O0").style.height=$(crd).height()+"px";Dft.Dir=""
-			Id("O0").style.top=$(crd).offset().top+"px";Dft.Crd=""
-			Id("O0").style.left=$(crd).offset().left+"px"
+			if(Id(crd.replace("#",""))){
+				Id("O0").style.height=$(crd).height()+"px";Dft.Dir="";Dft.Crd=""
+			}
 		break
 	}
 }

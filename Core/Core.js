@@ -67,7 +67,7 @@ function Set(crd){if(!Dft.Set)return;var ckr=Ckr(crd)
 	if(Dft.System.Qsr)ckr=!Lmt(crd)
 	if(ckr){
 		Qre(crd,"Sym",Tn%2);Log("第"+(Tn+1)+"回合:"+Sqr.Sym[Tn%2]+"方將符號設置於"+crd)
-		Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec()
+		Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec();Sel.Now("N")
 		Hst.Brd.splice(Tn+1,Hst.Brd.length-Tn);if(Dft.System.Oln)Upl(Hst.Brd[Tn]+"/"+Tn+"/"+Hst.Crd[Tn])
 	}
 }
@@ -98,7 +98,7 @@ function Qre(crd,atr,typ){var res=[],ckr=0
 	for(var i=0;i<res.length;i++)if(res[i]>9)res[i]=Chr(res[i]+55)
 	if(res.length>1)return res;return res[0]
 }
-function Rec(brd){var res="";Sel.Now("N")
+function Rec(brd){var res=""
 	if(typeof brd=="number"&&Hst.Brd[brd]){if(brd!=0)Log("前往至第"+brd+"回合")
 		Tn=brd;Rec(Hst.Brd[brd]);if(!Dft.System.Qsr)Rul();return
 	}
