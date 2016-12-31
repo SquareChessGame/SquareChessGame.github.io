@@ -58,9 +58,9 @@ function Itf(){var bd=""
 	$(".bt").on("taphold contextmenu",function(){if(Dft.System.Gst)Ctl("Rdo",this.id)})
 }
 function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else ckr=confirm(msg)
-	if(ckr){Tn=0;Hst={Brd:[],Crd:[],Sel:[],Rut:[]};Sel.Now("N")
+	if(ckr){Tn=0;Hst={Brd:[],Crd:[],Sel:[],Rut:[]}
 		Qre(Sel("All"),"Sym",2);Brd();Dft.Win=0
-		Adn();Rul();Hst.Brd[Tn]=Rec();Dft.Tn=Tn
+		Adn();Rul();Hst.Brd[Tn]=Rec();Dft.Tn=Tn;Sel.Now("P")
 	}
 }
 function Set(crd){if(!Dft.Set)return;var ckr=Ckr(crd)

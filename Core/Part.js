@@ -8,7 +8,12 @@ function Crd(crd,vct){var x=0,y=0;vct=Vct(vct)
 		case"R":x++;break
 		case"L":x--;break
 		case"C":x=0;y=0;break
-	}return Chr(Asc(crd[0])+x)+Val(Val(crd[1])+y)
+	}
+	if(Val(Val(crd[1])+y)>9)y=(9-Val(crd[1]))
+	if(Val(Val(crd[1])+y)<1)y=(1-Val(crd[1]))
+	if(Asc(crd[0])+x>73)x=(73-Asc(crd[0]))
+	if(Asc(crd[0])+x<65)x=(65-Asc(crd[0]))
+	return Chr(Asc(crd[0])+x)+Val(Val(crd[1])+y)
 }
 function Vct(typ){
 	if(typeof typ=="object"){var res=[]
@@ -24,6 +29,7 @@ function Vct(typ){
 		var crd=typ.split(":"),
 		x=Val(Asc(crd[1][0]))-Val(Asc(crd[0][0]))
 		y=Val(Val(crd[1][1]))-Val(Val(crd[0][1]))
+		if(crd[0]==crd[1])return "1C"
 		if(x<0)x=Vct(Math.abs(x)+"L");else if(x!=0)x=Vct(x+"R");else x="" 
 		if(y<0)y=Vct(Math.abs(y)+"F");else if(y!=0)y=Vct(y+"B");else y=""
 		if(x.length==y.length)return y.length+y[0]+x[0]
