@@ -31,8 +31,8 @@ var Rls={
 		[
 			"周圍",
 			"位於A1與I9",
-			"封限區(Attack)",
-			"封區(Attack)",
+			"封限區:Attack",
+			"封區:Attack",
 			"色塊",
 			"C3:G7",
 			"周圍將產生封限區",
@@ -44,20 +44,20 @@ var Rls={
 			"口字",
 			"五個",
 			"符號包圍",
-			"封限區(Castle)",
+			"封限區:Castle",
 			"國土",
 			"A1:I4",
 			"A6:I9",
 			"反射區將產生符號"
 		],
 		[
-			function(){var cds="#E4,#E6,#D4,#D5,#D6,#F4,#F5,#F6";Rls.Brd.Scp("#E5:S:O|"+cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")},
+			function(){var cds="#E4,#E6,#D4,#D5,#D6,#F4,#F5,#F6";Rls.Brd.Scp("#E5:S:O|"+cds+":B:slateblue|Ogn|"+cds+":B:slateblue")},
 			function(){Rls.Brd.Scp("#A1:S:O|#I9:S:X|#A1,#I9:S:|#A1:S:O/#I9:S:X")},
 			function(){var cds="#A2,#B1,#B2",c2s="#I8,#H8,#H9"
-				Rls.Brd.Scp(cds+":B:crimson/"+c2s+":B:royalblue|"+cds+","+c2s+":B:white|"+cds+":B:crimson/"+c2s+":B:royalblue")
+				Rls.Brd.Scp(cds+":B:crimson/"+c2s+":B:royalblue|Ogn|"+cds+":B:crimson/"+c2s+":B:royalblue")
 			},
 			function(){var cds="#A3,#B3,#C3,#C1,#C2",c2s="#I7,#H7,#G7,#G8,#G9"
-				Rls.Brd.Scp(cds+":B:palevioletred/"+c2s+":B:lightsteelblue|"+cds+","+c2s+":B:white|"+cds+":B:palevioletred/"+c2s+":B:lightsteelblue")
+				Rls.Brd.Scp(cds+":B:palevioletred/"+c2s+":B:lightsteelblue|Ogn|"+cds+":B:palevioletred/"+c2s+":B:lightsteelblue")
 			},
 			function(){
 				var cds=[
@@ -86,60 +86,60 @@ var Rls={
 			function(){var cds=""
 				for(var cd1=67;cd1<72;cd1++)for(var cd2=3;cd2<8;cd2++)cds+="#"+Chr(cd1)+cd2+","
 				cds=cds.substr(0,cds.length-1)
-				Rls.Brd.Scp(cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")				
+				Rls.Brd.Scp(cds+":B:slateblue|Ogn|"+cds+":B:slateblue")				
 			},
 			function(){var cds="#A1,#A2,#A3,#B1,#B3,#C1,#C2,#C3",c2s="#G7,#G8,#G9,#H7,#H9,#I7,#I8,#I9"
-				Rls.Brd.Scp("#B2:S:O|#H8:S:X|"+cds+":B:crimson/"+c2s+":B:royalblue|"+cds+","+c2s+":B:white|"+cds+":B:crimson/"+c2s+":B:royalblue")
+				Rls.Brd.Scp("#B2:S:O|#H8:S:X|"+cds+":B:crimson/"+c2s+":B:royalblue|Ogn|"+cds+":B:crimson/"+c2s+":B:royalblue")
 			},
 			function(){var cds=""
 				for(var cd1=67;cd1<72;cd1++)for(var cd2=3;cd2<8;cd2++)if("C3C7G3G7".search(Chr(cd1)+cd2)<0)cds+="#"+Chr(cd1)+cd2+","
 				cds=cds.substr(0,cds.length-1)
-				Rls.Brd.Scp("#C3:S:O|#C7:S:O|#G3:S:O|#G7:S:O|"+cds+":B:indianred|"+cds+":B:white|"+cds+":B:indianred")
+				Rls.Brd.Scp("#C3:S:O|#C7:S:O|#G3:S:O|#G7:S:O|"+cds+":B:indianred|Ogn|"+cds+":B:indianred")
 			},
-			function(){var cds=""
+			function(){var cds="",c2s=",#E1,#E2,#E3,#E4"
 				for(var i=1;i<10;i++){if(i==5)continue
 					cds+="#"+Chr(i+64)+i+","+"#"+Chr(i+64)+(10-i)+","+"#"+Chr(i+64)+"5,"
 					if(i>3)cds+="#E"+i+","
 				}
 				cds=cds.substr(0,cds.length-1)
-				Rls.Brd.Scp("#E5:S:O|#E3:S:X|"+cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue")
+				Rls.Brd.Scp("#E5:S:O|"+cds+c2s+":B:slateblue|Ogn|#E3:S:X|"+cds+":B:slateblue|Ogn|"+cds+":B:slateblue")
 			},
 			function(){
 				Rls.Brd.Scp("#E5:S:O|#F5:S:X|#A1:S:O|#I9:S:X|#A2:S:O|#I8:S:X|#A3:S:O|#I7:S:X|#A4:S:O|#I6:S:X|#E5,#F5:S:Z/#E5,#F5:F:red/#E5,#F5:B:black|#E5:S:O/#F5:S:X/#E5,#F5:F:black/#E5,#F5:B:white|#E5,#F5:S:Z/#E5,#F5:F:red/#E5,#F5:B:black")
 			},
 			function(){var cds="#E5,#E6,#E4,#D5"
-				Rls.Brd.Scp("#E3:S:O|#E7:S:O|#D4:S:O|#D6:S:O|#C5:S:O|#F4:S:O|#F6:S:O|#F5:S:O|"+cds+":B:indianred|"+cds+":B:white|"+cds+":B:indianred")
+				Rls.Brd.Scp("#E3:S:O|#E7:S:O|#D4:S:O|#D6:S:O|#C5:S:O|#F4:S:O|#F6:S:O|#F5:S:O|"+cds+":B:indianred|Ogn|"+cds+":B:indianred")
 			},
 			function(){var cds="#E3,#E4,#E5,#E6,#E7"
-				Rls.Brd.Scp("#E2:S:O|#E8:S:O|"+cds+":B:indianred|"+cds+":B:white|"+cds+":B:indianred")
+				Rls.Brd.Scp("#E2:S:O|#E8:S:O|"+cds+":B:indianred|Ogn|"+cds+":B:indianred")
 			},
-			function(){var cds="#C3,#C4,#C7,#D3,#E3,#F3,#F7,#G4,#G5,#G6,#G7"
-				Rls.Brd.Scp("#E5:S:O|#D5,#E6,#F4:S:X|"+cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue")
+			function(){var cds="#C3,#C4,#C7,#D3,#E3,#F3,#F7,#G4,#G5,#G6,#G7",c2s=",#C5,#C6,#D7,#E7,#G3"
+				Rls.Brd.Scp("#E5:S:O|"+cds+c2s+":B:slateblue|Ogn|#D5,#E6,#F4:S:X|"+cds+":B:slateblue|Ogn|"+cds+":B:slateblue")
 			},
 			function(){
 				Rls.Brd.Scp("#E3,#E4,#E5,#E6,#E7:S:O|#E3,#E4,#E6,#E7:S:|#C3,#D4,#F6,#G7:S:O")
 			},
 			function(){
-				Rls.Brd.Scp("#E4,#D5,#F5:S:O|#E5:S:X|#E6:S:O|#E5:S:Z/#E5:B:black/#E5:F:red|#E5:S:X/#E5:B:white/#E5:F:black|#E5:S:Z/#E5:B:black/#E5:F:red")
+				Rls.Brd.Scp("#E4,#D5,#F5:S:O|#E5:S:X|#E6:S:O|#E5:S:Z/#E5:B:black/#E5:F:red|#E5:S:X/Ogn|#E5:S:Z/#E5:B:black/#E5:F:red")
 			},
 			function(){var cds="#A1,#E1,#I1",c2s="#A9,#E9,#I9"
-				Rls.Brd.Scp(cds+":B:crimson/"+c2s+":B:royalblue|"+cds+","+c2s+":B:white|"+cds+":B:crimson/"+c2s+":B:royalblue")
+				Rls.Brd.Scp(cds+":B:crimson/"+c2s+":B:royalblue|Ogn|"+cds+":B:crimson/"+c2s+":B:royalblue")
 			},
 			function(){var cds="#E2,#E3,#D3,#D4,#D5,#F3,#F4,#G3,#E5"
-				Rls.Brd.Scp("#E2:S:O|#E3:S:O|#D3:S:O|#D4:S:O|#D5:S:O|#F3:S:O|#F4:S:O|#G3:S:O|#E5:S:O|"+cds+":B:indianred|"+cds+":B:white|"+cds+":B:indianred")
+				Rls.Brd.Scp("#E2:S:O|#E3:S:O|#D3:S:O|#D4:S:O|#D5:S:O|#F3:S:O|#F4:S:O|#G3:S:O|#E5:S:O|"+cds+":B:indianred|Ogn|"+cds+":B:indianred")
 			},
 			function(){var cds=""
 				for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<5;cd2++)cds+="#"+Chr(cd1)+cd2+","
 				cds=cds.substr(0,cds.length-1)
-				Rls.Brd.Scp(cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")				
+				Rls.Brd.Scp(cds+":B:slateblue|Ogn|"+cds+":B:slateblue")				
 			},
 			function(){var cds=""
 				for(var cd1=65;cd1<74;cd1++)for(var cd2=6;cd2<10;cd2++)cds+="#"+Chr(cd1)+cd2+","
 				cds=cds.substr(0,cds.length-1)
-				Rls.Brd.Scp(cds+":B:slateblue|"+cds+":B:white|"+cds+":B:slateblue|"+cds+":B:white")				
+				Rls.Brd.Scp(cds+":B:slateblue|Ogn|"+cds+":B:slateblue")
 			},
 			function(){
-				Rls.Brd.Scp("#E4:S:O|#E6:S:O|#E6:S:|#E6:S:O")
+				Rls.Brd.Scp("#A5,#B5,#C5,#D5,#E5,#F5,#G5,#H5,#I5:B:dimgray|#E4:S:O|#E7:S:X|#F3:S:O|#F7:S:O|#F7:S:|#F7:S:O")
 			}
 		]
 	]
@@ -161,7 +161,7 @@ Rls.Connect=function(r){var jdg=1
 Rls.Attack=function(r){
 	r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
 	r=Rls.ext(r,Rls.Set[1],"第一回合雙方符號將分別位於A1與I9")
-	r=Rls.add(r,"深色區域為我方封限區(Attack)");r=Rls.add(r,"淺色區域為我方封區(Attack)")
+	r=Rls.add(r,"深色區域為我方封限區:Attack");r=Rls.add(r,"淺色區域為我方封區:Attack")
 	r=Rls.add(r,Rls.Ara[0]);r=Rls.add(r,Rls.Ara[1].replace("限區或",""));return r
 }
 Rls.Defend=function(r){
@@ -179,7 +179,7 @@ Rls.Scheme=function(r){
 }
 Rls.Blocker=function(r){var jdg=1,ajd=0;if(Rls.dft){jdg=Dft.Blocker.QJd;ajd=Dft.Blocker.AJd}
 	r=Rls.add(r,Rls.Set[0]);r=Rls.add(r,"我方四枚符號形成矩形時，該矩形區域將產生私區")
-	r=Rls.add(r,Rls.AJd[ajd]+"(Blocker)");r=Rls.add(r,Rls.Jdg[jdg]);return r
+	r=Rls.add(r,Rls.AJd[ajd]+":Blocker");r=Rls.add(r,Rls.Jdg[jdg]);return r
 }
 Rls.Forbid=function(r){
 	r=Rls.add(r,"符號不得設置於私區");return r
@@ -195,7 +195,7 @@ Rls.Zombie=function(r){var tun=10;if(Rls.dft)tun=Dft.Zombie.ToZ
 Rls.Follow=function(r){
 	for(var i=0;i<r.length;i++)if(r[i].search("符號須設置於我方")>-1)r[i]=r[i].replace("符號須設置於我方","符號須設置於我方上一回合");return r
 }
-Rls.ByLine=function(r){var ajd=0;if(Rls.dft)ajd=Dft.ByLine.AJd;r=Rls.add(r,Rls.AJd[ajd]+"(ByLine)")
+Rls.ByLine=function(r){var ajd=0;if(Rls.dft)ajd=Dft.ByLine.AJd;r=Rls.add(r,Rls.AJd[ajd]+":ByLine")
 	r=Rls.add(r,"我方兩枚符號形成直線時，該直線區域將產生私區");return r
 }
 Rls.Anomal=function(r){
@@ -210,7 +210,7 @@ Rls.Invert=function(r){
 	for(var i=0;i<r.length;i++)if(r[i].search("符號須設置於我方")>-1)r[i]=r[i].replace(r[i],"符號不得設置於我方符號"+r[i].replace("符號須設置於我方符號","").substr(0,2));return r
 }
 Rls.Castle=function(r){
-	r=Rls.add(r,"深色區域為我方封限區(Castle)");r=Rls.add(r,Rls.Ara[0].replace("封區或",""));r=Rls.add(r,Rls.Ara[1].replace("限區或",""));return r
+	r=Rls.add(r,"深色區域為我方封限區:Castle");r=Rls.add(r,Rls.Ara[0].replace("封區或",""));r=Rls.add(r,Rls.Ara[1].replace("限區或",""));return r
 }
 Rls.Gomoku=function(r){
 	r=Rls.add(r,Rls.Set[0])
@@ -238,7 +238,7 @@ Rls.Mirror=function(r){
 	r=Rls.ext(r,Rls.Set[1],"第一回合O方符號不得設置於A1:I4之座標</li><li>第一回合X方符號不得設置於A6:I9之座標")
 	r=Rls.add(r,"A1:I4為對方反射區")
 	r=Rls.add(r,"A6:I9為我方反射區")
-	r=Rls.add(r,"我方設置符號於對方反射區時，我方反射區將產生符號")
+	r=Rls.add(r,"第二回合後，我方設置符號於對方反射區時，我方反射區將產生符號")
 	return r
 }
 Rls.Newbie=function(r){
@@ -266,15 +266,15 @@ Rls.Brd=function(s,t,v){var ob=$(s)
 	if(t=="S")for(var i=0;i<$(s).length;i++)$(s)[i].innerHTML=v
 	else $(s).css(t,v)
 }
-Rls.Brd.Cln=function(){
+Rls.Brd.Cln=function(v){
 	for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){var bc="white"
 		if((cd1+cd2)%2==0)bc="lightgray";Id(Chr(cd1)+cd2).style.backgroundColor=bc
-		Id(Chr(cd1)+cd2).innerHTML="";Id(Chr(cd1)+cd2).style.color="black"
+		if(!v)Id(Chr(cd1)+cd2).innerHTML="";Id(Chr(cd1)+cd2).style.color="black"
 	}Rls.Ply=1
 }
 Rls.Brd.Qre=function(v){var spt=v.split("/");console.log(v)
 	for(var i=0;i<spt.length;i++){var sp=spt[i].split(":")
-		Rls.Brd(sp[0],sp[1],sp[2])
+		if(sp[0]=="Ogn"){Rls.Brd.Cln(1);continue}Rls.Brd(sp[0],sp[1],sp[2])
 	}
 }
 Rls.Brd.Scp=function(v){var spt=v.split("|");if(!Rls.Ply)return;Rls.Ply=0
