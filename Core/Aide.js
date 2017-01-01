@@ -62,7 +62,7 @@ Sel.Now=function(t){Id("O0").style.display="none";
 			Id("O0").style.top=($(crd).offset().top-1)+"px"
 			Id("O0").style.left=$(crd).offset().left+"px"
 		break
-		case"D":if(Tn==0)return;Dft.Crd=""
+		case"D":if(Tn==0){Id("O0").style.display="none";Dft.Dir="";return}Dft.Crd=""
 			var crd="#"+Crd(Hst.Crd[Tn],Dft.Dir)
 			Id("O0").style.fontSize=($(crd).height()-20)+"px"
 			Id("O0").innerHTML=crd.replace("#","")
