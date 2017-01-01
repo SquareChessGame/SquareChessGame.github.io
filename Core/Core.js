@@ -70,7 +70,7 @@ function Set(crd){if(!Dft.Set)return;var ckr=Ckr(crd)
 		Qre(crd,"Sym",Tn%2);Log("第"+(Tn+1)+"回合:"+Sqr.Sym[Tn%2]+"方將符號設置於"+crd)
 		Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec();Sel.Now("N")
 		Hst.Brd.splice(Tn+1,Hst.Brd.length-Tn);if(Dft.System.Oln)Upl(Hst.Brd[Tn]+"/"+Tn+"/"+Hst.Crd[Tn])
-	}
+	}else if(Id("O0").style.display=="")Sel.Now("B")
 }
 function Qre(crd,atr,typ){var res=[],ckr=0
 	if(typ&&typeof typ!="object"&&Asc(typ+"")>64)typ=Asc(typ+"")-55

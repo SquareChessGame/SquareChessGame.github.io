@@ -50,17 +50,20 @@ function KDw(e){
 }
 Sel.Now=function(t){Id("O0").style.display="none";
 	if(Id("menu").style.left=="0px")Mnu(0,0);else Mnu(0,1)
-	Id("O0").style.height=$(crd).height()+"px";Id("O0").innerHTML=""
+	Id("O0").style.height=$(crd).height()+"px";if(t!="B")Id("O0").innerHTML=""
+	if(t!="N")Id("O0").style.display=""
 	Id("O0").style.fontSize=($(crd).height()-10)+"px"
+	Id("O0").style.backgroundColor=""
 	switch(t){
-		case"C":var crd="#"+Dft.Crd+"1";Id("O0").style.display=""
+		case"B":Id("O0").style.backgroundColor="crimson";break
+		case"C":var crd="#"+Dft.Crd+"1"
 			Id("O0").style.height=($(crd).height()*9)+"px";Dft.Dir=""
 			Id("O0").innerHTML=Dft.Crd+"<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9"
 			Id("O0").style.top=($(crd).offset().top-1)+"px"
 			Id("O0").style.left=$(crd).offset().left+"px"
 		break
 		case"D":if(Tn==0)return;Dft.Crd=""
-			var crd="#"+Crd(Hst.Crd[Tn],Dft.Dir);Id("O0").style.display=""
+			var crd="#"+Crd(Hst.Crd[Tn],Dft.Dir)
 			Id("O0").style.fontSize=($(crd).height()-20)+"px"
 			Id("O0").innerHTML=crd.replace("#","")
 			if(Id(crd.replace("#",""))){
@@ -79,7 +82,7 @@ Sel.Now=function(t){Id("O0").style.display="none";
 	}
 }
 function KUp(e){
-	if(e.which==13&&Dft.Dir!=""){Set(Crd(Hst.Crd[Tn],Dft.Dir));Dft.Dir=""}
+	if(e.which==13&&Dft.Dir!=""){Set(Crd(Hst.Crd[Tn],Dft.Dir))}
 }
 function Mnu(v,p){var h=0;if(v)h=160;if(Id("Setting").style.height!="0px")h=0;Id("menu").style.width=h+"px"
 	if(v)if(p){Id("menu").style.left="";Id("menu").style.right="0px"}
