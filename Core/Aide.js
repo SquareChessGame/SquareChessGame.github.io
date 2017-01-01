@@ -13,6 +13,7 @@ function KDw(e){
 		case  18:if(c)Opt();break
 		case  27:if(!g)Ctl("MSw",0);else if(Id("O0").style.display!="none")Sel.Now("N");else OpK(1);break
 		case  35:Rec(Hst.Crd.length-1);break
+		case  36:if(c)Ctl("Hom");else Rec(0);break
 		case  37:if(c)Ctl("Udo");else{Dft.Dir+="L";Sel.Now("D")}break
 		case  38:if(c)Ctl("Cln");else{Dft.Dir+="F";Sel.Now("D")}break
 		case  39:if(c)Ctl("Rdo");else{Dft.Dir+="R";Sel.Now("D")}break

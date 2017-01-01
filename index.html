@@ -131,7 +131,7 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 p a{text-decoration:underline}
 </style>
 </head>
-<body onresize="Rsz()" onload="Ldr()">
+<body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
 <div id="NightMode" style="opacity:1">
 <header>
 	<div id="Home" onclick="$('article').animate({scrollTop:0},1000);Mnu(1)"></div>
@@ -507,6 +507,32 @@ function Rpt(btn){var t="r-";if($(window).width<830)t="mr-"
 }
 function Ptg(t){
 	$("article").animate({scrollTop:$(t).offset().top-40+$("article")[0].scrollTop},1000)
+}
+function KDw(e){e.preventDefault()
+	var k=e.which
+	if(k==27){
+		Hid();show=""
+	}else if(show.length==0){
+		if(k==49||k==97)Lst('chess','Main')
+		if(k==50||k==98)Lst('btchs','Main')
+		if(k==51||k==99)Lst('rules','Main')
+	}else{var p=show.split("/")
+		switch(p[1]){
+			case"Main":
+				if(k==49||k==97)Lst(p[0],'CSub')
+				if(k==50||k==98)Lst(p[0],'BSub')
+				if(k==51||k==99)Lst(p[0],'DSub')
+				if(k==52||k==100)Lst(p[0],'ASub')
+				if(k==53||k==101)Lst(p[0],'OSub')
+			break
+			default:var s=0,c=k;if(k>96)k-=48;k-=49
+				for(var i=0;i<link.length;i++){
+					if(link[i].parentNode.getAttribute("data-"+p[0])==p[1]){
+						if(s==k)link[i].click();s++
+					}
+				}
+		}
+	}
 }
 </script>
 </html>
