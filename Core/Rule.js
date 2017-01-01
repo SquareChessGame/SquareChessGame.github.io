@@ -239,6 +239,7 @@ Rls.Mirror=function(r){
 	r=Rls.add(r,"A1:I4為對方反射區")
 	r=Rls.add(r,"A6:I9為我方反射區")
 	r=Rls.add(r,"第二回合後，我方設置符號於對方反射區時，我方反射區將產生符號")
+	r=Rls.add(r,"我方設置符號於我方反射區時，對方反射區不會產生符號")
 	return r
 }
 Rls.Newbie=function(r){
