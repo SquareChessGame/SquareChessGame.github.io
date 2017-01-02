@@ -97,7 +97,7 @@ Oln.Ffb=function(){
 }
 Oln.Ckr=function(){
 	firebase.database().ref("Battle/"+Dft.Oln.Id+"/PlayerCk").once("value",function(r){
-		if(r.val()[Enm(Dft.Oln.Typ)]=="N"&&Id("msgc").innerHTML.search('<div style="text-align:center">-X方已加入-</div>')>-1)Msg("對方可能已經離線",1)
+		if(r.val()[Enm(Dft.Oln.Typ)]=="N"&&Id("msgc").innerHTML.search('<div style="text-align:center">-X方已加入-</div>')>-1)Msg(Enm(Dft.Oln.Typ)+"方可能已經離線",1)
 		var req={CheckNum:Dft.Oln.CkN,PlayerCk:{}}
 		req.PlayerCk[Enm(Dft.Oln.Typ)]="N";req.PlayerCk[Dft.Oln.Typ]=r.val()[Dft.Oln.Typ]
 		firebase.database().ref("Battle/"+Dft.Oln.Id).update(req)
