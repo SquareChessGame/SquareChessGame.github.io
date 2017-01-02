@@ -66,8 +66,8 @@ function Joi(){
 	if(location.hash.length!=9)Opt()
 	else if(Cookies.get(location.hash.replace("#",""))){
 		var Inf=Cookies.get(location.hash.replace("#","")).split("/")
-		Ini();Dft.Oln.Id=location.hash.replace("#","");
-		Dft.Oln.CkN=Inf[0];Dft.Oln.Typ=Inf[1];alert("已協助您恢復房間")
+		Dft.Oln.Id=location.hash.replace("#","");Dft.Oln.CkN=Inf[0]
+		Dft.Oln.Typ=Inf[1];Ini();;alert("已協助您恢復房間")
 	}else Req("J",location.hash.replace("#",""))
 }
 Oln.Opt=function(){Id("msgr").style.opacity=0
