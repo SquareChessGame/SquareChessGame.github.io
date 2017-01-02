@@ -250,7 +250,7 @@ Rls.System=function(r){
 	if(Rls.dft&&Dft.System.Blk)r=Rls.add(r,"將產生"+Dft.System.Blk+"個障礙物")
 	var spc={
 		n:["公區","私區"],
-		d:["雙方皆可設置的區域","其中一方不可設置的區域"]
+		d:["雙方皆可設置的區域","對方不可設置的區域"]
 	}
 	for(var j=0;j<spc.n.length;j++)for(var i=0;i<r.length;i++)if(r[i].search(spc.n[j])>-1){
 		r=Rls.add(r,spc.n[j]+"即"+spc.d[j]);break
