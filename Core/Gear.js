@@ -69,7 +69,7 @@ function Atn(v){
 	if(Dft.Oln.Msg)doc.title+="("+Dft.Oln.Msg+")";Tag("header")[0].innerHTML=doc.title
 }
 function Joi(){
-	if(location.hash.length!=9)Opt()
+	if(location.hash.length<9)Opt()
 	else if(Cookies.get(location.hash.replace("#",""))){
 		var Inf=Cookies.get(location.hash.replace("#","")).split("/")
 		Dft.Oln.Id=location.hash.replace("#","");Dft.Oln.CkN=Inf[0]
@@ -81,7 +81,7 @@ Oln.Opt=function(){Id("msgr").style.opacity=0
 		OpS("ORg-0/ORg","r","註冊房間",Dft.Oln.Rgt==0)
 		OpS("ORg-1/ORg","r","加入房間",Dft.Oln.Rgt==1)
 	}else{if(Tn<2)Id("msgr").style.opacity=1
-		Id("OptionMenu").childNodes[0].innerHTML+="<label style='margin-left:10px'><input type='text' readonly value='"+Dft.Oln.Id+"' style='font-size:inherit;width:140px;text-align:center'/></label><br>"
+		Id("OptionMenu").childNodes[0].innerHTML+="<label style='margin-left:10px'><input type='text' readonly value='"+Dft.Oln.Id+"' style='font-size:inherit;width:200px;text-align:center;height:21px'/></label><br>"
 	}OpS("Oln-MSw","k","訊息窗彈出",Dft.Oln.MSw)
 }
 Oln.OpK=function(){
@@ -104,19 +104,24 @@ Oln.Ckr=function(){
 		setTimeout("Oln.Ckr()",10000)
 	})
 }
-function RJC(){var r="",t=[]
+function RJC(s){var r="",t=[];if(!s)s=10;s++
   for(var i=48;i<58;i++)t.push(String.fromCharCode(i))
   for(var i=65;i<91;i++)t.push(String.fromCharCode(i))
-  for(i=0;i<8;i++)r+=t[Math.floor(Math.random()*36)]
+  for(i=0;i<s;i++)r+=t[Math.floor(Math.random()*36)]
   return r
 }
 function Msg(msg,sys){Dft.Oln.Msg=-1
 	firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").once("value",function(r){var msgo=r.val().Content
-		if(!msgo)msgo=""
-		if(!sys)firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").update({Content:msgo+Dft.Oln.Typ+":"+msg+"<br>"})
-		else firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").update({
-			Content:msgo+'<div style="text-align:center">-'+msg+"-</div>"
-		})
+		if(!msgo)msgo="";var stp=msg+"<br>";if(sys)stp='<div style="text-align:center">-'+msg+"-</div>"
+		var rms=msgo.split(stp)
+		if(rms.length==1||!(rms[rms.length-1]=="")){
+			if(!sys)firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").update({
+				Content:msgo+Dft.Oln.Typ+":"+msg+"<br>"
+			})
+			else firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").update({
+				Content:msgo+'<div style="text-align:center">-'+msg+"-</div>"
+			})
+		}
 	})
 }
 eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('B 8(){c s="m";n(!(s.e("d")<0))s=s.1("d","f");s=s.1("l","k");s=s.1("h","q");s=s.1("p","o");s=s.1("b","g");s=s.1("b","j");s=s.1("i","r");s=s.1("9","9-D");C s}c 7={E:8(),H:"5-6-4-2.F.3",G:"A://5-6-4-2.v.3",u:"5-6-4-2.t.3",w:"z"};y.x(7);8=a;7=a',44,44,'|replace|91|com|game|square|chess|config|cfaK|8I|null|tz|var|AA|search|AIA|tzh|yA|qh|tzxiQq|AIzaSy|AI|AAA|while|9z_UKLVGFhgEndt|9z|yAkW9zz|qh2b8||appspot|storageBucket|firebaseio|messagingSenderId|initializeApp|firebase|757542166819|https|function|return|Z2e|apiKey|firebaseapp|databaseURL|authDomain'.split('|'),0,{}))
