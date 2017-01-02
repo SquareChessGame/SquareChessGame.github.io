@@ -33,13 +33,12 @@ function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
 function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 	if(Dft.Oln.Typ=="X"||Dft.Oln.Typ=="V")Dft.Set=0;else Dft.Set=1
 	if(!v){
-		var bdf=function(r){
-			var brd=r.val().split("/")
+		var bdf=function(r){var brd=r.val().split("/")
 			if(brd[0].length<81&&(Dft.Oln.Cln||Dft.Oln.Typ=="V")){alert(brd[0]);Ini(1)}
 			else if(brd[1]&&Sqr.Sym[(Val(brd[1])%2)]==Dft.Oln.Typ||Dft.Oln.Typ=="V"){
 				Hst.Brd[brd[1]]=brd[0];Hst.Crd[brd[1]]=brd[2];Rec(brd[0]);Tn=Val(brd[1]);Rul()
 				Log("第"+(Tn)+"回合:"+Sqr.Sym[(Tn+1)%2]+"方將符號設置於"+brd[2]);Sel.Now("N")
-				if(Dft.Oln.Typ!="V"){Dft.Set=1;Atn("輪到你下了")}
+				if(Dft.Oln.Typ!="V"){Dft.Set=1;Atn("輪到你下了")}else Dft.Set=0
 			}
 		}
 		Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:7})
