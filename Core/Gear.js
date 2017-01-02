@@ -43,8 +43,8 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 			}
 		}
 		Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:7})
-		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").once("value",bdf(r))
-		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",bdf(r))
+		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").once("value",function(r){bdf(r)})
+		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",function(r){bdf(r)})
 		firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").on("value",function(r){
 			if(r.val()&&Id("msgc").innerHTML!=r.val()){var msg=r.val().Content;if(msg=="")return
 				Id("msgc").innerHTML=msg;Dft.Oln.Msg++;Atn()
