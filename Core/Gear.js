@@ -32,7 +32,7 @@ function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
 }
 function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 	if(!v){location.hash=Dft.Oln.Id
-		Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:7})
+		Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:1})
 		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",function(r){var brd=r.val().split("/")
 			if(brd[0].length<81&&(Dft.Oln.Cln||Dft.Oln.Typ=="V")){alert(brd[0]);Ini(1)}
 			else if(brd[1]||Dft.Oln.Typ=="V"){
