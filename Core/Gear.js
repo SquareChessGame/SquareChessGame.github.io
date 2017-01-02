@@ -33,6 +33,7 @@ function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
 function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 	if(Dft.Oln.Typ=="X"||Dft.Oln.Typ=="V")Dft.Set=0;else Dft.Set=1
 	if(!v){
+		Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:7})
 		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",function(r){
 			var brd=r.val().split("/")
 			if(brd[0].length<81&&(Dft.Oln.Cln||Dft.Oln.Typ=="V")){alert(brd[0]);Ini(1)}
@@ -62,7 +63,12 @@ function Atn(v){
 	if(Dft.Oln.Msg)doc.title+="("+Dft.Oln.Msg+")";Tag("header")[0].innerHTML=doc.title
 }
 function Joi(){
-	if(location.hash.length!=9)Opt();else Req("J",Mid(location.hash,1,location.hash.length-1))
+	if(location.hash.length!=9)Opt()
+	else if(Cookies.get(location.hash.replace("#",""))){
+		var Inf=Cookies.get(location.hash.replace("#","")).split("/")
+		Ini();Dft.Oln.Id=location.hash.replace("#","");
+		Dft.Oln.CkN=Inf[0];Dft.Oln.Typ=Inf[1]
+	}else Req("J",location.hash.replace("#",""))
 }
 Oln.Opt=function(){Id("msgr").style.opacity=0
 	if(!Dft.Oln.Id){
