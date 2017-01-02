@@ -1,29 +1,27 @@
 ﻿var Oln={}
 function Req(Typ,Jcd){Dft.Oln.CkN=RJC()
 	var id="",req={
-		ModeName:doc.title,BoardContent:"",LastActive:new Date().getTime(),CheckNum:Dft.Oln.CkN,PlayerX:"N",Message:{Content:""}
+		ModeName:doc.title,BoardContent:"",LastActive:new Date().getTime(),CheckNum:Dft.Oln.CkN,PlayerX:"N",Message:{Content:""},PlayerCk:{O:"Y",X:"N"}
 	}
 	if(Jcd)id=Jcd
 	if(Typ=="J"){if(!Jcd)while(!id)id=prompt("輸入id");Dft.Oln.Typ="X"}
 	else{Dft.Oln.Typ="O";if(!Jcd)id=RJC()}Dft.Oln.Id=id
-	try{
+	firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
+		if(r.val()!=null&&Typ=="R"){id=RJC();return Req(Typ,id)}
+		if(Typ=="R")firebase.database().ref("Battle/"+id).update(req)
 		firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
-			if(r.val()!=null&&Typ=="R"){id=RJC();return Req(Typ,id)}
-			if(Typ=="R")firebase.database().ref("Battle/"+id).update(req)
-			firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
-				if(Typ=="R"){var url="http://squarechessgame.github.io/jndir.html?"+doc.title+"/"+id
-					prompt("註冊成功,貼給朋友即可開始對戰",url)
-					Id("msgr").childNodes[1].setAttribute("data-href",url);Oln.Ffb();Ini()
-					Id("QR").style.background="url(http://chart.apis.google.com/chart?cht=qr&chs=150x150&chl="+url+")"
-				}else if(Typ=="J"&&r.val()=="N"){
-					firebase.database().ref("Battle/"+id+"/CheckNum").once("value",function(r){
-						Msg("X方已加入",1);Dft.Oln.CkN=r.val();Ini()
-						firebase.database().ref("Battle/"+id).update({PlayerX:"Y",CheckNum:r.val(),LastActive:new Date().getTime()})
-					})
-				}else{alert("進入觀賞模式");Dft.Oln.Typ="V";Ini()}
-			});if(Notification&&Notification.permission!="granted")Notification.requestPermission()
-		})
-	}catch(e){if(confirm("暫時無法申請，將繼續重試"))Req(Typ,Jcd)}
+			if(Typ=="R"){var url="http://squarechessgame.github.io/jndir.html?"+doc.title+"/"+id
+				prompt("註冊成功,貼給朋友即可開始對戰",url)
+				Id("msgr").childNodes[1].setAttribute("data-href",url);Oln.Ffb();Ini()
+				Id("QR").style.background="url(http://chart.apis.google.com/chart?cht=qr&chs=150x150&chl="+url+")"
+			}else if(Typ=="J"&&r.val()=="N"){
+				firebase.database().ref("Battle/"+id+"/CheckNum").once("value",function(r){
+					Msg("X方已加入",1);Dft.Oln.CkN=r.val();Ini()
+					firebase.database().ref("Battle/"+id).update({PlayerX:"Y",CheckNum:r.val(),LastActive:new Date().getTime()})
+				})
+			}else{alert("進入觀賞模式");Dft.Oln.Typ="V";Ini()}
+		});if(Notification&&Notification.permission!="granted")Notification.requestPermission()
+	})
 }
 function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
 	Dft.Set=0;var req={CheckNum:Dft.Oln.CkN,BoardContent:cnt};Atn(Dft.Oln.MdN)
@@ -32,13 +30,23 @@ function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
 }
 function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 	if(!v){location.hash=Dft.Oln.Id
-		Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:1})
+		if(Dft.Oln.Typ!="V"){
+			Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:1})
+			firebase.database().ref("Battle/"+Dft.Oln.Id+"/PlayerCk").on("value",function(r){
+				var req={CheckNum:Dft.Oln.CkN,PlayerCk:{}}
+				req.PlayerCk[Dft.Oln.Typ]="Y";req.PlayerCk[Enm(Dft.Oln.Typ)]=r.val()[Enm(Dft.Oln.Typ)]
+				firebase.database().ref("Battle/"+Dft.Oln.Id).update(req)
+			});Oln.Ckr()
+		}
 		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",function(r){var brd=r.val().split("/")
-			if(brd[0].length<81&&(Dft.Oln.Cln||Dft.Oln.Typ=="V")){alert(brd[0]);Ini(1)}
-			else if(brd[1]||Dft.Oln.Typ=="V"){
+			if(brd[0].length<81&&(Dft.Oln.Cln||Dft.Oln.Typ=="V")){
+				alert(brd[0]);Ini(1);if(Dft.Oln.Typ=="O")Dft.Set=1;else Dft.Set=0
+			}else if(brd[1]||Dft.Oln.Typ=="V"){
 				Hst.Brd[brd[1]]=brd[0];Hst.Crd[brd[1]]=brd[2];Rec(brd[0]);Tn=Val(brd[1]);Rul()
-				Log("第"+(Tn)+"回合:"+Sqr.Sym[(Tn+1)%2]+"方將符號設置於"+brd[2]);Sel.Now("N")
-				if(Dft.Oln.Typ!="V"&&Sqr.Sym[(Val(brd[1])%2)]==Dft.Oln.Typ){Dft.Set=1;Atn("輪到你下了")}else Dft.Set=0
+				if(Dft.Oln.Typ!="V"&&Sqr.Sym[(Val(brd[1])%2)]==Dft.Oln.Typ){
+					Dft.Set=1;Atn("輪到你下了");Sel.Now("N")
+					Log("第"+(Tn)+"回合:"+Sqr.Sym[(Tn+1)%2]+"方將符號設置於"+brd[2])
+				}else Dft.Set=0
 			}
 		})
 		firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").on("value",function(r){
@@ -86,6 +94,15 @@ Oln.Ffb=function(){
 		js.src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
 		fjs.parentNode.insertBefore(js, fjs)
 	}(document,'script','facebook-jssdk'))
+}
+Oln.Ckr=function(){
+	firebase.database().ref("Battle/"+Dft.Oln.Id+"/PlayerCk").once("value",function(r){
+		if(r.val()[Enm(Dft.Oln.Typ)]=="N"&&Id("msgc").innerHTML.search('<div style="text-align:center">-X方已加入-</div>')>-1)Msg("對方可能已經離線",1)
+		var req={CheckNum:Dft.Oln.CkN,PlayerCk:{}}
+		req.PlayerCk[Enm(Dft.Oln.Typ)]="N";req.PlayerCk[Dft.Oln.Typ]=r.val()[Dft.Oln.Typ]
+		firebase.database().ref("Battle/"+Dft.Oln.Id).update(req)
+		setTimeout("Oln.Ckr()",10000)
+	})
 }
 function RJC(){var r="",t=[]
   for(var i=48;i<58;i++)t.push(String.fromCharCode(i))
