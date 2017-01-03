@@ -1,5 +1,5 @@
 ﻿var Oln={}
-function Req(Typ,Jcd){Dft.Oln.CkN=RJC()
+function Req(Typ,Jcd){Dft.Oln.CkN=RJC();Dft.Set=0
 	var id="",req={
 		ModeName:doc.title,BoardContent:"",LastActive:new Date().getTime(),CheckNum:Dft.Oln.CkN,PlayerX:"N",Message:{Content:""},PlayerCk:{O:"Y",X:"N"}
 	}
@@ -30,7 +30,7 @@ function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
 	firebase.database().ref("Battle/"+Dft.Oln.Id).update(req);Dft.Oln.Cln=1
 }
 function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
-	if(!v){location.hash=Dft.Oln.Id
+	if(!v){location.hash=Dft.Oln.Id;if(Dft.Oln.Typ=="O")Dft.Set=1
 		if(Dft.Oln.Typ!="V"){
 			Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:1})
 			firebase.database().ref("Battle/"+Dft.Oln.Id+"/PlayerCk").on("value",function(r){
@@ -55,7 +55,9 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 				Id("msgc").innerHTML=msg;Dft.Oln.Msg++;Atn()
 				Ctl("MSw",Dft.Oln.MSw);Id("msgc").scrollTop=Id("msgc").scrollHeight
 				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1)$(".join").css("display","none")
-				if(Notification){var m=msg.replace('<div style="text-align:center">-X方已加入-</div>',"").split("<br>")
+				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間"]
+					for(var i=0;i<ssm.length;i++)msg=msg.replace('<div style="text-align:center">-'+ssm[i]+'-</div>',"")
+					var m=msg.split("<br>")
 					if(m.length>1&&m[m.length-2][0]!=Dft.Oln.Typ)var n=new Notification("即時訊息",{
 						body:m[m.length-2],icon:"Pics/Icon.png"
 					})
@@ -74,7 +76,7 @@ function Joi(){
 	else if(Cookies.get(location.hash.replace("#",""))){
 		var Inf=Cookies.get(location.hash.replace("#","")).split("/")
 		Dft.Oln.Id=location.hash.replace("#","");Dft.Oln.CkN=Inf[0]
-		Dft.Oln.Typ=Inf[1];Ini();alert("已協助您恢復房間");Msg(Dft.Oln.Typ+"方已恢復房間",1)
+		Dft.Oln.Typ=Inf[1];Ini();alert("已協助您恢復房間");Msg(Dft.Oln.Typ+"方恢復房間",1)
 	}else Req("J",location.hash.replace("#",""))
 }
 Oln.Opt=function(){Id("msgr").style.opacity=0
@@ -98,7 +100,7 @@ Oln.Ffb=function(){
 }
 Oln.Ckr=function(){
 	firebase.database().ref("Battle/"+Dft.Oln.Id+"/PlayerCk").once("value",function(r){
-		if(r.val()[Enm(Dft.Oln.Typ)]=="N"&&Id("msgc").innerHTML.search('<div style="text-align:center">-X方已加入-</div>')>-1)Msg(Enm(Dft.Oln.Typ)+"方可能已經離線",1)
+		if(r.val()[Enm(Dft.Oln.Typ)]=="N"&&Id("msgc").innerHTML.search('<div style="text-align:center">-X方已加入-</div>')>-1)Msg(Enm(Dft.Oln.Typ)+"方可能離線",1)
 		var req={CheckNum:Dft.Oln.CkN,PlayerCk:{}}
 		req.PlayerCk[Enm(Dft.Oln.Typ)]="N";req.PlayerCk[Dft.Oln.Typ]=r.val()[Dft.Oln.Typ]
 		firebase.database().ref("Battle/"+Dft.Oln.Id).update(req)
