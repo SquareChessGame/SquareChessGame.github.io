@@ -25,7 +25,7 @@ function Req(Typ,Jcd){Dft.Oln.CkN=RJC()
 	})
 }
 function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
-	Dft.Set=0;var req={CheckNum:Dft.Oln.CkN,BoardContent:cnt};Atn(Dft.Oln.MdN)
+	Dft.Set=0;var req={CheckNum:Dft.Oln.CkN,BoardContent:cnt,ModeName:Dft.Oln.MdN};Atn(Dft.Oln.MdN)
 	req.LastActive=new Date().getTime()
 	firebase.database().ref("Battle/"+Dft.Oln.Id).update(req);Dft.Oln.Cln=1
 }
