@@ -57,6 +57,7 @@ div{outline:none}
 	position:fixed;bottom:10px;left:10px;width:20px;height:20px;background-image:url(../Pics/Rulesh.gif);
 	background-position:center center;background-size:100%;background-repeat:no-repeat;
 }
+#Rsw div{overflow:visible;margin-left:25px;color:#48585f}
 #O0{position:fixed;top:0px;left:0px;background-color:#758f9b;z-index:3;opacity:0.8;color:white}
 header{
 	top:0px;

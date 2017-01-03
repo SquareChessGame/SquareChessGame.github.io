@@ -15,7 +15,7 @@
 function Ldr(){if(!location.search||location.search.substr(0,6)!="?mode="){alert("要求格式錯誤");location="index.html"}
 	var mdN=location.search.replace("?mode=","")
 	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie")
-	Dft.Oln.MdN=doc.title;MdQ=mdN.replace("Square.","").split(":");MdL(0)
+	$("#Rsw div")[0].innerHTML=doc.title;Dft.Oln.MdN=doc.title;MdQ=mdN.replace("Square.","").split(":");MdL(0)
 }
 function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 	var md=doc.createElement("script");md.src="Mode/"+MdQ[v]+".js"
