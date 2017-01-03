@@ -66,7 +66,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 function Atn(v){
 	if(v)doc.title=v
 	else if(doc.title[doc.title.length-1]==")")doc.title=doc.title.split("(")[0]
-	if(Dft.Oln.Msg)doc.title+="("+Dft.Oln.Msg+")";Tag("header")[0].innerHTML=doc.title
+	if(Dft.Oln.Msg>0)doc.title+="("+Dft.Oln.Msg+")";Tag("header")[0].innerHTML=doc.title
 }
 function Joi(){
 	if(location.hash.length<9)Opt()
@@ -105,10 +105,10 @@ Oln.Ckr=function(){
 	})
 }
 function RJC(s){var r="",t=[];if(!s)s=10;s++
-  for(var i=48;i<58;i++)t.push(String.fromCharCode(i))
-  for(var i=65;i<91;i++)t.push(String.fromCharCode(i))
-  for(i=0;i<s;i++)r+=t[Math.floor(Math.random()*36)]
-  return r
+	for(var i=48;i<58;i++)t.push(String.fromCharCode(i))
+	for(var i=65;i<91;i++)t.push(String.fromCharCode(i))
+	for(i=0;i<s;i++)r+=t[Math.floor(Math.random()*36)]
+	return r
 }
 function Msg(msg,sys){Dft.Oln.Msg=-1
 	firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").once("value",function(r){var msgo=r.val().Content
