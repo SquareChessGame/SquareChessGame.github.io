@@ -48,7 +48,7 @@ function Ldr(){
 	doc.title=mdN.replace(":Newbie","");var MdQ=mdN.replace("Square.","").split(":")
 	$("article h1")[0].innerHTML=doc.title
 	var rls=[],bd=""
-	for(var i=0;i<MdQ.length;i++)if(Rls[MdQ[i]])rls=Rls[MdQ[i]](rls);Rls.System(rls)
+	for(var i=0;i<MdQ.length;i++){if(Rls[MdQ[i]])rls=Rls[MdQ[i]](rls);else{alert("要求規則說明不存在");location="index.html"}Rls.System(rls)}
 	for(var i=0;i<rls.length;i++)$("article ul")[0].innerHTML+="<li>"+rls[i]+"</li>"
 	for(cd2=1;cd2<10;cd2++){bd+="<tr>";for(cd1=65;cd1<74;cd1++){bd+="<td id='"+Chr(cd1)+cd2+"' class='bt'></td>"}bd+="</tr>"}
 	Id("Board").innerHTML=bd;Rsz();Rls.Brd.Cln();$("article ul")[0].innerHTML+="<li style='color:blue'>點按紅色文字獲得圖解</li><li style='color:blue;cursor:pointer' onclick='Srt(1)'>點此開始進行遊戲</li>"
