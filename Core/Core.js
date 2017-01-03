@@ -46,7 +46,7 @@ function Rsz(){
 	Id("Rule").style.width=sz*9+"px";if(Id("Rule").style.height!="0px")Id("Rule").style.height=sz*9+"px"
 	if(Id("Setting").style.height!="0px")Id("Setting").style.height=($(window).height()-40)+"px"
 	Id("Recrd").style.width=$("#Board").offset().left+"px";Id("Recrd").style.height="100%"
-	if($("#Board").offset().left<70)Id("Recrd").style.display="none"
+	if($("#Board").offset().left<80)Id("Recrd").style.display="none"
 	else Id("Recrd").style.display="";Sel.Now("N")
 }
 function Itf(){var bd=""
@@ -149,7 +149,7 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 	OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
 	OpS("System-iTn","k","上回設置",Dft.System.iTn)
 	OpS("System-Gst","k","手勢操作",Dft.System.Gst)
-	OpS("System-Rec","k","顯示過程",Id("Recrd").style.display!="none")
+	if($("#Recrd").width()>10)OpS("System-Rec","k","顯示過程",Id("Recrd").style.display!="none")
 	OpS("System-Nit","k","夜間模式",Id("NightMode").style.opacity!=1)
 	OpS("System-Ful","k","全螢幕模式",doc.webkitIsFullScreen||doc.mozFullScreen||doc.fullscreen)
 	OpS("System-Rul","k","顯示規則",Id("Rule").style.height!="0px")
@@ -171,7 +171,7 @@ function OpK(k){Id("Setting").style.height="0px";if(k)return
 		if(doc.webkitCancelFullScreen)doc.webkitCancelFullScreen()
 	}
 	if(Id("System-Rul").checked)Ctl("RSw",1);else Ctl("RSw",0)
-	if(!Id("System-Rec").checked)Id("Recrd").style.display="none";else Id("Recrd").style.display=""
+	if(Id("System-Rec")&&!Id("System-Rec").checked)Id("Recrd").style.display="none";else Id("Recrd").style.display=""
 	Dft.System.Nxt=Id("System-Nxt").checked;Dft.System.Gst=Id("System-Gst").checked;
 	Dft.System.iTn=Id("System-iTn").checked;if(Dft.Tn==Tn)Cln();Mrk();Ctl("Rul")
 }

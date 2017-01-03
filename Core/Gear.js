@@ -4,7 +4,7 @@ function Req(Typ,Jcd){Dft.Oln.CkN=RJC()
 		ModeName:doc.title,BoardContent:"",LastActive:new Date().getTime(),CheckNum:Dft.Oln.CkN,PlayerX:"N",Message:{Content:""},PlayerCk:{O:"Y",X:"N"}
 	}
 	if(Jcd)id=Jcd
-	if(Typ=="J"){if(!Jcd)while(!id)id=prompt("輸入id");Dft.Oln.Typ="X"}
+	if(Typ=="J"){if(!Jcd)while(!id&&id!=null)id=prompt("輸入id");Dft.Oln.Typ="X";if(id==null)return}
 	else{Dft.Oln.Typ="O";if(!Jcd)id=RJC()}Dft.Oln.Id=id
 	firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
 		if(r.val()!=null&&Typ=="R"){id=RJC();return Req(Typ,id)}
@@ -19,7 +19,8 @@ function Req(Typ,Jcd){Dft.Oln.CkN=RJC()
 					Msg("X方已加入",1);Dft.Oln.CkN=r.val();Ini()
 					firebase.database().ref("Battle/"+id).update({PlayerX:"Y",CheckNum:r.val(),LastActive:new Date().getTime()})
 				})
-			}else{alert("進入觀賞模式");Dft.Oln.Typ="V";Ini()}
+			}else if(!r.val()){alert("此房間不存在");location.reload()
+			}else {alert("進入觀賞模式");Dft.Oln.Typ="V";Ini()}
 		});if(Notification&&Notification.permission!="granted")Notification.requestPermission()
 	})
 }
@@ -73,7 +74,7 @@ function Joi(){
 	else if(Cookies.get(location.hash.replace("#",""))){
 		var Inf=Cookies.get(location.hash.replace("#","")).split("/")
 		Dft.Oln.Id=location.hash.replace("#","");Dft.Oln.CkN=Inf[0]
-		Dft.Oln.Typ=Inf[1];Ini();;alert("已協助您恢復房間")
+		Dft.Oln.Typ=Inf[1];Ini();alert("已協助您恢復房間")
 	}else Req("J",location.hash.replace("#",""))
 }
 Oln.Opt=function(){Id("msgr").style.opacity=0
