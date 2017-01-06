@@ -129,8 +129,7 @@ function Cnt(){var ara={O:[],X:[],P:[]},ser=0;ara.O.All=[];ara.X.All=[];ara.P.Al
 		}if(ara.O[ser].length==0&&ara.X[ser].length==0)break;ser++
 	}
 	ara.P.All.concat(Flt(ara.O.All,function(crd){if(ara.X.All.indexOf(crd)<0)return 0;return 1}))
-	for(var i=0;i<2;i++)ara[Sqr.Sym[i]].All=Flt(ara[Sqr.Sym[i]].All,function(crd){if(ara.P.All.indexOf(crd)<0)return 1;return 0})
-	return ara
+	for(var i=0;i<2;i++)ara[Sqr.Sym[i]].All=Flt(ara[Sqr.Sym[i]].All,function(crd){if(ara.P.All.indexOf(crd)<0)return 1;return 0});return ara
 }
 function Scr(opt,xpt){
 	if(opt>xpt)return "O獲勝";if(xpt>opt)return "X獲勝";return "平手"

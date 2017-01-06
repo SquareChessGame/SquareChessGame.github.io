@@ -5,10 +5,12 @@ Shl.Lmt.Divider=function(crd,sym){
 	for(i=0;i<8;i++){
 		var lin=Sel(crd+"~"+Crd(crd,"9"+vt8[i]))
 		Hst.Rut[Tn]=Hst.Rut[Tn].concat(Flt(lin,
-			function(crd){var s=Qre(crd,"Sym");if(!Id(crd)||s!=sym&&s!=2)return 2;return 1}
-		))
-	}Hst.Rut[Tn]=Flt(Hst.Rut[Tn],function(crd){if(Qre(crd,"Sym")==sym)return 1;return 0})
-	return !Hst.Rut[Tn].length>0
+			function(crd){var s=Qre(crd,"Sym");
+				if(!Id(crd)||s!=sym&&s!=2)return 2
+				else if(s==sym)return 1;return 0
+			}
+		));if(Hst.Rut[Tn].indexOf(crd)>-1&&MdQ.indexOf("Follow")<0)return 0
+	}return !Hst.Rut[Tn].length>0
 }
 Shl.Mrk.Divider=function(){Ara.Mrk("Divider")}
 Shl.Brd.Divider=function(){}
