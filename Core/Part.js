@@ -8,7 +8,7 @@ function Crd(crd,vct){var x=0,y=0,ox=0,oy=0;vct=Vct(vct)
 		case"R":x++;break
 		case"L":x--;break
 		case"C":x=0;y=0;break
-	}ox=Asc(crd[0])+x,oy=Val(Val(crd[1])+y)
+	}ox=Asc(crd[0])+x;oy=Val(Val(crd[1])+y)
 	if(Math.abs(x)==Math.abs(y)){
 		for(var i=1;i<Math.abs(x)+1;i++){
 			var s=Asc(crd[0])+(i*Math.sign(x)),

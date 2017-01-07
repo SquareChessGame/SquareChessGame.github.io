@@ -14,7 +14,7 @@
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{}}
 function Ldr(){if(!location.search||location.search.substr(0,6)!="?mode="){alert("要求格式錯誤");location="index.html"}
 	var mdN=location.search.replace("?mode=","")
-	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie")
+	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie","")
 	$("#Rsw div")[0].innerHTML=doc.title;Dft.Oln.MdN=doc.title;MdQ=mdN.replace("Square.","").split(":");MdL(0)
 }
 function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
@@ -67,8 +67,7 @@ function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else ckr=confirm(ms
 function Set(crd){if(!Dft.Set)return;var ckr=Ckr(crd)
 	if(Dft.System.Qsr)ckr=!Lmt(crd)
 	if(ckr){
-		Qre(crd,"Sym",Tn%2);Log("第"+(Tn+1)+"回合:"+Sqr.Sym[Tn%2]+"方將符號設置於"+crd)
-		Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec();Sel.Now("N")
+		Qre(crd,"Sym",Tn%2);Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec();Sel.Now("N");Log()
 		Hst.Brd.splice(Tn+1,Hst.Brd.length-Tn);if(Dft.System.Oln)Upl(Hst.Brd[Tn]+"/"+Tn+"/"+Hst.Crd[Tn])
 	}else if(Id("O0").style.display=="")Sel.Now("B")
 }
@@ -100,8 +99,8 @@ function Qre(crd,atr,typ){var res=[],ckr=0
 	if(res.length>1)return res;return res[0]
 }
 function Rec(brd){var res=""
-	if(typeof brd=="number"&&Hst.Brd[brd]){if(brd!=0)Log("前往至第"+brd+"回合")
-		Tn=brd;Rec(Hst.Brd[brd]);if(!Dft.System.Qsr)Rul();return
+	if(typeof brd=="number"&&Hst.Brd[brd]){
+		Tn=brd;Log();Rec(Hst.Brd[brd]);if(!Dft.System.Qsr)Rul();return
 	}
 	for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
 		if(brd)Qre(Chr(cd1)+cd2,"Sym",brd[((cd1-65)*9+cd2-1)])
@@ -191,6 +190,6 @@ function OpS(id,typ,til,dft){var input="",ck="",mg=10,ls=Id("OptionMenu").childN
 function Jdg(msg){
 	if(msg){Log(msg);if(Dft.System.Oln)Upl(msg);else Cln(msg+",是否再來一局?");Dft.Win=1;return 1}
 }
-function Log(vlu){
-	Id("Recrd").innerHTML+="<div>"+vlu+"</div>";Id("Recrd").scrollTop=Id("Recrd").scrollHeight
+function Log(vlu){Id("Recrd").innerHTML=""
+	for(var i=1;i<Tn+1;i++)Id("Recrd").innerHTML+="<div>第"+i+"回合:"+Sqr.Sym[(i-1)%2]+"方將符號設置於"+Hst.Crd[i]+"</div>";Id("Recrd").scrollTop=Id("Recrd").scrollHeight
 }
