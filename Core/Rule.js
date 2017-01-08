@@ -39,11 +39,11 @@ var Rls={
 			"形成矩形",
 			"米字",
 			"符號接觸",
-			"空白區域將產生私區",
-			"形成直線時",
-			"口字",
-			"五個",
 			"符號包圍",
+			"空白區域將產生私區",
+			"形成直線或斜線時",
+			"口字",
+			"五個我方符號呈直線",
 			"封限區:Castle",
 			"國土",
 			"A1:I4",
@@ -107,6 +107,9 @@ var Rls={
 			function(){
 				Rls.Brd.Scp("#E5:S:O|#F5:S:X|#A1:S:O|#I9:S:X|#A2:S:O|#I8:S:X|#A3:S:O|#I7:S:X|#A4:S:O|#I6:S:X|#E5,#F5:S:Z/#E5,#F5:F:red/#E5,#F5:B:black|#E5:S:O/#F5:S:X/#E5,#F5:F:black/#E5,#F5:B:white|#E5,#F5:S:Z/#E5,#F5:F:red/#E5,#F5:B:black")
 			},
+			function(){
+				Rls.Brd.Scp("#E4,#D5,#F5:S:O|#E5:S:X|#E6:S:O|#E5:S:Z/#E5:B:black/#E5:F:red|#E5:S:X/Ogn|#E5:S:Z/#E5:B:black/#E5:F:red")
+			},
 			function(){var cds="#E5,#E6,#E4,#D5"
 				Rls.Brd.Scp("#E3:S:O|#E7:S:O|#D4:S:O|#D6:S:O|#C5:S:O|#F4:S:O|#F6:S:O|#F5:S:O|"+cds+":B:indianred|Ogn|"+cds+":B:indianred")
 			},
@@ -118,9 +121,6 @@ var Rls={
 			},
 			function(){
 				Rls.Brd.Scp("#E3,#E4,#E5,#E6,#E7:S:O|#E3,#E4,#E6,#E7:S:|#C3,#D4,#F6,#G7:S:O")
-			},
-			function(){
-				Rls.Brd.Scp("#E4,#D5,#F5:S:O|#E5:S:X|#E6:S:O|#E5:S:Z/#E5:B:black/#E5:F:red|#E5:S:X/Ogn|#E5:S:Z/#E5:B:black/#E5:F:red")
 			},
 			function(){var cds="#A1,#E1,#I1",c2s="#A9,#E9,#I9"
 				Rls.Brd.Scp(cds+":B:crimson/"+c2s+":B:royalblue|Ogn|"+cds+":B:crimson/"+c2s+":B:royalblue")
@@ -196,7 +196,7 @@ Rls.Follow=function(r){
 	for(var i=0;i<r.length;i++)if(r[i].search("符號須設置於我方")>-1)r[i]=r[i].replace("符號須設置於我方","符號須設置於我方上一回合");return r
 }
 Rls.ByLine=function(r){var ajd=0;if(Rls.dft)ajd=Dft.ByLine.AJd;r=Rls.add(r,Rls.AJd[ajd]+":ByLine")
-	r=Rls.add(r,"我方兩枚符號形成直線時，該直線區域將產生私區");return r
+	r=Rls.add(r,"我方兩枚符號形成直線或斜線時，該直線或斜線區域將產生私區");return r
 }
 Rls.Anomal=function(r){
 	r=Rls.add(r,"空白區域被符號包圍時，空白區域將產生私區");return r
@@ -215,7 +215,7 @@ Rls.Castle=function(r){
 Rls.Gomoku=function(r){
 	r=Rls.add(r,Rls.Set[0])
 	if(Rls.dft&&Dft.Gomoku.Pro)r=Rls.add(r,"第二回合O方符號不得設置於C3:G7之座標")
-	r=Rls.add(r,"當五個我方符號呈一直線時獲勝");return r
+	r=Rls.add(r,"當五個我方符號呈直線或斜線時獲勝");return r
 }
 Rls.GoLike=function(r){
 	r=Rls.add(r,Rls.Set[0])
