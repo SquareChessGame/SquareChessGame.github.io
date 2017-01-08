@@ -30,7 +30,9 @@ var Rls={
 	Scr:[
 		[
 			"周圍",
-			"位於A1與I9",
+			"A1與I9",
+			"D2與C9",
+			"G1與F8",
 			"封限區:Attack",
 			"封區:Attack",
 			"色塊",
@@ -53,6 +55,8 @@ var Rls={
 		[
 			function(){var cds="#E4,#E6,#D4,#D5,#D6,#F4,#F5,#F6";Rls.Brd.Scp("#E5:S:O|"+cds+":B:slateblue|Ogn|"+cds+":B:slateblue")},
 			function(){Rls.Brd.Scp("#A1:S:O|#I9:S:X|#A1,#I9:S:|#A1:S:O/#I9:S:X")},
+			function(){Rls.Brd.Scp("#D2:S:O|#C9:S:X|#D2,#C9:S:|#D2:S:O/#C9:S:X")},
+			function(){Rls.Brd.Scp("#G1:S:O|#F8:S:X|#G1,#F8:S:|#G1:S:O/#F8:S:X")},
 			function(){var cds="#A2,#B1,#B2",c2s="#I8,#H8,#H9"
 				Rls.Brd.Scp(cds+":B:crimson/"+c2s+":B:royalblue|Ogn|"+cds+":B:crimson/"+c2s+":B:royalblue")
 			},
@@ -210,6 +214,8 @@ Rls.Invert=function(r){
 	for(var i=0;i<r.length;i++)if(r[i].search("符號須設置於我方")>-1)r[i]=r[i].replace(r[i],"符號不得設置於我方符號"+r[i].replace("符號須設置於我方符號","").substr(0,2));return r
 }
 Rls.Castle=function(r){
+	r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
+	r=Rls.ext(r,Rls.Set[1],"第一回合雙方符號將分別設置於D2與C9</li><li>第二回合雙方符號將分別設置於G1與F8")
 	r=Rls.add(r,"深色區域為我方封限區:Castle");r=Rls.add(r,Rls.Ara[0].replace("封區或",""));r=Rls.add(r,Rls.Ara[1].replace("限區或",""));return r
 }
 Rls.Gomoku=function(r){
