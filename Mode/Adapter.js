@@ -3,20 +3,20 @@ Shl.Rul.Adapter=function(){return Ara.Rul("Adapter",Cnt())}
 Shl.Lmt.Adapter=function(crd,sym){
 	var vtQ=Vct("Q"),vt28=Vct("28");Hst.Rut[Tn]=[];if(Tn<2)return 0
 	for(var i=0;i<8;i++){
-		if(Qre(Crd(crd,vtQ[i]),"Sym")==sym){
+		if(Qre(Crd(crd,vtQ[i],1),"Sym")==sym){
 			var vts=[
-				Crd(crd,vtQ[i][0]),
-				Crd(crd,vtQ[i][0]+vtQ[i][0]),
-				Crd(crd,vtQ[i][0]+vtQ[i][2]),
-				Crd(crd,vtQ[i][2]),
+				Crd(crd,vtQ[i][0],1),
+				Crd(crd,vtQ[i][0]+vtQ[i][0],1),
+				Crd(crd,vtQ[i][0]+vtQ[i][2],1),
+				Crd(crd,vtQ[i][2],1),
 			]
 			for(var j=0;j<vts.length;j++){var s=Qre(vts[j],"Sym")
 				vts[j]=(s==2||s==sym&&s.length>0)
 			}
 			if(vts[0]&&vts[1]||vts[0]&&vts[2]||vts[3]&&vts[2])Hst.Rut[Tn]=Hst.Rut[Tn].concat(crd)
 		}
-		if(Qre(Crd(crd,vt28[i]),"Sym")==sym){
-			var vts=Crd(crd,Mid(vt28[i],0,vt28[i].length/2)),s=Qre(vts,"Sym")
+		if(Qre(Crd(crd,vt28[i],1),"Sym")==sym){
+			var vts=Crd(crd,Mid(vt28[i],0,vt28[i].length/2),1),s=Qre(vts,"Sym")
 			if(s==2||s==sym)Hst.Rut[Tn]=Hst.Rut[Tn].concat(crd)
 		};if(Hst.Rut[Tn].indexOf(crd)>-1&&MdQ.indexOf("Follow")<0)return 0
 	}return !Hst.Rut[Tn].length>0
