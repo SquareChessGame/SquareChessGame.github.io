@@ -254,9 +254,7 @@ Rls.System=function(r){
 	}
 	for(var j=0;j<spc.n.length;j++)for(var i=0;i<r.length;i++)if(r[i].search(spc.n[j])>-1){
 		r=Rls.add(r,spc.n[j]+"即"+spc.d[j]);break
-	}
-	if(Rls.dft&&MdQ.indexOf("Newbie")<0)r=Rls.add(r,"<font onclick='Srt(0)' color='blue' style='cursor:pointer'>點此查看詳盡圖解</font>")
-	return r
+	}return r
 }
 Rls.Brd=function(s,t,v){var ob=$(s)
 	switch(t){
@@ -287,3 +285,25 @@ function Srt(l){var t=["rules","chess"],s=location.search,n=":Newbie"
 	location=t[l]+".html"+s+n
 }
 if(typeof Shl=="object")Shl.Rls=Rls
+Rls.Lst=function(MdQ){
+	var rls=[]
+	for(var i=0;i<MdQ.length;i++){if(Rls[MdQ[i]])rls=Rls[MdQ[i]](rls);else{alert("要求規則說明不存在");location="index.html"}Rls.System(rls)}
+	var sot={Set:[],Ara:[],Jdg:[],Oth:[]},cnt=""
+	for(var i=0;i<rls.length;i++){
+		if(rls[i].search("獲勝")>-1||rls[i].search("平手")>-1){sot.Jdg.push(rls[i]);continue}
+		if(rls[i].search("區")>-1){sot.Ara.push(rls[i]);continue}
+		if(rls[i].search("設置")>-1){sot.Set.push(rls[i]);continue}sot.Oth.push(rls[i])
+	}
+	if(sot.Set.length){cnt+="<li>設置規則<ul>"
+		for(var i=0;i<sot.Set.length;i++)cnt+="<li>"+sot.Set[i]+"</li>";cnt+="</ul></li>"
+	}
+	if(sot.Ara.length){cnt+="<li>區域規則<ul>"
+		for(var i=0;i<sot.Ara.length;i++)cnt+="<li>"+sot.Ara[i]+"</li>";cnt+="</ul></li>"
+	}
+	if(sot.Oth.length){cnt+="<li>其他規則<ul>"
+		for(var i=0;i<sot.Oth.length;i++)cnt+="<li>"+sot.Oth[i]+"</li>";cnt+="</ul></li>"
+	}
+	if(sot.Jdg.length){cnt+="<li>獲勝條件<ul>"
+		for(var i=0;i<sot.Jdg.length;i++)cnt+="<li>"+sot.Jdg[i]+"</li>";cnt+="</ul></li>"
+	}return cnt
+}

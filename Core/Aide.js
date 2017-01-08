@@ -106,9 +106,9 @@ function Ctl(t,v){if(t=="Udo"||t=="Rdo")if(v&&v.length==3)return;Sel.Now("N")
 		case "RSw":if(typeof v!="number")v=Id("Rule").style.height=="0px"
 			if(v){Id("Rule").style.height=Id("UI").style.width;Ctl("Rul")}
 			else Id("Rule").style.height="0px";break
-		case"Rul":Id("Rule").childNodes[3].innerHTML="";var rls=[]
-			for(var i=0;i<MdQ.length;i++)if(Shl.Rls[MdQ[i]])rls=Shl.Rls[MdQ[i]](rls);Shl.Rls.System(rls)
-			for(var i=0;i<rls.length;i++)Id("Rule").childNodes[3].innerHTML+="<li>"+rls[i]+"</li>";break
+		case"Rul":Id("Rule").childNodes[3].innerHTML+=Rls.Lst(MdQ)
+		if(MdQ.indexOf("Newbie")<0)Id("Rule").childNodes[3].innerHTML+="<li><font onclick='Srt(0)' color='blue' style='cursor:pointer'>點此查看詳盡圖解</li>"
+		;break
 		case"Hom":if(confirm('確定離開頁面?'))location="index.html";break
 	}
 }

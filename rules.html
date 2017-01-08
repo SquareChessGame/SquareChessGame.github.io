@@ -43,42 +43,23 @@ article{overflow:auto;user-select:text;-ms-user-select:text;-moz-user-select:tex
 function Ldr(){
 	if(!location.search||location.search.substr(0,6)!="?mode="){
 		alert("要求格式錯誤");location="index.html"
-	}var mdN=location.search.replace("?mode=","")
+	}var mdN=location.search.replace("?mode=",""),bd=""
 	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":")
 	doc.title=mdN.replace(":Newbie","");var MdQ=mdN.replace("Square.","").split(":")
 	$("article h1")[0].innerHTML=doc.title
-	var rls=[],bd=""
-	for(var i=0;i<MdQ.length;i++){if(Rls[MdQ[i]])rls=Rls[MdQ[i]](rls);else{alert("要求規則說明不存在");location="index.html"}Rls.System(rls)}
-	var sot={Set:[],Ara:[],Jdg:[],Oth:[]},cnt=""
-	for(var i=0;i<rls.length;i++){
-		if(rls[i].search("獲勝")>-1||rls[i].search("平手")>-1){sot.Jdg.push(rls[i]);continue}
-		if(rls[i].search("區")>-1){sot.Ara.push(rls[i]);continue}
-		if(rls[i].search("設置")>-1){sot.Set.push(rls[i]);continue}sot.Oth.push(rls[i])
-	}
-	if(sot.Set.length){cnt+="設置規則<ol>"
-		for(var i=0;i<sot.Set.length;i++)cnt+="<li>"+sot.Set[i]+"</li>";cnt+="</ol>"
-	}
-	if(sot.Ara.length){cnt+="區域規則<ol>"
-		for(var i=0;i<sot.Ara.length;i++)cnt+="<li>"+sot.Ara[i]+"</li>";cnt+="</ol>"
-	}
-	if(sot.Oth.length){cnt+="其他規則<ol>"
-		for(var i=0;i<sot.Oth.length;i++)cnt+="<li>"+sot.Oth[i]+"</li>";cnt+="</ol>"
-	}
-	if(sot.Jdg.length){cnt+="獲勝條件<ol>"
-		for(var i=0;i<sot.Jdg.length;i++)cnt+="<li>"+sot.Jdg[i]+"</li>";cnt+="</ol>"
-	}
+	cnt=Rls.Lst(MdQ)
 	for(cd2=1;cd2<10;cd2++){bd+="<tr>";for(cd1=65;cd1<74;cd1++){bd+="<td id='"+Chr(cd1)+cd2+"' class='bt'></td>"}bd+="</tr>"}$("article ul")[0].innerHTML=cnt
 	Id("Board").innerHTML=bd;Rsz();Rls.Brd.Cln();$("article ul")[0].innerHTML+="<li style='color:blue'>點按紅色文字獲得圖解</li><li style='color:blue;cursor:pointer' onclick='Srt(1)'>點此開始進行遊戲</li>"
-	$("li").click(function(){
+	$("li li").click(function(){
 		if(this.style.color=="red"){$("article").animate({scrollTop:$("article")[0].scrollHeight})
 			Rls.Scr[1][this.getAttribute("data-scr")]()
 		}
 	})
-	for(var i=0;i<$("li").length;i++){
+	for(var i=0;i<$("li li").length;i++){
 		for(var j=0;j<Rls.Scr[0].length;j++){
-			if($("li")[i].innerHTML.search(Rls.Scr[0][j])>-1){
-				$("li")[i].style.color="red";$("li")[i].style.cursor="pointer";
-				$("li")[i].setAttribute("data-scr",j)
+			if($("li li")[i].innerHTML.search(Rls.Scr[0][j])>-1){
+				$("li li")[i].style.color="red";$("li li")[i].style.cursor="pointer";
+				$("li li")[i].setAttribute("data-scr",j)
 			}
 		}
 	}
