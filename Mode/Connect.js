@@ -10,12 +10,12 @@ Shl.Brd.Connect=function(){}
 Shl.Adn.Connect=function(){Tn+=2
 	switch(Dft.Connect.Rul){
 		case 0:Tn=0;break
-		case 1:var Os=Crd("E5","4"),Xs=Crd("E5","X")
-			Qre(Os[Math.floor(Rnd()*4)],"Sym",0);Qre(Xs[Math.floor(Rnd()*4)],"Sym",1);break
-		case 2:var s=Crd("E5",Vct("24"))
-			Qre(s[Math.floor(Rnd()*4)],"Sym",0)
-			while(1){var crd=s[Math.floor(Rnd()*4)]
-				if(Qre(crd,"Sym")!=0){Qre(crd,"Sym",1);break}
+		case 1:var Os=Crd("E5","4")[Math.floor(Rnd()*4)],Xs=Crd("E5","X")[Math.floor(Rnd()*4)]
+			Hst.Crd[1]=Os;Qre(Os,"Sym",0);Hst.Crd[2]=Xs;Qre(Xs,"Sym",1);break
+		case 2:var s=Crd("E5",Vct("24")),Os=s[Math.floor(Rnd()*4)]
+			Qre(Os,"Sym",0);Hst.Crd[1]=Os
+			while(1){var crd=s[Math.floor(Rnd()*4)];
+				if(Qre(crd,"Sym")!=0){Qre(crd,"Sym",1);Hst.Crd[2]=Os;break}
 			}
 	}
 }

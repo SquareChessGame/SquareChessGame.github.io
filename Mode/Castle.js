@@ -17,7 +17,7 @@ Shl.Mrk.Castle=function(){
 	}
 }
 Shl.Brd.Castle=function(){}
-Shl.Adn.Castle=function(){Qre(["D2","G1"],"Sym",0);Qre(["C9","F8"],"Sym",1);Tn+=4}
+Shl.Adn.Castle=function(){Qre(["D2","G1"],"Sym",0);Qre(["C9","F8"],"Sym",1);Hst.Crd[1]="D2";Hst.Crd[2]="C9";Hst.Crd[3]="G1";Hst.Crd[4]="F8";Tn+=4}
 Shl.Ckr.Castle=function(crd){return 1}
 Shl.Opt.Castle=function(){
 	OpS("","1","Castle設定");OpS("","2","輔助標記")

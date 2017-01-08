@@ -14,7 +14,7 @@ Shl.Mrk.Attack=function(){
 	if(Dft.Attack.Ara)for(var i=0;i<4;i++)for(var j=0;j<Shl.Ara.Attack[i].length;j++)Qre(Shl.Ara.Attack[i][j],"BgC",i+5)
 }
 Shl.Brd.Attack=function(){}
-Shl.Adn.Attack=function(){Qre("A1","Sym",0);Qre("I9","Sym",1);Tn+=2}
+Shl.Adn.Attack=function(){Qre("A1","Sym",0);Qre("I9","Sym",1);Hst.Crd[1]="A1",Hst.Crd[2]="I9";Tn+=2}
 Shl.Ckr.Attack=function(crd){return 1}
 Shl.Opt.Attack=function(){
 	OpS("","1","Attack設定");OpS("","2","輔助標記")
