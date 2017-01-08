@@ -160,7 +160,7 @@ Rls.Connect=function(r){var jdg=1
 }
 Rls.Attack=function(r){
 	r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
-	r=Rls.ext(r,Rls.Set[1],"第一回合雙方符號將分別位於A1與I9")
+	r=Rls.ext(r,Rls.Set[1],"第一回合雙方符號將分別設置於A1與I9")
 	r=Rls.add(r,"深色區域為我方封限區:Attack");r=Rls.add(r,"淺色區域為我方封區:Attack")
 	r=Rls.add(r,Rls.Ara[0]);r=Rls.add(r,Rls.Ara[1].replace("限區或",""));return r
 }
@@ -228,8 +228,8 @@ Rls.Kingdom=function(r){
 		r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
 		r=Rls.ext(r,Rls.Set[1],"第一回合雙方符號不得設置於C3:G7之座標")
 	}
-	r=Rls.add(r,"將符號組合成一塊，為一國土")
-	r=Rls.add(r,"當國土有9個符號以上時為一王國")
+	r=Rls.add(r,"將符號組合成一區塊，為一國土")
+	r=Rls.add(r,"當區塊有9個符號以上時為一王國")
 	r=Rls.add(r,"棋盤已滿，我方王國符號數較對方多時獲勝")
 	r=Rls.add(r,"棋盤已滿，我方王國符號數與對方相同，我方王國數較對方多時獲勝");return r
 }
@@ -238,7 +238,7 @@ Rls.Mirror=function(r){
 	r=Rls.ext(r,Rls.Set[1],"第一回合O方符號不得設置於A1:I4之座標</li><li>第一回合X方符號不得設置於A6:I9之座標")
 	r=Rls.add(r,"A1:I4為對方反射區")
 	r=Rls.add(r,"A6:I9為我方反射區")
-	r=Rls.add(r,"第二回合後，我方設置符號於對方反射區時，我方反射區將產生符號")
+	r=Rls.add(r,"第4回合後，我方設置符號於對方反射區時，我方反射區將產生符號")
 	r=Rls.add(r,"我方設置符號於我方反射區時，對方反射區不會產生符號")
 	return r
 }
