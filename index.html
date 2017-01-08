@@ -382,7 +382,7 @@ p a{text-decoration:underline}
 				<td colspan="3"><div style="text-align:left">詳細內容</div><textarea style="width:95%;height:100px;border:solid 1px" id="r-cont"></textarea></td>
 			</tr>
 			<tr height="10"></tr>
-			<tr><td colspan="3"><div style="float:right;width:80px;height:40px;background-color:#758f9b;color:white;line-height:40px;text-align:center" onclick="Rpt(this)">送出</div></td></tr>
+			<tr><td colspan="3"><div style="float:right;width:80px;height:40px;background-color:#758f9b;color:white;line-height:40px;text-align:center" onclick="Rpt(this)" id="r-send">送出</div></td></tr>
 			<tr height="20"></tr>
 		</table>
 		<table align="center" class="Mobile" style="100%">
@@ -418,12 +418,13 @@ p a{text-decoration:underline}
 </div>
 </body>
 <script>
-var link=$("#lLst div a,.page div a"),show="",page=$(".field,.field2")
+var link=$("#lLst div a,.page div a"),show="",page=$(".field,.field2"),input=0
 function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
 	for(var i=0;i<5;i++){
 		Id(page[i]).style.height="40px"
 		Id("p"+page[i]).style.height="40px"
 	}
+	$("input,textarea").focus(function(){input=1});$("input,textarea").blur(function(){input=0})
 	for(var i=0;i<link.length;i++){
 		var t=link[i].parentNode.getAttribute("data-chess")||link[i].parentNode.getAttribute("data-rules")||link[i].parentNode.getAttribute("data-btchs")
 		if(t!="Main"){
@@ -511,11 +512,11 @@ function Rpt(btn){var t="r-";if($(window).width<830)t="mr-"
 function Ptg(t){
 	$("article").animate({scrollTop:$(t).offset().top-40+$("article")[0].scrollTop},1000)
 }
-function KDw(e){e.preventDefault()
-	var k=e.which
-	if(k==27){
-		Hid();show=""
-	}else if(show.length==0){
+function KDw(e){if(!input)e.preventDefault()
+	var k=e.which,c=e.ctrlKey;if(k==13){Rpt(Id("r-send"))}
+	if(c&&k==82){Ptg('#cReport');Id("r-titl").focus()}
+	if(k==27){if(input){input=0;Ptg("#cHome")}else{Hid();show=""}}if(input)return
+	if(show.length==0){
 		if(k==49||k==97)Lst('chess','Main')
 		if(k==50||k==98)Lst('btchs','Main')
 		if(k==51||k==99)Lst('rules','Main')
