@@ -515,7 +515,7 @@ function Ptg(t){
 function KDw(e){if(!input)e.preventDefault()
 	var k=e.which,c=e.ctrlKey;if(k==13){Rpt(Id("r-send"))}
 	if(c&&k==82){Ptg('#cReport');Id("r-titl").focus()}
-	if(k==27){if(input){input=0;Ptg("#cHome")}else{Hid();show=""}}if(input)return
+	if(k==27){if(input){Ptg("#cHome");Id("r-titl").focus();Id("r-titl").blur()}else{Hid();show=""}}if(input)return
 	if(show.length==0){
 		if(k==49||k==97)Lst('chess','Main')
 		if(k==50||k==98)Lst('btchs','Main')
