@@ -302,8 +302,7 @@
 	</div>
 </body>
 <script>
-if(Cookies.get("vst"))Id("TT").style.display='none';Cookies.set("vst",0,{expires:5})
-else Id("TT").style.fontSize=($(window).width()/10)+"px"
+if(Cookies.get("vst")){Id("TT").style.display='none';Cookies.set("vst",0,{expires:5})}else Id("TT").style.fontSize=($(window).width()/10)+"px"
 var link=$("#lLst div a,.page div a"),show="",page=$(".field,.field2"),input=0
 function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
 	for(var i=0;i<5;i++){
