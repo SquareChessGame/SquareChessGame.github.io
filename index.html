@@ -502,7 +502,7 @@ function Rpt(btn){var t="r-",m=new Date();if($(window).width<830)t="mr-"
 	if(Id(t+"titl").value.length<1)return alert("無標題");btn.style.backgroundColor="#48585f"
 	try{$.get(
 		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
-		{titl:Id(t+"titl").value,resp:Id(t+"resp").value,cont:Id(t+"cont").value,time:m.getfullYear()+"/"+(m.Month()+1)+"/"+m.getDate()},
+		{titl:Id(t+"titl").value,resp:Id(t+"resp").value,cont:Id(t+"cont").value,time:m.getFullYear()+"/"+(m.getMonth()+1)+"/"+m.getDate()},
 		function(r){
 			alert(r);Id(t+"titl").value="";Id(t+"cont").value="";
 			btn.style.backgroundColor="#758f9b"
