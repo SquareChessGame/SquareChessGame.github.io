@@ -7,15 +7,11 @@
 <link href="Pics/Icon.png" rel="shortcut icon">
 <title>Square Chess Game</title>
 <script src="Impo/jquery.min.js"></script>
-<script src="Impo/js.cookie.js"></script>
 <script src="Impo/firebase.js"></script>
 <script src="Core/Gear.js"></script>
 <script src="Core/Prun.js"></script>
 </head>
 <body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
-	<div style="background-image:url(Pics/bg.jpg);width:100%;height:100%;position:fixed;top:0px;left:0px;z-index:5;background-size:100% 100%;background-color:#3e4d54;background-repeat:no-repeat;display:table;transition:all 1s" id="TTC">
-		<div style="display:table-cell;text-align:center;vertical-align:middle;color:white;font-family:Centaur;font-size:40px" id="TT">Square Chess Game</div>
-	</div>
 	<div id="NightMode" style="opacity:1">
 	<header>
 		<div id="Home" onclick="$('article').animate({scrollTop:0},1000);Mnu(1)"></div>
@@ -302,7 +298,6 @@
 	</div>
 </body>
 <script>
-Id("TT").style.fontSize=($(window).width()/10)+"px"
 var link=$("#lLst div a,.page div a"),show="",page=$(".field,.field2"),input=0
 function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
 	for(var i=0;i<5;i++){
@@ -317,7 +312,7 @@ function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
 			if(link[i].parentNode.getAttribute("data-btchs"))link[i].href="btchs.html?mode="+link[i].innerHTML
 			if(link[i].parentNode.getAttribute("data-rules"))link[i].href="rules.html?mode="+link[i].innerHTML
 		}link[i].parentNode.style.transition="all 1s"
-	}Rsz();Hid();Id("TTC").style.opacity=0;setTimeout("Id('TTC').style.display='none'",1000)
+	}Rsz();Hid()
 }
 function Lst(d,v){Hid(d,'Main')
 	if(show!=d+"/"+v)Shw(d,v)
