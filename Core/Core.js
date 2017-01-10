@@ -56,7 +56,7 @@ function Itf(){var bd=""
 	})
 	$(".bt").click(function(){Set(this.id)})
 	$(".bt").dblclick(function(){if(Dft.System.Gst)Ctl("Udo",this.id)})
-	$(".bt").on("taphold contextmenu",function(){if(Dft.System.Gst)Ctl("Rdo",this.id)})
+	$(".bt").on("taphold contextmenu",function(){if(Dft.System.Gst)Ctl("Rdo",this.id);else if(this.id=="Cln")Opt();else if(this.id=="Udo")Ctl("Gto")})
 }
 function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else ckr=confirm(msg)
 	if(ckr){Tn=0;Hst={Brd:[],Crd:["E5"],Sel:[],Rut:[]}
