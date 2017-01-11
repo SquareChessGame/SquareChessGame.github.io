@@ -21,6 +21,7 @@ function KDw(e){
 		case  46:if(s)Cln();else Ctl("Cln");break
 		case  89:if(c)Ctl("Rdo");break
 		case  90:if(c)Ctl("Udo");break
+		case 112:Ctl("RSw");break
 		case 219:
 			if(m.style.left=="0px"){
 				if(m.style.width=="0px")Mnu(1,1);else Mnu(0,0)
@@ -106,7 +107,7 @@ function Ctl(t,v){if(t=="Udo"||t=="Rdo")if(v&&v.length==3)return;Sel.Now("N")
 		case "RSw":if(typeof v!="number")v=Id("Rule").style.height=="0px"
 			if(v){Id("Rule").style.height=Id("UI").style.width;Ctl("Rul")}
 			else Id("Rule").style.height="0px";break
-		case"Rul":Id("Rule").childNodes[3].innerHTML+=Rls.Lst(MdQ)
+		case"Rul":Id("Rule").childNodes[3].innerHTML=Rls.Lst(MdQ)
 		if(MdQ.indexOf("Newbie")<0)Id("Rule").childNodes[3].innerHTML+="<li><font onclick='Srt(0)' color='blue' style='cursor:pointer'>點此查看詳盡圖解</li>"
 		;break
 		case"Hom":if(confirm('確定離開頁面?'))location="index.html";break
