@@ -55,7 +55,6 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 				Ctl("MSw",Dft.Oln.MSw);Id("msgc").scrollTop=Id("msgc").scrollHeight
 				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1)$(".join").css("display","none")
 				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間"]
-						for(var i=0;i<ssm.length;i++)while(msg.search('<div style="text-align:center">-'+ssm[i]+'-</div>')<0)msg=msg.replace('<div style="text-align:center">-'+ssm[i]+'-</div>',"")
 					var m=msg.split("<br>")
 					if(m.length>1&&m[m.length-2][0]!=Dft.Oln.Typ)var n=new Notification("即時訊息",{
 						body:m[m.length-2],icon:"Pics/Icon.png"
