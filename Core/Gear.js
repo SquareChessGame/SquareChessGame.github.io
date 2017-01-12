@@ -103,7 +103,7 @@ Oln.Ckr=function(){
 		var req={CheckNum:Dft.Oln.CkN,PlayerCk:{}}
 		req.PlayerCk[Enm(Dft.Oln.Typ)]="N";req.PlayerCk[Dft.Oln.Typ]=r.val()[Dft.Oln.Typ]
 		firebase.database().ref("Battle/"+Dft.Oln.Id).update(req)
-		setTimeout("Oln.Ckr()",10000)
+		setTimeout("Oln.Ckr()",60000)
 	})
 }
 function RJC(s){var r="",t=[];if(!s)s=10;s++
