@@ -199,8 +199,8 @@ Rls.Zombie=function(r){var tun=10;if(Rls.dft)tun=Dft.Zombie.ToZ
 Rls.Follow=function(r){
 	for(var i=0;i<r.length;i++)if(r[i].search("符號須設置於我方")>-1)r[i]=r[i].replace("符號須設置於我方","符號須設置於我方上一回合");return r
 }
-Rls.ByLine=function(r){var ajd=0;if(Rls.dft)ajd=Dft.ByLine.AJd;r=Rls.add(r,Rls.AJd[ajd]+":ByLine")
-	r=Rls.add(r,"我方兩枚符號形成直線或斜線時，該直線或斜線區域將產生私區");return r
+Rls.ByLine=function(r){var ajd=0;r=Rls.add(r,"我方兩枚符號形成直線或斜線時，該直線或斜線區域將產生私區")
+	if(Rls.dft)ajd=Dft.ByLine.AJd;r=Rls.add(r,Rls.AJd[ajd]+":ByLine");return r
 }
 Rls.Anomal=function(r){
 	r=Rls.add(r,"空白區域被符號包圍時，空白區域將產生私區");return r
