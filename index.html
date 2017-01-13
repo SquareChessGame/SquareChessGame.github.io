@@ -7,12 +7,10 @@
 <link href="Pics/Icon.png" rel="shortcut icon">
 <title>Square Chess Game</title>
 <script src="Impo/jquery.min.js"></script>
-<script src="Impo/firebase.js"></script>
-<script src="Core/Gear.js"></script>
 <script src="Core/Prun.js"></script>
 </head>
 <body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
-	<div id="NightMode" style="opacity:1">
+	<div id="NightMode" style="opacity:0">
 	<header>
 		<div id="Home" onclick="$('article').animate({scrollTop:0},1000);Mnu(1)"></div>
 		<div id="Menu" class="Computer">
@@ -312,7 +310,7 @@ function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
 			if(link[i].parentNode.getAttribute("data-btchs"))link[i].href="btchs.html?mode="+link[i].innerHTML
 			if(link[i].parentNode.getAttribute("data-rules"))link[i].href="rules.html?mode="+link[i].innerHTML
 		}link[i].parentNode.style.transition="all 1s"
-	}Rsz();Hid()
+	}Rsz();Hid();Id("NightMode").style.opacity=1
 }
 function Lst(d,v){Hid(d,'Main')
 	if(show!=d+"/"+v)Shw(d,v)

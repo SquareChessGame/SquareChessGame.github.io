@@ -14,6 +14,7 @@
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{}}
 function Ldr(){if(!location.search||location.search.substr(0,6)!="?mode="){alert("要求格式錯誤");location="index.html"}
 	var mdN=location.search.replace("?mode=","")
+	Id("NightMode").style.opacity=1;setTimeout("doc.body.style.backgroundColor='black'",1000)
 	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie","")
 	$("#Rsw div")[0].innerHTML=doc.title;Dft.Oln.MdN=doc.title;MdQ=mdN.replace("Square.","").split(":");MdL(0)
 }

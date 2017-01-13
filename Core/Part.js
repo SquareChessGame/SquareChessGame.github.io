@@ -195,7 +195,7 @@ function Enm(sym){
 }
 function BJd(){var nxt=[],nxn=[]
 	for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
-		if(!Ckr(Chr(cd1)+cd2)){if(Qre(Chr(cd1)+cd2,"Sym")==2)nxn.push(Chr(cd1)+cd2)}
+		if(!Ckr(Chr(cd1)+cd2)){var sym=Qre(Chr(cd1)+cd2,"Sym");if(sym==2||sym!=Tn%2)nxn.push(Chr(cd1)+cd2)}
 		else nxt.push(Chr(cd1)+cd2)
 	}if(nxt.length==0&&Tn>2&&Tn!=81&&!Dft.Win)Jdg(Sqr.Sym[(Tn+1)%2]+"獲勝");return nxn
 }
