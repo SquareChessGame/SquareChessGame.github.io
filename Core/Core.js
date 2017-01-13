@@ -146,7 +146,7 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 		OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
 		OpS("System-Oln","k","線上對戰",Dft.System.Oln)
 	}else Oln.Opt()
-	OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
+	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1)OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
 	OpS("System-iTn","k","上回設置",Dft.System.iTn)
 	OpS("System-Gst","k","手勢操作",Dft.System.Gst)
 	if($("#Recrd").width()>10)OpS("System-Rec","k","顯示過程",Id("Recrd").style.display!="none")
