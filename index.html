@@ -393,7 +393,7 @@ function Ptg(t){
 	$("article").animate({scrollTop:$(t).offset().top-40+$("article")[0].scrollTop},1000)
 }
 function KDw(e){if(!input)e.preventDefault()
-	var k=e.which,c=e.ctrlKey;if(k==13){Rpt(Id("r-send"))}
+	var k=e.which,c=e.ctrlKey;if(k==13){if(Id("r-titl").value!="")Rpt(Id("r-send"))}
 	if(c&&k==82){Ptg('#cReport');Id("r-titl").focus()}
 	if(k==27){if(input){Ptg("#cHome");Id("r-titl").focus();Id("r-titl").blur()}else{Hid();show=""}}if(input)return
 	if(show.length==0){
