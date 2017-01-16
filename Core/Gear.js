@@ -19,7 +19,7 @@ function Req(Typ,Jcd){Dft.Oln.CkN=RJC();Dft.Set=0
 					Msg("X方已加入",1);Dft.Oln.CkN=r.val();Ini()
 					firebase.database().ref("Battle/"+id).update({PlayerX:"Y",CheckNum:r.val(),LastActive:new Date().getTime()})
 				})
-			}else if(!r.val()){alert("此房間不存在");location.reload()
+			}else if(!r.val()){alert("此房間不存在");location.search=""
 			}else {alert("進入觀賞模式");Dft.Oln.Typ="V";Ini()}
 		});if(Notification&&Notification.permission!="granted")Notification.requestPermission()
 	})
@@ -77,7 +77,7 @@ function Joi(){
 	else if(Cookies.get(location.hash.replace("#",""))){
 		var Inf=Cookies.get(location.hash.replace("#","")).split("/")
 		Dft.Oln.Id=location.hash.replace("#","");Dft.Oln.CkN=Inf[0]
-		Dft.Oln.Typ=Inf[1];Ini();alert("已協助您恢復房間");Msg(Dft.Oln.Typ+"方恢復房間",1)
+		Dft.Oln.Typ=Inf[1];Ini();Msg(Dft.Oln.Typ+"方恢復房間",1)
 	}else Req("J",location.hash.replace("#",""))
 }
 Oln.Opt=function(){Id("msgr").style.opacity=0
