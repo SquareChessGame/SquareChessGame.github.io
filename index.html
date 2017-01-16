@@ -6,8 +6,134 @@
 <meta name="mobile-web-app-capable" content="yes" />
 <link href="Pics/Icon.png" rel="shortcut icon">
 <title>Square Chess Game</title>
+<script>
+if(location.search.length>10){
+	var spt=location.search.replace("?","").replace("%2F","/").split("/")
+	location="btchs.html?mode="+spt[0]+"#"+spt[1]
+}
+</script>
 <script src="Impo/jquery.min.js"></script>
 <script src="Core/Prun.js"></script>
+<style>@import "Core/Face.css";
+footer{
+	left:0px;
+	width:100%;
+	bottom:0px;
+	height:40px;
+	color:white;
+	font-size:16px;
+	position:fixed;
+	overflow:hidden;
+	line-height:40px;
+	text-align:center;
+	background-color:#758f9b;
+}
+#Home{
+	float:left;
+	height:40px;
+	width:350px;
+	color:white;
+	font-size:25px;
+	line-height:40px;
+	margin-left:40px;
+	background-size:25px 25px;
+	background-repeat:no-repeat;
+	background-position:7.5px 7.5px;
+	background-image:url(Pics/Logo.gif);
+	cursor:pointer;
+}
+#Menu,#List{
+	height:40px;
+	width:430px;
+	float:right;
+	font-size:16px;
+	overflow:visible;
+	margin-right:10px;
+	font-family:Microsoft JhengHei UI;
+}
+#Menu hr,#List hr{width:0px;height:60%;float:right}
+#Copy{width:235px;margin-left:5px;float:left;font-family:Courier New;font-size:15px;}
+.Social{
+	width:35px;
+	height:35px;
+	float:right;
+	margin:2.5px;
+	cursor:pointer;
+	background-size:20px 20px;
+	background-repeat:no-repeat;
+	background-position:center center;
+}
+#LstB{
+	background-image:url(Pics/List.gif);
+	background-size:25px 25px;
+	background-repeat:no-repeat;
+	width:40px;height:40px;
+	background-position:center center;
+	transition:background 1s;
+}
+.page div:hover,#lLst div div:hover{color:#48585f}
+.page,.pPage{width:140px;float:right;font-weight:bold;overflow:visible;cursor:pointer}
+.pPage{width:100%}
+#lLst div div,.page div{
+	font-weight:bold;line-height:40px
+	height:0px;width:100%;float:left;
+	background-color:#758f9b;
+	text-decoration:none;overflow:hidden;
+}
+.tab{background-color:#758f9b;overflow:hidden}
+#pStart,#pAbout,#pOnline,#pReport,#pRules,.pTab{
+	background-position:right 5px;
+	background-size:30px 30px;
+	background-repeat:no-repeat;
+}
+article{
+	user-select:text;-ms-user-select:text;-moz-user-select:text;-webkit-user-select:text;
+	color:#48585f;font-family:Centaur;overflow:auto;
+}
+article::-webkit-scrollbar{width:0px;height:0px}
+article div{float:left;height:auto;width:100%}
+h1{font-size:20px;font-weight:normal}
+h2{font-size:25px;font-weight:normal}
+h1 .En{font-size:50px}
+h1 .Ch{letter-spacing:3px}
+article div div{height:auto;width:auto;float:none}
+#cImag{background-image:url(Pics/chsbd.png);background-repeat:no-repeat;background-position:center center;}
+.field,.field2{overflow:auto;margin-top:20px;font-size:20px;letter-spacing:2px;line-height:1.2}
+#pStart{background-image:url(Pics/Start.gif)}
+#pStart:hover{background-image:url(Pics/Starth.gif)}
+#pAbout{background-image:url(Pics/About.gif)}
+#pAbout:hover{background-image:url(Pics/Abouth.gif)}
+#pOnline{background-image:url(Pics/Online.gif)}
+#pOnline:hover{background-image:url(Pics/Onlineh.gif)}
+#pReport{background-image:url(Pics/Report.gif)}
+#pReport:hover{background-image:url(Pics/Reporth.gif)}
+#pRules{background-image:url(Pics/Rules.gif)}
+#pRules:hover{background-image:url(Pics/Rulesh.gif)}
+.pTab{background-image:url(Pics/Down.gif)}
+.pTab:hover{background-image:url(Pics/Downh.gif)}
+#lLst div{overflow:auto;height:280px}
+#lLst div div:hover{background-color:#99bccc}
+#fb{background-image:url(Pics/fb.gif)}
+#tw{background-image:url(Pics/tw.gif)}
+#gp{background-image:url(Pics/gp.gif)}
+#fb:hover{background-image:url(Pics/fbh.gif)}
+#tw:hover{background-image:url(Pics/twh.gif)}
+#gp:hover{background-image:url(Pics/gph.gif)}
+input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-height:1.2;margin-top:20px}
+.con{
+	height:50px;background-color:#758f9b;width:50px;border-radius:25px;position:relative;overflow:visible;transition:all 2s;margin-top:10px;font-size:16px
+}
+.con:hover{width:300px;color:white}
+.cont{
+	height:40px;width:40px;position:absolute;top:5px;left:5px;
+	background-color:white;border-radius:20px;background-size:80%;
+	background-position:center center;background-repeat:no-repeat
+}
+.conx{
+	position:absolute;top:0px;left:55px;border:none;height:50px;line-height:50px;width:140px
+}
+p a{text-decoration:underline}
+</style>
 </head>
 <body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
 	<div id="NightMode" style="opacity:0">
@@ -419,124 +545,4 @@ function KDw(e){if(!input)e.preventDefault()
 	}
 }
 </script>
-<style>@import "Core/Face.css";
-footer{
-	left:0px;
-	width:100%;
-	bottom:0px;
-	height:40px;
-	color:white;
-	font-size:16px;
-	position:fixed;
-	overflow:hidden;
-	line-height:40px;
-	text-align:center;
-	background-color:#758f9b;
-}
-#Home{
-	float:left;
-	height:40px;
-	width:350px;
-	color:white;
-	font-size:25px;
-	line-height:40px;
-	margin-left:40px;
-	background-size:25px 25px;
-	background-repeat:no-repeat;
-	background-position:7.5px 7.5px;
-	background-image:url(Pics/Logo.gif);
-	cursor:pointer;
-}
-#Menu,#List{
-	height:40px;
-	width:430px;
-	float:right;
-	font-size:16px;
-	overflow:visible;
-	margin-right:10px;
-	font-family:Microsoft JhengHei UI;
-}
-#Menu hr,#List hr{width:0px;height:60%;float:right}
-#Copy{width:235px;margin-left:5px;float:left;font-family:Courier New;font-size:15px;}
-.Social{
-	width:35px;
-	height:35px;
-	float:right;
-	margin:2.5px;
-	cursor:pointer;
-	background-size:20px 20px;
-	background-repeat:no-repeat;
-	background-position:center center;
-}
-#LstB{
-	background-image:url(Pics/List.gif);
-	background-size:25px 25px;
-	background-repeat:no-repeat;
-	width:40px;height:40px;
-	background-position:center center;
-	transition:background 1s;
-}
-.page div:hover,#lLst div div:hover{color:#48585f}
-.page,.pPage{width:140px;float:right;font-weight:bold;overflow:visible;cursor:pointer}
-.pPage{width:100%}
-#lLst div div,.page div{
-	font-weight:bold;line-height:40px
-	height:0px;width:100%;float:left;
-	background-color:#758f9b;
-	text-decoration:none;overflow:hidden;
-}
-.tab{background-color:#758f9b;overflow:hidden}
-#pStart,#pAbout,#pOnline,#pReport,#pRules,.pTab{
-	background-position:right 5px;
-	background-size:30px 30px;
-	background-repeat:no-repeat;
-}
-article{
-	user-select:text;-ms-user-select:text;-moz-user-select:text;-webkit-user-select:text;
-	color:#48585f;font-family:Centaur;overflow:auto;
-}
-article::-webkit-scrollbar{width:0px;height:0px}
-article div{float:left;height:auto;width:100%}
-h1{font-size:20px;font-weight:normal}
-h2{font-size:25px;font-weight:normal}
-h1 .En{font-size:50px}
-h1 .Ch{letter-spacing:3px}
-article div div{height:auto;width:auto;float:none}
-#cImag{background-image:url(Pics/chsbd.png);background-repeat:no-repeat;background-position:center center;}
-.field,.field2{overflow:auto;margin-top:20px;font-size:20px;letter-spacing:2px;line-height:1.2}
-#pStart{background-image:url(Pics/Start.gif)}
-#pStart:hover{background-image:url(Pics/Starth.gif)}
-#pAbout{background-image:url(Pics/About.gif)}
-#pAbout:hover{background-image:url(Pics/Abouth.gif)}
-#pOnline{background-image:url(Pics/Online.gif)}
-#pOnline:hover{background-image:url(Pics/Onlineh.gif)}
-#pReport{background-image:url(Pics/Report.gif)}
-#pReport:hover{background-image:url(Pics/Reporth.gif)}
-#pRules{background-image:url(Pics/Rules.gif)}
-#pRules:hover{background-image:url(Pics/Rulesh.gif)}
-.pTab{background-image:url(Pics/Down.gif)}
-.pTab:hover{background-image:url(Pics/Downh.gif)}
-#lLst div{overflow:auto;height:280px}
-#lLst div div:hover{background-color:#99bccc}
-#fb{background-image:url(Pics/fb.gif)}
-#tw{background-image:url(Pics/tw.gif)}
-#gp{background-image:url(Pics/gp.gif)}
-#fb:hover{background-image:url(Pics/fbh.gif)}
-#tw:hover{background-image:url(Pics/twh.gif)}
-#gp:hover{background-image:url(Pics/gph.gif)}
-input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-height:1.2;margin-top:20px}
-.con{
-	height:50px;background-color:#758f9b;width:50px;border-radius:25px;position:relative;overflow:visible;transition:all 2s;margin-top:10px;font-size:16px
-}
-.con:hover{width:300px;color:white}
-.cont{
-	height:40px;width:40px;position:absolute;top:5px;left:5px;
-	background-color:white;border-radius:20px;background-size:80%;
-	background-position:center center;background-repeat:no-repeat
-}
-.conx{
-	position:absolute;top:0px;left:55px;border:none;height:50px;line-height:50px;width:140px
-}
-p a{text-decoration:underline}
-</style>
 </html>
