@@ -11,7 +11,7 @@
 		System:{Blk:0,Nxt:0,iTn:0,Qsr:0,Oln:0,Gst:0}
 	},
 	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},
-	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{}}
+	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{},Ato:{}}
 function Ldr(){if(!location.search||location.search.substr(0,6)!="?mode="){alert("要求格式錯誤");location="index.html"}
 	var mdN=location.search.replace("?mode=","")
 	Id("NightMode").style.opacity=1;setTimeout("doc.body.style.backgroundColor='black'",1000)

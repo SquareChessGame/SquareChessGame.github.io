@@ -32,3 +32,25 @@ Shl.OpK.Connect=function(){
 	if(!Dft.System.Oln)for(var i=0;i<3;i++)if(Id("Connect-Rul-"+i).checked)Dft.Connect.Rul=i
 	Ara.OpK("Connect")
 }
+Shl.Ato.Connect=function(){var cds=Sel("All"),set=[],ara={O:[],X:[]},ctl={O:[],X:[]},ext=[]
+	for(var i=0;i<cds.length;i++){if(!Ckr(cds[i]))continue
+		set.push(cds[i]);Qre(cds[i],"Sym",Tn%2);var s=Cnt();;Qre(cds[i],"Sym",2)
+		for(var j=0;j<2;j++){var n=0
+			for(var h=0;h<s[Sqr.Sym[j]].length;h++)n+=s[Sqr.Sym[j]][h].length*(h+1)
+			ara[Sqr.Sym[j]].push(s[Sqr.Sym[j]].All.length);ctl[Sqr.Sym[j]].push(n)
+		}
+	}
+	while(ext.length!=set.length){var row=0,ckr=0
+		for(var i=0;i<set.length;i++){if(ext.indexOf(i)>-1)continue
+			var tk0c=ara[Sqr.Sym[Tn%2]][i]-ara[Sqr.Sym[(Tn+1)%2]][i],
+				tk0m=ara[Sqr.Sym[Tn%2]][row]-ara[Sqr.Sym[(Tn+1)%2]][row],
+				tk1c=ctl[Sqr.Sym[Tn%2]][i],tk1m=ctl[Sqr.Sym[Tn%2]][row],
+				tk2c=ctl[Sqr.Sym[(Tn+1)%2]][i],tk2m=ctl[Sqr.Sym[(Tn+1)%2]][row]
+			if(!ckr){tk0m=0;tk1m=0;tk2m=0}
+			if(tk0c>tk0m){row=i;ckr=1}else if(tk0c==tk0m){
+				if(tk1c>tk1m){row=i;ckr=1}else if(tk1c==tk1m&&(tk2c>tk2m||tk2c==tk2m)){row=i;ckr=1}
+			}
+		}ext.push(row)
+	}ext=ext.reverse()
+	return {lvl:ext,set:set,ara:ara,ctl:ctl}
+}
