@@ -51,6 +51,6 @@ Shl.Ato.Connect=function(){var cds=Sel("All"),set=[],ara={O:[],X:[]},ctl={O:[],X
 				if(tk1c>tk1m){row=i;ckr=1}else if(tk1c==tk1m&&(tk2c>tk2m||tk2c==tk2m)){row=i;ckr=1}
 			}
 		}ext.push(row)
-	}ext=ext.reverse()
-	return {lvl:ext,set:set,ara:ara,ctl:ctl}
+	}ext=ext.reverse();var res=ext;for(var i=0;i<res.length;i++)res[i]=set[ext[i]]
+	return {lvl:ext,crd:set,ara:ara,ctl:ctl,set:res}
 }
