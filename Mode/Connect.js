@@ -32,10 +32,10 @@ Shl.OpK.Connect=function(){
 	if(!Dft.System.Oln)for(var i=0;i<3;i++)if(Id("Connect-Rul-"+i).checked)Dft.Connect.Rul=i
 	Ara.OpK("Connect")
 }
-Shl.Ato.Connect=function(){var cds=Sel("All"),set=[],ara={O:[],X:[]},ctl={O:[],X:[]},ext=[]
+Shl.Ato.Connect=function(){var cds=Sel("All"),set=[],ara={O:[],X:[]},ctl={O:[],X:[]},clv={O:[],X:[]},ext=[]
 	for(var i=0;i<cds.length;i++){if(!Ckr(cds[i]))continue
-		set.push(cds[i]);Qre(cds[i],"Sym",Tn%2);var s=Cnt();;Qre(cds[i],"Sym",2)
-		for(var j=0;j<2;j++){var n=0
+		set.push(cds[i]);Qre(cds[i],"Sym",Tn%2);var s=Cnt();Qre(cds[i],"Sym",2)
+		for(var j=0;j<2;j++){var n=0;clv[Sqr.Sym[j]].push(s[Sqr.Sym[j]].length-1)
 			for(var h=0;h<s[Sqr.Sym[j]].length;h++)n+=s[Sqr.Sym[j]][h].length*(h+1)
 			ara[Sqr.Sym[j]].push(s[Sqr.Sym[j]].All.length);ctl[Sqr.Sym[j]].push(n)
 		}
@@ -51,6 +51,6 @@ Shl.Ato.Connect=function(){var cds=Sel("All"),set=[],ara={O:[],X:[]},ctl={O:[],X
 				if(tk1c>tk1m){row=i;ckr=1}else if(tk1c==tk1m&&(tk2c>tk2m||tk2c==tk2m)){row=i;ckr=1}
 			}
 		}ext.push(row)
-	}ext=ext.reverse();var res=ext;for(var i=0;i<res.length;i++)res[i]=set[ext[i]]
-	return {lvl:ext,crd:set,ara:ara,ctl:ctl,set:res}
+	}ext=ext.reverse()
+	return {set:ext,crd:set,ara:ara,ctl:ctl,clv:clv}
 }
