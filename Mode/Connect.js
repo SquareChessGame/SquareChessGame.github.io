@@ -32,7 +32,7 @@ Shl.OpK.Connect=function(){
 	if(!Dft.System.Oln)for(var i=0;i<3;i++)if(Id("Connect-Rul-"+i).checked)Dft.Connect.Rul=i
 	Ara.OpK("Connect")
 }
-Shl.Ato.Connect=function(){var cds=Sel("All"),set=[],ara={O:[],X:[]},ctl={O:[],X:[]},clv={O:[],X:[]},ext=[]
+Shl.Ato.Connect=function(typ){var cds=Sel("All"),set=[],ara={O:[],X:[]},ctl={O:[],X:[]},clv={O:[],X:[]},ext=[]
 	for(var i=0;i<cds.length;i++){if(!Ckr(cds[i]))continue
 		set.push(cds[i]);Qre(cds[i],"Sym",Tn%2);var s=Cnt();Qre(cds[i],"Sym",2)
 		for(var j=0;j<2;j++){var n=0;clv[Sqr.Sym[j]].push(s[Sqr.Sym[j]].length-1)
@@ -48,9 +48,19 @@ Shl.Ato.Connect=function(){var cds=Sel("All"),set=[],ara={O:[],X:[]},ctl={O:[],X
 				tk2c=ctl[Sqr.Sym[(Tn+1)%2]][i],tk2m=ctl[Sqr.Sym[(Tn+1)%2]][row]
 			if(!ckr){tk0m=0;tk1m=0;tk2m=0}
 			if(tk0c>tk0m){row=i;ckr=1}else if(tk0c==tk0m){
-				if(tk1c>tk1m){row=i;ckr=1}else if(tk1c==tk1m&&(tk2c>tk2m||tk2c==tk2m)){row=i;ckr=1}
+				if(typ=="D"){
+					if(tk1c>tk1m){row=i;ckr=1}else if(tk1c==tk1m&&(tk2c>tk2m||tk2c==tk2m)){row=i;ckr=1}
+				}else{
+					if(tk2c>tk2m){row=i;ckr=1}else if(tk2c==tk2m&&(tk1c>tk1m||tk1c==tk1m)){row=i;ckr=1}
+				}
 			}
 		}ext.push(row)
 	}ext=ext.reverse()
 	return {set:ext,crd:set,ara:ara,ctl:ctl,clv:clv}
+}
+function Bst(){
+	var A=Shl.Ato.Connect(),D=Shl.Ato.Connect("D");
+	for(var i=0;i<A.set.length;i++){
+		A.set[i]=A.crd[A.set[i]];D.set[i]=D.crd[D.set[i]]
+	}return {A:A,D:D}
 }
