@@ -129,8 +129,24 @@ function Cnt(){var ara={O:[],X:[],P:[]},ser=0;ara.O.All=[];ara.X.All=[];ara.P.Al
 			}
 		}if(ara.O[ser].length==0&&ara.X[ser].length==0)break;ser++
 	}
-	ara.P.All.concat(Flt(ara.O.All,function(crd){if(ara.X.All.indexOf(crd)<0)return 0;return 1}))
+	ara.P.All.concat(Flt(ara.O.All,function(crd){if(ara.X.All.indexOf(crd)>-1)return 1}))
 	for(var i=0;i<2;i++)ara[Sqr.Sym[i]].All=Flt(ara[Sqr.Sym[i]].All,function(crd){if(ara.P.All.indexOf(crd)<0)return 1;return 0});return ara
+}
+function Cntt(){var ara={O:[],X:[],P:[]},ser=0,brd=Rec();ara.O.All=[];ara.X.All=[];ara.P.All=[]
+	for(var i=0;i<2;i++){
+		while(1){ara[Sqr.Sym[i]][ser]=[]
+			for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
+				var crd=Chr(cd1)+cd2;if(Qre(crd,"Sym")!=2)continue
+				if(!Lmt(crd,i)){ara[Sqr.Sym[i]][ser].push(crd);ara[Sqr.Sym[i]].All.push(crd)}
+			}if(ara[Sqr.Sym[i]][ser].length==0)break;ara[Sqr.Sym[i]].All=ara[Sqr.Sym[i]].All.concat(ara[Sqr.Sym[i]][ser])
+			for(var j=0;j<ara[Sqr.Sym[i]][ser].length;j++)Qre(ara[Sqr.Sym[i]][ser][j],"Sym",i);ser++
+		}Rec(brd)
+	}
+	for(var i=0;i<ser+1;i++){ara.P[ser]=Flt(ara.O[ser],function(crd){if(ara.X[ser].indexOf(crd)>-1)return 1})
+		for(var j=0;j<2;j++){
+			ara[Sqr.Sym[j]].All=ara[Sqr.Sym[j]].All.concat(Flt(ara.P[ser],function(crd){if(ara[Sqr.Sym[j]][ser].indexOf(crd)<0)return 1}))
+		}ara.P.All=ara.P.All.concat(ara.P[ser])
+	}return ara
 }
 function Scr(opt,xpt){
 	if(opt>xpt)return "O獲勝";if(xpt>opt)return "X獲勝";return "平手"
