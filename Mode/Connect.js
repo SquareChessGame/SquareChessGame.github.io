@@ -33,14 +33,17 @@ Shl.OpK.Connect=function(){
 	Ara.OpK("Connect")
 }
 Shl.Ato.Connect=function(typ){
-	var cds=Sel("All"),mn=Cnt(),nx=[],crd=[],ctl={O:[],X:[]},ext=[]
+	var cds=Sel("All"),mn=Cnt(),nx=[],crd=[],ctl={O:[],X:[]},ext=[],set=""
 	for(var i=0;i<cds.length;i++){if(!Ckr(cds[i]))continue
 		crd.push(cds[i]);Qre(cds[i],"Sym",Tn%2);var s=Cnt();Qre(cds[i],"Sym",2);nx.push(s)
 		for(var j=0;j<2;j++){var n=0
 			for(var k=0;k<s[Sqr.Sym[j]].length;k++)n+=s[Sqr.Sym[j]][k].length*(k+1);ctl[Sqr.Sym[j]].push(n)
 		}
 	}
-	if(!typ){if(mn[Sqr.Sym[Tn%2]].length<mn[Sqr.Sym[(Tn+1)%2]].length)typ="A";else typ="D"}
+	if(!typ){
+		if(mn[Sqr.Sym[Tn%2]].length>mn[Sqr.Sym[(Tn+1)%2]].length&&mn[Sqr.Sym[(Tn+1)%2]].length==0)typ="A"
+		else typ="D"
+	}
 	while(ext.length!=crd.length){var r=0,k=0
 		for(var i=0;i<nx.length;i++){if(ext.indexOf(i)>-1)continue
 			if(!k){r=i;k=1;continue}
@@ -58,5 +61,6 @@ Shl.Ato.Connect=function(typ){
 			}
 		}ext.push(r)
 	}if(typ=="A")ext.reverse()
-	return {mn,nx,crd,ext,ctl,typ,set:crd[ext[0]]}
+	if(mn[Sqr.Sym[(Tn+1)%2]].length!=0||mn[Sqr.Sym[Tn%2]].length!=0)set=crd[ext[1]];else set=crd[ext[0]]
+	return {mn,nx,crd,ext,ctl,typ,set}
 }
