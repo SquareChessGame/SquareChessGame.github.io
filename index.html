@@ -135,12 +135,13 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 }
 p a{text-decoration:underline}
 #cComment table{border:1px}
+table{table-layout:fixed;word-break:break-all}
 </style>
 </head>
 <body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
 	<div id="NightMode" style="opacity:0">
 	<header>
-		<div id="Home" onclick="$('article').animate({scrollTop:0},1000);Mnu(1)"></div>
+		<div id="Home" onclick="$('#Content').animate({scrollTop:0},1000);Mnu(1)"></div>
 		<div id="Menu" class="Computer">
 			<div class="page">
 				<div class="tab" id="Rules" onclick="Lst('rules','Main')">遊戲說明</div>
@@ -526,7 +527,7 @@ function Rpt(btn){var t="r-",m=new Date();if($(window).width()<830)t="mr-"
 	)}catch(e){if(confirm("傳送失敗,重試?"))Rpt(btn)}
 }
 function Ptg(t){
-	$("article").animate({scrollTop:$(t).offset().top-40+$("article")[0].scrollTop},1000)
+	$("#Content").animate({scrollTop:$(t).offset().top-40+$("#Content")[0].scrollTop},1000)
 }
 function KDw(e){if(!input)e.preventDefault()
 	var k=e.which,c=e.ctrlKey;if(k==13){if(Id("r-titl").value!="")Rpt(Id("r-send"))}
@@ -563,9 +564,13 @@ function Get(){
 		function(r){
 			var c=r.split("\"/\'/\""),fc="",fm=""
 			for(var i=0;i<c.length-1;i++){
-				if(i%3==0){c[i]+="    <font color='red' onclick='Del("+((i+3)/3-1)+")' style='text-decoration:underline'>刪除</font>";fc+="<tr>";fm+="<tr><td>"+c[i]+"</td>"}
-				else if(i%3==1){fm+="<td>"+c[i]+"</td></tr>"}
-				fc+="<td>"+c[i]+"</td>";if(i%3==2){fc+="</tr>";fm+="<tr><td colspan='2'>"+c[i]+"</td></tr>"}
+				if(i%3==0){
+					c[i]+="    <font color='red' onclick='Del("+((i+3)/3-1)+")' style='text-decoration:underline'>刪除</font>";fc+="<tr>";fm+="<tr><td vlign='center'>"+c[i]+"</td>"
+				}else if(i%3==1){fm+="<td vlign='center'>"+c[i]+"</td></tr>"}
+				fc+="<td style='border-bottom:3px solid #48585f;'>"+c[i]+"</td>"
+				if(i%3==2){
+					fc+="</tr>";fm+="<tr><td colspan='2' style='border-bottom:3px solid #48585f;' vlign='center'>"+c[i]+"</td></tr>"
+				}
 			}
 			$("#cComment table.Computer")[0].innerHTML=fc
 			$("#cComment table.Mobile")[0].innerHTML=fm
