@@ -134,6 +134,7 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 	position:absolute;top:0px;left:55px;border:none;height:50px;line-height:50px;width:140px
 }
 p a{text-decoration:underline}
+#cComment table{border:1px}
 </style>
 </head>
 <body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
@@ -377,7 +378,7 @@ p a{text-decoration:underline}
 				<label><input type="radio" value="R" name="RTp" id="RTr" checked/>回報問題</label>
 				<label><input type="radio" value="C" name="RTp" id="RTc"/>進行評論</label>
 			</div>
-			<table align="center" class="Computer" style="margin-top:20px">
+			<table class="Computer" style="margin-top:20px" align="center">
 				<tr align="center">
 					<td><div style="text-align:left"><font color="red">*</font>標題</div>
 						<input type="text" style="width:100%" id="r-titl"/>
@@ -395,7 +396,7 @@ p a{text-decoration:underline}
 				<tr><td colspan="3"><div style="float:right;width:80px;height:40px;background-color:#758f9b;color:white;line-height:40px;text-align:center" onclick="Rpt(this)" id="r-send">送出</div></td></tr>
 				<tr height="20"></tr>
 			</table>
-			<table align="center" class="Mobile" style="100%">
+			<table class="Mobile" style="100%" align="center">
 				<tr><td><input type="text" style="width:100%" id="mr-titl" placeholder="標題"/></td></tr>
 				<tr><td><input type="text" style="width:100%" id="mr-resp" placeholder="聯絡方式"/></td></tr>
 				<tr><td><textarea style="width:95%;height:100px;border:solid 1px" id="mr-cont" placeholder="詳細內容"></textarea></td></tr>
@@ -404,8 +405,8 @@ p a{text-decoration:underline}
 		</div>
 		<div id="cComment" class="field">
 			<h1><font class="En">Comment </font>/<font class="Ch"> 用戶評論</font></h1>
-			<table class="Computer"><tr><td>正在取得資訊...</td></tr></table>
-			<table class="Mobile"><tr><td>正在取得資訊...</td></tr></table>
+			<table class="Computer" align="center"><tr><td>正在取得資訊...</td></tr></table>
+			<table class="Mobile" align="center"><tr><td>正在取得資訊...</td></tr></table>
 		</div>
 		<div id="cAbout" class="field">
 			<h1><font class="En">About </font>/<font class="Ch"> 關於我們</font></h1>
@@ -472,27 +473,22 @@ function Hid(d,v){
 function Rsz(){var UA=navigator.userAgent
 	$("article").css("height",($(window).height()-80)+"px")
 	if($(window).width()<830){
-		$("article").css("margin-left","10px")
-		$("article").css("margin-right","10px")
-		$(".Computer").css("display","none")
-		$(".Mobile").css("display","")
+		$("article").css("margin-left","10px");$("article").css("margin-right","10px")
+		$("article").css("width",($(window).width()-20)+"px")
+		$(".Computer").css("display","none");$(".Mobile").css("display","")
 		Tag("header")[0].style.overflow="hidden"
 		Id("Home").style.marginLeft=(($(window).width()-40)/2)+"px"
 		Id("Home").innerHTML=""
 		$(".field,.field2").css("width","100%")
 		$("#cImag").css("background-size","85%")
-		$("#repa").css("margin-left","")
-		$("table.Mobile").css("width","100%")
-		$("table.Mobile textarea").css("width","100%")
-		$("table.Mobile input,table.Mobile div").css("width",$("table.Mobile textarea").width()+"px")
-		$("table.Mobile textarea").css("width",$("table.Mobile textarea").width()-5+"px")
+		$("table.Mobile").css("width",$("article").width()-15+"px")
+		$("table.Mobile textarea").css("width",$("article").width()-20+"px")
+		$("table.Mobile input,table.Mobile div").css("width",$("article").width()-15+"px")
 	}else{
-		$("article").css("margin-left","10%")
-		$("article").css("margin-right","10%")
-		$(".Computer").css("display","")
+		$("article").css("margin-left","10%");$("article").css("margin-right","10%")
+		$(".Computer").css("display","");$(".Mobile").css("display","none")
 		Tag("header")[0].style.height="40px"
 		Tag("header")[0].style.overflow="visible"
-		$(".Mobile").css("display","none")
 		Id("Home").style.marginLeft="40px"
 		Id("Home").innerHTML=doc.title
 		$(".field").css("width","100%")
@@ -500,10 +496,10 @@ function Rsz(){var UA=navigator.userAgent
 		$(".field2").css("margin-left","1%")
 		$(".field2").css("margin-right","1%")
 		$("#cImag").css("background-size","70%")
-		$("#repa").css("margin-left","100px")
 	}
-	if((UA.search("Windows")>-1||UA.search("Macintosh")>-1)&&UA.search("Android")<0){$("ol.Computer").css("display","");$("ol.Mobile").css("display","none")}
-	$("#cImag").css("height",($("#cImag").width()/747*500)+"px")
+	if((UA.search("Windows")>-1||UA.search("Macintosh")>-1)&&UA.search("Android")<0){
+		$("ol.Computer").css("display","");$("ol.Mobile").css("display","none")
+	}$("#cImag").css("height",($("#cImag").width()/747*500)+"px")
 }
 function Mnu(v){
 	if(Tag("header")[0].style.height=="320px"||v){
