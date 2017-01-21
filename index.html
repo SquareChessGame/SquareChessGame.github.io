@@ -397,6 +397,12 @@ p a{text-decoration:underline}
 				<tr><td colspan="3"><div style="width:100%;height:40px;background-color:#758f9b;color:white;line-height:40px;text-align:center" onclick="Rpt(this)" id="mr-send">送出</div></td></tr>
 			</table>
 		</div>
+		<div id="cProblem" class="field">
+			<h1><font class="En">Problem </font>/<font class="Ch"> 回報情形</font></h1>
+			在錯誤修正後，將自動移除內容。
+			<table class="Computer"><tr><td>正在取得資訊...</td></tr></table>
+			<table class="Mobile"><tr><td>正在取得資訊...</td></tr></table>
+		</div>
 		<div id="cAbout" class="field">
 			<h1><font class="En">About </font>/<font class="Ch"> 關於我們</font></h1>
 			<h2>開發動機</h2>	
@@ -437,7 +443,7 @@ function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
 			if(link[i].parentNode.getAttribute("data-btchs"))link[i].href="btchs.html?mode="+link[i].innerHTML
 			if(link[i].parentNode.getAttribute("data-rules"))link[i].href="rules.html?mode="+link[i].innerHTML
 		}link[i].parentNode.style.transition="all 1s"
-	}Rsz();Hid();Id("NightMode").style.opacity=1
+	}Rsz();Hid();Id("NightMode").style.opacity=1;Get()
 }
 function Lst(d,v){Hid(d,'Main')
 	if(show!=d+"/"+v)Shw(d,v)
@@ -506,12 +512,14 @@ function Mnu(v){
 }
 function Rpt(btn){var t="r-",m=new Date();if($(window).width()<830)t="mr-"
 	if(Id(t+"titl").value.length<1)return alert("無標題");btn.style.backgroundColor="#48585f"
+	$("#cProblem table.Computer")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
+	$("#cProblem table.Mobile")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
 	try{$.get(
 		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
 		{titl:Id(t+"titl").value,resp:Id(t+"resp").value,cont:Id(t+"cont").value,time:m.getFullYear()+"/"+(m.getMonth()+1)+"/"+m.getDate()},
 		function(r){
 			alert(r);Id(t+"titl").value="";Id(t+"cont").value="";
-			btn.style.backgroundColor="#758f9b"
+			btn.style.backgroundColor="#758f9b";Get()
 		}
 	)}catch(e){if(confirm("傳送失敗,重試?"))Rpt(btn)}
 }
@@ -543,6 +551,29 @@ function KDw(e){if(!input)e.preventDefault()
 				}
 		}
 	}
+}
+function Get(){
+	try{$.get(
+		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
+		{cntt:1},
+		function(r){
+			var c=r.split("\"/\'/\""),fc="",fm=""
+			for(var i=0;i<c.length-1;i++){
+				if(i%3==0){c[i]+="    <font color='red' onclick='Del("+((i+3)/3-1)+")' style='text-decoration:underline'>刪除</font>";fc+="<tr>";fm+="<tr><td>"+c[i]+"</td>"}
+				else if(i%3==1){fm+="<td>"+c[i]+"</td></tr>"}
+				fc+="<td>"+c[i]+"</td>";if(i%3==2){fc+="</tr>";fm+="<tr><td colspan='2'>"+c[i]+"</td></tr>"}
+			}
+			$("#cProblem table.Computer")[0].innerHTML=fc
+			$("#cProblem table.Mobile")[0].innerHTML=fm
+		}
+	)}catch(e){if(confirm("取得失敗,重試?"))Get()}
+}
+function Del(w){
+	try{$.get(
+		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
+		{dele:w,cnct:prompt("輸入聯絡方式")},
+		function(r){alert(r);Get()}
+	)}catch(e){if(confirm("刪除失敗,重試?"))Del(w)}
 }
 </script>
 </html>
