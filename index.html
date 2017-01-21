@@ -568,7 +568,7 @@ function Get(){
 		}
 	)}catch(e){if(confirm("取得失敗,重試?"))Get()}
 }
-function Del(w){
+function Del(w){if(w==0)return alert("無法刪除標題")
 	try{$.get(
 		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
 		{dele:w,cnct:prompt("輸入聯絡方式")},
