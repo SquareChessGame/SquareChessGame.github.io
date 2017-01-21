@@ -512,8 +512,6 @@ function Mnu(v){
 }
 function Rpt(btn){var t="r-",m=new Date();if($(window).width()<830)t="mr-"
 	if(Id(t+"titl").value.length<1)return alert("無標題");btn.style.backgroundColor="#48585f"
-	$("#cProblem table.Computer")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
-	$("#cProblem table.Mobile")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
 	try{$.get(
 		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
 		{titl:Id(t+"titl").value,resp:Id(t+"resp").value,cont:Id(t+"cont").value,time:m.getFullYear()+"/"+(m.getMonth()+1)+"/"+m.getDate()},
@@ -553,6 +551,8 @@ function KDw(e){if(!input)e.preventDefault()
 	}
 }
 function Get(){
+	$("#cProblem table.Computer")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
+	$("#cProblem table.Mobile")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
 	try{$.get(
 		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
 		{cntt:1},
