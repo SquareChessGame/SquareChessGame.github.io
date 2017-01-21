@@ -8,3 +8,4 @@ function Instr(s,c){return s.search(c)}
 function Id(v){return doc.getElementById(v)}
 function Class(v){return doc.getElementsByClassName(v)}
 function Tag(v){return doc.getElementsByTagName(v)}
+function Name(v){return doc.getElementsByName(v)}
