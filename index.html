@@ -565,13 +565,13 @@ function Get(){
 			var c=r.split("\"/\'/\""),fc="",fm=""
 			for(var i=0;i<c.length-1;i++){
 				if(i%3==0){
-					c[i]+="    <font color='red' onclick='Del("+((i+3)/3-1)+")' style='text-decoration:underline'>刪除</font>";fc+="<tr>";fm+="<tr><td vlign='center'>"+c[i]+"</td>"
+					if(i!=0)c[i]+="    <font color='red' onclick='Del("+((i+3)/3-1)+")' style='text-decoration:underline'>刪除</font>";fc+="<tr>";fm+="<tr><td vlign='center'>"+c[i]+"</td>"
 				}else if(i%3==1){fm+="<td vlign='center'>"+c[i]+"</td></tr>"}
 				fc+="<td style='border-bottom:3px solid #48585f;'>"+c[i]+"</td>"
 				if(i%3==2){
 					fc+="</tr>";fm+="<tr><td colspan='2' style='border-bottom:3px solid #48585f;' vlign='center'>"+c[i]+"</td></tr>"
 				}
-			}
+			}if(c.length<5){fc="<tr><td>暫無評論...</td></tr>";fm=fc}
 			$("#cComment table.Computer")[0].innerHTML=fc
 			$("#cComment table.Mobile")[0].innerHTML=fm
 		}
