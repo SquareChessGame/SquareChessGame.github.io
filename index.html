@@ -134,7 +134,7 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 	position:absolute;top:0px;left:55px;border:none;height:50px;line-height:50px;width:140px
 }
 p a{text-decoration:underline}
-#cComment table{border:1px}
+#cComt table{border:1px}
 table{table-layout:fixed;word-break:break-all}
 </style>
 </head>
@@ -150,7 +150,6 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-rules="CSub"><a>Connect:Attack</a></div>
 					<div data-rules="CSub"><a>Connect:Defend</a></div>
 					<div data-rules="CSub"><a>Connect:Scheme</a></div>
-					<div data-rules="CSub"><a>Connect:Mirror</a></div>
 					<div data-rules="Main" onclick="Lst('rules','BSub')" class="tab"><a>Blocker系列</a></div>
 					<div data-rules="BSub"><a>Square.Blocker</a></div>
 					<div data-rules="BSub"><a>Blocker:Forbid</a></div>
@@ -175,7 +174,6 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-btchs="CSub"><a>Connect:Attack</a></div>
 					<div data-btchs="CSub"><a>Connect:Defend</a></div>
 					<div data-btchs="CSub"><a>Connect:Scheme</a></div>
-					<div data-btchs="CSub"><a>Connect:Mirror</a></div>
 					<div data-btchs="Main" onclick="Lst('btchs','BSub')" class="tab"><a>Blocker系列</a></div>
 					<div data-btchs="BSub"><a>Square.Blocker</a></div>
 					<div data-btchs="BSub"><a>Blocker:Forbid</a></div>
@@ -200,7 +198,6 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-chess="CSub"><a>Connect:Attack</a></div>
 					<div data-chess="CSub"><a>Connect:Defend</a></div>
 					<div data-chess="CSub"><a>Connect:Scheme</a></div>
-					<div data-chess="CSub"><a>Connect:Mirror</a></div>
 					<div data-chess="Main" onclick="Lst('chess','BSub')" class="tab"><a>Blocker系列</a></div>
 					<div data-chess="BSub"><a>Square.Blocker</a></div>
 					<div data-chess="BSub"><a>Blocker:Forbid</a></div>
@@ -228,7 +225,6 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-chess="CSub"><a>Connect:Attack</a></div>
 					<div data-chess="CSub"><a>Connect:Defend</a></div>
 					<div data-chess="CSub"><a>Connect:Scheme</a></div>
-					<div data-chess="CSub"><a>Connect:Mirror</a></div>
 					<div data-chess="Main" onclick="Lst('chess','BSub')" class="pTab"><a>Blocker系列</a></div>
 					<div data-chess="BSub"><a>Square.Blocker</a></div>
 					<div data-chess="BSub"><a>Blocker:Forbid</a></div>
@@ -251,7 +247,6 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-btchs="CSub"><a>Connect:Attack</a></div>
 					<div data-btchs="CSub"><a>Connect:Defend</a></div>
 					<div data-btchs="CSub"><a>Connect:Scheme</a></div>
-					<div data-btchs="CSub"><a>Connect:Mirror</a></div>
 					<div data-btchs="Main" onclick="Lst('btchs','BSub')" class="pTab"><a>Blocker系列</a></div>
 					<div data-btchs="BSub"><a>Square.Blocker</a></div>
 					<div data-btchs="BSub"><a>Blocker:Forbid</a></div>
@@ -274,7 +269,6 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-rules="CSub"><a>Connect:Attack</a></div>
 					<div data-rules="CSub"><a>Connect:Defend</a></div>
 					<div data-rules="CSub"><a>Connect:Scheme</a></div>
-					<div data-rules="CSub"><a>Connect:Mirror</a></div>
 					<div data-rules="Main" onclick="Lst('rules','BSub')" class="pTab"><a>Blocker系列</a></div>
 					<div data-rules="BSub"><a>Square.Blocker</a></div>
 					<div data-rules="BSub"><a>Blocker:Forbid</a></div>
@@ -292,7 +286,7 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-rules="OSub"><a>Gomoku</a></div>
 					<div data-rules="OSub"><a>GoLike</a></div>
 				<div id="pAbout" class="pPage" onclick="Mnu();Ptg('#cAbout')">關於我們</div>
-				<div id="pReport" class="pPage" onclick="Mnu();Ptg('#cReport')">回報問題</div>
+				<div id="pReport" class="pPage" onclick="Mnu();Ptg('#cRepo')">回報問題</div>
 			</div>
 		</div>
 	</header>
@@ -354,7 +348,7 @@ table{table-layout:fixed;word-break:break-all}
 						</ol>
 				</div>
 			</div>
-			<div id="cReport" class="field2">
+			<div id="cRepo" class="field2">
 				<h1><font class="En">Report </font>/<font class="Ch"> 回報問題或給予評論</font></h1>
 				<div><p>
 					軟體故障和錯誤偶爾會發生於以上線的遊戲。<br>
@@ -405,7 +399,7 @@ table{table-layout:fixed;word-break:break-all}
 					<tr><td colspan="3"><div style="width:100%;height:40px;background-color:#758f9b;color:white;line-height:40px;text-align:center" onclick="Rpt(this)" id="mr-send">送出</div></td></tr>
 				</table>
 			</div>
-			<div id="cComment" class="field">
+			<div id="cComt" class="field">
 				<h1><font class="En">Comment </font>/<font class="Ch"> 用戶評論</font></h1>
 				<table class="Computer" align="center" width="100%"><tr><td>正在取得資訊...</td></tr></table>
 				<table class="Mobile" align="center"><tr><td>正在取得資訊...</td></tr></table>
@@ -430,7 +424,7 @@ table{table-layout:fixed;word-break:break-all}
 		<a id="tw" class="Social" href="http://twitter.com/SquareChessGame"></a>
 		<a id="fb" class="Social" href="http://fb.me/SquareChessGame"></a>
 			<div id="List" class="Computer"><hr>
-			<div class="page" onclick="Ptg('#cReport')"><div class="tab" id="Report">回報問題</div></div><hr>
+			<div class="page" onclick="Ptg('#cRepo')"><div class="tab" id="Report">回報問題</div></div><hr>
 			<div class="page" onclick="Ptg('#cAbout')"><div class="tab" id="About">關於我們</div></div>
 		</div>
 	</footer>
@@ -531,7 +525,7 @@ function Ptg(t){
 }
 function KDw(e){if(!input)e.preventDefault()
 	var k=e.which,c=e.ctrlKey;if(k==13){if(Id("r-titl").value!="")Rpt(Id("r-send"))}
-	if(c&&k==82){Ptg('#cReport');Id("r-titl").focus()}
+	if(c&&k==82){Ptg('#cRepo');Id("r-titl").focus()}
 	if(k==27){if(input){Ptg("#cHome");Id("r-titl").focus();Id("r-titl").blur()}else{Hid();show=""}}if(input)return
 	if(show.length==0){
 		if(k==49||k==97)Lst('chess','Main')
@@ -556,8 +550,8 @@ function KDw(e){if(!input)e.preventDefault()
 	}
 }
 function Get(){
-	$("#cComment table.Computer")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
-	$("#cComment table.Mobile")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
+	$("#cComt table.Computer")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
+	$("#cComt table.Mobile")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
 	try{$.get(
 		"https://script.google.com/macros/s/AKfycbxFp5sPGGtVU8eN-HpF3XD3BqsAeLFuU3e08G_GA6AsdDGNixc/exec",
 		{cntt:1},
@@ -572,8 +566,8 @@ function Get(){
 					fc+="</tr>";fm+="<tr><td colspan='2' style='border-bottom:3px solid #48585f;' vlign='center'>"+c[i]+"</td></tr>"
 				}
 			}if(c.length<5){fc="<tr><td>暫無評論...</td></tr>";fm=fc}
-			$("#cComment table.Computer")[0].innerHTML=fc
-			$("#cComment table.Mobile")[0].innerHTML=fm
+			$("#cComt table.Computer")[0].innerHTML=fc
+			$("#cComt table.Mobile")[0].innerHTML=fm
 		}
 	)}catch(e){if(confirm("取得失敗,重試?"))Get()}
 }
