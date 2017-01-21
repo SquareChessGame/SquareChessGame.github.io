@@ -15,6 +15,7 @@ if(location.search.length>10){
 <script src="Impo/jquery.min.js"></script>
 <script src="Core/Prun.js"></script>
 <style>@import "Core/Face.css";
+input[type=radio]{zoom:1.5}
 footer{
 	left:0px;
 	width:100%;
@@ -351,7 +352,7 @@ p a{text-decoration:underline}
 			</div>
 		</div>
 		<div id="cReport" class="field2">
-			<h1><font class="En">Report </font>/<font class="Ch"> 回報問題</font></h1>
+			<h1><font class="En">Report </font>/<font class="Ch"> 回報問題或給予評論</font></h1>
 			<div><p>
 				軟體故障和錯誤偶爾會發生於以上線的遊戲。<br>
 				如果您發現問題或是錯誤，請填寫表單回報給我們。<br>
@@ -372,7 +373,11 @@ p a{text-decoration:underline}
 			</div>
 		</div>
 		<div id="cForm" class="field2">
-			<table align="center" class="Computer" style="margin-top:80px">
+			<div style="margin-top:80px">
+				<label><input type="radio" value="R" name="RTp" id="RTr" checked/>回報問題</label>
+				<label><input type="radio" value="C" name="RTp" id="RTc"/>進行評論</label>
+			</div>
+			<table align="center" class="Computer" style="margin-top:20px">
 				<tr align="center">
 					<td><div style="text-align:left"><font color="red">*</font>標題</div>
 						<input type="text" style="width:100%" id="r-titl"/>
@@ -397,9 +402,8 @@ p a{text-decoration:underline}
 				<tr><td colspan="3"><div style="width:100%;height:40px;background-color:#758f9b;color:white;line-height:40px;text-align:center" onclick="Rpt(this)" id="mr-send">送出</div></td></tr>
 			</table>
 		</div>
-		<div id="cProblem" class="field">
-			<h1><font class="En">Problem </font>/<font class="Ch"> 回報情形</font></h1>
-			在錯誤修正後，將自動移除內容。
+		<div id="cComment" class="field">
+			<h1><font class="En">Comment </font>/<font class="Ch"> 用戶評論</font></h1>
 			<table class="Computer"><tr><td>正在取得資訊...</td></tr></table>
 			<table class="Mobile"><tr><td>正在取得資訊...</td></tr></table>
 		</div>
@@ -512,8 +516,9 @@ function Mnu(v){
 }
 function Rpt(btn){var t="r-",m=new Date();if($(window).width()<830)t="mr-"
 	if(Id(t+"titl").value.length<1)return alert("無標題");btn.style.backgroundColor="#48585f"
-	try{$.get(
-		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
+	var url="https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec"
+	if(Id("RTc").checked)url="https://script.google.com/macros/s/AKfycbxFp5sPGGtVU8eN-HpF3XD3BqsAeLFuU3e08G_GA6AsdDGNixc/exec"
+	try{$.get(url,
 		{titl:Id(t+"titl").value,resp:Id(t+"resp").value,cont:Id(t+"cont").value,time:m.getFullYear()+"/"+(m.getMonth()+1)+"/"+m.getDate()},
 		function(r){
 			alert(r);Id(t+"titl").value="";Id(t+"cont").value="";
@@ -551,10 +556,10 @@ function KDw(e){if(!input)e.preventDefault()
 	}
 }
 function Get(){
-	$("#cProblem table.Computer")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
-	$("#cProblem table.Mobile")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
+	$("#cComment table.Computer")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
+	$("#cComment table.Mobile")[0].innerHTML="<tr><td>正在取得資訊...</td></tr>"
 	try{$.get(
-		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
+		"https://script.google.com/macros/s/AKfycbxFp5sPGGtVU8eN-HpF3XD3BqsAeLFuU3e08G_GA6AsdDGNixc/exec",
 		{cntt:1},
 		function(r){
 			var c=r.split("\"/\'/\""),fc="",fm=""
@@ -563,14 +568,14 @@ function Get(){
 				else if(i%3==1){fm+="<td>"+c[i]+"</td></tr>"}
 				fc+="<td>"+c[i]+"</td>";if(i%3==2){fc+="</tr>";fm+="<tr><td colspan='2'>"+c[i]+"</td></tr>"}
 			}
-			$("#cProblem table.Computer")[0].innerHTML=fc
-			$("#cProblem table.Mobile")[0].innerHTML=fm
+			$("#cComment table.Computer")[0].innerHTML=fc
+			$("#cComment table.Mobile")[0].innerHTML=fm
 		}
 	)}catch(e){if(confirm("取得失敗,重試?"))Get()}
 }
 function Del(w){if(w==0)return alert("無法刪除標題")
 	try{$.get(
-		"https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec",
+		"https://script.google.com/macros/s/AKfycbxFp5sPGGtVU8eN-HpF3XD3BqsAeLFuU3e08G_GA6AsdDGNixc/exec",
 		{dele:w,cnct:prompt("輸入聯絡方式")},
 		function(r){alert(r);Get()}
 	)}catch(e){if(confirm("刪除失敗,重試?"))Del(w)}
