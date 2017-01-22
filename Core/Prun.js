@@ -9,3 +9,10 @@ function Id(v){return doc.getElementById(v)}
 function Class(v){return doc.getElementsByClassName(v)}
 function Tag(v){return doc.getElementsByTagName(v)}
 function Name(v){return doc.getElementsByName(v)}
+function Mbx(msg,a,b){
+	switch(typeof a){
+		case"undefined":break
+		case"function":break
+		default:break
+	}
+}
