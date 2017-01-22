@@ -113,3 +113,10 @@ function Ctl(t,v){if(t=="Udo"||t=="Rdo")if(v&&v.length==3)return;Sel.Now("N")
 		case"Hom":if(confirm('確定離開頁面?'))location="index.html";break
 	}
 }
+function Mbx(msg,a,b){
+	switch(typeof a){
+		case"undefined":break
+		case"function":break
+		default:break
+	}
+}
