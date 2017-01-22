@@ -49,6 +49,7 @@ function Rsz(){
 	Id("Recrd").style.width=$("#Board").offset().left+"px";Id("Recrd").style.height="100%"
 	if($("#Board").offset().left<80)Id("Recrd").style.display="none"
 	else Id("Recrd").style.display="";Sel.Now("N")
+	$("#Mbx").css("top",($(window).height()/2-100)+"px").css("left",($(window).width()/2-200)+"px")
 }
 function Itf(){var bd=""
 	for(cd2=1;cd2<10;cd2++){bd+="<tr>";for(cd1=65;cd1<74;cd1++){bd+="<td id='"+Chr(cd1)+cd2+"' class='bt'></td>"}bd+="</tr>"}Id("Board").innerHTML=bd

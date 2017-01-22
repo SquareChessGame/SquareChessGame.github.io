@@ -77,3 +77,11 @@ header{
 	transition:all 1s;
 	background-color:#758f9b;
 }
+.Mbxb{
+	background:#758f9b;text-align:center;line-height:40px;
+	width:60px;float:right;height:40px;color:#48585f;
+}
+.Mbxb:hover,.Mbxs:hover{background:#48585f;color:#99bccc}
+.Mbxs{height:40px;line-height:40px;background:#758f9b;text-align:center;width:30px;color:#48585f}
+#Mbxt{font-size:inherit}
+#Mbx{position:fixed;width:400px;height:200px;background:#99bccc;font-size:18px;cursor:default;z-index:6}

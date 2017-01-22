@@ -38,6 +38,18 @@ article{overflow:auto;user-select:text;-ms-user-select:text;-moz-user-select:tex
 			</table>
 		</div>
 	</article>
+	<div id="Mbx" style="top:0px;left:0px;display:none">
+		<div id="Mbxc" style="position:absolute;width:380px;top:10px;left:10px;background:#758f9b;height:140px">
+			<div style="margin:10px;color:#48585f">test</div>
+		</div>
+		<div style="position:absolute;bottom:5px;left:10px">
+			<input type="text" id="Mbxt" style="border:none;height:40px;background:#758f9b;width:250px;color:#48585f;display:none">
+		</div>
+		<div style="position:absolute;bottom:5px;right:10px;height:40px;width:125px">
+			<div class="Mbxb" id="MbxbN" style="margin-left:5px;display:none">取消</div>
+			<div class="Mbxb" id="MbxbY">確認</div>
+		</div>
+	</div>
 </body>
 <script>
 function Ldr(){
@@ -69,9 +81,8 @@ function Rsz(){
 	if($(window).width()<830)$("article div").css("width",($(window).width()-40)+"px")
 	else $("article div").css("width",($(window).width()/2-40)+"px");
 	var sz=Math.floor($("article div").width()/9);if(sz>Math.floor($("article").height()/9))sz=Math.floor($("article").height()/9)
-	$(".bt").css("width",sz+"px")
-	$(".bt").css("height",sz+"px")
-	$(".bt").css("font-size",(sz-15)+"px")
+	$(".bt").css("width",sz+"px").css("height",sz+"px").css("font-size",(sz-15)+"px")
+	$("#Mbx").css("top",($(window).height()/2-100)+"px").css("left",($(window).width()/2-200)+"px")
 }
 </script>
 </html>
