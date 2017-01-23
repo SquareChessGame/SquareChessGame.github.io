@@ -1,5 +1,4 @@
-function Mbx(m,a,b,v,s){console.log(m);console.log(a);console.log(b);console.log(v);console.log(s)
-	$("#Mbxt,#Mbxp,#MbxbN").css("display","none");Id("Mbxc").childNodes[0].innerHTML=m
+function Mbx(m,a,b,v,s){$("#Mbxt,#Mbxp,#MbxbN").css("display","none");Id("Mbxc").childNodes[0].innerHTML=m
 	Id("Mbxt").addEventListener("change",function(){Mbx.inp=this.value})
 	$("#MbxbY").click(function(){Id("Mbxt").blur();a(Mbx.inp);Id("Mbx").style.display="none"})
 	if(b){Id("MbxbN").style.display="";$("#MbxbN").click(function(){b();Id("Mbx").style.display="none"})}

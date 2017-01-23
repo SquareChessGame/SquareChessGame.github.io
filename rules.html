@@ -53,7 +53,7 @@ article{overflow:auto;user-select:text;-ms-user-select:text;-moz-user-select:tex
 <script>
 function Ldr(){
 	if(!location.search||location.search.substr(0,6)!="?mode="){
-		alert("要求格式錯誤");location="index.html"
+		Mbx("要求格式錯誤",function(){location="index.html"})
 	}var mdN=location.search.replace("?mode=",""),bd=""
 	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":")
 	doc.title=mdN.replace(":Newbie","");var MdQ=mdN.replace("Square.","").split(":")

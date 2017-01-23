@@ -524,12 +524,9 @@ function Rpt(btn){var t="r-",m=new Date();if($(window).width()<830)t="mr-"
 	if(Id(t+"titl").value.length<1)return Mbx("無標題",function(){});btn.style.backgroundColor="#48585f"
 	var url="https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec"
 	if(Id("RTc").checked)url="https://script.google.com/macros/s/AKfycbxFp5sPGGtVU8eN-HpF3XD3BqsAeLFuU3e08G_GA6AsdDGNixc/exec"
-	try{$.get(url,
-		{titl:Id(t+"titl").value,resp:Id(t+"resp").value,cont:Id(t+"cont").value,time:m.getFullYear()+"/"+(m.getMonth()+1)+"/"+m.getDate()},
-		function(r){Id(t+"titl").value="";Id(t+"cont").value="";btn.style.backgroundColor="#758f9b"
-			Mbx(r,function(){});Get()
-		}
-	)}catch(e){Mbx("傳送失敗,重試?",function(){Rpt(btn),function(){}})}
+	$.get(url,{titl:Id(t+"titl").value,resp:Id(t+"resp").value,cont:Id(t+"cont").value,time:m.getFullYear()+"/"+(m.getMonth()+1)+"/"+m.getDate()},
+		function(r){Id(t+"titl").value="";Id(t+"cont").value="";btn.style.backgroundColor="#758f9b";Get()}
+	)
 }
 function Ptg(t){
 	$("#Content").animate({scrollTop:$(t).offset().top-40+$("#Content")[0].scrollTop},1000)
@@ -589,16 +586,16 @@ function Get(){
 		}
 	)}catch(e){Mbx("取得失敗,重試?",function(){Get()},function(){})}
 }
-function Del(w){if(w==0)return Mbx("無法刪除標題",function(){});
+function Del(w){if(w==0)return Mbx("無法刪除標題",function(){})
 	$("#cComt table.Computer")[0].innerHTML="<tr><td>正在刪除...</td></tr>"
 	$("#cComt table.Mobile")[0].innerHTML="<tr><td>正在刪除...</td></tr>"
-	Mbx("輸入聯絡方式",function(t){
-		try{$.get(
-			"https://script.google.com/macros/s/AKfycbxFp5sPGGtVU8eN-HpF3XD3BqsAeLFuU3e08G_GA6AsdDGNixc/exec",
-			{dele:w,cnct:t},
-			function(r){Get()}
-		)}catch(e){Mbx("刪除失敗,重試?",function(){Del(w,t)},function(){})}},function(t){},""
-	)
+	Mbx("輸入聯絡方式",function(t){$.get(
+		"https://script.google.com/macros/s/AKfycbxFp5sPGGtVU8eN-HpF3XD3BqsAeLFuU3e08G_GA6AsdDGNixc/exec",
+		{dele:w,cnct:t},function(r){if(r=="刪除完成")Get();else{
+			$("#cComt table.Computer")[0].innerHTML="<tr><td>"+r+"...</td></tr>"
+			$("#cComt table.Mobile")[0].innerHTML="<tr><td>"+r+"...</td></tr>"
+		}}
+	)},function(t){Get()},"")
 }
 </script>
 </html>
