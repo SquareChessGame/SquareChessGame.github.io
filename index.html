@@ -516,7 +516,11 @@ function Rpt(btn){var t="r-",m=new Date();if($(window).width()<830)t="mr-"
 	var url="https://script.google.com/macros/s/AKfycbxcssPqU7igBz6mukhS9zB_ipxg1IVsK86JuSWtKZUI1FTnAbg/exec"
 	if(Id("RTc").checked)url="https://script.google.com/macros/s/AKfycbxFp5sPGGtVU8eN-HpF3XD3BqsAeLFuU3e08G_GA6AsdDGNixc/exec"
 	$.get(url,{titl:Id(t+"titl").value,resp:Id(t+"resp").value,cont:Id(t+"cont").value,time:m.getFullYear()+"/"+(m.getMonth()+1)+"/"+m.getDate()},
-		function(r){Id(t+"titl").value="";Id(t+"cont").value="";btn.style.backgroundColor="#758f9b";Get()}
+		function(r){
+			try{Mbx(r,function(){
+				Id(t+"titl").value="";Id(t+"cont").value="";btn.style.backgroundColor="#758f9b";Get()
+			})}catch(e){Mbx("回報失敗,重試?",function(){Rpt(btn)},function(){})}
+		}
 	)
 }
 function Ptg(t){
@@ -580,10 +584,10 @@ function Get(){
 function Del(w){if(w==0)return Mbx("無法刪除標題",function(){})
 	$("#cComt table.Computer")[0].innerHTML="<tr><td>正在刪除...</td></tr>"
 	$("#cComt table.Mobile")[0].innerHTML="<tr><td>正在刪除...</td></tr>"
-	Mbx("輸入聯絡方式",function(t){$.get(
+	Mbx("輸入聯絡方式",function(t){try{$.get(
 		"https://script.google.com/macros/s/AKfycbxFp5sPGGtVU8eN-HpF3XD3BqsAeLFuU3e08G_GA6AsdDGNixc/exec",
 		{dele:w,cnct:t},function(r){Mbx(r,function(){Get()})}
-	)},function(t){Get()},"")
+	)}catch(e){Mbx("刪除失敗,重試?",function(){Del(w)},function(){})}},function(t){Get()},"")
 }
 </script>
 </html>
