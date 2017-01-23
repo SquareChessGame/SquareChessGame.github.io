@@ -582,10 +582,7 @@ function Del(w){if(w==0)return Mbx("無法刪除標題",function(){})
 	$("#cComt table.Mobile")[0].innerHTML="<tr><td>正在刪除...</td></tr>"
 	Mbx("輸入聯絡方式",function(t){$.get(
 		"https://script.google.com/macros/s/AKfycbxFp5sPGGtVU8eN-HpF3XD3BqsAeLFuU3e08G_GA6AsdDGNixc/exec",
-		{dele:w,cnct:t},function(r){if(r=="刪除完成")Get();else{
-			$("#cComt table.Computer")[0].innerHTML="<tr><td>"+r+"...</td></tr>"
-			$("#cComt table.Mobile")[0].innerHTML="<tr><td>"+r+"...</td></tr>"
-		}}
+		{dele:w,cnct:t},function(r){Mbx(r,function(){Get()})}
 	)},function(t){Get()},"")
 }
 </script>
