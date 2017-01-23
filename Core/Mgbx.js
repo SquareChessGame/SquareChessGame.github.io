@@ -1,16 +1,21 @@
 function Mbx(m,a,b,v,s){$("#Mbxt,#Mbxp,#MbxbN").css("display","none");Id("Mbxc").childNodes[0].innerHTML=m
 	Id("Mbxt").addEventListener("change",function(){Mbx.inp=this.value})
-	$("#MbxbY").unbind('click').click(function(){Mbx.Exe(a)})
+	$("#MbxbY").unbind('click').click(function(){
+		switch(typeof v){
+			case"object":Mbx.inp=Id("Mbxs").value;break
+			case"string":Mbx.inp=Id("Mbxt").value
+		}Mbx.Exe(a)
+	})
 	if(b){Id("MbxbN").style.display="";$("#MbxbN").unbind('click').click(function(){Mbx.Exe(b)})}
 	switch(typeof v){
 		case"string":Id("Mbxt").style.display="";Id("Mbxt").value=v;break
 		case"object":Mbx.stq=v;Id("Mbxp").style.display="";if(!s)s=0;Id("Mbxs").value=v[s];break
 	}Id("Mbx").style.display=""
 }
-Mbx.Rsz=function(){
-	if($(window).width()<400){
-		$("#Mbx").css("width","100%")
-		$("#Mbxt").css("width",$("#Mbx").width()*0.58+"px")
+Mbx.Rsz=function(){$("#Mbxt,#Mbxp,#Mbxs").css("width","")
+	if($(window).width()<400){$("#Mbx").css("width","100%")
+		var w=$(window).width()-132-$(window).width()*0.05
+		$("#Mbxt,#Mbxp").css("width",w+"px");$("#Mbxs").css("width",w-70+"px")
 	}
 	$("#Mbx").css("top",($(window).height()/2-100)+"px").css("left",($(window).width()/2-$("#Mbx").width()/2)+"px")
 }
