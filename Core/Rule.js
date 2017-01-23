@@ -293,7 +293,7 @@ function Srt(l){var t=["rules","chess"],s=location.search,n=":Newbie"
 if(typeof Shl=="object")Shl.Rls=Rls
 Rls.Lst=function(MdQ){
 	var rls=[]
-	for(var i=0;i<MdQ.length;i++){if(Rls[MdQ[i]])rls=Rls[MdQ[i]](rls);else{alert("要求規則說明不存在");location="index.html"}Rls.System(rls)}
+	for(var i=0;i<MdQ.length;i++){if(Rls[MdQ[i]])rls=Rls[MdQ[i]](rls);else{Mbx("要求規則說明不存在",function(){location="index.html"})}Rls.System(rls)}
 	var sot={Set:[],Ara:[],Jdg:[],Oth:[]},cnt=""
 	for(var i=0;i<rls.length;i++){
 		if(rls[i].search("獲勝")>-1||rls[i].search("平手")>-1){sot.Jdg.push(rls[i]);continue}
