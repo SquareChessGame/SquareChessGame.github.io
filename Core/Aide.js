@@ -95,7 +95,7 @@ function Ctl(t,v){if(t=="Udo"||t=="Rdo")if(v&&v.length==3)return;Sel.Now("N")
 		case"Cln":if(Tn!=Dft.Tn)Cln("確認清除棋盤?");else Cln();break
 		case"Udo":if(v)Rec(Ser(v)-1);else if(Tn>Dft.Tn)Rec(Tn-1);break
 		case"Rdo":if(v)Rec(Ser(v));else Rec(Tn+1);break
-		case"Gto":var t=[1],T=Tn;if(Tn==0)T=1;for(var i=2;i<Hst.Brd.length;i++)t.push(i+"")
+		case"Gto":var t=["1"],T=Tn;if(Tn==0)T=1;for(var i=2;i<Hst.Brd.length;i++)t.push(i+"")
 			Mbx("輸入要前往的回合",function(tn){if(tn>Dft.Tn)Rec(Val(tn))},function(){},t,T-1);break
 	}else switch(t){
 		case"Gvp":if(Dft.Set)Mbx("確定認輸?",function(){Upl(Dft.Oln.Typ+"認輸,"+Enm(Dft.Oln.Typ)+"獲勝")},function(){});break
