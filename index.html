@@ -420,7 +420,7 @@ table{table-layout:fixed;word-break:break-all}
 		</article>
 	</div>
 	<div id="Mbx" style="display:none">
-		<div id="Mbxc"><div style="margin:10px;color:#48585f">test</div></div>
+		<div id="Mbxc"><div style="margin:10px;color:#48585f"></div></div>
 		<div style="position:absolute;bottom:5px;left:10px">
 			<input type="text" id="Mbxt">
 		</div>
@@ -441,6 +441,7 @@ table{table-layout:fixed;word-break:break-all}
 	</footer>
 	</div>
 </body>
+<script src="Core/Mgbx.js"></script>
 <script>
 var link=$("#lLst div a,.page div a"),show="",page=$(".field,.field2"),input=0
 function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
@@ -478,7 +479,7 @@ function Hid(d,v){
 		link[i].parentNode.style.borderBottom="none"
 	}
 }
-function Rsz(){var UA=navigator.userAgent
+function Rsz(){var UA=navigator.userAgent;Mbx.Rsz()
 	$("#Content").css("height",($(window).height()-80)+"px")
 	if($(window).width()<830){
 		$("article").css("margin-left","10px");$("article").css("margin-right","10px")
@@ -505,8 +506,7 @@ function Rsz(){var UA=navigator.userAgent
 		$(".field2").css("margin-left","1%")
 		$(".field2").css("margin-right","1%")
 		$("#cImag").css("background-size","70%")
-	}
-	$("#Mbx").css("top",($(window).height()/2-100)+"px").css("left",($(window).width()/2-200)+"px")
+	}Mbx.Rsz()
 	if((UA.search("Windows")>-1||UA.search("Macintosh")>-1)&&UA.search("Android")<0){
 		$("ol.Computer").css("display","");$("ol.Mobile").css("display","none")
 	}$("#cImag").css("height",($("#cImag").width()/747*500)+"px")

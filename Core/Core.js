@@ -12,7 +12,7 @@
 	},
 	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{},Ato:{}}
-function Ldr(){if(!location.search||location.search.substr(0,6)!="?mode="){alert("要求格式錯誤");location="index.html"}
+function Ldr(){if(!location.search||location.search.substr(0,6)!="?mode="){Mbx("要求格式錯誤",function(){location="index.html"})}
 	var mdN=location.search.replace("?mode=","")
 	Id("NightMode").style.opacity=1;setTimeout("doc.body.style.backgroundColor='black'",1000)
 	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie","")
@@ -25,7 +25,7 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 		Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
 		if(typeof Ini!="undefined"){Dft.System.Oln=1;Joi()}
 	}
-	md.onerror=function(){alert("模式可能被移除或不存在");location="index.html"}
+	md.onerror=function(){Mbx("模式可能被移除或不存在",function(){location="index.html"})}
 	doc.body.appendChild(md)
 }
 function Rsz(){
@@ -48,8 +48,7 @@ function Rsz(){
 	if(Id("Setting").style.height!="0px")Id("Setting").style.height=($(window).height()-40)+"px"
 	Id("Recrd").style.width=$("#Board").offset().left+"px";Id("Recrd").style.height="100%"
 	if($("#Board").offset().left<80)Id("Recrd").style.display="none"
-	else Id("Recrd").style.display="";Sel.Now("N")
-	$("#Mbx").css("top",($(window).height()/2-100)+"px").css("left",($(window).width()/2-200)+"px")
+	else Id("Recrd").style.display="";Sel.Now("N");Mbx.Rsz()
 }
 function Itf(){var bd=""
 	for(cd2=1;cd2<10;cd2++){bd+="<tr>";for(cd1=65;cd1<74;cd1++){bd+="<td id='"+Chr(cd1)+cd2+"' class='bt'></td>"}bd+="</tr>"}Id("Board").innerHTML=bd
@@ -60,7 +59,7 @@ function Itf(){var bd=""
 	$(".bt").dblclick(function(){if(Dft.System.Gst)Ctl("Udo",this.id)})
 	$(".bt").on("taphold contextmenu",function(){if(this.id=="Cln")Opt();else if(this.id=="Udo")Ctl("Gto");else if(Dft.System.Gst)Ctl("Rdo",this.id)})
 }
-function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else ckr=confirm(msg)
+function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else return Mbx(msg,function(){Cln()},function(){})
 	if(ckr){Tn=0;Hst={Brd:[],Crd:["E5"],Sel:[],Rut:[]}
 		Qre(Sel("All"),"Sym",2);Brd();Dft.Win=0;Id("Recrd").innerHTML=""
 		Adn();Rul();Hst.Brd[Tn]=Rec();Dft.Tn=Tn;Sel.Now("N")

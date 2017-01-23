@@ -1,17 +1,17 @@
 ﻿var Oln={}
-function Req(Typ,Jcd){Dft.Oln.CkN=RJC();Dft.Set=0
-	var id="",req={
+function Req(Typ,Jcd,id){Dft.Oln.CkN=RJC();Dft.Set=0;if(!id)id=""
+	var req={
 		ModeName:doc.title,BoardContent:"",LastActive:new Date().getTime(),CheckNum:Dft.Oln.CkN,PlayerX:"N",Message:{Content:""},PlayerCk:{O:"Y",X:"N"}
 	}
 	if(Jcd)id=Jcd
-	if(Typ=="J"){if(!Jcd)while(!id&&id!=null)id=prompt("輸入id");Dft.Oln.Typ="X";if(id==null)return}
+	if(Typ=="J"){if(!Jcd)while(!id&&id!=null)id=Mbx("輸入id",function(id){Req(Typ,Jcd,id)},function(){},"");Dft.Oln.Typ="X";if(id==null)return}
 	else{Dft.Oln.Typ="O";if(!Jcd)id=RJC()}Dft.Oln.Id=id
 	firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
 		if(r.val()!=null&&Typ=="R"){id=RJC();return Req(Typ,id)}
 		if(Typ=="R")firebase.database().ref("Battle/"+id).update(req)
 		firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
 			if(Typ=="R"){var url="http://squarechessgame.github.io/?"+doc.title+"/"+id
-				prompt("註冊成功,貼給朋友即可開始對戰",url)
+				Mbx("註冊成功,貼給朋友即可開始對戰",function(){},function(){},url)
 				Id("msgr").childNodes[1].setAttribute("data-href",url);Oln.Ffb();Ini()
 				Id("QR").style.background="url(http://chart.apis.google.com/chart?cht=qr&chs=150x150&chl="+url+")"
 			}else if(Typ=="J"&&r.val()=="N"){
@@ -19,8 +19,8 @@ function Req(Typ,Jcd){Dft.Oln.CkN=RJC();Dft.Set=0
 					Msg("X方已加入",1);Dft.Oln.CkN=r.val();Ini()
 					firebase.database().ref("Battle/"+id).update({PlayerX:"Y",CheckNum:r.val(),LastActive:new Date().getTime()})
 				})
-			}else if(!r.val()){alert("此房間不存在");location.search=""
-			}else {alert("進入觀賞模式");Dft.Oln.Typ="V";Ini()}
+			}else if(!r.val())Mbx("此房間不存在",function(){location.search=""})
+			else{Mbx("進入觀賞模式",function(){Dft.Oln.Typ="V";Ini()})}
 		});if(Notification&&Notification.permission!="granted")Notification.requestPermission()
 	})
 }
@@ -41,7 +41,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 		}
 		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",function(r){var brd=r.val().split("/")
 			if(brd[0].length<81&&(Dft.Oln.Cln||Dft.Oln.Typ=="V")){
-				if(brd[0])alert(brd[0]);Ini(1);if(Dft.Oln.Typ=="O")Dft.Set=1;else Dft.Set=0
+				if(brd[0])Mbx(brd[0],function(){Ini(1);if(Dft.Oln.Typ=="O")Dft.Set=1;else Dft.Set=0})
 			}else if(brd[1]||Dft.Oln.Typ=="V"){
 				Hst.Brd[brd[1]]=brd[0];Hst.Crd[brd[1]]=brd[2];Rec(brd[0]);Tn=Val(brd[1]);Rul()
 				if(Dft.Oln.Typ!="V"&&Sqr.Sym[(Val(brd[1])%2)]==Dft.Oln.Typ){
@@ -127,5 +127,5 @@ function Msg(msg,sys){Dft.Oln.Msg=-1
 			})
 		}
 	})
-}window.addEventListener("offline",function(){alert("已離線")})
+}window.addEventListener("offline",function(){Mbx("已離線",function(){})})
 eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('B 8(){c s="m";n(!(s.e("d")<0))s=s.1("d","f");s=s.1("l","k");s=s.1("h","q");s=s.1("p","o");s=s.1("b","g");s=s.1("b","j");s=s.1("i","r");s=s.1("9","9-D");C s}c 7={E:8(),H:"5-6-4-2.F.3",G:"A://5-6-4-2.v.3",u:"5-6-4-2.t.3",w:"z"};y.x(7);8=a;7=a',44,44,'|replace|91|com|game|square|chess|config|cfaK|8I|null|tz|var|AA|search|AIA|tzh|yA|qh|tzxiQq|AIzaSy|AI|AAA|while|9z_UKLVGFhgEndt|9z|yAkW9zz|qh2b8||appspot|storageBucket|firebaseio|messagingSenderId|initializeApp|firebase|757542166819|https|function|return|Z2e|apiKey|firebaseapp|databaseURL|authDomain'.split('|'),0,{}))

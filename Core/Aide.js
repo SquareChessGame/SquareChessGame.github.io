@@ -9,9 +9,9 @@ function KDw(e){
 	if(t&&g&&!a)e.preventDefault();else if(k!=27&&k!=13&&!g&&a)return
 	switch(k){
 		case   8:if(t)Ctl("Udo");break
-		case  13:if(a)if(art)$("#MbxbY")[0].click();else if(!t)OpK();else if(!g)Ctl("Msg");else if(Dft.Dir=="")Ctl("Rdo");break
+		case  13:if(a)$("#MbxbY")[0].click();else if(!t)OpK();else if(!g)Ctl("Msg");else if(Dft.Dir=="")Ctl("Rdo");break
 		case  18:if(c)Opt();break
-		case  27:if(a)if(art)$("#MbxbN")[0].click();else if(!g)Ctl("MSw",0);else if(Id("O0").style.display!="none")Sel.Now("N");else OpK(1);break
+		case  27:if(a)$("#MbxbN")[0].click();else if(!g)Ctl("MSw",0);else if(Id("O0").style.display!="none")Sel.Now("N");else OpK(1);break
 		case  35:Rec(Hst.Crd.length-1);break
 		case  36:if(c)Ctl("Hom");else Rec(0);break
 		case  37:if(c)Ctl("Udo");else{Dft.Dir+="L";Sel.Now("D")}break
@@ -95,9 +95,9 @@ function Ctl(t,v){if(t=="Udo"||t=="Rdo")if(v&&v.length==3)return;Sel.Now("N")
 		case"Cln":if(Tn!=Dft.Tn)Cln("確認清除棋盤?");else Cln();break
 		case"Udo":if(v)Rec(Ser(v)-1);else if(Tn>Dft.Tn)Rec(Tn-1);break
 		case"Rdo":if(v)Rec(Ser(v));else Rec(Tn+1);break
-		case"Gto":var tn=prompt("輸入要前往的回合",Tn);if(tn>Dft.Tn)Rec(Val(tn));break
+		case"Gto":var t=[];for(var i=1;i<Hst.Brd.length;i++)t.push(i+"");Mbx("輸入要前往的回合",function(tn){if(tn>Dft.Tn)Rec(Val(tn))},function(){},t,Tn-1);break
 	}else switch(t){
-		case"Gvp":if(Dft.Set&&confirm("確定認輸?"))Upl(Dft.Oln.Typ+"認輸,"+Enm(Dft.Oln.Typ)+"獲勝");break
+		case"Gvp":if(Dft.Set)Mbx("確定認輸?",function(){Upl(Dft.Oln.Typ+"認輸,"+Enm(Dft.Oln.Typ)+"獲勝")},function(){});break
 		case"Msg":if(Id("msgs").value)Msg(Id("msgs").value);Id("msgs").value="";break
 		case"MSw":var k=Id("Message").style.height=="25px";if(typeof v!="undefined"){if(v)k=1;else k=0}
 		if(k)Id("Message").style.height="300px"
@@ -110,6 +110,6 @@ function Ctl(t,v){if(t=="Udo"||t=="Rdo")if(v&&v.length==3)return;Sel.Now("N")
 		case"Rul":Id("Rule").childNodes[3].innerHTML=Rls.Lst(MdQ)
 		if(MdQ.indexOf("Newbie")<0)Id("Rule").childNodes[3].innerHTML+="<li><font onclick='Srt(0)' color='blue' style='cursor:pointer'>點此查看詳盡圖解</li>"
 		;break
-		case"Hom":if(confirm('確定離開頁面?'))location="index.html";break
+		case"Hom":Mbx('確定離開頁面?',function(){location="index.html"},function(){});break
 	}
 }

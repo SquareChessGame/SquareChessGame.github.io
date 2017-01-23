@@ -39,7 +39,7 @@ article{overflow:auto;user-select:text;-ms-user-select:text;-moz-user-select:tex
 		</div>
 	</article>
 	<div id="Mbx" style="display:none">
-		<div id="Mbxc"><div style="margin:10px;color:#48585f">test</div></div>
+		<div id="Mbxc"><div style="margin:10px;color:#48585f"></div></div>
 		<div style="position:absolute;bottom:5px;left:10px">
 			<input type="text" id="Mbxt">
 		</div>
@@ -49,6 +49,7 @@ article{overflow:auto;user-select:text;-ms-user-select:text;-moz-user-select:tex
 		</div>
 	</div>
 </body>
+<script src="Core/Mgbx.js"></script>
 <script>
 function Ldr(){
 	if(!location.search||location.search.substr(0,6)!="?mode="){
@@ -79,8 +80,7 @@ function Rsz(){
 	if($(window).width()<830)$("article div").css("width",($(window).width()-40)+"px")
 	else $("article div").css("width",($(window).width()/2-40)+"px");
 	var sz=Math.floor($("article div").width()/9);if(sz>Math.floor($("article").height()/9))sz=Math.floor($("article").height()/9)
-	$(".bt").css("width",sz+"px").css("height",sz+"px").css("font-size",(sz-15)+"px")
-	$("#Mbx").css("top",($(window).height()/2-100)+"px").css("left",($(window).width()/2-200)+"px")
+	$(".bt").css("width",sz+"px").css("height",sz+"px").css("font-size",(sz-15)+"px");Mbx.Rsz()
 }
 </script>
 </html>
