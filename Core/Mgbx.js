@@ -7,7 +7,13 @@ function Mbx(m,a,b,v,s){$("#Mbxt,#Mbxp,#MbxbN").css("display","none");Id("Mbxc")
 		case"object":Mbx.stq=v;Id("Mbxp").style.display="";if(!s)s=0;Id("Mbxs").value=v[s];break
 	}Id("Mbx").style.display=""
 }
-Mbx.Rsz=function(){$("#Mbx").css("top",($(window).height()/2-100)+"px").css("left",($(window).width()/2-200)+"px")}
+Mbx.Rsz=function(){
+	if($(window).width()<400){
+		$("#Mbx").css("width","100%")
+		$("#Mbxt").css("width",$("#Mbx").width()*0.58+"px")
+	}
+	$("#Mbx").css("top",($(window).height()/2-100)+"px").css("left",($(window).width()/2-$("#Mbx").width()/2)+"px")
+}
 Mbx.Ldr=function(){
 	Id("Mbx").innerHTML="<div id=\"Mbxc\"><div style=\"margin:10px;color:#48585f\"></div></div><div style=\"position:absolute;bottom:5px;left:10px\"><input type=\"text\" id=\"Mbxt\" style=\"display:none\"><div style=\"display:none\" id=\"Mbxp\"><div class=\"Mbxs\" style=\"float:left\" id=\"Mbxsl\"><</div><input type=\"text\" id=\"Mbxs\"/><div class=\"Mbxs\" style=\"float:right\" id=\"Mbxsr\">></div></div></div><div style=\"position:absolute;bottom:5px;right:10px;height:40px;width:125px\"><div class=\"Mbxb\" id=\"MbxbN\" style=\"margin-left:5px;display:none\">取消</div><div class=\"Mbxb\" id=\"MbxbY\">確認</div></div>";Mbx.Rsz()
 }
