@@ -419,12 +419,10 @@ table{table-layout:fixed;word-break:break-all}
 			</div>
 		</article>
 	</div>
-	<div id="Mbx" style="top:0px;left:0px;display:none">
-		<div id="Mbxc" style="position:absolute;width:380px;top:10px;left:10px;background:#758f9b;height:140px">
-			<div style="margin:10px;color:#48585f">test</div>
-		</div>
+	<div id="Mbx" style="display:none">
+		<div id="Mbxc"><div style="margin:10px;color:#48585f">test</div></div>
 		<div style="position:absolute;bottom:5px;left:10px">
-			<input type="text" id="Mbxt" style="border:none;height:40px;background:#758f9b;width:250px;color:#48585f;display:none">
+			<input type="text" id="Mbxt">
 		</div>
 		<div style="position:absolute;bottom:5px;right:10px;height:40px;width:125px">
 			<div class="Mbxb" id="MbxbN" style="margin-left:5px;display:none">取消</div>
@@ -537,10 +535,19 @@ function Rpt(btn){var t="r-",m=new Date();if($(window).width()<830)t="mr-"
 function Ptg(t){
 	$("#Content").animate({scrollTop:$(t).offset().top-40+$("#Content")[0].scrollTop},1000)
 }
-function KDw(e){if(!input)e.preventDefault()
-	var k=e.which,c=e.ctrlKey;if(k==13){if(Id("r-titl").value!="")Rpt(Id("r-send"))}
+function KDw(e){var art=Id("Mbx").style.display!="none";if(!input||!art)e.preventDefault()
+	var k=e.which,c=e.ctrlKey
+	if(k==13){
+		if(art)$("#MbxbY")[1].click()
+		else if(Id("r-titl").value!="")Rpt(Id("r-send"))
+	}
 	if(c&&k==82){Ptg('#cRepo');Id("r-titl").focus()}
-	if(k==27){if(input){Ptg("#cHome");Id("r-titl").focus();Id("r-titl").blur()}else{Hid();show=""}}if(input)return
+	if(k==27){
+		if(art)$("#MbxbN")[0].click()
+		else if(input){
+			Ptg("#cHome");Id("r-titl").focus();Id("r-titl").blur()
+		}else{Hid();show=""}
+	}if(input)return
 	if(show.length==0){
 		if(k==49||k==97)Lst('chess','Main')
 		if(k==50||k==98)Lst('btchs','Main')

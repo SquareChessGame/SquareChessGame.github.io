@@ -9,10 +9,14 @@ function Id(v){return doc.getElementById(v)}
 function Class(v){return doc.getElementsByClassName(v)}
 function Tag(v){return doc.getElementsByTagName(v)}
 function Name(v){return doc.getElementsByName(v)}
-function Mbx(msg,a,b){
-	switch(typeof a){
-		case"undefined":break
-		case"function":break
-		default:break
-	}
+function Mbx(msg,a,b,v){$("#Mbxt,#Mbxp,#MbxbN").css("display","none")
+	$("#Mbxsl").click(function(){Id("Mbxs").value=Mbx.stq[Mbx.stq.indexOf(Id("Mbxs").value)-1]})
+	$("#Mbxsr").click(function(){Id("Mbxs").value=Mbx.stq[Mbx.stq.indexOf(Id("Mbxs").value)+1]})
+	if(b)Id("MbxbN").style.display=""
+	switch(typeof v){
+		case"string":Id("Mbxt").style.display="";Id("Mbxt").value=v;break
+		case"object":Mbx.stq=v;Id("Mbxp").style.display="";Id("Mbxs").value=v[0];break
+	}Id("Mbx").style.display=""
 }
+Mbx.stq=[]
+Mbx.ipt=""

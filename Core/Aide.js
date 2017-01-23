@@ -4,14 +4,14 @@ function MsO(e){var v=1,p=0
 	else v=0;Mnu(v,p)
 }
 function KDw(e){
-	var c=e.ctrlKey,k=e.which,s=e.shiftKey,m=Id("menu"),t=Id("Setting").style.height=="0px",g=1
+	var c=e.ctrlKey,k=e.which,s=e.shiftKey,m=Id("menu"),t=Id("Setting").style.height=="0px",g=1,a=Id("Mbx").style.display!="none"
 	if(Id("Message"))g=Id("Message").style.height=="25px"
-	if(t&&g)e.preventDefault();else if(k!=27&&k!=13&&!g)return
+	if(t&&g&&!a)e.preventDefault();else if(k!=27&&k!=13&&!g&&a)return
 	switch(k){
 		case   8:if(t)Ctl("Udo");break
-		case  13:if(!t)OpK();else if(!g)Ctl("Msg");else if(Dft.Dir=="")Ctl("Rdo");break
+		case  13:if(a)if(art)$("#MbxbY")[0].click();else if(!t)OpK();else if(!g)Ctl("Msg");else if(Dft.Dir=="")Ctl("Rdo");break
 		case  18:if(c)Opt();break
-		case  27:if(!g)Ctl("MSw",0);else if(Id("O0").style.display!="none")Sel.Now("N");else OpK(1);break
+		case  27:if(a)if(art)$("#MbxbN")[0].click();else if(!g)Ctl("MSw",0);else if(Id("O0").style.display!="none")Sel.Now("N");else OpK(1);break
 		case  35:Rec(Hst.Crd.length-1);break
 		case  36:if(c)Ctl("Hom");else Rec(0);break
 		case  37:if(c)Ctl("Udo");else{Dft.Dir+="L";Sel.Now("D")}break

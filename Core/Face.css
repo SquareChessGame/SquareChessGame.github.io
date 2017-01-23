@@ -81,7 +81,10 @@ header{
 	background:#758f9b;text-align:center;line-height:40px;
 	width:60px;float:right;height:40px;color:#48585f;
 }
-.Mbxb:hover,.Mbxs:hover{background:#48585f;color:#99bccc}
+.Mbxb:hover,.Mbxs:hover{background:#99bccc;color:#48585f}
 .Mbxs{height:40px;line-height:40px;background:#758f9b;text-align:center;width:30px;color:#48585f}
-#Mbxt{font-size:inherit}
-#Mbx{position:fixed;width:400px;height:200px;background:#99bccc;font-size:18px;cursor:default;z-index:6}
+#Mbxt{font-size:inherit;border:none;height:40px;background:#758f9b;width:250px;color:#48585f}
+#Mbxs{font-size:inherit;float:left;margin-left:5px;width:180px;background:#99bccc;height:40px;line-height:40px;text-align:center;border:none;color:#48585f}
+#Mbx{position:fixed;width:400px;height:200px;background:#48585f;font-size:18px;cursor:default;top:0px;left:0px;z-index:6}
+#Mbxc{position:absolute;width:380px;top:10px;left:10px;background:#99bccc;height:140px}
+#Mbxp{width:250px;height:40px;overflow:hidden}
