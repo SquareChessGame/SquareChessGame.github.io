@@ -88,3 +88,4 @@ header{
 #Mbx{position:fixed;width:400px;height:200px;background:#48585f;font-size:18px;cursor:default;top:0px;left:0px;z-index:6}
 #Mbxc{position:absolute;width:95%;top:10px;left:2.5%;background:#99bccc;height:140px}
 #Mbxp{width:250px;height:40px;overflow:hidden}
+#Mbxv{background-color:black;opacity:0.5;z-index:5;position:fixed;top:0px;left:0px}
