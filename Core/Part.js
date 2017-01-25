@@ -185,7 +185,7 @@ Ara.AJd=function(shl,ara){var sot={O:[],X:[],P:[]};sot.O.All=[];sot.X.All=[];sot
 }
 Ara.PFu=function(){
 	for(var i=0;i<MdQ.length;i++){if(!Shl.Ara[MdQ[i]].P)continue
-		var ara=Shl.Ara[MdQ[i]].P[0];console.log(ara)
+		var ara=Shl.Ara[MdQ[i]].P[0]
 		for(var j=0;j<ara.length;j++)Set(ara[j])
 	}
 }
