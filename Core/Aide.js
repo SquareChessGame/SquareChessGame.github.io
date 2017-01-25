@@ -30,7 +30,7 @@ function KDw(e){
 			if(m.style.right=="0px"){
 				if(m.style.width=="0px")Mnu(1,0);else Mnu(0,1)
 			}else Mnu(1,0);break
-		default:if(k>64&&k<74&&g){Dft.Crd=Chr(k);Sel.Now("C");if(c&&k==72)Ctl("Gto")}
+		default:if(k>64&&k<74&&g){Dft.Crd=Chr(k);Sel.Now("C");if(c){if(k==72)Ctl("Gto");else if(k==65)Ara.PFu()}}
 				else if(k>48&&k<58||k>96&&k<106){var num=Chr(k);if(k>96)num=Chr(k-48)
 					if(m.style.width!="0px"){
 						if(!Dft.System.Oln)switch(Val(num)){
@@ -84,7 +84,7 @@ Sel.Now=function(t){Id("O0").style.display="none";
 	}
 }
 function KUp(e){
-	if(e.which==13&&Dft.Dir!=""){Set(Crd(Hst.Crd[Tn],Dft.Dir))}
+	if((e.which==13||e.which==32)&&Dft.Dir!=""){Set(Crd(Hst.Crd[Tn],Dft.Dir))}
 }
 function Mnu(v,p){var h=0;if(v)h=160;if(Id("Setting").style.height!="0px")h=0;Id("menu").style.width=h+"px"
 	if(v)if(p){Id("menu").style.left="";Id("menu").style.right="0px"}

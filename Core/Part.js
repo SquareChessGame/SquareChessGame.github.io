@@ -183,12 +183,18 @@ Ara.AJd=function(shl,ara){var sot={O:[],X:[],P:[]};sot.O.All=[];sot.X.All=[];sot
 		}
 	}sot.O[0]=sot.O.All;sot.X[0]=sot.X.All;sot.P[0]=sot.P.All;return sot
 }
+Ara.PFu=function(){
+	for(var i=0;i<MdQ.length;i++){if(!Shl.Ara[MdQ[i]].P)continue
+		var ara=Shl.Ara[MdQ[i]].P[0];console.log(ara)
+		for(var j=0;j<ara.length;j++)Set(ara[j])
+	}
+}
 function Enm(sym){
 	if(sym=="O")return "X";else if(sym=="X") return "O";else return ""
 }
 function BJd(){var nxt=[],nxn=[]
 	for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
-		if(!Ckr(Chr(cd1)+cd2)){var sym=Qre(Chr(cd1)+cd2,"Sym");if(sym==2||sym!=Tn%2)nxn.push(Chr(cd1)+cd2)}
+		if(!Ckr(Chr(cd1)+cd2)){var sym=Qre(Chr(cd1)+cd2,"Sym");if(sym==2)nxn.push(Chr(cd1)+cd2)}
 		else nxt.push(Chr(cd1)+cd2)
 	}if(nxt.length==0&&Tn>2&&Tn!=81&&!Dft.Win)Jdg(Sqr.Sym[(Tn+1)%2]+"獲勝");return nxn
 }
