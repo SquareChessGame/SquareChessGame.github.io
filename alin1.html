@@ -4,17 +4,1404 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1.0,user-scalable=no" />
 <meta name="mobile-web-app-capable" content="yes" />
-<link href="Pics/Icon.png" rel="shortcut icon">
 <title>Square Chess Game</title>
 <script src="Impo/jquery.min.js"></script>
 <script src="Impo/jquery.mobile-1.4.5.min.js"></script>
-<script src="Core/Prun.js"></script>
-<script src="Core/Core.js"></script>
-<script src="Core/Part.js"></script>
-<script src="Core/Aide.js"></script>
-<script src="Core/Rule.js"></script>
-<script src="Core/Mgbx.js"></script>
-<style>@import "Core/Face.css";#menu{position:fixed;}</style>
+<script>
+var doc=document
+function Asc(v){return v.charCodeAt()}
+function Chr(v){return String.fromCharCode(v)}
+function Val(v){return v*1}
+function Rnd(){return Math.random()}
+function Mid(v,s,e){return v.substr(s,e)}
+function Instr(s,c){return s.search(c)}
+function Id(v){return doc.getElementById(v)}
+function Class(v){return doc.getElementsByClassName(v)}
+function Tag(v){return doc.getElementsByTagName(v)}
+function Name(v){return doc.getElementsByName(v)}
+var Tn=0,MdQ=[],Sqr={
+		Sym:["O","X",""," ","Z"],FtC:["","blue","red"],
+		BgC:[
+			"white","lightgray","dimgray","indianred","lightskyblue",
+			"palevioletred","lightsteelblue","crimson","royalblue",
+			"khaki","lightcoral","lightseagreen","black"
+		]
+	},Dft={
+		Set:1,Tn:0,Blk:[],Win:0,Crd:"",Dir:"",
+		Oln:{Typ:"",Id:"",Rgt:0,Cln:1,MdN:"",Msg:0,CkN:"",MSw:1},
+		System:{Blk:0,Nxt:0,iTn:0,Qsr:0,Oln:0,Gst:0}
+	},
+	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},
+	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{},Ato:{}},
+	Mod=[
+		"Square.Connect","Connect:Attack",
+		"Connect:Defend","Connect:Scheme",
+		"Square.Blocker","Blocker:Forbid",
+		"Square.Divider","Divider:Zombie",
+		"Divider:Follow","Divider:Anomal",
+		"Square.Adapter","Adapter:Castle",
+		"Adapter:ByLine","Gomoku","GoLike"
+	]
+function Slt(l){var pcs=function(){}
+	Id("NightMode").style.opacity=1;setTimeout("doc.body.style.backgroundColor='black'",1000)
+	if(typeof l=="undefined"){pcs=null;Mbx.Ldr();l=0}
+	Mbx("選擇欲遊玩的模式",function(a){Ldr(a)},pcs,Mod,l,1)
+}
+function Ldr(m){var mdN=m
+	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie","")
+	$("#Rsw div")[0].innerHTML="(?)"+doc.title;Dft.Oln.MdN=doc.title;MdQ=mdN.replace("Square.","").split(":");MdL()
+}
+function MdL(){Id("LdB").style.width="100%";setTimeout('MdL.Ldr()',2000)
+	if(MdQ.indexOf("Attack")>-1)for(var i=0;i<4;i++)Dft.Blk=Dft.Blk.concat(Shl.Ara.Attack[i])
+	if(MdQ.indexOf("Scheme")>-1)Dft.System.Blk=18
+	if(MdQ.indexOf("Castle")>-1)for(var i=0;i<4;i++)Dft.Blk=Dft.Blk.concat(Shl.Ara.Castle[i])
+	if(MdQ.indexOf("Follow")>-1)Dft.System.iTn=1
+}
+MdL.Ldr=function(){
+	Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
+}
+function Rsz(){
+	var sz=$(window).width(),scn=1,rec=1
+	if($(window).height()-40<sz){sz=$(window).height()-40;scn=0}sz=Math.floor(sz/9)
+	$(".bt").css("width",sz+"px");$(".bt").css("height",sz+"px")
+	$(".bt").css("font-size",sz-10+"px");$(".bt").css("line-height",sz+"px")
+	Id("NightMode").style.height=($(window).height()-40)+"px"
+	for(i=81;i<84;i++){if(!Class("bt")[i])break
+		if(Class("bt")[i].tagName=="DIV")continue
+		if(i>80)Class("bt")[i].style.width=sz*4.5+"px"
+		if(!Class("bt")[i+2]&&i==81)Class("bt")[i].style.width=sz*9+"px"
+	}
+	if(scn&&Id("LdA").style.display=="none")Id("QCtrl").style.display=""
+	if(Id("QR")){
+		Id("QR").style.top=Math.floor(($(window).height()-40)/2)-75+"px"
+		Id("QR").style.right=Math.floor(($(window).width())/2)-75+"px"
+	}Id("UI").style.width=sz*9+"px"
+	Id("Rule").style.width=sz*9+"px";if(Id("Rule").style.height!="0px")Id("Rule").style.height=sz*9+"px"
+	if(Id("Setting").style.height!="0px")Id("Setting").style.height=($(window).height()-40)+"px"
+	Id("Recrd").style.width=$("#Board").offset().left+"px";Id("Recrd").style.height="100%"
+	if($("#Board").offset().left<80)Id("Recrd").style.display="none"
+	else Id("Recrd").style.display="";Sel.Now("N");Mbx.Rsz()
+}
+function Itf(){var bd=""
+	for(cd2=1;cd2<10;cd2++){bd+="<tr>";for(cd1=65;cd1<74;cd1++){bd+="<td id='"+Chr(cd1)+cd2+"' class='bt'></td>"}bd+="</tr>"}Id("Board").innerHTML=bd
+	$("#UI").swipe(function(e){var arw=e.swipestart.coords[0]-e.swipestop.coords[0]
+		if(!Dft.System.Gst)return;if(arw>0)Ctl("Udo");else if(arw<0)Ctl("Rdo")
+	})
+	$(".bt").click(function(){Set(this.id)})
+	$(".bt").dblclick(function(){if(Dft.System.Gst)Ctl("Udo",this.id)})
+	$(".bt").on("taphold contextmenu",function(){if(this.id=="Cln")Opt();else if(this.id=="Udo")Ctl("Gto");else if(Dft.System.Gst)Ctl("Rdo",this.id)})
+}
+function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else return Mbx(msg,function(){Cln()},function(){})
+	if(ckr){Tn=0;Hst={Brd:[],Crd:["E5"],Sel:[],Rut:[]}
+		Qre(Sel("All"),"Sym",2);Brd();Dft.Win=0;Id("Recrd").innerHTML=""
+		Adn();Rul();Hst.Brd[Tn]=Rec();Dft.Tn=Tn;Sel.Now("N")
+	}
+}
+function Set(crd){if(!Dft.Set)return;var ckr=Ckr(crd)
+	if(Dft.System.Qsr)ckr=!Lmt(crd)
+	if(ckr){
+		Qre(crd,"Sym",Tn%2);Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec();Sel.Now("N");Log();Dft.Win=0
+		Hst.Brd.splice(Tn+1,Hst.Brd.length-Tn);if(Dft.System.Oln)Upl(Hst.Brd[Tn]+"/"+Tn+"/"+Hst.Crd[Tn])
+	}else if(Id("O0").style.display=="")Sel.Now("B")
+}
+function Qre(crd,atr,typ){var res=[],ckr=0
+	if(typ&&typeof typ!="object"&&Asc(typ+"")>64)typ=Asc(typ+"")-55
+	if(typeof crd=="object"){
+		for(var i=0;i<crd.length;i++)res=res.concat(Qre(crd[i],atr,typ));return res
+	}else if(typeof atr=="object"){
+		for(var i=0;i<atr.length;i++){
+			if(typeof typ=="object")res=res.concat(Qre(crd,atr[i],typ[i]))
+			else res=res.concat(Qre(crd,atr[i]))
+		}return res
+	}
+	if(typeof typ!="undefined")ckr=1
+	if(Id(crd))switch(atr){
+		case"Opa":
+			if(ckr)Id(crd).style.opacity=typ;break
+		case"Sym":
+			if(ckr)Id(crd).innerHTML=Sqr.Sym[typ];
+			res=res.concat(Sqr.Sym.indexOf(Id(crd).innerHTML));break
+		case"FtC":
+			if(ckr)Id(crd).style.color=Sqr.FtC[typ];
+			res=res.concat(Sqr.FtC.indexOf(Id(crd).style.color));break
+		case"BgC":
+			if(ckr)Id(crd).style.backgroundColor=Sqr.BgC[typ];
+			res=res.concat(Sqr.BgC.indexOf(Id(crd).style.backgroundColor))
+	}
+	for(var i=0;i<res.length;i++)if(res[i]>9)res[i]=Chr(res[i]+55)
+	if(res.length>1)return res;return res[0]
+}
+function Rec(brd){var res="";Dft.Win=0
+	if(typeof brd=="number"&&Hst.Brd[brd]){
+		Tn=brd;Log();Rec(Hst.Brd[brd]);if(!Dft.System.Qsr)Rul();return
+	}
+	for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
+		if(brd)Qre(Chr(cd1)+cd2,"Sym",brd[((cd1-65)*9+cd2-1)])
+		else res+=Qre(Chr(cd1)+cd2,"Sym")
+	}return res
+}
+function Lmt(crd,sym){if(Qre(crd,"Sym")!=2)return 1;if(typeof sym=="undefined")sym=Tn%2
+	for(var i=MdQ.length-1;i>-1;i--)if(Shl.Lmt[MdQ[i]](crd,sym))return 1;return 0
+}
+function Ckr(crd){if(Qre(crd,"Sym")!=2)return 0
+	for(var i=MdQ.length-1;i>-1;i--){var ckr=Shl.Ckr[MdQ[i]](crd)
+		if(ckr==2)return 1;else if(!ckr)return 0
+	}return 1
+}
+function Mrk(){Brd();var nxc=BJd()
+	if(Dft.System.Nxt){nxc=nxc.concat(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==(Tn+1)%2)return 1}))
+		Qre(nxc,"Opa",0.2)
+	}
+	if(Dft.System.iTn){Qre(Hst.Crd[Tn],"FtC",1);Qre(Hst.Crd[Tn-1],"FtC",1)}
+	for(var i=0;i<MdQ.length;i++)Shl.Mrk[MdQ[i]]()
+	Qre(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==3)return 1;return 0}),"BgC",2)
+}
+function Brd(){Qre(Sel("All"),["FtC","BgC"],[0,0]);Qre(Sel("All"),"Opa",1)
+	var ord=function(crd){
+			var cd1=Asc(crd[0]),cd2=Val(crd[1]);if((cd1+cd2)%2==0)return 1
+		};Qre(Flt(Sel("All"),ord),"BgC",1)
+	for(var i=0;i<MdQ.length;i++)Shl.Brd[MdQ[i]]()
+}
+function Adn(){
+	for(var i=0;i<MdQ.length;i++)Shl.Adn[MdQ[i]]()
+	if(Dft.System.Blk){var s=Dft.System.Blk
+		while(s){var cd1=Math.floor(Rnd()*9)+65,cd2=Math.floor(Rnd()*9)+1
+			if((cd1+cd2)%2==0&&Qre(Chr(cd1)+cd2,"Sym")==2&&Dft.Blk.indexOf(Chr(cd1)+cd2)<0){Qre(Chr(cd1)+cd2,["Sym","BgC"],[3,2]);s--}
+		}
+	}
+}
+function Rul(){
+	for(var i=MdQ.length-1;i>-1;i--)if(Jdg(Shl.Rul[MdQ[i]]()))break;Mrk()
+}
+function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Dft.Oln.Id
+	Id("OptionMenu").childNodes[0].innerHTML="";OpS("","1","基本設定");Id("Gear").style.transform="rotate(-45deg)"
+	if(!Dft.System.Oln){
+		OpS("System-Blk","t","障礙數量:",Dft.System.Blk)
+		OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
+		OpS("System-Oln","k","線上對戰",Dft.System.Oln)
+	}else Oln.Opt()
+	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1)OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
+	OpS("System-iTn","k","上回設置",Dft.System.iTn)
+	OpS("System-Gst","k","手勢操作",Dft.System.Gst)
+	if($("#Recrd").width()>10)OpS("System-Rec","k","顯示過程",Id("Recrd").style.display!="none")
+	OpS("System-Nit","k","夜間模式",Id("NightMode").style.opacity!=1)
+	OpS("System-Ful","k","全螢幕模式",doc.webkitIsFullScreen||doc.mozFullScreen||doc.fullscreen)
+	OpS("System-Rul","k","顯示規則",Id("Rule").style.height!="0px")
+	for(var i=0;i<MdQ.length;i++)Shl.Opt[MdQ[i]]()
+}
+function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";if(k)return
+	if(!Dft.System.Oln){
+		if(Val(Id("System-Blk").value)!=NaN&&Id("System-Blk").value!="")Dft.System.Blk=Val(Id("System-Blk").value)
+		if(Dft.System.Blk>27)Dft.System.Blk=27
+		if(Id("System-Oln").checked)location="btchs.html"+location.search
+		Dft.System.Qsr=Id("System-Qsr").checked
+	}else Oln.OpK();for(i=0;i<MdQ.length;i++)Shl.OpK[MdQ[i]]()
+	if(Id("System-Nit").checked)Id("NightMode").style.opacity=0.3;else Id("NightMode").style.opacity=1
+	if(Id("System-Ful").checked){
+		if(Id("NightMode").mozRequestFullScreen)Id("NightMode").mozRequestFullScreen()
+		if(Id("NightMode").webkitRequestFullScreen)Id("NightMode").webkitRequestFullScreen()
+	}else{
+		if(doc.mozCancelFullScreen)doc.mozCancelFullScreen()
+		if(doc.webkitCancelFullScreen)doc.webkitCancelFullScreen()
+	}
+	if(Id("System-Rul").checked)Ctl("RSw",1);else Ctl("RSw",0)
+	if(Id("System-Rec")&&!Id("System-Rec").checked)Id("Recrd").style.display="none";else Id("Recrd").style.display=""
+	Dft.System.Nxt=Id("System-Nxt").checked;Dft.System.Gst=Id("System-Gst").checked;
+	Dft.System.iTn=Id("System-iTn").checked;if(Dft.Tn==Tn)Cln();Mrk();Ctl("Rul")
+}
+function OpS(id,typ,til,dft){var input="",ck="",mg=10,ls=Id("OptionMenu").childNodes[0].childNodes
+	if(dft)ck="checked";
+	if(ls.length>1){mg=Val(ls[ls.length-2].style.marginLeft.split("px")[0])
+		if(ls[ls.length-2].childNodes[0].tagName!="INPUT")mg+=10
+	}
+	switch(typ){
+		case"1":mg=0;input="<font style='font-size:25px'>"+til+":</font>";break
+		case"2":mg=10;input="<font style='font-size:23px'>"+til+":</font>";break
+		case"t":input=til+"<input type='text' id='"+id+"' placeholder='"+dft+"' class='Opt' style='width:40px;text-align:right'/>";break
+		case"r":var tid=id.split("/");input="<input type='radio' "+ck+" id='"+tid[0]+"' class='Opt' name='"+tid[1]+"' style='zoom:1.5'/>"+til;break
+		case"k":input="<input type='checkbox' "+ck+" id='"+id+"' class='Opt' style='zoom:1.5'/>"+til;break
+	}Id("OptionMenu").childNodes[0].innerHTML+="<label style='margin-left:"+mg+"px'>"+input+"</label><br>"
+}
+function Jdg(msg){
+	if(msg){Log(msg);if(Dft.System.Oln)Upl(msg);else Cln(msg+",是否再來一局?");Dft.Win=1;return 1}
+}
+function Log(vlu){Id("Recrd").innerHTML=""
+	for(var i=1;i<Tn+1;i++)Id("Recrd").innerHTML+="<div>第"+i+"回合:"+Sqr.Sym[(i-1)%2]+"方將符號設置於"+Hst.Crd[i]+"</div>";Id("Recrd").scrollTop=Id("Recrd").scrollHeight
+}
+function Crd(crd,vct,ovl){var x=0,y=0,ox=0,oy=0;vct=Vct(vct)
+	if(typeof vct=="object"){
+		for(var i=0;i<vct.length;i++)vct[i]=Crd(crd,vct[i]);return vct
+	}
+	for(var i in vct)switch(vct[i]){
+		case"F":y--;break
+		case"B":y++;break
+		case"R":x++;break
+		case"L":x--;break
+		case"C":x=0;y=0;break
+	}ox=Asc(crd[0])+x;oy=Val(Val(crd[1])+y)
+	if(!ovl){
+		if(Math.abs(x)==Math.abs(y)){
+			for(var i=1;i<Math.abs(x)+1;i++){
+				var s=Asc(crd[0])+(i*Math.sign(x)),
+					e=Val(crd[1])+(i*Math.sign(y))
+				if(s>73||s<65||e>9||e<1){
+					x=(i-1)*Math.sign(x);y=(i-1)*Math.sign(y);break
+				}
+			}
+		}else{
+			if(ox>73){x=(73-Asc(crd[0]))}
+			if(ox<65){x=(65-Asc(crd[0]))}
+			if(oy>9){y=(9-Val(crd[1]))}
+			if(oy<1){y=(1-Val(crd[1]))}
+		}
+	}return Chr(Asc(crd[0])+x)+Val(Val(crd[1])+y)
+}
+function Vct(typ){
+	if(typeof typ=="object"){var res=[]
+		for(var i=0;i<typ.length;i++)res=res.concat(Vct(typ[i]));return res
+	}
+	if(Instr(typ,"&")>-1)return Vct(typ.split("&"))
+	if(Val(typ[0])&&typ[1]){tp=typ.replace(typ[0],"");var vct="",tp=Vct(tp)
+		if(typeof tp=="object"){
+			for(var i=0;i<tp.length;i++)tp[i]=Vct(typ[0]+tp[i]);return tp
+		}for(i=0;i<Val(typ[0]);i++)vct+=tp;return vct
+	}
+	if(Instr(typ,":")>-1){
+		var crd=typ.split(":"),
+		x=Val(Asc(crd[1][0]))-Val(Asc(crd[0][0]))
+		y=Val(Val(crd[1][1]))-Val(Val(crd[0][1]))
+		if(crd[0]==crd[1])return "1C"
+		if(x<0)x=Vct(Math.abs(x)+"L");else if(x!=0)x=Vct(x+"R");else x="" 
+		if(y<0)y=Vct(Math.abs(y)+"F");else if(y!=0)y=Vct(y+"B");else y=""
+		if(x.length==y.length)return y.length+y[0]+x[0]
+		if(x.length==0)return y.length+y[0]
+		if(y.length==0)return x.length+x[0]
+		else return y+x
+	}
+	if(Instr(typ,"~")>-1){
+		var crd=typ.split("~"),vct=Vct(crd[0]+":"+crd[1]),s=Val(vct[0]),v=vct.replace(vct[0],""),res=["C"]
+		for(var i=0;i<s;i++)res.push(Vct((i+1)+v));return res
+	}
+	switch(typ[0]){
+		case"8":return"F,B,R,L,FR,FL,BR,BL".split(",")
+		case"X":return"FR,FL,BR,BL".split(",")
+		case"4":return"F,B,R,L".split(",")
+		case"Q":return"FFR,FFL,RRF,LLF,BBR,BBL,RRB,LLB".split(",")
+		case"V":
+			return Flt(Vct("X"),function(ckr){if(Instr(ckr,typ[1])>-1)return 1;else return 0})
+		case"W":
+			return Flt(Vct("Q"),function(ckr){if(Instr(ckr,typ[1])>-1)return 1;else return 0})
+		case"Y":
+			return Flt(Vct("Q"),function(ckr){if(Instr(ckr,typ[1]+typ[1])>-1)return 1;else return 0})
+		case"H":return"R,L".split(",")
+		case"I":return"F,B".split(",")
+	}return typ
+}
+function Sel(typ,ord){
+	if(typeof typ=="string"&&Hst.Sel[typ])return Hst.Sel[typ];Hst.Sel[typ]=[]
+	if(ord)return Flt(Sel(typ),ord)
+	if(typ=="All")for(cd1=65;cd1<74;cd1++)for(cd2=1;cd2<10;cd2++)Hst.Sel.All.push(Chr(cd1)+cd2)
+	if(typeof typ=="object")for(var i=0;i<typ.length;i++)Hst.Sel[typ]=Hst.Sel[typ].concat(Sel(typ[i]))
+	else if(Instr(typ,",")>-1){Hst.Sel[typ]=Hst.Sel[typ].concat(Sel(typ.split(",")))}
+	else if(Instr(typ,"/")>-1){var spt=typ.split("/");Hst.Sel[typ]=Hst.Sel[typ].concat(Crd(spt[0],spt[1]))}
+	else if(Instr(typ,"~")>-1){var spt=typ.split("~"),cds=Vct(typ)
+		for(var i=0;i<cds.length;i++)cds[i]=Crd(spt[0],cds[i])
+		Hst.Sel[typ]=Hst.Sel[typ].concat(cds)
+	}else if(Instr(typ,":")>-1){var spt=typ.split(":")
+		if(spt[0].length==1&&spt[1].length==1){
+			var sml=Asc(spt[0]),big=Asc(spt[1]);if(Asc(spt[0])>big){sml=Asc(spt[1]);big=Asc(spt[0])}
+			for(var i=sml;i<big+1;i++)Hst.Sel[typ].push(Chr(i));Hst.Sel[typ]=Sel(Hst.Sel[typ])
+		}else if(spt[0].length==2&&spt[1].length==1||spt[0].length==1&&spt[1].length==2){
+			var m=0;if(spt[1].length==2)m=1
+			var cd1=spt[m][0],cd2=spt[m][1]
+			if(Val(spt[(m+1)%2]))Hst.Sel[typ]=Sel(spt[m]+":"+cd1+spt[(m+1)%2])
+			else Hst.Sel[typ]=Sel(spt[m]+":"+spt[(m+1)%2]+cd2)
+		}else{
+			var cd1f=Asc(spt[0][0]),cd1l=Asc(spt[1][0]),cd2f=Val(spt[0][1]),cd2l=Val(spt[1][1])
+			if(Asc(spt[0][0])>cd1l){cd1f=Asc(spt[1][0]);cd1l=Asc(spt[0][0])}
+			if(Val(spt[0][1])>cd2l){cd2f=Val(spt[1][1]);cd2l=Val(spt[0][1])}
+			Hst.Sel[typ]=Flt(Sel("All"),
+				function(ckr){
+					var cd1k=Asc(ckr[0]),cd2k=Val(ckr[1])
+					if(cd1k>=cd1f&&cd1k<=cd1l&&cd2k>=cd2f&&cd2k<=cd2l)return 1;else return 0
+				}
+			)
+		}
+	}
+	if(typ.length==1)Hst.Sel[typ]=Flt(Sel("All"),function(ckr){if(Instr(ckr,typ)>-1)return 1;else return 0})
+	if(typ.length==2&&typeof typ=="string")Hst.Sel[typ]=typ
+	return Hst.Sel[typ]
+}
+function Flt(grp,ord){var res=[]
+	for(var i=0;i<grp.length;i++){var odr=ord(grp[i])
+		if(odr==2)return res;else if(odr)res.push(grp[i])
+	}return res
+}
+function Ser(crd){
+	return Hst.Crd.indexOf(crd)
+}
+function Cnt(){var ara={O:[],X:[],P:[]},ser=0,brd=Rec();ara.O.All=[];ara.X.All=[];ara.P.All=[]
+	for(var i=0;i<2;i++){var s=0
+		while(1){ara[Sqr.Sym[i]][s]=[]
+			for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
+				var crd=Chr(cd1)+cd2;if(Qre(crd,"Sym")!=2)continue
+				if(!Lmt(crd,i)){ara[Sqr.Sym[i]][s].push(crd);ara[Sqr.Sym[i]].All.push(crd)}
+			}if(ara[Sqr.Sym[i]][s].length==0)break
+			for(var j=0;j<ara[Sqr.Sym[i]][s].length;j++)Qre(ara[Sqr.Sym[i]][s][j],"Sym",i);s++
+		}Rec(brd);if(s>ser)ser=s
+	}
+	for(var i=0;i<ser;i++){ara.P[i]=[];for(var j=0;j<2;j++)if(!ara[Sqr.Sym[j]][i])ara[Sqr.Sym[j]][i]=[]
+		ara.P[i]=ara.P[i].concat(Flt(ara.O[i],function(crd){if(ara.X[i].indexOf(crd)>-1)return 1}))
+	}ara.P.All=Flt(ara.O.All,function(crd){if(ara.X.All.indexOf(crd)>-1)return 1})
+	for(var i=0;i<2;i++)ara[Sqr.Sym[i]].All=Flt(ara[Sqr.Sym[i]].All,function(crd){if(ara.P.All.indexOf(crd)<0)return 1});return ara
+}
+function Scr(opt,xpt){
+	if(opt>xpt)return "O獲勝";if(xpt>opt)return "X獲勝";return "平手"
+}
+function Ara(grp,typ){
+	var ara=Flt(grp,function(crd){if(Qre(crd,"Sym")==Sqr.Sym.indexOf(typ[0]))return 1;return 0})
+	switch(typ[1]){
+		case"F":if(ara.length==grp.length)return 1;return 0
+		case"=":if(ara.length==Val(typ[2]))return 1;return 0
+		case"<":if(ara.length<Val(typ[2]))return 1;return 0
+		case">":if(ara.length>Val(typ[2]))return 1;return 0
+	}
+}
+Ara.Rul=function(shl,ara){Shl.Ara[shl]=ara
+	for(var i=0;i<2;i++)if(ara[Sqr.Sym[i]][0].length==0&&ara.P[0].length==0)ck=1
+	if(Tn>2&&Tn%2==0){var ck=0
+		switch(Dft[shl].QJd){
+			case 1:if(ara.P.All.length==0)ck=1;break
+			case 2:if(ara.P[0].length==ara.P.All.length)ck=1;break
+			case 3:for(var i=0;i<2;i++)if(ara[Sqr.Sym[i]].All.length>ara.P.All.length)ck=1;break
+		}
+	}if(ck)return Scr(ara.O.All.length,ara.X.All.length)
+}
+Ara.Opt=function(shl){
+	OpS("","2","輔助標記");OpS(shl+"-Ara","k","雙方區域",Dft[shl].Ara)
+	if(!Dft.System.Oln){OpS("","2","判定方式")
+		OpS(shl+"-QJd-0/"+shl+"-QJd","r","不進行快速判定",Dft[shl].QJd==0)
+		OpS(shl+"-QJd-1/"+shl+"-QJd","r","快速判定初級",Dft[shl].QJd==1)
+		OpS(shl+"-QJd-2/"+shl+"-QJd","r","快速判定中級",Dft[shl].QJd==2)
+		OpS(shl+"-QJd-3/"+shl+"-QJd","r","快速判定高級",Dft[shl].QJd==3)
+	}
+}
+Ara.OpK=function(shl){
+	Dft[shl].Ara=Id(shl+"-Ara").checked
+	if(!Dft.System.Oln)for(var i=0;i<4;i++)if(Id(shl+"-QJd-"+i).checked)Dft[shl].QJd=i
+}
+Ara.Mrk=function(shl){
+	if(Dft[shl].Ara)for(cd1=65;cd1<74;cd1++)for(cd2=1;cd2<10;cd2++)for(sym=0;sym<2;sym++){
+		if(Shl.Ara[shl][Sqr.Sym[sym]].All.indexOf(Chr(cd1)+cd2)>-1)Qre(Chr(cd1)+cd2,"BgC",sym+3)
+	}
+}
+Ara.Ckr=function(shl,crd){
+	return Shl.Ara[shl][Sqr.Sym[Tn%2]][0].indexOf(crd)>-1||Shl.Ara[shl].P[0].indexOf(crd)>-1
+}
+Ara.AJd=function(shl,ara){var sot={O:[],X:[],P:[]};sot.O.All=[];sot.X.All=[];sot.P.All=[]
+	for(var cd1=65;cd1<74;cd1++){
+		for(var cd2=1;cd2<10;cd2++){if(Qre(Chr(cd1)+cd2,"Sym")!=2)continue
+			var crd=Chr(cd1)+cd2,sym=[ara.O.indexOf(crd),ara.X.indexOf(crd)]
+			for(var i=0;i<2;i++){var ck=0
+				if(sym[i]>-1&&sym[(i+1)%2]<0)ck=1
+				else if(sym[i]>-1&&sym[(i+1)%2]>-1)switch(Dft[shl].AJd){
+					case 0:if(ara[Sqr.Sym[i]].age[sym[i]]<ara[Sqr.Sym[(i+1)%2]].age[sym[(i+1)%2]])ck=1;break
+					case 1:if(ara[Sqr.Sym[i]].age[sym[i]]>ara[Sqr.Sym[(i+1)%2]].age[sym[(i+1)%2]])ck=1;break
+					case 2:ck=0
+				}if(ck)sot[Sqr.Sym[i]].All.push(crd)
+			}if(sot.O.All.indexOf(crd)<0&&sot.X.All.indexOf(crd)<0)sot.P.All.push(crd)
+		}
+	}sot.O[0]=sot.O.All;sot.X[0]=sot.X.All;sot.P[0]=sot.P.All;return sot
+}
+Ara.PFu=function(){
+	for(var i=0;i<MdQ.length;i++){if(!Shl.Ara[MdQ[i]].P)continue
+		var ara=Shl.Ara[MdQ[i]].P[0]
+		for(var j=0;j<ara.length;j++)Set(ara[j])
+	}
+}
+function Enm(sym){
+	if(sym=="O")return "X";else if(sym=="X") return "O";else return ""
+}
+function BJd(){var nxt=[],nxn=[]
+	for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
+		if(!Ckr(Chr(cd1)+cd2)){var sym=Qre(Chr(cd1)+cd2,"Sym");if(sym==2)nxn.push(Chr(cd1)+cd2)}
+		else nxt.push(Chr(cd1)+cd2)
+	}if(nxt.length==0&&Tn>2&&Tn!=81&&!Dft.Win)Jdg(Sqr.Sym[(Tn+1)%2]+"獲勝");return nxn
+}
+function Map(crd,sym,typ){if(!typ)typ="4";if(!sym)sym=Qre(Sel(crd),"Sym")
+	if(typeof sym!="object")sym=[sym]
+	var vst=Flt(Crd(crd,typ),function(crd){
+		if(Id(crd)&&sym.indexOf(Qre(crd,"Sym"))>-1)return 1;return 0
+	});vst.push(crd)
+	while(1){var cds=Sel("All"),ckr=0
+		for(var i=0;i<cds.length;i++){
+			if(vst.indexOf(cds[i])>-1||sym.indexOf(Qre(cds[i],"Sym"))<0)continue;var cs2=Crd(cds[i],typ)
+			for(var j=0;j<cs2.length;j++){
+				if(vst.indexOf(cs2[j])>-1){vst.push(cds[i]);ckr++;break}
+			}
+		}if(!ckr)break
+	}return vst
+}
+Map.Bdr=function(cds,ckr,odr,typ){if(!typ)typ="4";var res=[]
+	for(var i=0;i<cds.length;i++){
+		var grp=Flt(Crd(cds[i],typ),function(crd){if(Id(crd)&&cds.indexOf(crd)<0)return 1;return 0})
+		for(var j=0;j<grp.length;j++)grp[j]=Qre(grp[j],"Sym");res=res.concat(grp)
+	}if(!odr(res,ckr))return 0;return 1
+}
+function Idt(grp,ckr){
+	if(typeof ckr=="undefined")ckr=grp[0];for(var i=0;i<grp.length;i++)if(grp[i]!=ckr)return 0;return 1
+}
+function MsO(e){var v=1,p=0
+	if(e.pageX<$("#Board").offset().left)p=0
+	else if(e.pageX>$("#Board").offset().left+$("#Board").width())p=1
+	else v=0;Mnu(v,p)
+}
+function KDw(e){
+	var c=e.ctrlKey,k=e.which,s=e.shiftKey,m=Id("menu"),t=Id("Setting").style.height=="0px",g=1,a=Id("Mbx").style.display!="none"
+	if(Id("Message"))g=Id("Message").style.height=="25px"
+	if(t&&g&&!a)e.preventDefault();else if(k!=27&&k!=13&&!g&&a)return
+	switch(k){
+		case   8:if(t)Ctl("Udo");break
+		case  13:if(a)$("#MbxbY")[0].click();else if(!t)OpK();else if(!g)Ctl("Msg");else if(Dft.Dir=="")Ctl("Rdo");break
+		case  18:if(c)Opt();break
+		case  27:if(a)$("#MbxbN")[0].click();else if(!g)Ctl("MSw",0);else if(Id("O0").style.display!="none")Sel.Now("N");else OpK(1);break
+		case  35:Rec(Hst.Crd.length-1);break
+		case  36:if(c)Ctl("Hom");else Rec(0);break
+		case  37:if(a)$("#Mbxsl")[0].click();else if(c)Ctl("Udo");else{Dft.Dir+="L";Sel.Now("D")}break
+		case  38:if(c)Ctl("Cln");else{Dft.Dir+="F";Sel.Now("D")}break
+		case  39:if(a)$("#Mbxsr")[0].click();else if(c)Ctl("Rdo");else{Dft.Dir+="R";Sel.Now("D")}break
+		case  40:if(c)Ctl("Cln");else{Dft.Dir+="B";Sel.Now("D")}break
+		case  46:if(s)Cln();else Ctl("Cln");break
+		case  89:if(c)Ctl("Rdo");break
+		case  90:if(c)Ctl("Udo");break
+		case 112:Ctl("RSw");break
+		case 219:
+			if(m.style.left=="0px"){
+				if(m.style.width=="0px")Mnu(1,1);else Mnu(0,0)
+			}else Mnu(1,1);break
+		case 221:
+			if(m.style.right=="0px"){
+				if(m.style.width=="0px")Mnu(1,0);else Mnu(0,1)
+			}else Mnu(1,0);break
+		default:if(k>64&&k<74&&g){Dft.Crd=Chr(k);Sel.Now("C");if(c){if(k==72)Ctl("Gto");else if(k==65)Ara.PFu()}}
+				else if(k>48&&k<58||k>96&&k<106){var num=Chr(k);if(k>96)num=Chr(k-48)
+					if(m.style.width!="0px"){
+						if(!Dft.System.Oln)switch(Val(num)){
+							case 1:Ctl("Cln");break
+							case 2:Ctl("Udo");break
+							case 3:Ctl("Rdo");break
+							case 4:Ctl("Gto");break
+							case 5:Opt();break
+						}else switch(Val(num)){
+							case 1:Ctl("Gvp");break
+							case 2:Opt();break
+						}
+					}else{var crd=Dft.Crd;crd+=num
+						if(s)Ctl("Rdo",crd);else if(!c)Set(crd)
+					}
+				}
+	}
+}
+Sel.Now=function(t){Id("O0").style.display="none";
+	if(Id("menu").style.left=="0px")Mnu(0,0);else Mnu(0,1)
+	Id("O0").style.height=$(crd).height()+"px";if(t!="B")Id("O0").innerHTML=""
+	if(t!="N")Id("O0").style.display=""
+	Id("O0").style.fontSize=($(crd).height()-10)+"px"
+	Id("O0").style.backgroundColor=""
+	switch(t){
+		case"B":Id("O0").style.backgroundColor="crimson";break
+		case"C":var crd="#"+Dft.Crd+"1"
+			Id("O0").style.height=($(crd).height()*9)+"px";Dft.Dir=""
+			Id("O0").innerHTML=Dft.Crd+"<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9"
+			Id("O0").style.top=($(crd).offset().top-1)+"px"
+			Id("O0").style.left=$(crd).offset().left+"px"
+		break
+		case"D":if(Tn==0){Id("O0").style.display="none";Dft.Dir="";return}
+			Dft.Dir=Vct(Vct(Hst.Crd[Tn]+":"+Crd(Hst.Crd[Tn],Dft.Dir)));Dft.Crd=""
+			var crd="#"+Crd(Hst.Crd[Tn],Dft.Dir)
+			Id("O0").style.fontSize=($(crd).height()-20)+"px"
+			Id("O0").innerHTML=crd.replace("#","")
+			if(Id(crd.replace("#",""))){
+				Id("O0").style.height=$(crd).height()+"px"
+				Id("O0").style.top=($(crd).offset().top-1)+"px"
+				Id("O0").style.left=$(crd).offset().left+"px"
+			}
+		break
+		case"N":var crd="#"+Hst.Crd[Tn];Dft.Dir="";Dft.Crd=""
+			if(Id(crd.replace("#",""))){
+				Id("O0").style.height=$(crd).height()+"px"
+				Id("O0").style.top=($(crd).offset().top-1)+"px"
+				Id("O0").style.left=$(crd).offset().left+"px"
+			}
+		break
+	}
+}
+function KUp(e){
+	if((e.which==13||e.which==32)&&Dft.Dir!=""){Set(Crd(Hst.Crd[Tn],Dft.Dir))}
+}
+function Mnu(v,p){var h=0;if(v)h=160;if(Id("Setting").style.height!="0px")h=0;Id("menu").style.width=h+"px"
+	if(v)if(p){Id("menu").style.left="";Id("menu").style.right="0px"}
+	else{Id("menu").style.left="0px";Id("menu").style.right=""}
+}
+function Ctl(t,v){if(t=="Udo"||t=="Rdo")if(v&&v.length==3)return;Sel.Now("N")
+	if(!Dft.System.Oln)switch(t){
+		case"Cln":if(Tn!=Dft.Tn)Cln("確認清除棋盤?");else Cln();break
+		case"Udo":if(v)Rec(Ser(v)-1);else if(Tn>Dft.Tn)Rec(Tn-1);break
+		case"Rdo":if(v)Rec(Ser(v));else Rec(Tn+1);break
+		case"Gto":var t=["1"],T=Tn;if(Tn==0)T=1;for(var i=2;i<Hst.Brd.length;i++)t.push(i+"")
+			Mbx("輸入要前往的回合",function(tn){if(tn>Dft.Tn)Rec(Val(tn))},function(){},t,T-1);break
+	}else switch(t){
+		case"Gvp":if(Dft.Set)Mbx("確定認輸?",function(){Upl(Dft.Oln.Typ+"認輸,"+Enm(Dft.Oln.Typ)+"獲勝")},function(){});break
+		case"Msg":if(Id("msgs").value)Msg(Id("msgs").value);Id("msgs").value="";break
+		case"MSw":var k=Id("Message").style.height=="25px";if(typeof v!="undefined"){if(v)k=1;else k=0}
+		if(k)Id("Message").style.height="300px"
+		else{Id("Message").style.height="25px";Dft.Oln.Msg=0}Atn()
+	}
+	switch(t){
+		case "RSw":if(typeof v!="number")v=Id("Rule").style.height=="0px"
+			if(v){Id("Rule").style.height=Id("UI").style.width;Ctl("Rul")}
+			else Id("Rule").style.height="0px";break
+		case"Rul":Id("Rule").childNodes[3].innerHTML=Rls.Lst(MdQ);break
+		case"Hom":Slt(Mod.indexOf(doc.title));break
+	}
+}
+var Rls={
+	Set:[
+		"雙方可隨意設置符號",
+		"第一回合雙方可隨意設置符號"
+	],
+	Jdg:[
+		"對方無法設置符號時獲勝",
+		"無公區時，我方私區較對方多時獲勝",
+		"公區無法形成私區時，我方私區較對方多時獲勝",
+		"我方私區超過公區一半時獲勝",
+		"棋盤已滿時平手"
+	],
+	Ara:[
+		"對方封區或封限區皆為對方符號時獲勝",
+		"對方限區或封限區出現我方符號時獲勝"
+	],
+	AJd:[
+		"優先佔據該區域，就是我方的私區",
+		"最後佔據該區域，就是我方的私區",
+		"無論先後，雙方佔據時就是公區"
+	],
+	dft:typeof Dft!="undefined",
+	add:function(r,v){
+		if(r.indexOf(v)<0)r.push(v);return r
+	},
+	ext:function(r,a,b){var c=r.indexOf(a)
+		if(r.indexOf(b)>-1)return r
+		if(c>-1)r[c]=b;else r.push(b);return r
+	},
+	Scr:[
+		[
+			"周圍",
+			"A1與I9",
+			"D2與C9",
+			"G1與F8",
+			"封限區:Attack",
+			"封區:Attack",
+			"色塊",
+			"C3:G7",
+			"周圍將產生封限區",
+			"形成矩形",
+			"米字",
+			"符號接觸",
+			"符號包圍",
+			"空白區域將產生私區",
+			"形成直線或斜線時",
+			"口字",
+			"五個我方符號呈直線",
+			"封限區:Castle",
+			"國土",
+			"A1:I4",
+			"A6:I9",
+			"反射區將產生符號"
+		],
+		[
+			function(){var cds="#E4,#E6,#D4,#D5,#D6,#F4,#F5,#F6";Rls.Brd.Scp("#E5:S:O|"+cds+":B:slateblue|Ogn|"+cds+":B:slateblue")},
+			function(){Rls.Brd.Scp("#A1:S:O|#I9:S:X|#A1,#I9:S:|#A1:S:O/#I9:S:X")},
+			function(){Rls.Brd.Scp("#D2:S:O|#C9:S:X|#D2,#C9:S:|#D2:S:O/#C9:S:X")},
+			function(){Rls.Brd.Scp("#G1:S:O|#F8:S:X|#G1,#F8:S:|#G1:S:O/#F8:S:X")},
+			function(){var cds="#A2,#B1,#B2",c2s="#I8,#H8,#H9"
+				Rls.Brd.Scp(cds+":B:crimson/"+c2s+":B:royalblue|Ogn|"+cds+":B:crimson/"+c2s+":B:royalblue")
+			},
+			function(){var cds="#A3,#B3,#C3,#C1,#C2",c2s="#I7,#H7,#G7,#G8,#G9"
+				Rls.Brd.Scp(cds+":B:palevioletred/"+c2s+":B:lightsteelblue|Ogn|"+cds+":B:palevioletred/"+c2s+":B:lightsteelblue")
+			},
+			function(){
+				var cds=[
+					"#A1,#A2,#A3,#A4,#A5,#B1,#B2,#C1,#D1",
+					"#F9,#G9,#H8,#H9,#I5,#I6,#I7,#I8,#I9",
+					"#E1,#F1,#G1,#H1,#H2,#I1,#I2,#I3,#I4",
+					"#A6,#A7,#A8,#A9,#B8,#B9,#C9,#D9,#E9",
+					"#C5,#D5,#E5,#F5,#G5,#E3,#E4,#E6,#E7",
+					"#F2,#F3,#F4,#G2,#G3,#G4,#H3,#H4,#H5",
+					"#B5,#B6,#B7,#C6,#C7,#C8,#D6,#D7,#D8",
+					"#E8,#F6,#F7,#F8,#G6,#G7,#G8,#H6,#H7",
+					"#B3,#B4,#C2,#C3,#C4,#D2,#D3,#D4,#E2"
+				]
+				Rls.Brd.Scp(
+					cds[0]+":B:palevioletred|"+
+					cds[1]+":B:lightcoral|"+
+					cds[2]+":B:lightsteelblue|"+
+					cds[3]+":B:lightseagreen|"+
+					cds[4]+":B:khaki|"+
+					cds[5]+":B:palevioletred|"+
+					cds[6]+":B:lightcoral|"+
+					cds[7]+":B:lightsteelblue|"+
+					cds[8]+":B:lightseagreen"
+				)
+			},
+			function(){var cds=""
+				for(var cd1=67;cd1<72;cd1++)for(var cd2=3;cd2<8;cd2++)cds+="#"+Chr(cd1)+cd2+","
+				cds=cds.substr(0,cds.length-1)
+				Rls.Brd.Scp(cds+":B:slateblue|Ogn|"+cds+":B:slateblue")				
+			},
+			function(){var cds="#A1,#A2,#A3,#B1,#B3,#C1,#C2,#C3",c2s="#G7,#G8,#G9,#H7,#H9,#I7,#I8,#I9"
+				Rls.Brd.Scp("#B2:S:O|#H8:S:X|"+cds+":B:crimson/"+c2s+":B:royalblue|Ogn|"+cds+":B:crimson/"+c2s+":B:royalblue")
+			},
+			function(){var cds=""
+				for(var cd1=67;cd1<72;cd1++)for(var cd2=3;cd2<8;cd2++)if("C3C7G3G7".search(Chr(cd1)+cd2)<0)cds+="#"+Chr(cd1)+cd2+","
+				cds=cds.substr(0,cds.length-1)
+				Rls.Brd.Scp("#C3:S:O|#C7:S:O|#G3:S:O|#G7:S:O|"+cds+":B:indianred|Ogn|"+cds+":B:indianred")
+			},
+			function(){var cds="",c2s=",#E1,#E2,#E3,#E4"
+				for(var i=1;i<10;i++){if(i==5)continue
+					cds+="#"+Chr(i+64)+i+","+"#"+Chr(i+64)+(10-i)+","+"#"+Chr(i+64)+"5,"
+					if(i>3)cds+="#E"+i+","
+				}
+				cds=cds.substr(0,cds.length-1)
+				Rls.Brd.Scp("#E5:S:O|"+cds+c2s+":B:slateblue|Ogn|#E3:S:X|"+cds+":B:slateblue|Ogn|"+cds+":B:slateblue")
+			},
+			function(){
+				Rls.Brd.Scp("#E5:S:O|#F5:S:X|#A1:S:O|#I9:S:X|#A2:S:O|#I8:S:X|#A3:S:O|#I7:S:X|#A4:S:O|#I6:S:X|#E5,#F5:S:Z/#E5,#F5:F:red/#E5,#F5:B:black|#E5:S:O/#F5:S:X/#E5,#F5:F:black/#E5,#F5:B:white|#E5,#F5:S:Z/#E5,#F5:F:red/#E5,#F5:B:black")
+			},
+			function(){
+				Rls.Brd.Scp("#E4,#D5,#F5:S:O|#E5:S:X|#E6:S:O|#E5:S:Z/#E5:B:black/#E5:F:red|#E5:S:X/Ogn|#E5:S:Z/#E5:B:black/#E5:F:red")
+			},
+			function(){var cds="#E5,#E6,#E4,#D5"
+				Rls.Brd.Scp("#E3:S:O|#E7:S:O|#D4:S:O|#D6:S:O|#C5:S:O|#F4:S:O|#F6:S:O|#F5:S:O|"+cds+":B:indianred|Ogn|"+cds+":B:indianred")
+			},
+			function(){var cds="#E3,#E4,#E5,#E6,#E7"
+				Rls.Brd.Scp("#E2:S:O|#E8:S:O|"+cds+":B:indianred|Ogn|"+cds+":B:indianred")
+			},
+			function(){var cds="#C3,#C4,#C7,#D3,#E3,#F3,#F7,#G4,#G5,#G6,#G7",c2s=",#C5,#C6,#D7,#E7,#G3"
+				Rls.Brd.Scp("#E5:S:O|"+cds+c2s+":B:slateblue|Ogn|#D5,#E6,#F4:S:X|"+cds+":B:slateblue|Ogn|"+cds+":B:slateblue")
+			},
+			function(){
+				Rls.Brd.Scp("#E3,#E4,#E5,#E6,#E7:S:O|#E3,#E4,#E6,#E7:S:|#C3,#D4,#F6,#G7:S:O")
+			},
+			function(){var cds="#A1,#E1,#I1",c2s="#A9,#E9,#I9"
+				Rls.Brd.Scp(cds+":B:crimson/"+c2s+":B:royalblue|Ogn|"+cds+":B:crimson/"+c2s+":B:royalblue")
+			},
+			function(){var cds="#E2,#E3,#D3,#D4,#D5,#F3,#F4,#G3,#E5"
+				Rls.Brd.Scp("#E2:S:O|#E3:S:O|#D3:S:O|#D4:S:O|#D5:S:O|#F3:S:O|#F4:S:O|#G3:S:O|#E5:S:O|"+cds+":B:indianred|Ogn|"+cds+":B:indianred")
+			},
+			function(){var cds=""
+				for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<5;cd2++)cds+="#"+Chr(cd1)+cd2+","
+				cds=cds.substr(0,cds.length-1)
+				Rls.Brd.Scp(cds+":B:slateblue|Ogn|"+cds+":B:slateblue")				
+			},
+			function(){var cds=""
+				for(var cd1=65;cd1<74;cd1++)for(var cd2=6;cd2<10;cd2++)cds+="#"+Chr(cd1)+cd2+","
+				cds=cds.substr(0,cds.length-1)
+				Rls.Brd.Scp(cds+":B:slateblue|Ogn|"+cds+":B:slateblue")
+			},
+			function(){
+				Rls.Brd.Scp("#A5,#B5,#C5,#D5,#E5,#F5,#G5,#H5,#I5:B:dimgray|#E4:S:O|#E7:S:X|#F3:S:O|#F7:S:O|#F7:S:|#F7:S:O")
+			}
+		]
+	]
+};Rls.Ply=1
+Rls.Connect=function(r){var jdg=1
+	r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
+	if(Rls.dft)jdg=Dft.Connect.QJd
+	if(Rls.dft)switch(Dft.Connect.Rul){
+		case 1:
+			r=Rls.add(r,"O方符號將隨機設置於E4,E6,F5,D5")
+			r=Rls.add(r,"X方符號將隨機設置於F4,D4,F6,D6")
+		break
+		case 2:
+			r=Rls.add(r,"雙方符號將隨機設置於E3,E7,G5,C5")
+		break
+	}r=Rls.add(r,"符號須設置於我方符號周圍")
+	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
+}
+Rls.Attack=function(r){
+	r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
+	r=Rls.ext(r,Rls.Set[1],"第一回合雙方符號將分別設置於A1與I9")
+	r=Rls.add(r,"深色區域為我方封限區:Attack");r=Rls.add(r,"淺色區域為我方封區:Attack")
+	r=Rls.add(r,Rls.Ara[0]);r=Rls.add(r,Rls.Ara[1].replace("限區或",""));return r
+}
+Rls.Defend=function(r){
+	r=Rls.add(r,"不同色塊為一區域")
+	r=Rls.add(r,"區域內有五枚我方符號，且無對方符號時獲勝");return r
+}
+Rls.Scheme=function(r){
+	if(!Rls.dft||Rls.dft&&Dft.Scheme.Lmt){
+		r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
+		r=Rls.ext(r,Rls.Set[1],"第一回合雙方符號不得設置於C3:G7之座標")
+	}
+	r=Rls.add(r,"第一回合符號設置完成時，周圍將產生封限區")
+	r=Rls.add(r,"對方封限區皆為對方符號時獲勝")
+	r=Rls.add(r,"對方封限區出現我方符號時獲勝");return r
+}
+Rls.Blocker=function(r){var jdg=1,ajd=0;if(Rls.dft){jdg=Dft.Blocker.QJd;ajd=Dft.Blocker.AJd}
+	r=Rls.add(r,Rls.Set[0]);r=Rls.add(r,"我方四枚符號形成矩形時，該矩形區域將產生私區")
+	r=Rls.add(r,Rls.AJd[ajd]+":Blocker");r=Rls.add(r,Rls.Jdg[jdg]);return r
+}
+Rls.Forbid=function(r){
+	r=Rls.add(r,"符號不得設置於私區");return r
+}
+Rls.Divider=function(r){var jdg=1
+	r=Rls.ext(r,Rls.Set[0],Rls.Set[1]);if(Rls.dft)jdg=Dft.Divider.QJd
+	r=Rls.add(r,"符號須設置於我方符號米字，設置路徑間不得有對方符號")
+	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
+}
+Rls.Zombie=function(r){var tun=10;if(Rls.dft)tun=Dft.Zombie.ToZ
+	r=Rls.add(r,"第"+tun+"回合後，若雙方符號接觸將變成殭屍符號");r=Rls.add(r,"對方符號不存在時獲勝");return r
+}
+Rls.Follow=function(r){
+	for(var i=0;i<r.length;i++)if(r[i].search("符號須設置於我方")>-1)r[i]=r[i].replace("符號須設置於我方","符號須設置於我方上一回合");return r
+}
+Rls.ByLine=function(r){var ajd=0;r=Rls.add(r,"我方兩枚符號形成直線或斜線時，該直線或斜線區域將產生私區")
+	if(Rls.dft)ajd=Dft.ByLine.AJd;r=Rls.add(r,Rls.AJd[ajd]+":ByLine");return r
+}
+Rls.Anomal=function(r){
+	r=Rls.add(r,"空白區域被符號包圍時，空白區域將產生私區");return r
+}
+Rls.Adapter=function(r){var jdg=1
+	r=Rls.ext(r,Rls.Set[0],Rls.Set[1]);if(Rls.dft)jdg=Dft.Adapter.QJd
+	r=Rls.add(r,"符號須設置於我方符號口字，設置路徑間不得有對方符號")
+	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
+}
+Rls.Castle=function(r){
+	r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
+	r=Rls.ext(r,Rls.Set[1],"第一回合雙方符號將分別設置於D2與C9</li><li>第二回合雙方符號將分別設置於G1與F8")
+	r=Rls.add(r,"深色區域為我方封限區:Castle");r=Rls.add(r,Rls.Ara[0].replace("封區或",""));r=Rls.add(r,Rls.Ara[1].replace("限區或",""));return r
+}
+Rls.Gomoku=function(r){
+	r=Rls.add(r,Rls.Set[0])
+	if(Rls.dft&&Dft.Gomoku.Pro)r=Rls.add(r,"第二回合O方符號不得設置於C3:G7之座標")
+	r=Rls.add(r,"當五個我方符號呈直線或斜線時獲勝");return r
+}
+Rls.GoLike=function(r){
+	r=Rls.add(r,Rls.Set[0])
+	if(Rls.dft&&Dft.GoLike.MJg)r=Rls.add(r,"對方符號被我方及殭屍符號包圍時，對方符號將變成殭屍符號")
+	r=Rls.add(r,"對方符號被我方符號包圍時，對方符號將變成殭屍符號")
+	r=Rls.add(r,"我方符號較對方多時獲勝");r=Rls.add(r,"對方符號不存在時獲勝");return r
+}
+Rls.System=function(r){
+	if(Rls.dft&&Dft.System.Blk)r=Rls.add(r,"將產生"+Dft.System.Blk+"個障礙物")
+	var spc={
+		n:["公區","私區"],
+		d:["雙方皆可設置的區域","對方不可設置的區域"]
+	}
+	for(var j=0;j<spc.n.length;j++)for(var i=0;i<r.length;i++)if(r[i].search(spc.n[j])>-1){
+		r=Rls.add(r,spc.n[j]+"即"+spc.d[j]);break
+	}return r
+}
+Rls.Brd=function(s,t,v){var ob=$(s)
+	switch(t){
+		case"B":t="background-color";break
+		case"O":t="opacity";break
+		case"F":t="color";break
+	}
+	if(t=="S")for(var i=0;i<$(s).length;i++)$(s)[i].innerHTML=v
+	else $(s).css(t,v)
+}
+Rls.Brd.Cln=function(v){
+	for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){var bc="white"
+		if((cd1+cd2)%2==0)bc="lightgray";Id(Chr(cd1)+cd2).style.backgroundColor=bc
+		if(!v)Id(Chr(cd1)+cd2).innerHTML="";Id(Chr(cd1)+cd2).style.color="black"
+	}Rls.Ply=1
+}
+Rls.Brd.Qre=function(v){var spt=v.split("/");console.log(v)
+	for(var i=0;i<spt.length;i++){var sp=spt[i].split(":")
+		if(sp[0]=="Ogn"){Rls.Brd.Cln(1);continue}Rls.Brd(sp[0],sp[1],sp[2])
+	}
+}
+Rls.Brd.Scp=function(v){var spt=v.split("|");if(!Rls.Ply)return;Rls.Ply=0
+	for(var i=0;i<spt.length;i++)setTimeout("Rls.Brd.Qre('"+spt[i]+"')",(i+1)*500)
+	setTimeout("Rls.Brd.Cln()",(spt.length+1)*500)
+}
+function Srt(l){var t=["rules","chess"],s=location.search,n=":Newbie"
+	if(s.search(n)>-1){s=s.replace(n,"");n=""}
+	location=t[l]+".html"+s+n
+}
+if(typeof Shl=="object")Shl.Rls=Rls
+Rls.Lst=function(MdQ){
+	var rls=[]
+	for(var i=0;i<MdQ.length;i++){if(Rls[MdQ[i]])rls=Rls[MdQ[i]](rls);else{Mbx("要求規則說明不存在",function(){location="index.html"})}Rls.System(rls)}
+	var sot={Set:[],Ara:[],Jdg:[],Oth:[]},cnt=""
+	for(var i=0;i<rls.length;i++){
+		if(rls[i].search("獲勝")>-1||rls[i].search("平手")>-1){sot.Jdg.push(rls[i]);continue}
+		if(rls[i].search("區")>-1){sot.Ara.push(rls[i]);continue}
+		if(rls[i].search("設置")>-1){sot.Set.push(rls[i]);continue}sot.Oth.push(rls[i])
+	}
+	if(sot.Set.length){cnt+="<li>設置規則<ul>"
+		for(var i=0;i<sot.Set.length;i++)cnt+="<li>"+sot.Set[i]+"</li>";cnt+="</ul></li>"
+	}
+	if(sot.Ara.length){cnt+="<li>區域規則<ul>"
+		for(var i=0;i<sot.Ara.length;i++)cnt+="<li>"+sot.Ara[i]+"</li>";cnt+="</ul></li>"
+	}
+	if(sot.Oth.length){cnt+="<li>其他規則<ul>"
+		for(var i=0;i<sot.Oth.length;i++)cnt+="<li>"+sot.Oth[i]+"</li>";cnt+="</ul></li>"
+	}
+	if(sot.Jdg.length){cnt+="<li>獲勝條件<ul>"
+		for(var i=0;i<sot.Jdg.length;i++)cnt+="<li>"+sot.Jdg[i]+"</li>";cnt+="</ul></li>"
+	}return cnt
+}
+function Mbx(m,a,b,v,s){$("#Mbx,#Mbxv").css("display","");$("#Mbxt,#Mbxp,#MbxbN").css("display","none")
+	Id("Mbxc").childNodes[0].innerHTML=m;Id("Mbxt").readonly=""
+	$("#MbxbY").unbind('click').click(function(){
+		switch(typeof v){
+			case"object":Mbx.inp=Id("Mbxs").value;if(s)Id("Mbxs").readOnly="true";break
+			case"string":Mbx.inp=Id("Mbxt").value;break
+		}Mbx.Exe(a)
+	})
+	if(b){Id("MbxbN").style.display="";$("#MbxbN").unbind('click').click(function(){Mbx.Exe(b)})}
+	switch(typeof v){
+		case"string":Id("Mbxt").style.display="";Id("Mbxt").value=v;break
+		case"object":Mbx.stq=v;Id("Mbxp").style.display="";if(!s)s=0;Id("Mbxs").value=v[s];break
+	}Id("Mbx").style.display=""
+}
+Mbx.Rsz=function(){$("#Mbxt,#Mbxp,#Mbxs").css("width","");$("#Mbx").css("width","400px");$("#Mbxv").css("width",$(window).width()+"px");$("#Mbxv").css("height",$(window).height()+"px")
+	if($(window).width()<400){$("#Mbx").css("width","100%")
+		var w=$(window).width()-132-$(window).width()*0.05
+		$("#Mbxt,#Mbxp").css("width",w+"px");$("#Mbxs").css("width",w-70+"px")
+	}$("#Mbx").css("top",($(window).height()/2-100)+"px").css("left",($(window).width()/2-$("#Mbx").width()/2)+"px")
+}
+Mbx.Ldr=function(){
+	Id("Mbx").innerHTML="<div id=\"Mbxc\"><div style=\"margin:10px;color:#48585f\"></div></div><div style=\"position:absolute;bottom:5px;left:10px\"><input type=\"text\" id=\"Mbxt\" style=\"display:none\"><div style=\"display:none\" id=\"Mbxp\"><div class=\"Mbxs\" style=\"float:left\" id=\"Mbxsl\"><</div><input type=\"text\" id=\"Mbxs\"/><div class=\"Mbxs\" style=\"float:right\" id=\"Mbxsr\">></div></div></div><div style=\"position:absolute;bottom:5px;right:10px;height:40px;width:125px\"><div class=\"Mbxb\" id=\"MbxbN\" style=\"margin-left:5px;display:none\">取消</div><div class=\"Mbxb\" id=\"MbxbY\">確認</div></div>";Mbx.Rsz()
+	$("#Mbx,#Mbxv").css("display","none")
+	$("#Mbxsl").click(function(){var p=Mbx.stq.indexOf(Id("Mbxs").value)-1;console.log(p)
+		if(p<0)p=Mbx.stq.length-1;Id("Mbxs").value=Mbx.stq[p];Mbx.inp=Mbx.stq[p]
+	})
+	$("#Mbxsr").click(function(){var p=Mbx.stq.indexOf(Id("Mbxs").value)+1;console.log(p)
+		if(p>Mbx.stq.length-1)p=0;Id("Mbxs").value=Mbx.stq[p];Mbx.inp=Mbx.stq[p]
+	})
+}
+Mbx.stq=[];Mbx.inp=""
+Mbx.Exe=function(a){a(Mbx.inp);$("#Mbx,#Mbxv").css("display","none")}
+Shl.Ara.Connect=[];Dft.Connect={Ara:0,QJd:1,Rul:0}
+Shl.Rul.Connect=function(){return Ara.Rul("Connect",Cnt())}
+Shl.Lmt.Connect=function(crd,sym){
+	var cd8=Crd(crd,"8");Hst.Rut[Tn]=[];if(Tn<2)return 0
+	Hst.Rut[Tn]=Flt(Crd(crd,"8"),function(crd){if(Id(crd))if(Qre(crd,"Sym")==sym)return 1;return 0})
+	return !Hst.Rut[Tn].length>0
+}
+Shl.Mrk.Connect=function(){Ara.Mrk("Connect")}
+Shl.Brd.Connect=function(){}
+Shl.Adn.Connect=function(){Tn+=2
+	switch(Dft.Connect.Rul){
+		case 0:Tn=0;break
+		case 1:var Os=Crd("E5","4")[Math.floor(Rnd()*4)],Xs=Crd("E5","X")[Math.floor(Rnd()*4)]
+			Hst.Crd[1]=Os;Qre(Os,"Sym",0);Hst.Crd[2]=Xs;Qre(Xs,"Sym",1);break
+		case 2:var s=Crd("E5",Vct("24")),Os=s[Math.floor(Rnd()*4)]
+			Qre(Os,"Sym",0);Hst.Crd[1]=Os
+			while(1){var crd=s[Math.floor(Rnd()*4)];
+				if(Qre(crd,"Sym")!=0){Qre(crd,"Sym",1);Hst.Crd[2]=Os;break}
+			}
+	}
+}
+Shl.Ckr.Connect=function(crd){return Ara.Ckr("Connect",crd)}
+Shl.Opt.Connect=function(){
+	OpS("","1","Connect設定")
+	if(!Dft.System.Oln){OpS("","2","固定設置")
+		OpS("Connect-Rul-0/Connect-Rul","r","無設置",Dft.Connect.Rul==0)
+		OpS("Connect-Rul-1/Connect-Rul","r","隨機設置一型",Dft.Connect.Rul==1)
+		OpS("Connect-Rul-2/Connect-Rul","r","隨機設置二型",Dft.Connect.Rul==2)
+	}Ara.Opt("Connect")
+}
+Shl.OpK.Connect=function(){
+	if(!Dft.System.Oln)for(var i=0;i<3;i++)if(Id("Connect-Rul-"+i).checked)Dft.Connect.Rul=i
+	Ara.OpK("Connect")
+}
+Shl.Ara.Divider=[];Dft.Divider={Ara:0,QJd:1}
+Shl.Rul.Divider=function(){return Ara.Rul("Divider",Cnt())}
+Shl.Lmt.Divider=function(crd,sym){
+	var vt8=Vct("8");Hst.Rut[Tn]=[];if(Tn<2)return 0
+	for(i=0;i<8;i++){
+		var lin=Sel(crd+"~"+Crd(crd,"9"+vt8[i]))
+		Hst.Rut[Tn]=Hst.Rut[Tn].concat(Flt(lin,
+			function(crd){var s=Qre(crd,"Sym");
+				if(!Id(crd)||s!=sym&&s!=2)return 2
+				else if(s==sym)return 1;return 0
+			}
+		));if(Hst.Rut[Tn].indexOf(crd)>-1&&MdQ.indexOf("Follow")<0)return 0
+	}return !Hst.Rut[Tn].length>0
+}
+Shl.Mrk.Divider=function(){Ara.Mrk("Divider")}
+Shl.Brd.Divider=function(){}
+Shl.Adn.Divider=function(){}
+Shl.Ckr.Divider=function(crd){return Ara.Ckr("Divider",crd)}
+Shl.Opt.Divider=function(){
+	OpS("","1","Divider設定");Ara.Opt("Divider")
+}
+Shl.OpK.Divider=function(){
+	Ara.OpK("Divider")
+}
+Shl.Ara.Adapter=[];Dft.Adapter={Ara:0,QJd:1}
+Shl.Rul.Adapter=function(){return Ara.Rul("Adapter",Cnt())}
+Shl.Lmt.Adapter=function(crd,sym){
+	var vtQ=Vct("Q"),vt28=Vct("28");Hst.Rut[Tn]=[];if(Tn<2)return 0
+	for(var i=0;i<8;i++){
+		if(Qre(Crd(crd,vtQ[i],1),"Sym")==sym){
+			var vts=[
+				Crd(crd,vtQ[i][0],1),
+				Crd(crd,vtQ[i][0]+vtQ[i][0],1),
+				Crd(crd,vtQ[i][0]+vtQ[i][2],1),
+				Crd(crd,vtQ[i][2],1),
+			]
+			for(var j=0;j<vts.length;j++){var s=Qre(vts[j],"Sym")
+				vts[j]=(s==2||s==sym&&s.length>0)
+			}
+			if(vts[0]&&vts[1]||vts[0]&&vts[2]||vts[3]&&vts[2])Hst.Rut[Tn]=Hst.Rut[Tn].concat(crd)
+		}
+		if(Qre(Crd(crd,vt28[i],1),"Sym")==sym){
+			var vts=Crd(crd,Mid(vt28[i],0,vt28[i].length/2),1),s=Qre(vts,"Sym")
+			if(s==2||s==sym)Hst.Rut[Tn]=Hst.Rut[Tn].concat(crd)
+		};if(Hst.Rut[Tn].indexOf(crd)>-1&&MdQ.indexOf("Follow")<0)return 0
+	}return !Hst.Rut[Tn].length>0
+}
+Shl.Mrk.Adapter=function(){Ara.Mrk("Adapter")}
+Shl.Brd.Adapter=function(){}
+Shl.Adn.Adapter=function(){}
+Shl.Ckr.Adapter=function(crd){return Ara.Ckr("Adapter",crd)}
+Shl.Opt.Adapter=function(){
+	OpS("","1","Adapter設定");Ara.Opt("Adapter")
+}
+Shl.OpK.Adapter=function(){
+	Ara.OpK("Adapter")
+}
+Shl.Ara.Blocker=[];Dft.Blocker={Ara:1,QJd:3,AJd:0}
+Shl.Rul.Blocker=function(){
+	return Ara.Rul("Blocker",Blk())
+}
+Shl.Lmt.Blocker=function(crd,sym){}
+Shl.Mrk.Blocker=function(){Ara.Mrk("Blocker")}
+Shl.Brd.Blocker=function(){}
+Shl.Adn.Blocker=function(){}
+Shl.Ckr.Blocker=function(crd){
+	return Shl.Ara.Blocker[Sqr.Sym[(Tn+1)%2]].All.indexOf(crd)<0
+}
+Shl.Opt.Blocker=function(){
+	OpS("","1","Blocker設定")
+	if(!Dft.System.Oln){OpS("","2","區域判定")
+		OpS("Blocker-AJd-0/Blocker-AJd","r","優先",Dft.Blocker.AJd==0)
+		OpS("Blocker-AJd-1/Blocker-AJd","r","占據",Dft.Blocker.AJd==1)
+		OpS("Blocker-AJd-2/Blocker-AJd","r","共有",Dft.Blocker.AJd==2)
+	}Ara.Opt("Blocker")
+}
+Shl.OpK.Blocker=function(){
+	if(!Dft.System.Oln)for(var i=0;i<3;i++)if(Id("Blocker-AJd-"+i).checked)Dft.Blocker.AJd=i
+	Ara.OpK("Blocker");if(Shl.Ara.Blocker.QJd==2)Shl.Ara.Blocker.QJd=3;Dft.System.Qsr=0
+}
+function Blk(){var ara={O:[],X:[]};ara.O.age=[];ara.X.age=[]
+	for(var cd1=65;cd1<73;cd1++)for(cd2=1;cd2<9;cd2++){var key=Qre(Chr(cd1)+cd2,"Sym");if(key==2||cd1==72&&cd2==9)continue
+		for(var c1=cd1+1;c1<74;c1++){if(Qre(Chr(c1)+cd2,"Sym")!=key)continue
+			for(var c2=cd2+1;c2<10;c2++){
+				if(Qre(Chr(cd1)+c2,"Sym")!=key||c1==cd1&&c2==cd2||Qre(Chr(c1)+c2,"Sym")!=key)continue
+				var a=Sel(Chr(cd1)+cd2+":"+Chr(c1)+c2),age=[Chr(cd1)+cd2,Chr(c1)+cd2,Chr(cd1)+c2,Chr(c1)+c2]
+				for(var i=0;i<4;i++)age[i]=Hst.Crd.indexOf(age[i])
+				var yng=Math.max(age[0],age[1],age[2],age[3])
+				for(var i=0;i<a.length-1;i++)if(Qre(a[i],"Sym")==2){var p=ara[Sqr.Sym[key]].indexOf(a[i])
+					if(p<0){
+						ara[Sqr.Sym[key]].push(a[i]);ara[Sqr.Sym[key]].age.push(yng)
+					}else if(ara[Sqr.Sym[key]].age[p]>yng)ara[Sqr.Sym[key]].age[p]=yng
+				}
+			}
+		}
+	}return Ara.AJd("Blocker",ara)
+}
+Shl.Ara.Attack=[
+	["A3","B3","C1","C2","C3"],
+	["G7","G8","G9","H7","I7"],
+	["A2","B1","B2"],
+	["H8","H9","I8"]
+];Dft.Attack={Ara:1}
+Shl.Rul.Attack=function(){
+	for(var i=0;i<2;i++)if(Ara(Shl.Ara.Attack[i],Sqr.Sym[i]+"F")||Ara(Shl.Ara.Attack[i+2],Sqr.Sym[i]+"F")||Ara(Shl.Ara.Attack[i+2],Sqr.Sym[(i+1)%2]+">0"))return Sqr.Sym[(i+1)%2]+"獲勝"
+}
+Shl.Lmt.Attack=function(){return 0}
+Shl.Mrk.Attack=function(){
+	if(Dft.Attack.Ara)for(var i=0;i<4;i++)for(var j=0;j<Shl.Ara.Attack[i].length;j++)Qre(Shl.Ara.Attack[i][j],"BgC",i+5)
+}
+Shl.Brd.Attack=function(){}
+Shl.Adn.Attack=function(){Qre("A1","Sym",0);Qre("I9","Sym",1);Hst.Crd[1]="A1",Hst.Crd[2]="I9";Tn+=2}
+Shl.Ckr.Attack=function(crd){return 1}
+Shl.Opt.Attack=function(){
+	OpS("","1","Attack設定");OpS("","2","輔助標記")
+	OpS("Attack-Ara","k","雙方區域",Dft.Attack.Ara)
+}
+Shl.OpK.Attack=function(){
+	if(Dft.Connect)Dft.Connect.Rul=0
+	Dft.Attack.Ara=Id("Attack-Ara").checked
+}
+Shl.Ara.Defend=[
+	["A1","A2","A3","A4","A5","B1","B2","C1","D1"],
+	["F9","G9","H8","H9","I5","I6","I7","I8","I9"],
+	["E1","F1","G1","H1","H2","I1","I2","I3","I4"],
+	["A6","A7","A8","A9","B8","B9","C9","D9","E9"],
+	["C5","D5","E5","F5","G5","E3","E4","E6","E7"],
+	["F2","F3","F4","G2","G3","G4","H3","H4","H5"],
+	["B5","B6","B7","C6","C7","C8","D6","D7","D8"],
+	["E8","F6","F7","F8","G6","G7","G8","H6","H7"],
+	["B3","B4","C2","C3","C4","D2","D3","D4","E2"]
+];Dft.Defend={Ara:1}
+Shl.Rul.Defend=function(){
+	for(var i=0;i<9;i++)for(var s=0;s<2;s++){
+		if(!Ara(Shl.Ara.Defend[i],Sqr.Sym[(s+1)%2]+">0")&&Ara(Shl.Ara.Defend[i],Sqr.Sym[s]+">4"))return Sqr.Sym[s]+"獲勝"
+	}
+}
+Shl.Lmt.Defend=function(){return 0}
+Shl.Mrk.Defend=function(){var clr=[5,10,6,11,9]
+	if(Dft.Defend.Ara)for(var i=0;i<Shl.Ara.Defend.length;i++){var s=i;if(s>4)s-=5
+		Qre(Shl.Ara.Defend[i],"BgC",clr[s])
+	}
+}
+Shl.Brd.Defend=function(){}
+Shl.Adn.Defend=function(){}
+Shl.Ckr.Defend=function(crd){return 1}
+Shl.Opt.Defend=function(){
+	OpS("","1","Defend設定");OpS("","2","輔助標記")
+	OpS("Defend-Ara","k","分割區塊",Dft.Defend.Ara)
+}
+Shl.OpK.Defend=function(){
+	Dft.Defend.Ara=Id("Defend-Ara").checked
+}
+Shl.Ara.Scheme=[[],[]]
+Dft.Scheme={Ara:1,Lmt:1}
+Shl.Rul.Scheme=function(){
+	if(Tn>2)for(var i=0;i<2;i++){
+		if(Ara(Shl.Ara.Scheme[i],Sqr.Sym[i]+"F")||Ara(Shl.Ara.Scheme[i],Sqr.Sym[(i+1)%2]+">0"))return Sqr.Sym[(i+1)%2]+"獲勝"
+	}Shl.Ara.Scheme=[[],[]]
+	for(var i=0;i<2;i++)if(Tn>i)Shl.Ara.Scheme[i]=Flt(Crd(Hst.Crd[i+1],"8"),function(crd){if(Qre(crd,"Sym")!=3&&Shl.Ara.Scheme[0].indexOf(crd)<0&&crd!=Hst.Crd[1]&&crd!=Hst.Crd[2])return 1;return 0})
+	if(Tn==1)Shl.Ara.Scheme.Lmt=Flt(Crd(Hst.Crd[1],["28","Q","8"]),function(crd){if(Qre(crd,"Sym")==2)return 1;return 0})
+}
+Shl.Lmt.Scheme=function(crd,sym){
+	if(Tn<2&&Sel("C3:G7").indexOf(crd)>-1&&Dft.Scheme.Lmt)return 1
+	if(Tn==1&&sym==1)return Shl.Ara.Scheme.Lmt.indexOf(crd)>-1;return 0
+}
+Shl.Mrk.Scheme=function(){
+	if(Dft.Scheme.Ara){
+		for(var i=0;i<2;i++){
+			if(Shl.Ara.Scheme[i])for(var j=0;j<Shl.Ara.Scheme[i].length;j++){
+				Qre(Shl.Ara.Scheme[i][j],"BgC",i+7)
+			}
+		}
+	}
+}
+Shl.Brd.Scheme=function(){}
+Shl.Adn.Scheme=function(){}
+Shl.Ckr.Scheme=function(crd){return 1}
+Shl.Opt.Scheme=function(){
+	OpS("","1","Scheme設定");OpS("","2","輔助標記")
+	OpS("Scheme-Ara","k","雙方區域",Dft.Scheme.Ara)
+	OpS("Scheme-Lmt","k","首回限制",Dft.Scheme.Lmt)
+}
+Shl.OpK.Scheme=function(){
+	Dft.System.Blk=18
+	Dft.Scheme.Ara=Id("Scheme-Ara").checked
+	Dft.Scheme.Lmt=Id("Scheme-Lmt").checked
+}
+Shl.Ara.Forbid=[];Dft.Forbid={}
+Shl.Rul.Forbid=function(){}
+Shl.Lmt.Forbid=function(){}
+Shl.Mrk.Forbid=function(){}
+Shl.Brd.Forbid=function(){}
+Shl.Adn.Forbid=function(){}
+Shl.Ckr.Forbid=function(crd){var sym=Tn%2
+	for(var i=MdQ.length-1;i>-1;i--){if(MdQ[i]=="Forbid")continue
+		if(Shl.Lmt[MdQ[i]](crd,sym)||
+		Shl.Ara[MdQ[i]][Sqr.Sym[sym]].All.indexOf(crd)>-1||
+		Shl.Lmt[MdQ[i]](crd,(sym+1)%2)||
+		Shl.Ara[MdQ[i]][Sqr.Sym[(sym+1)%2]].All.indexOf(crd)>-1)return 0
+	}return 1
+}
+Shl.Opt.Forbid=function(){}
+Shl.OpK.Forbid=function(){Dft.System.Qsr=0}
+Shl.Ara.Zombie=[];Dft.Zombie={ToZ:10}
+Shl.Rul.Zombie=function(){
+	if(Tn>Dft.Zombie.ToZ)Qre(Flt(Sel("All"),
+	function(crd){var key=Qre(crd,"Sym"),cds=Qre(Crd(crd,"8"),"Sym");if(key==2)return 0
+		if(cds.indexOf((key+1)%2)>-1)return 1;return 0
+	}),"Sym",4)
+}
+Shl.Lmt.Zombie=function(){}
+Shl.Mrk.Zombie=function(){
+	Qre(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==4)return 1;return 0}),["BgC","FtC"],[12,2])
+}
+Shl.Brd.Zombie=function(){}
+Shl.Adn.Zombie=function(){}
+Shl.Ckr.Zombie=function(crd){return 1}
+Shl.Opt.Zombie=function(){
+	OpS("","1","Zombie設定")
+	if(!Dft.System.Oln)OpS("Zombie-ToZ","t","感染回合:",Dft.Zombie.ToZ)
+}
+Shl.OpK.Zombie=function(){
+	if(!Dft.System.Oln&&Val(Id("Zombie-ToZ").value)!=NaN&&Id("Zombie-ToZ").value!="")Dft.Zombie.ToZ=Val(Id("Zombie-ToZ").value)
+	if(Dft.Zombie.ToZ<10)Dft.Zombie.ToZ=10
+}
+Shl.Ara.Follow=[];Dft.Follow={}
+Shl.Rul.Follow=function(){}
+Shl.Lmt.Follow=function(){}
+Shl.Mrk.Follow=function(){}
+Shl.Brd.Follow=function(){}
+Shl.Adn.Follow=function(){}
+Shl.Ckr.Follow=function(crd){var sym=Tn%2
+	for(var i=MdQ.length-1;i>-1;i--){if(MdQ[i]=="Follow")continue
+		if(Shl.Lmt[MdQ[i]](crd,sym))return 0
+	}if(Hst.Rut[Tn].indexOf(Hst.Crd[Tn-1])>-1||Tn<2)return 1;return 0
+}
+Shl.Opt.Follow=function(){}
+Shl.OpK.Follow=function(){Dft.System.Qsr=0}
+Shl.Ara.Anomal=[];Dft.Anomal={Ara:1,QJd:1}
+Shl.Rul.Anomal=function(){
+	return Ara.Rul("Anomal",Anm())
+}
+Shl.Lmt.Anomal=function(crd,sym){}
+Shl.Mrk.Anomal=function(){Ara.Mrk("Anomal")}
+Shl.Brd.Anomal=function(){}
+Shl.Adn.Anomal=function(){}
+Shl.Ckr.Anomal=function(crd){
+	return Shl.Ara.Anomal[Sqr.Sym[(Tn+1)%2]].All.indexOf(crd)<0
+}
+Shl.Opt.Anomal=function(){
+	OpS("","1","Anomal設定");Ara.Opt("Anomal")
+}
+Shl.OpK.Anomal=function(){
+	Ara.OpK("Anomal");if(Shl.Ara.Anomal.QJd==2)Shl.Ara.Anomal.QJd=3;Dft.System.Qsr=0
+}
+function Anm(){
+	var ara={O:[[]],X:[[]],P:[]},cds=Sel("All"),vst=[];ara.O.All=[],ara.X.All=[]
+	for(var i=0;i<cds.length;i++){
+		if(vst.indexOf(cds[i])>-1||Qre(cds[i],"Sym")!=2)continue
+		var map=Map(cds[i]),ckr=0
+		for(var j=0;j<2;j++)if(Map.Bdr(map,j,Idt)){
+			ara[Sqr.Sym[j]].All=ara[Sqr.Sym[j]].All.concat(map)
+		}vst=vst.concat(map)
+	}ara.O[0]=ara.O.All;ara.X[0]=ara.X.All
+	if(Tn<2){ara.O[0]=[];ara.X[0]=[];ara.O.All=[];ara.X.All=[]}
+	ara.P[0]=Flt(Sel("All"),function(crd){
+		return ara.O.All.indexOf(crd)<0&&ara.X.All.indexOf(crd)<0&&Qre(crd,"Sym")==2
+	});ara.P.All=ara.P[0];return ara
+}
+Shl.Ara.Castle=[
+	["E1","A1","I1"],
+	["E9","A9","I9"]
+];Dft.Castle={Ara:1}
+Shl.Rul.Castle=function(){
+	for(var i=0;i<2;i++)if(Ara(Shl.Ara.Castle[i],Sqr.Sym[i]+"F")||Ara(Shl.Ara.Castle[i],Sqr.Sym[(i+1)%2]+">0"))return Sqr.Sym[(i+1)%2]+"獲勝"
+}
+Shl.Lmt.Castle=function(){return 0}
+Shl.Mrk.Castle=function(){
+	if(Dft.Castle.Ara){
+		for(var i=0;i<2;i++){
+			for(var j=0;j<Shl.Ara.Castle[i].length;j++){
+				Qre(Shl.Ara.Castle[i][j],"BgC",i+7)
+			}
+		}
+	}
+}
+Shl.Brd.Castle=function(){}
+Shl.Adn.Castle=function(){Qre(["D2","G1"],"Sym",0);Qre(["C9","F8"],"Sym",1);Hst.Crd[1]="D2";Hst.Crd[2]="C9";Hst.Crd[3]="G1";Hst.Crd[4]="F8";Tn+=4}
+Shl.Ckr.Castle=function(crd){return 1}
+Shl.Opt.Castle=function(){
+	OpS("","1","Castle設定");OpS("","2","輔助標記")
+	OpS("Castle-Ara","k","雙方區域",Dft.Castle.Ara)
+}
+Shl.OpK.Castle=function(){
+	if(Dft.Connect)Dft.Connect.Rnd=0
+	Dft.Castle.Ara=Id("Castle-Ara").checked
+}
+Shl.Ara.ByLine=[];Dft.ByLine={Ara:1,QJd:1,AJd:0}
+Shl.Rul.ByLine=function(){
+	return Ara.Rul("ByLine",Lin())
+}
+Shl.Lmt.ByLine=function(crd,sym){}
+Shl.Mrk.ByLine=function(){Ara.Mrk("ByLine")}
+Shl.Brd.ByLine=function(){}
+Shl.Adn.ByLine=function(){}
+Shl.Ckr.ByLine=function(crd){
+	return Shl.Ara.ByLine[Sqr.Sym[(Tn+1)%2]].All.indexOf(crd)<0
+}
+Shl.Opt.ByLine=function(){
+	OpS("","1","ByLine設定")
+	if(!Dft.System.Oln){OpS("","2","區域判定")
+		OpS("ByLine-AJd-0/ByLine-AJd","r","優先",Dft.ByLine.AJd==0)
+		OpS("ByLine-AJd-1/ByLine-AJd","r","占據",Dft.ByLine.AJd==1)
+		OpS("ByLine-AJd-2/ByLine-AJd","r","共有",Dft.ByLine.AJd==2)
+	}Ara.Opt("ByLine")
+}
+Shl.OpK.ByLine=function(){
+	if(!Dft.System.Oln)for(var i=0;i<3;i++)if(Id("ByLine-AJd-"+i).checked)Dft.ByLine.AJd=i
+	Ara.OpK("ByLine");if(Shl.Ara.ByLine.QJd==2)Shl.Ara.ByLine.QJd=3;Dft.System.Qsr=0
+}
+function Lin(){var ara={O:[],X:[]};ara.O.age=[];ara.X.age=[]
+	for(var cd1=65;cd1<74;cd1++)for(cd2=1;cd2<10;cd2++){
+		var key=Qre(Chr(cd1)+cd2,"Sym");if(key==2||cd1==72&&cd2==9)continue
+		for(var c=1;c<10;c++){
+			var cds=[Chr(cd1+c)+cd2,Chr(cd1)+(cd2+c),Chr(cd1+c)+(cd2+c),Chr(cd1-c)+(cd2+c)]
+			for(var s=0;s<4;s++){if(Qre(cds[s],"Sym")!=key)continue
+				var a=Sel(Chr(cd1)+cd2+"~"+cds[s]),age=[Chr(cd1)+cd2,cds[s]]
+				for(var i=0;i<2;i++)age[i]=Hst.Crd.indexOf(age[i])
+				var yng=Math.max(age[0],age[1])
+				for(var i=0;i<a.length-1;i++)if(Qre(a[i],"Sym")==2){var p=ara[Sqr.Sym[key]].indexOf(a[i])
+					if(p<0){
+						ara[Sqr.Sym[key]].push(a[i]);ara[Sqr.Sym[key]].age.push(yng)
+					}else if(ara[Sqr.Sym[key]].age[p]>yng)ara[Sqr.Sym[key]].age[p]=yng
+				}
+			}
+		}
+	}return Ara.AJd("ByLine",ara)
+}
+Shl.Ara.Gomoku=[];Dft.Gomoku={Ara:2,Pro:0}
+Shl.Rul.Gomoku=function(){var c5=[[Sel("A1:I5"),"B"],[Sel("A1:E9"),"R"],[Sel("A1:E5"),"BR"],[Sel("A5:E9"),"FR"]],chs=[[],[]]
+	for(var i=0;i<c5.length;i++){
+		for(var j=0;j<c5[i][0].length;j++){
+			var ara=Sel(c5[i][0][j]+"~"+Crd(c5[i][0][j],Vct("4"+c5[i][1]))),ln=Qre(ara,"Sym")
+			if(ln.indexOf(0)>-1&&ln.indexOf(1)>-1)continue
+			var spc=Flt(ln,function(sm){if(sm==2)return 1;return 0})
+			for(var k=0;k<2;k++){var s=Flt(ln,function(sm){if(sm==k)return 1;return 0})
+				if(s.length==5){return Sqr.Sym[k]+"獲勝"}if(spc.length+s.length==5)chs[k].push(ara)
+			}
+		}
+	}if(chs[0].length==0&&chs[1].length==0)return "平手";Shl.Ara.Gomoku=chs
+}
+Shl.Lmt.Gomoku=function(){}
+Shl.Mrk.Gomoku=function(){var sym=Tn%2
+	if(Dft.Gomoku.Ara==1)sym=(Tn+1)%2
+	if(Dft.Gomoku.Ara!=2)for(var i=0;i<Shl.Ara.Gomoku[sym].length;i++){var s=0
+		for(var j=0;j<5;j++)if(Qre(Shl.Ara.Gomoku[sym][i][j],"Sym")==2)s++;if(s>2)continue
+		Qre(Shl.Ara.Gomoku[sym][i],"BgC",9)
+	}
+}
+Shl.Brd.Gomoku=function(){}
+Shl.Adn.Gomoku=function(){if(Dft.Gomoku.Pro){Qre("E5","Sym",0);Tn=1}}
+Shl.Ckr.Gomoku=function(crd){if(Tn==2&&Dft.Gomoku.Pro&&Sel("C3:G7").indexOf(crd)>-1)return 0;return 1}
+Shl.Opt.Gomoku=function(){
+	OpS("","1","Gomoku設定");OpS("","2","輔助標記")
+	OpS("Gomoku-Ara-0/Gomoku-Ara","r","我方可行區域",Dft.Gomoku.Ara==0)
+	OpS("Gomoku-Ara-1/Gomoku-Ara","r","對方可行區域",Dft.Gomoku.Ara==1)
+	OpS("Gomoku-Ara-2/Gomoku-Ara","r","隱藏可行區域",Dft.Gomoku.Ara==2)
+	if(!Dft.System.Oln)OpS("Gomoku-Pro","k","使用Pro規則",Dft.Gomoku.Pro)
+}
+Shl.OpK.Gomoku=function(){
+	for(var i=0;i<3;i++)if(Id("Gomoku-Ara-"+i).checked)Dft.Gomoku.Ara=i
+	if(!Dft.System.Oln)Dft.Gomoku.Pro=Id("Gomoku-Pro").checked
+}
+Shl.Ara.GoLike=[];Dft.GoLike={MJg:1}
+Shl.Rul.GoLike=function(){var ara=[],cds=Sel("All"),vst=[],ckr=[0,0];if(Tn<2)return
+	for(var i=0;i<cds.length;i++){
+		if(Dft.GoLike.MJg)odr=Idt;else odr=function(map){if(map.indexOf(2)<0)return 1;return 0}
+		if(vst.indexOf(cds[i])>-1||Qre(cds[i],"Sym")==2)continue
+		var map=Map(cds[i]);if(Map.Bdr(map,1,odr)||Map.Bdr(map,0,odr))ara.push(map);vst=vst.concat(map)
+	}for(var i=0;i<ara.length;i++)Qre(ara[i],"Sym",4)
+	for(var i=0;i<cds.length;i++){var sym=Qre(cds[i],"Sym");ckr[sym]++}
+	if(!ckr[0]||!ckr[1]||Tn==81)return Scr(ckr[0],ckr[1])
+}
+Shl.Lmt.GoLike=function(){}
+Shl.Mrk.GoLike=function(){
+	Qre(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==4)return 1;return 0}),["BgC","FtC"],[12,2])
+}
+Shl.Brd.GoLike=function(){}
+Shl.Adn.GoLike=function(){}
+Shl.Ckr.GoLike=function(){return 1}
+Shl.Opt.GoLike=function(){
+	OpS("","1","GoLike設定")
+	OpS("GoLike-MJg","k","同符號包圍",Dft.GoLike.MJg)
+}
+Shl.OpK.GoLike=function(){
+	Dft.GoLike.MJg=Id("GoLike-MJg").checked
+}
+$(window).load(function(){Slt()}).resize(function(){Rsz()}).mouseover(function(event){MsO(event)}).keydown(function(event){KDw(event)}).keyup(function(event){KUp(event)}).contextmenu(function(){event.preventDefault()}).scroll(function(){Rsz()})
+</script>
+<style>
+body{
+	margin:0px;cursor:default;user-select:none;
+	-ms-user-select:none;font-family:Consolas;
+	-moz-user-select:none;-webkit-user-select:none;
+	overflow:hidden
+}
+a,input,textarea{color:inherit;text-decoration:none;border:none;outline:none}
+div{outline:none}
+::selection{background:#758f9b;color:white}
+::-moz-selection{background:#758f9b;color:white}
+::-webkit-selection{background:#758f9b;color:white}
+::-webkit-scrollbar{width:0px;height:0px}
+::-webkit-scrollbar-track{width:5px;height:5px;opacity:0.5}
+::-webkit-scrollbar-thumb{width:5px;height:5px;border-radius:5px;background-color:#99bccc}
+#lLst div::-webkit-scrollbar{width:0px;height:0px}
+#Rule::-webkit-scrollbar{width:0px;height:0px}
+#menu{transition:width 2s;float:right;height:40px}
+.list{
+	float:left;height:40px;line-height:40px;width:160px;font-size:18px;
+	text-align:center;background-color:#758f9b;transition:background 2s;
+}
+.Opt{font-size:inherit}
+.list:hover{background-color:#99bccc;color:#48585f}
+.bt{font-family:Arial;transition:all 0.5s;text-align:center;overflow:hidden;background-color:white}
+.Opbt{height:40px;line-height:40px;text-align:center;background-color:#758f9b;float:right;width:100px;margin-left:5px;opacity:0.5}
+.Opbt:hover{opacity:1}
+#LdA{
+	height:100px;width:100px;color:white;
+	background:#48585f;line-height:100px;
+	text-align:center;border-radius:5px;
+	animation:Load 1s infinite;margin:auto
+}
+#LdB{
+	transition:all 1s;width:0%;height:5px;background-color:#99bccc;position:fixed
+}
+@keyframes Load{0%{transform:rotate(720deg)}}
+@-webkit-keyframes Load{0%{transform:rotate(720deg)}}
+#Setting{position:absolute;width:100%;top:0px;left:0px;background-color:#48585f;overflow:auto;transition:all 1s;font-size:20px;z-index:5}
+#OptionMenu{width:99%;height:99%;top:0.5%;left:0.5%;position:absolute;background-color:#99bccc;overflow:auto;user-select:text;-ms-user-select:text;-moz-user-select:text;-webkit-user-select:text;letter-spacing:3px}
+#NightMode{background-color:white;width:100%;height:100%;position:fixed;top:40px;left:0px;display:table;transition:opacity 1s}
+#Rule{position:absolute;background:white;opacity:0.7;overflow:auto;transition:all 1s;font-size:25px;letter-spacing:3px;top:0px;}
+#Board{background:gray;border:none}
+#QCtrl{border:none}
+#Recrd{position:absolute;top:0px;right:0px;height:100%;z-index:1;overflow:auto;color:#48585f}
+#Rsw{
+	position:fixed;bottom:10px;left:10px;width:20px;height:20px;
+	background-position:center center;background-size:100%;background-repeat:no-repeat;
+}
+#Rsw div{overflow:visible;color:#48585f}
+#O0{position:fixed;top:0px;left:0px;background-color:#758f9b;z-index:3;opacity:0.8;color:white}
+header{
+	top:0px;
+	left:0px;
+	width:100%;
+	color:white;
+	height:40px;
+	position:fixed;
+	font-size:30px;
+	overflow:hidden;
+	line-height:40px;
+	text-align:center;
+	font-family:Consolas;
+	transition:all 1s;
+	background-color:#758f9b;
+}
+.Mbxb{
+	background:#758f9b;text-align:center;line-height:40px;
+	width:60px;float:right;height:40px;color:#48585f;
+}
+.Mbxb:hover,.Mbxs:hover{background:#99bccc;color:#48585f}
+.Mbxs{height:40px;line-height:40px;background:#758f9b;text-align:center;width:30px;color:#48585f}
+#Mbxt{font-size:inherit;border:none;height:38px;background:#758f9b;width:250px;color:#48585f}
+#Mbxs{font-size:inherit;float:left;margin-left:5px;width:180px;background:#99bccc;height:40px;line-height:40px;text-align:center;border:none;color:#48585f}
+#Mbx{position:fixed;width:400px;height:200px;background:#48585f;font-size:18px;cursor:default;top:0px;left:0px;z-index:6}
+#Mbxc{position:absolute;width:95%;top:10px;left:2.5%;background:#99bccc;height:140px}
+#Mbxp{width:250px;height:40px;overflow:hidden}
+#Mbxv{background-color:black;opacity:0.5;z-index:5;position:fixed;top:0px;left:0px}
+#Gear{width:40px;height:40px;z-index:4;position:fixed;top:0px;right:0px;transition:all 1s;color:white;line-height:40px;text-align:center}
+#Gear:hover{color:#48585f}
+#menu{position:fixed}
+</style>
 </head>
 <body>
 	<div style="opacity:0" id="NightMode">
@@ -29,7 +1416,7 @@
 					</tr>
 				</table>
 				<div id="Rule" style="height:0px">
-					<div style="width:20px;height:20px;border:solid 2px;text-align:center;line-height:20px;float:right;background-image:url(Pics/Closeh.gif);background-size:100%" onclick="Ctl('RSw')"></div>
+					<div style="width:20px;height:20px;border:solid 2px;text-align:center;line-height:20px;float:right" onclick="Ctl('RSw')">X</div>
 					<ul></ul>
 				</div>
 				<div id="menu" style="left:0px;top:40px;width:0px;height:240px;overflow:hidden;z-index:2">
@@ -49,7 +1436,7 @@
 			<div id="O0" class="bt" style="display:none"></div>
 		</div>
 		<div id="Rsw" onclick="Ctl('RSw',1)" title="顯示規則"><div></div></div>
-		<div id="Mbx"></div><div id="Mbxv"></div><div id="Gear" onclick="Opt()"></div>
+		<div id="Mbx"></div><div id="Mbxv"></div><div id="Gear" onclick="Opt()">設定</div>
 	</div>
 </body>
 </html>
