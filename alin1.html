@@ -51,14 +51,17 @@ function Ldr(m){var mdN=m
 	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie","")
 	$("#Rsw div")[0].innerHTML="(?)"+doc.title;Dft.Oln.MdN=doc.title;MdQ=mdN.replace("Square.","").split(":");MdL()
 }
-function MdL(){Id("LdB").style.width="100%";setTimeout('MdL.Ldr()',2000)
+function MdL(){Id("Board").innerHTML=""
+	Id("LdB").style.width="0%";Id("LdA").style.display=""
+	setTimeout('MdL.Ldr()',1000)
+	Dft.Blk=[];Dft.System.Blk=0;Dft.System.iTn=0
 	if(MdQ.indexOf("Attack")>-1)for(var i=0;i<4;i++)Dft.Blk=Dft.Blk.concat(Shl.Ara.Attack[i])
 	if(MdQ.indexOf("Scheme")>-1)Dft.System.Blk=18
 	if(MdQ.indexOf("Castle")>-1)for(var i=0;i<4;i++)Dft.Blk=Dft.Blk.concat(Shl.Ara.Castle[i])
 	if(MdQ.indexOf("Follow")>-1)Dft.System.iTn=1
 }
 MdL.Ldr=function(){
-	Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
+	Id("LdB").style.width="100%";Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
 }
 function Rsz(){
 	var sz=$(window).width(),scn=1,rec=1
@@ -84,12 +87,12 @@ function Rsz(){
 }
 function Itf(){var bd=""
 	for(cd2=1;cd2<10;cd2++){bd+="<tr>";for(cd1=65;cd1<74;cd1++){bd+="<td id='"+Chr(cd1)+cd2+"' class='bt'></td>"}bd+="</tr>"}Id("Board").innerHTML=bd
-	$("#UI").swipe(function(e){var arw=e.swipestart.coords[0]-e.swipestop.coords[0]
+	$("#UI").unbind("swipe").swipe(function(e){var arw=e.swipestart.coords[0]-e.swipestop.coords[0]
 		if(!Dft.System.Gst)return;if(arw>0)Ctl("Udo");else if(arw<0)Ctl("Rdo")
 	})
-	$(".bt").click(function(){Set(this.id)})
-	$(".bt").dblclick(function(){if(Dft.System.Gst)Ctl("Udo",this.id)})
-	$(".bt").on("taphold contextmenu",function(){if(this.id=="Cln")Opt();else if(this.id=="Udo")Ctl("Gto");else if(Dft.System.Gst)Ctl("Rdo",this.id)})
+	$(".bt").unbind("click").click(function(){Set(this.id)})
+	$(".bt").unbind("dblclick").dblclick(function(){if(Dft.System.Gst)Ctl("Udo",this.id)})
+	$(".bt").unbind("taphold contextmenu").on("taphold contextmenu",function(){if(this.id=="Cln")Opt();else if(this.id=="Udo")Ctl("Gto");else if(Dft.System.Gst)Ctl("Rdo",this.id)})
 }
 function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else return Mbx(msg,function(){Cln()},function(){})
 	if(ckr){Tn=0;Hst={Brd:[],Crd:["E5"],Sel:[],Rut:[]}
