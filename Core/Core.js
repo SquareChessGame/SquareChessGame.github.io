@@ -13,7 +13,7 @@
 	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{},Ato:{}}
 function Ldr(){if(!location.search||location.search.substr(0,6)!="?mode="){Mbx("要求格式錯誤",function(){location="index.html"})}
-	var mdN=location.search.replace("?mode=","")
+	var mdN=location.search.replace("?mode=","");Mbx.Ldr()
 	Id("NightMode").style.opacity=1;setTimeout("doc.body.style.backgroundColor='black'",1000)
 	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie","")
 	$("#Rsw div")[0].innerHTML=doc.title;Dft.Oln.MdN=doc.title;MdQ=mdN.replace("Square.","").split(":");MdL(0)
@@ -196,3 +196,4 @@ function Jdg(msg){
 function Log(vlu){Id("Recrd").innerHTML=""
 	for(var i=1;i<Tn+1;i++)Id("Recrd").innerHTML+="<div>第"+i+"回合:"+Sqr.Sym[(i-1)%2]+"方將符號設置於"+Hst.Crd[i]+"</div>";Id("Recrd").scrollTop=Id("Recrd").scrollHeight
 }
+$(window).load(function(){Ldr()}).resize(function(){Rsz()}).mouseover(function(event){MsO(event)}).keydown(function(event){KDw(event)}).keyup(function(event){KUp(event)}).contextmenu(function(){event.preventDefault()}).scroll(function(){Rsz()})
