@@ -89,5 +89,5 @@ header{
 #Mbxc{position:absolute;width:95%;top:10px;left:2.5%;background:#99bccc;height:140px}
 #Mbxp{width:250px;height:40px;overflow:hidden}
 #Mbxv{background-color:black;opacity:0.5;z-index:5;position:fixed;top:0px;left:0px}
-#Gear{background-image:url(../Pics/Setting.png);background-size:60%;width:40px;height:40px;z-index:4;position:fixed;top:0px;right:0px;background-repeat:no-repeat;background-position:center center;content:content:url(../Pics/Settingh.png);}
+#Gear{background-image:url(../Pics/Setting.png);background-size:60%;width:40px;height:40px;z-index:4;position:fixed;top:0px;right:0px;background-repeat:no-repeat;background-position:center center;content:content:url(../Pics/Settingh.png);transition:all 1s}
 #Gear:hover{background-image:url(../Pics/Settingh.png)}

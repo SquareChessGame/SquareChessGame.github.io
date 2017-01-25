@@ -142,7 +142,7 @@ function Rul(){
 	for(var i=MdQ.length-1;i>-1;i--)if(Jdg(Shl.Rul[MdQ[i]]()))break;Mrk()
 }
 function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Dft.Oln.Id
-	Id("OptionMenu").childNodes[0].innerHTML="";OpS("","1","基本設定")
+	Id("OptionMenu").childNodes[0].innerHTML="";OpS("","1","基本設定");Id("Gear").style.transform="rotate(-66deg)"
 	if(!Dft.System.Oln){
 		OpS("System-Blk","t","障礙數量:",Dft.System.Blk)
 		OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
@@ -157,7 +157,7 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 	OpS("System-Rul","k","顯示規則",Id("Rule").style.height!="0px")
 	for(var i=0;i<MdQ.length;i++)Shl.Opt[MdQ[i]]()
 }
-function OpK(k){Id("Setting").style.height="0px";if(k)return
+function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";if(k)return
 	if(!Dft.System.Oln){
 		if(Val(Id("System-Blk").value)!=NaN&&Id("System-Blk").value!="")Dft.System.Blk=Val(Id("System-Blk").value)
 		if(Dft.System.Blk>27)Dft.System.Blk=27
