@@ -29,4 +29,4 @@ Mbx.Ldr=function(){
 	})
 }
 Mbx.stq=[];Mbx.inp=""
-Mbx.Exe=function(a){a(Mbx.inp);$("#Mbx,#Mbxv").css("display","none")}
+Mbx.Exe=function(a){$("#Mbx,#Mbxv").css("display","none");a(Mbx.inp)}
