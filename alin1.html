@@ -50,17 +50,16 @@ function Ldr(m){var mdN=m
 	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie","")
 	$("#Rsw div")[0].innerHTML="(?)"+doc.title;MdQ=mdN.replace("Square.","").split(":");MdL()
 }
-function MdL(){Id("Board").innerHTML=""
-	Id("LdB").style.width="0%";Id("LdA").style.display=""
-	setTimeout('MdL.Ldr()',1000)
+function MdL(){Id("LdB").style.width="0%"
 	Dft.Blk=[];Dft.System.Blk=0;Dft.System.iTn=0
 	if(MdQ.indexOf("Attack")>-1)for(var i=0;i<4;i++)Dft.Blk=Dft.Blk.concat(Shl.Ara.Attack[i])
 	if(MdQ.indexOf("Scheme")>-1)Dft.System.Blk=18
 	if(MdQ.indexOf("Castle")>-1)for(var i=0;i<4;i++)Dft.Blk=Dft.Blk.concat(Shl.Ara.Castle[i])
-	if(MdQ.indexOf("Follow")>-1)Dft.System.iTn=1
+	if(MdQ.indexOf("Follow")>-1)Dft.System.iTn=1;MdL.Ldr()
 }
 MdL.Ldr=function(){
-	Id("LdB").style.width="100%";Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
+	Id("LdB").style.width="100%";Id("LdA").style.display="none"
+	Itf();Rsz();Cln();Id("LdB").style.opacity=0
 }
 function Rsz(){
 	var sz=$(window).width(),scn=1,rec=1
@@ -179,6 +178,7 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px"
 	Id("OptionMenu").childNodes[0].innerHTML="";OpS("","1","基本設定");Id("Gear").style.transform="rotate(-45deg)"
 	OpS("System-Blk","t","障礙數量:",Dft.System.Blk)
 	OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
+	OpS("System-Oln","k","線上遊玩",Dft.System.Oln)
 	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1)OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
 	OpS("System-iTn","k","上回設置",Dft.System.iTn)
 	OpS("System-Gst","k","手勢操作",Dft.System.Gst)
@@ -191,6 +191,10 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px"
 function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";if(k)return
 	if(Val(Id("System-Blk").value)!=NaN&&Id("System-Blk").value!="")Dft.System.Blk=Val(Id("System-Blk").value)
 	if(Dft.System.Blk>27)Dft.System.Blk=27
+	if(Id("System-Oln").checked){
+		if(navigator.onLine)location="https://squarechessgame.github.io/"
+		else Mbx("未連接網路")
+	}
 	Dft.System.Qsr=Id("System-Qsr").checked
 	for(i=0;i<MdQ.length;i++)Shl.OpK[MdQ[i]]()
 	if(Id("System-Nit").checked)Id("NightMode").style.opacity=0.3;else Id("NightMode").style.opacity=1
@@ -867,12 +871,12 @@ Mbx.Ldr=function(){
 	$("#Mbxsl").click(function(){var p=Mbx.stq.indexOf(Id("Mbxs").value)-1;console.log(p)
 		if(p<0)p=Mbx.stq.length-1;Id("Mbxs").value=Mbx.stq[p];Mbx.inp=Mbx.stq[p]
 	})
-	$("#Mbxsr").click(function(){var p=Mbx.stq.indexOf(Id("Mbxs").value)+1;console.log(p)
+	$("#Mbxsr").click(function(){var p=Mbx.stq.indexOf(Id("Mbxs").value)+1
 		if(p>Mbx.stq.length-1)p=0;Id("Mbxs").value=Mbx.stq[p];Mbx.inp=Mbx.stq[p]
 	})
 }
 Mbx.stq=[];Mbx.inp=""
-Mbx.Exe=function(a){a(Mbx.inp);$("#Mbx,#Mbxv").css("display","none")}
+Mbx.Exe=function(a){$("#Mbx,#Mbxv").css("display","none");a(Mbx.inp)}
 Shl.Ara.Connect=[];Dft.Connect={Ara:0,QJd:1,Rul:0}
 Shl.Rul.Connect=function(){return Ara.Rul("Connect",Cnt())}
 Shl.Lmt.Connect=function(crd,sym){
