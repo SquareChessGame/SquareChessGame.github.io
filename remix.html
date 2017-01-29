@@ -81,21 +81,20 @@ function KDw(e){
 		else if(k==27)$("#MbxbN")[0].click()
 	}
 }
-function CrC(v){if(!v)v=0;var s=100;if(cr)s=500
+function CrC(v){if(!v)v=0;var s=50;if(cr)s=500
 	if(Id("Cir"+v)){Id("Cir"+v).style.opacity=0
 		setTimeout(function(){Id("content").removeChild(Id("Cir"+v))},s)
 	}
 	setTimeout(function(){
-		var Cir=doc.createElement("div"),sz=$(window).width(),
+		var Cir=doc.createElement("div"),sz=sz=Math.floor(Math.random()*50),
 			bg=["lightgray","gray","dimgray","#758f9b","#99bccc","#48585f"]
-		if(sz>$(window).height())sz=Math.floor(Math.random()*50)
 		Cir.style.backgroundColor=bg[Math.floor(Math.random()*bg.length)]
-		Cir.id="Cir"+v;if(sz<15)sz=15;sz+="px"
+		Cir.id="Cir"+v;sz+="px"
 		Cir.style.opacity=0;Cir.style.transition="all 1s";Cir.style.width=sz;Cir.style.height=sz
 		Cir.style.top=Math.floor(Math.random()*$("#content").height())+"px"
 		Cir.style.left=Math.floor(Math.random()*$("#content").width())+"px"
 		Cir.style.borderRadius=sz;Cir.style.position="absolute"
-		Id("content").appendChild(Cir);if(v==49){v=0;cr=1}
+		Id("content").appendChild(Cir);if(v==99){v=0;cr=1}
 		setTimeout(function(){CrC(v+1);Id("Cir"+v).style.opacity=1},s)
 	},s)
 }
