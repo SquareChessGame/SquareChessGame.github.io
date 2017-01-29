@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no" />
+<meta name="mobile-web-app-capable" content="yes" />
+<link href="Pics/Icon.png" rel="shortcut icon">
+<title>Square Chess Game</title>
+<script src="Impo/jquery.min.js"></script>
+<script src="Core/Prun.js"></script>
+<style>@import "Core/Face.css";
+body{margin:0px;cursor:default}
+.title{
+	width:200px;height:200px;z-index:2;
+	position:fixed;line-height:200px;
+	text-align:center;color:white;font-size:20px
+}
+.title:hover{color:#99bccc}
+#content{border:5px solid #48585f;}
+#conten1{top:5px;left:5px;position:absolute;border-bottom:5px solid #758f9b;border-right:5px solid #758f9b}
+#conten2{bottom:5px;right:5px;position:absolute;border-top:5px solid #758f9b;border-left:5px solid #758f9b}
+#conten1,#conten2{text-align:center;background-color:#758f9b;color:white;overflow:hidden;text-align:center}
+#t1{background-color:#48585f;transition:transform 1s}
+#conten1:hover{background-color:crimson}
+#conten2:hover{background-color:royalblue}
+</style>
+</head>
+<body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
+	<div id="NightMode" style="opacity:1;top:0px">
+		<div class="title" style="transform:scale(1.5)" id="t1"></div>
+		<div class="title" id="t2">Square Chess Game</div>
+		<div id="content">
+			<div id="conten1">Random</div>
+			<div id="conten2">Select</div>
+		</div>
+		<div id="Mbx"></div><div id="Mbxv"></div>
+	</div>
+</body>
+<script src="Core/Mgbx.js"></script>
+<script>
+function Ldr(){
+	$("#t1").css("transform","rotate(-45deg)")
+	setTimeout(function(){$("#t1").css("transition","transform 3s")},1000)
+	$("#conten1").click(function(){Srt();$("#t1").css("transform","rotate(135deg)")})
+	$("#conten2").click(function(){Srt(1);$("#t1").css("transform","rotate(-45deg)")})
+	$("#t2").click(function(){if(this.innerHTML!="Square Chess Game")location="chess.html?mode="+this.innerHTML})
+	Rsz()
+}
+function Rsz(){
+	Id("NightMode").style.height=$(window).height()+"px"
+	$(".title").css("top",$(window).height()/2-$(".title").height()/2+"px")
+	$(".title").css("left",$(window).width()/2-$(".title").width()/2+"px")
+	$("#content").css("height",$(window).height()-10+"px").css("width",$(window).width()-10+"px")
+	$("#conten1,#conten2").css("height",($("#content").height()-5)/2+"px").css("width",($("#content").width()-5)/2+"px").css("line-height",($("#content").height()-5)/2+"px")
+	if($("#conten1").width()>$("#conten1").height()){
+		$("#conten1,#conten2").css("font-size",($("#content").height()-5)/2-200+"px")
+	}else{
+		$("#conten1,#conten2").css("font-size",($("#content").width()-5)/2-200+"px")
+	}Mbx.Rsz()
+}
+function Srt(v){
+	var Mod=[
+		"Square.Kingdom","Connect:Mirror",
+		"Adapter:Invert","Divider:Anomal",
+		"Connect:Defend","Kingdom:Anomal",
+		"Connect:Castle","Adapter:Attack",
+		"Adapter:Follow","Connect:GoLike",
+		"Divider:Gomoku"
+	]
+	if(!v)for(var i=1;i<140;i++)setTimeout("Id('t2').innerHTML='"+Mod[Math.floor(Math.random()*Mod.length)]+"'",20*i)
+	else Mbx("選擇模式",function(a){location="chess.html?mode="+a},function(){},Mod,1)
+}
+function KDw(e){
+	var k=e.which
+	if(Id("Mbx").style.display!="none"){
+		if(k==13)$("#MbxbY")[0].click()
+		else if(k==27)$("#MbxbN")[0].click()
+	}
+}
+Mbx.Ldr()
+</script>
+</html>
