@@ -8,6 +8,7 @@
 <title>Square Chess Game</title>
 <script src="Impo/jquery.min.js"></script>
 <script src="Core/Prun.js"></script>
+<script src="Core/Rule.js"></script>
 <style>@import "Core/Face.css";
 body{margin:0px;cursor:default}
 .title{
@@ -15,7 +16,7 @@ body{margin:0px;cursor:default}
 	position:fixed;line-height:200px;opacity:0.8;
 	text-align:center;color:white;font-size:20px
 }
-.title:hover{color:#99bccc}
+.title div:hover{color:#99bccc}
 #content{border:5px solid #48585f;position:relative;top:0px;left:0px}
 #conten1{top:0px;left:0px;position:absolute;border-bottom:5px solid #758f9b;border-right:5px solid #758f9b}
 #conten2{bottom:0px;right:0px;position:absolute;border-top:5px solid #758f9b;border-left:5px solid #758f9b}
@@ -25,16 +26,31 @@ body{margin:0px;cursor:default}
 #t1{background-color:#48585f}
 #conten1:hover{background-color:crimson}
 #conten2:hover{background-color:royalblue}
+#Help{
+	background-image:url(Pics/Rulesh.gif);background-size:30px;background-position:bottom left;background-repeat:no-repeat;z-index:4;width:40px;height:40px;position:fixed;bottom:10px;left:10px;overflow:hidden;line-height:1.5;color:#48585f;font-size:16px
+}
+#Help:hover{height:150px;width:300px}
 </style>
 </head>
 <body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
 	<div id="NightMode" style="opacity:0;top:0px">
 		<div class="title" style="transform:scale(1.5)" id="t1"></div>
 		<div class="title" id="t2">Square Chess Game</div>
-		<div class="title" id="t3" style="line-height:1;opacity:0;transition:opacity 1s"><div style="position:absolute;bottom:50px;right:0px;width:100%">開始遊戲</div></div>
+		<div class="title" id="t3" style="line-height:1;opacity:0;transition:opacity 1s">
+			<div style="position:absolute;bottom:60px;right:0px;width:100%">開始遊戲</div>
+			<div style="position:absolute;bottom:30px;right:0px;width:100%">瞭解規則</div>
+		</div>
 		<div id="content">
-			<div id="conten1">Random</div>
-			<div id="conten2">Select</div>
+			<div id="conten1" title="混合模式">Random</div>
+			<div id="conten2" title="選擇模式">Select</div>
+		</div>
+		<div id="Help"><br style="line-height:40px">
+			點選Random可隨機導向至一個模式<br>
+			點選Select可選擇導向至一個模式
+		</div>
+		<div id="Rule" style="height:0px;position:fixed;top:5px;left:5px;z-index:4">
+			<ul></ul>
+			<div id="Rulec" onclick="Id('Rule').style.height='0px'">
 		</div>
 		<div id="Mbx"></div><div id="Mbxv"></div>
 	</div>
@@ -46,14 +62,22 @@ function Ldr(){
 	setTimeout(function(){$("#t1").css("transition","transform 2s")},1000)
 	$("#conten1").click(function(){Srt();$("#t1").css("transition","transform 2s").css("transform","rotate(135deg)")})
 	$("#conten2").click(function(){Srt(1);$("#t1").css("transform","rotate(-45deg)")})
-	$("#t3").click(function(){if(Id("t2").innerHTML!="Square Chess Game")location="chess.html?mode="+Id("t2").innerHTML})
-	Rsz();CrC();setTimeout("CrU()",500);Id("NightMode").style.opacity=1
+	$("#t3 div").click(function(){var Md=Id("t2").innerHTML
+		if(this.innerHTML=="開始遊戲"){
+			if(Md!="Square Chess Game")location="chess.html?mode="+Md
+		}else{
+			$("#Rule ul")[0].innerHTML=Rls.Lst(Md.replace("Square.","").split(":"))
+			Id("Rule").style.height=$("#content").height()+"px"
+		}
+	});Rsz();CrC();setTimeout("CrU()",500);Id("NightMode").style.opacity=1
 }
 function Rsz(){
 	Id("NightMode").style.height=$(window).height()+"px"
 	$(".title").css("top",$(window).height()/2-$(".title").height()/2+"px")
 	$(".title").css("left",$(window).width()/2-$(".title").width()/2+"px")
 	$("#content").css("height",$(window).height()-10+"px").css("width",$(window).width()-10+"px")
+	$("#Rule").css("width",$(window).width()-10+"px")
+	if(Id("Rule").style.height!="0px")$("#Rule").css("height",$(window).height()-10+"px")
 	$("#conten1,#conten2").css("height",($("#content").height()-5)/2+"px").css("line-height",($("#content").height()-5)/2+"px").css("width",($("#content").width()-5)/2+"px")
 	$("#conten1,#conten2").css("font-size",$("#conten1").width()/6+"px")
 	Mbx.Rsz()
