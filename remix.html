@@ -46,7 +46,7 @@ function Ldr(){
 	$("#conten1").click(function(){Srt();$("#t1").css("transform","rotate(135deg)")})
 	$("#conten2").click(function(){Srt(1);$("#t1").css("transform","rotate(-45deg)")})
 	$("#t2").click(function(){if(this.innerHTML!="Square Chess Game")location="chess.html?mode="+this.innerHTML})
-	Rsz()
+	Rsz();CrC()
 }
 function Rsz(){
 	Id("NightMode").style.height=$(window).height()+"px"
