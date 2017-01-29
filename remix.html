@@ -39,7 +39,7 @@ body{margin:0px;cursor:default}
 	</div>
 </body>
 <script src="Core/Mgbx.js"></script>
-<script>
+<script>var cr=0
 function Ldr(){
 	$("#t1").css("transform","rotate(-45deg)")
 	setTimeout(function(){$("#t1").css("transition","transform 3s")},1000)
@@ -81,9 +81,9 @@ function KDw(e){
 		else if(k==27)$("#MbxbN")[0].click()
 	}
 }
-function CrC(v){if(!v)v=0
+function CrC(v){if(!v)v=0;var s=100;if(cr)s=500
 	if(Id("Cir"+v)){Id("Cir"+v).style.opacity=0
-		setTimeout(function(){Id("content").removeChild(Id("Cir"+v))},500)
+		setTimeout(function(){Id("content").removeChild(Id("Cir"+v))},s)
 	}
 	setTimeout(function(){
 		var Cir=doc.createElement("div"),sz=$(window).width(),
@@ -95,9 +95,9 @@ function CrC(v){if(!v)v=0
 		Cir.style.top=Math.floor(Math.random()*$("#content").height())+"px"
 		Cir.style.left=Math.floor(Math.random()*$("#content").width())+"px"
 		Cir.style.borderRadius=sz;Cir.style.position="absolute"
-		Id("content").appendChild(Cir);if(v==49)v=0
-		setTimeout(function(){CrC(v+1);Id("Cir"+v).style.opacity=1},500)
-	},500)
+		Id("content").appendChild(Cir);if(v==49){v=0;cr=1}
+		setTimeout(function(){CrC(v+1);Id("Cir"+v).style.opacity=1},s)
+	},s)
 }
 Mbx.Ldr()
 </script>
