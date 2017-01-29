@@ -55,7 +55,7 @@ function Rsz(){
 	$("#content").css("height",$(window).height()-10+"px").css("width",$(window).width()-10+"px")
 	$("#conten1,#conten2").css("height",($("#content").height()-5)/2+"px").css("width",($("#content").width()-5)/2+"px").css("line-height",($("#content").height()-5)/2+"px")
 	if($("#conten1").width()>$("#conten1").height()){
-		$("#conten1,#conten2").css("font-size",($("#content").height()-5)/2-250+"px")
+		$("#conten1,#conten2").css("font-size",($("#content").height()-5)/2-300+"px")
 	}else{
 		$("#conten1,#conten2").css("font-size",($("#content").width()-5)/2-250+"px")
 	}Mbx.Rsz()
@@ -86,7 +86,7 @@ function KDw(e){
 		else if(k==27)$("#MbxbN")[0].click()
 	}
 }
-function CrC(v){if(!v)v=0;var s=0
+function CrC(v){if(!v)v=0;var s=50
 	if(Id("Cir"+v)){Id("Cir"+v).style.opacity=0
 		setTimeout(function(){Id("content").removeChild(Id("Cir"+v))},s)
 	}
@@ -104,7 +104,7 @@ function CrC(v){if(!v)v=0;var s=0
 	},s)
 }
 function CrU(){
-	$(".Cir").css("transition","all 4s").css("top","-"+($("#content").height()/2)+"px")
+	$(".Cir").css("transition","all 5s").css("top","-"+($("#content").height()/2)+"px")
 	setTimeout("CrU()",500)
 }
 Mbx.Ldr()
