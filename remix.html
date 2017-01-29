@@ -68,7 +68,7 @@ function Srt(v){
 		"Divider:Gomoku"
 	]
 	if(!v)for(var i=1;i<140;i++)setTimeout("Id('t2').innerHTML='"+Mod[Math.floor(Math.random()*Mod.length)]+"'",20*i)
-	else Mbx("選擇模式",function(a){location="chess.html?mode="+a},function(){},Mod,1)
+	else Mbx("選擇模式",function(a){location="chess.html?mode="+a},function(){},Mod,Mod.inderOf(Id("t2").innerHTML),1)
 }
 function KDw(e){
 	var k=e.which

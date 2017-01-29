@@ -1,8 +1,8 @@
-function Mbx(m,a,b,v,s){$("#Mbx,#Mbxv").css("display","");$("#Mbxt,#Mbxp,#MbxbN").css("display","none")
+function Mbx(m,a,b,v,s,r){$("#Mbx,#Mbxv").css("display","");$("#Mbxt,#Mbxp,#MbxbN").css("display","none")
 	Id("Mbxc").childNodes[0].innerHTML=m;Id("Mbxt").readonly=""
 	$("#MbxbY").unbind('click').click(function(){
 		switch(typeof v){
-			case"object":Mbx.inp=Id("Mbxs").value;if(s)Id("Mbxs").readOnly="true";break
+			case"object":Mbx.inp=Id("Mbxs").value;if(r)Id("Mbxs").readOnly="true";break
 			case"string":Mbx.inp=Id("Mbxt").value;break
 		}Mbx.Exe(a)
 	})
