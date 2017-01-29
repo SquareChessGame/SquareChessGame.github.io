@@ -11,7 +11,7 @@ function Req(Typ,Jcd,id){Dft.Oln.CkN=RJC();Dft.Set=0;if(!id)id=""
 		if(Typ=="R")firebase.database().ref("Battle/"+id).update(req)
 		firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
 			if(Typ=="R"){var url="http://squarechessgame.github.io/?"+doc.title+"/"+id
-				Mbx("註冊成功,貼給朋友即可開始對戰",function(){},function(){},url)
+				Mbx("註冊成功,貼給朋友即可開始對戰,點選確定可用QRCode掃描或以Messenger傳送連結加入房間",function(){Opt()},function(){},url)
 				Id("msgr").childNodes[1].setAttribute("data-href",url);Oln.Ffb();Ini()
 				Id("QR").style.background="url(http://chart.apis.google.com/chart?cht=qr&chs=150x150&chl="+url+")"
 			}else if(Typ=="J"&&r.val()=="N"){
@@ -61,7 +61,9 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 			if(r.val()&&Id("msgc").innerHTML!=r.val()){var msg=r.val().Content;if(msg=="")return
 				Id("msgc").innerHTML=msg;Dft.Oln.Msg++;Atn()
 				Ctl("MSw",Dft.Oln.MSw);Id("msgc").scrollTop=Id("msgc").scrollHeight
-				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1)$(".join").css("display","none")
+				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1){
+					$(".join").css("display","none");OpK(1)
+				}
 				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間","棋盤資料異常"]
 					for(var i=0;i<ssm.length;i++){
 						while(msg.search('<div style="text-align:center">-'+ssm[i]+'-</div>')>-1)msg=msg.replace('<div style="text-align:center">-'+ssm[i]+'-</div>',"")
