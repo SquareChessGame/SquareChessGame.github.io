@@ -22,7 +22,7 @@ body{margin:0px;cursor:default}
 #conten1,#conten2{
 	text-align:center;background-color:#758f9b;color:white;overflow:hidden;text-align:center;z-index:3;opacity:0.8
 }
-#t1{background-color:#48585f;transition:transform 1s}
+#t1{background-color:#48585f}
 #conten1:hover{background-color:crimson}
 #conten2:hover{background-color:royalblue}
 </style>
@@ -39,14 +39,14 @@ body{margin:0px;cursor:default}
 	</div>
 </body>
 <script src="Core/Mgbx.js"></script>
-<script>var cr=0
+<script>
 function Ldr(){
 	$("#t1").css("transform","rotate(-45deg)")
 	setTimeout(function(){$("#t1").css("transition","transform 2s")},1000)
-	$("#conten1").click(function(){Srt();$("#t1").css("transform","rotate(135deg)")})
+	$("#conten1").click(function(){Srt();$("#t1").css("transition","transform 2s").css("transform","rotate(135deg)")})
 	$("#conten2").click(function(){Srt(1);$("#t1").css("transform","rotate(-45deg)")})
 	$("#t2").click(function(){if(this.innerHTML!="Square Chess Game")location="chess.html?mode="+this.innerHTML})
-	Rsz();CrC()
+	Rsz();CrC();setTimeout("CrU()",500)
 }
 function Rsz(){
 	Id("NightMode").style.height=$(window).height()+"px"
@@ -57,7 +57,7 @@ function Rsz(){
 	if($("#conten1").width()>$("#conten1").height()){
 		$("#conten1,#conten2").css("font-size",($("#content").height()-5)/2-250+"px")
 	}else{
-		$("#conten1,#conten2").css("font-size",($("#content").width()-5)/2-200+"px")
+		$("#conten1,#conten2").css("font-size",($("#content").width()-5)/2-250+"px")
 	}Mbx.Rsz()
 }
 function Srt(v){
@@ -69,7 +69,12 @@ function Srt(v){
 		"Adapter:Follow","Connect:GoLike",
 		"Divider:Gomoku"
 	]
-	if(!v)for(var i=1;i<100;i++)setTimeout("Id('t2').innerHTML='"+Mod[Math.floor(Math.random()*Mod.length)]+"'",20*i)
+	if(!v){
+		for(var i=1;i<100;i++){
+			setTimeout("Id('t2').innerHTML='"+Mod[Math.floor(Math.random()*Mod.length)]+"'",20*i)
+			if(i==99)setTimeout(function(){$("#t1").css("transition","").css("transform","rotate(-45deg)")},20*i)
+		}
+	}
 	else{var l=Mod.indexOf(Id("t2").innerHTML);if(l==-1)l=0
 		Mbx("選擇模式",function(a){location="chess.html?mode="+a},function(){},Mod,l,1)
 	}
@@ -81,22 +86,26 @@ function KDw(e){
 		else if(k==27)$("#MbxbN")[0].click()
 	}
 }
-function CrC(v){if(!v)v=0;var s=50;if(cr)s=500
+function CrC(v){if(!v)v=0;var s=0
 	if(Id("Cir"+v)){Id("Cir"+v).style.opacity=0
 		setTimeout(function(){Id("content").removeChild(Id("Cir"+v))},s)
 	}
 	setTimeout(function(){
-		var Cir=doc.createElement("div"),sz=sz=Math.floor(Math.random()*50),
+		var Cir=doc.createElement("div"),sz=sz=Math.floor(Math.random()*($("#content").width()/26)),
 			bg=["lightgray","gray","dimgray","#758f9b","#99bccc","#48585f"]
 		Cir.style.backgroundColor=bg[Math.floor(Math.random()*bg.length)]
-		Cir.id="Cir"+v;sz+="px"
+		Cir.id="Cir"+v;Cir.className="Cir";sz+="px"
 		Cir.style.opacity=0;Cir.style.transition="all 1s";Cir.style.width=sz;Cir.style.height=sz
-		Cir.style.top=Math.floor(Math.random()*$("#content").height())+"px"
+		Cir.style.top=(Math.floor(Math.random()*$("#content").height())+$("#content").height())+"px"
 		Cir.style.left=Math.floor(Math.random()*$("#content").width())+"px"
 		Cir.style.borderRadius=sz;Cir.style.position="absolute"
-		Id("content").appendChild(Cir);if(v==99){v=0;cr=1}
+		Id("content").appendChild(Cir);if(v==99)v=0
 		setTimeout(function(){CrC(v+1);Id("Cir"+v).style.opacity=1},s)
 	},s)
+}
+function CrU(){
+	$(".Cir").css("transition","all 4s").css("top","-"+($("#content").height()/2)+"px")
+	setTimeout("CrU()",500)
 }
 Mbx.Ldr()
 </script>
