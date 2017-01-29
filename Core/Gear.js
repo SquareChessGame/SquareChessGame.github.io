@@ -19,7 +19,7 @@ function Req(Typ,Jcd,id){Dft.Oln.CkN=RJC();Dft.Set=0;if(!id)id=""
 					Msg("X方已加入",1);Dft.Oln.CkN=r.val();Ini()
 					firebase.database().ref("Battle/"+id).update({PlayerX:"Y",CheckNum:r.val(),LastActive:new Date().getTime()})
 				})
-			}else if(!r.val())Mbx("此房間不存在",function(){location.search=""})
+			}else if(!r.val())Mbx("此房間不存在",function(){location.hash="";location.reload()})
 			else{Mbx("進入觀賞模式",function(){Dft.Oln.Typ="V";Ini()})}
 		});if(Notification&&Notification.permission!="granted")Notification.requestPermission()
 	})
@@ -39,14 +39,22 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 				firebase.database().ref("Battle/"+Dft.Oln.Id).update(req)
 			});Oln.Ckr()
 		}
-		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",function(r){var brd=r.val().split("/")
+		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",function(r){
+			var brd=r.val().split("/")
 			if(brd[0].length<81&&(Dft.Oln.Cln||Dft.Oln.Typ=="V")){
 				if(brd[0])Mbx(brd[0],function(){Ini(1);if(Dft.Oln.Typ=="O")Dft.Set=1;else Dft.Set=0})
-			}else if(brd[1]||Dft.Oln.Typ=="V"){
-				Hst.Brd[brd[1]]=brd[0];Hst.Crd[brd[1]]=brd[2];Rec(brd[0]);Tn=Val(brd[1]);Rul()
-				if(Dft.Oln.Typ!="V"&&Sqr.Sym[(Val(brd[1])%2)]==Dft.Oln.Typ){
-					Dft.Set=1;Atn("輪到你下了");Sel.Now("N");Log()
-				}else Dft.Set=0
+			}else if(brd[1]||Dft.Oln.Typ=="V"){var cd=brd[2],bd=brd[0],tn=Val(brd[1]),k=0
+				if(Dft.Oln.Typ!="V"){var c=(Asc(cd[0])-65)*9+Val(cd[1])-1
+					if(bd[c]==(tn+1)%2&&tn>=Tn&&BJd().indexOf(cd)<0)k=1
+					else{Msg("棋盤資料異常",1)
+						if(Hst.Brd[Tn]&&Hst.Crd[Tn])Upl(Hst.Brd[Tn]+"/"+Tn+Hst.Crd[Tn])
+					}
+				}else k=1
+				if(k){Hst.Brd[brd[1]]=brd[0];Hst.Crd[brd[1]]=brd[2];Rec(brd[0]);Tn=Val(brd[1]);Rul()
+					if(Dft.Oln.Typ!="V"&&Sqr.Sym[(Val(brd[1])%2)]==Dft.Oln.Typ){
+						Dft.Set=1;Atn("輪到你下了");Sel.Now("N");Log()
+					}else Dft.Set=0
+				}
 			}
 		})
 		firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").on("value",function(r){
@@ -54,7 +62,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 				Id("msgc").innerHTML=msg;Dft.Oln.Msg++;Atn()
 				Ctl("MSw",Dft.Oln.MSw);Id("msgc").scrollTop=Id("msgc").scrollHeight
 				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1)$(".join").css("display","none")
-				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間"]
+				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間","棋盤資料異常"]
 					for(var i=0;i<ssm.length;i++){
 						while(msg.search('<div style="text-align:center">-'+ssm[i]+'-</div>')>-1)msg=msg.replace('<div style="text-align:center">-'+ssm[i]+'-</div>',"")
 					}

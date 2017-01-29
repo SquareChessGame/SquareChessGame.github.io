@@ -30,7 +30,8 @@ function KDw(e){
 			if(m.style.right=="0px"){
 				if(m.style.width=="0px")Mnu(1,0);else Mnu(0,1)
 			}else Mnu(1,0);break
-		default:if(k>64&&k<74&&g){Dft.Crd=Chr(k);Sel.Now("C");if(c){if(k==72)Ctl("Gto");else if(k==65)Ara.PFu()}}
+		default:if(k>64&&k<74&&g){Dft.Crd=Chr(k);Sel.Now("C")
+				if(c){if(k==72)Ctl("Gto");else if(k==65&&!Dft.System.Oln)Ara.PFu()}}
 				else if(k>48&&k<58||k>96&&k<106){var num=Chr(k);if(k>96)num=Chr(k-48)
 					if(m.style.width!="0px"){
 						if(!Dft.System.Oln)switch(Val(num)){
