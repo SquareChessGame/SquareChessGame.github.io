@@ -13,7 +13,7 @@
 	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{},Ato:{}}
 function Ldr(){Mbx.Ldr();
-	if(!location.search||location.search.substr(0,6)!="?mode="){Mbx("要求格式錯誤",function(){location="index.html"})}
+	if(!location.search||location.search.substr(0,6)!="?mode="){Mbx("要求格式錯誤",function(){location="remix.html"})}
 	var mdN=location.search.replace("?mode=","")
 	Id("NightMode").style.opacity=1;setTimeout("doc.body.style.backgroundColor='black'",1000)
 	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie","")
@@ -26,7 +26,7 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 		Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
 		if(typeof Ini!="undefined"){Dft.System.Oln=1;Joi()}
 	}
-	md.onerror=function(){Mbx("模式可能被移除或不存在",function(){location="index.html"})}
+	md.onerror=function(){Mbx("模式可能被移除或不存在",function(){location="remix.html"})}
 	doc.body.appendChild(md)
 }
 function Rsz(){

@@ -20,7 +20,7 @@ body{margin:0px;cursor:default}
 #conten1{top:0px;left:0px;position:absolute;border-bottom:5px solid #758f9b;border-right:5px solid #758f9b}
 #conten2{bottom:0px;right:0px;position:absolute;border-top:5px solid #758f9b;border-left:5px solid #758f9b}
 #conten1,#conten2{
-	text-align:center;background-color:#758f9b;color:white;overflow:hidden;text-align:center;z-index:3;opacity:0.8
+	text-align:center;background-color:#758f9b;color:white;overflow:hidden;z-index:3;opacity:0.8;
 }
 #t1{background-color:#48585f}
 #conten1:hover{background-color:crimson}
@@ -28,9 +28,10 @@ body{margin:0px;cursor:default}
 </style>
 </head>
 <body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
-	<div id="NightMode" style="opacity:1;top:0px">
+	<div id="NightMode" style="opacity:0;top:0px">
 		<div class="title" style="transform:scale(1.5)" id="t1"></div>
 		<div class="title" id="t2">Square Chess Game</div>
+		<div class="title" id="t3" style="line-height:1;opacity:0;transition:opacity 1s"><div style="position:absolute;bottom:50px;right:0px;width:100%">開始遊戲</div></div>
 		<div id="content">
 			<div id="conten1">Random</div>
 			<div id="conten2">Select</div>
@@ -45,20 +46,17 @@ function Ldr(){
 	setTimeout(function(){$("#t1").css("transition","transform 2s")},1000)
 	$("#conten1").click(function(){Srt();$("#t1").css("transition","transform 2s").css("transform","rotate(135deg)")})
 	$("#conten2").click(function(){Srt(1);$("#t1").css("transform","rotate(-45deg)")})
-	$("#t2").click(function(){if(this.innerHTML!="Square Chess Game")location="chess.html?mode="+this.innerHTML})
-	Rsz();CrC();setTimeout("CrU()",500)
+	$("#t3").click(function(){if(Id("t2").innerHTML!="Square Chess Game")location="chess.html?mode="+Id("t2").innerHTML})
+	Rsz();CrC();setTimeout("CrU()",500);Id("NightMode").style.opacity=1
 }
 function Rsz(){
 	Id("NightMode").style.height=$(window).height()+"px"
 	$(".title").css("top",$(window).height()/2-$(".title").height()/2+"px")
 	$(".title").css("left",$(window).width()/2-$(".title").width()/2+"px")
 	$("#content").css("height",$(window).height()-10+"px").css("width",$(window).width()-10+"px")
-	$("#conten1,#conten2").css("height",($("#content").height()-5)/2+"px").css("width",($("#content").width()-5)/2+"px").css("line-height",($("#content").height()-5)/2+"px")
-	if($("#conten1").width()>$("#conten1").height()){
-		$("#conten1,#conten2").css("font-size",($("#content").height()-5)/2-300+"px")
-	}else{
-		$("#conten1,#conten2").css("font-size",($("#content").width()-5)/2-250+"px")
-	}Mbx.Rsz()
+	$("#conten1,#conten2").css("height",($("#content").height()-5)/2+"px").css("line-height",($("#content").height()-5)/2+"px").css("width",($("#content").width()-5)/2+"px")
+	$("#conten1,#conten2").css("font-size",$("#conten1").width()/6+"px")
+	Mbx.Rsz()
 }
 function Srt(v){
 	var Mod=[
@@ -69,10 +67,12 @@ function Srt(v){
 		"Adapter:Follow","Connect:GoLike",
 		"Divider:Gomoku"
 	]
-	if(!v){
+	if(!v){Id("t3").style.opacity=0
 		for(var i=1;i<100;i++){
 			setTimeout("Id('t2').innerHTML='"+Mod[Math.floor(Math.random()*Mod.length)]+"'",20*i)
-			if(i==99)setTimeout(function(){$("#t1").css("transition","").css("transform","rotate(-45deg)")},20*i)
+			if(i==99)setTimeout(function(){Id("t3").style.opacity=1
+				$("#t1").css("transition","").css("transform","rotate(-45deg)")
+			},20*i)
 		}
 	}
 	else{var l=Mod.indexOf(Id("t2").innerHTML);if(l==-1)l=0
@@ -99,8 +99,8 @@ function CrC(v){if(!v)v=0;var s=50
 		Cir.style.top=(Math.floor(Math.random()*$("#content").height())+$("#content").height())+"px"
 		Cir.style.left=Math.floor(Math.random()*$("#content").width())+"px"
 		Cir.style.borderRadius=sz;Cir.style.position="absolute"
-		Id("content").appendChild(Cir);if(v==99)v=0
-		setTimeout(function(){CrC(v+1);Id("Cir"+v).style.opacity=1},s)
+		Id("content").appendChild(Cir);if(v==99)v=-1
+		setTimeout(function(){CrC(v+1);if(v>-1)Id("Cir"+v).style.opacity=1},s)
 	},s)
 }
 function CrU(){
