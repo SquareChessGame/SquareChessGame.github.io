@@ -42,12 +42,12 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",function(r){
 			var brd=r.val().split("/")
 			if(brd[0].length<81&&(Dft.Oln.Cln||Dft.Oln.Typ=="V")){
-				if(brd[0])Mbx(brd[0],function(){Ini(1);if(Dft.Oln.Typ=="O")Dft.Set=1;else Dft.Set=0})
+				if(brd[0]){Ini(1);Mbx(brd[0],function(){if(Dft.Oln.Typ=="O")Dft.Set=1;else Dft.Set=0})}
 			}else if(brd[1]||Dft.Oln.Typ=="V"){var cd=brd[2],bd=brd[0],tn=Val(brd[1]),k=0
-				if(Dft.Oln.Typ!="V"){var c=(Asc(cd[0])-65)*9+Val(cd[1])-1
-					if(bd[c]==(tn+1)%2&&tn>=Tn&&BJd().indexOf(cd)<0)k=1
+				if(Hst.Brd[Tn]&&Hst.Crd[Tn])if(Dft.Oln.Typ!="V"){var c=(Asc(cd[0])-65)*9+Val(cd[1])-1
+					if((tn%2+"23").toString().search(bd[c])<0&&tn>=Tn&&BJd().indexOf(cd)<0)k=1
 					else{Msg("棋盤資料異常",1)
-						if(Hst.Brd[Tn]&&Hst.Crd[Tn])Upl(Hst.Brd[Tn]+"/"+Tn+Hst.Crd[Tn])
+						Upl(Hst.Brd[Tn]+"/"+Tn+Hst.Crd[Tn])
 					}
 				}else k=1
 				if(k){Hst.Brd[brd[1]]=brd[0];Hst.Crd[brd[1]]=brd[2];Rec(brd[0]);Tn=Val(brd[1]);Rul()

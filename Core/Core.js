@@ -175,7 +175,7 @@ function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";i
 	}
 	if(Id("System-Rul").checked)Ctl("RSw",1);else Ctl("RSw",0)
 	if(Id("System-Rec")&&!Id("System-Rec").checked)Id("Recrd").style.display="none";else Id("Recrd").style.display=""
-	Dft.System.Nxt=Id("System-Nxt").checked;Dft.System.Gst=Id("System-Gst").checked;
+	if(Id("System-Nxt"))Dft.System.Nxt=Id("System-Nxt").checked;Dft.System.Gst=Id("System-Gst").checked;
 	Dft.System.iTn=Id("System-iTn").checked;if(Dft.Tn==Tn)Cln();Mrk();Ctl("Rul")
 }
 function OpS(id,typ,til,dft){var input="",ck="",mg=10,ls=Id("OptionMenu").childNodes[0].childNodes
