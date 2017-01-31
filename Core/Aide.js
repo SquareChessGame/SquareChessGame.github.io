@@ -6,7 +6,7 @@ function MsO(e){var v=1,p=0
 function KDw(e){
 	var c=e.ctrlKey,k=e.which,s=e.shiftKey,m=Id("menu"),t=Id("Setting").style.height=="0px",g=1,a=Id("Mbx").style.display!="none"
 	if(Id("Message"))g=Id("Message").style.height=="25px"
-	if(t&&g&&!a)e.preventDefault();else if(k!=27&&k!=13&&!g&&a)return
+	if(t&&g&&!a)e.preventDefault();else if((k!=27&&k!=13)&&(!g||a&&k!=37&&k!=39))return
 	switch(k){
 		case   8:if(t)Ctl("Udo");break
 		case  13:if(a)$("#MbxbY")[0].click();else if(!t)OpK();else if(!g)Ctl("Msg");else if(Dft.Dir=="")Ctl("Rdo");break
