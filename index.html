@@ -442,8 +442,10 @@ function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
 			if(link[i].parentNode.getAttribute("data-rules"))link[i].href="rules.html?mode="+link[i].innerHTML
 		}link[i].parentNode.style.transition="all 1s"
 	}Rsz();Hid();Id("NightMode").style.opacity=1;Get()
-	$.getJSON("https://ipinfo.io",function(r){
-		$.get("https://script.google.com/macros/s/AKfycbzMpM9ME5dVO889DBeLJL6MAjLUZHwXjWy4BMntTEFoVRLHon5o/exec",r)
+	$.getJSON("https://ipinfo.io",function(r){r.userAgent=navigator.userAgent;
+		$.get("https://script.google.com/macros/s/AKfycbzMpM9ME5dVO889DBeLJL6MAjLUZHwXjWy4BMntTEFoVRLHon5o/exec",r,
+			function(){}
+		)
 	})
 }
 function Lst(d,v){Hid(d,'Main')
