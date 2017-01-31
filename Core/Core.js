@@ -47,7 +47,7 @@ function Rsz(){
 	}Id("UI").style.width=sz*9+"px"
 	Id("Rule").style.width=sz*9+"px";if(Id("Rule").style.height!="0px")Id("Rule").style.height=sz*9+"px"
 	if(Id("Setting").style.height!="0px")Id("Setting").style.height=($(window).height()-40)+"px"
-	Id("Recrd").style.width=$("#Board").offset().left+"px";Id("Recrd").style.height="100%"
+	Id("Recrd").style.width=$("#Board").offset().left+"px"
 	if($("#Board").offset().left<80)Id("Recrd").style.display="none"
 	else Id("Recrd").style.display="";Sel.Now("N");Mbx.Rsz()
 }
