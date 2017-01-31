@@ -140,6 +140,7 @@ table{table-layout:fixed;word-break:break-all}
 </style>
 </head>
 <body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
+	<noscript>您的瀏覽器可能不支援JavaScript或是尚未啟動該功能，本網站需要使用JavaScript才能正常運作。</noscript>
 	<div id="NightMode" style="opacity:0">
 	<header>
 		<div id="Home" onclick="$('#Content').animate({scrollTop:0},1000);Mnu(1)"></div>
@@ -268,7 +269,7 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-rules="Main" onclick="Lst('rules','OSub')" class="pTab"><a>其他系列</a></div>
 					<div data-rules="OSub"><a>Gomoku</a></div>
 					<div data-rules="OSub"><a>GoLike</a></div>
-				<div id="pAbout" class="pPage" onclick="Mnu();Ptg('#cAbout')">關於我們</div>
+				<div id="pAbout" class="pPage" onclick="Mnu();Ptg('#cAbut')">關於我們</div>
 				<div id="pReport" class="pPage" onclick="Mnu();Ptg('#cRepo')">回報問題</div>
 			</div>
 		</div>
@@ -342,7 +343,6 @@ table{table-layout:fixed;word-break:break-all}
 					如果您發現問題或是錯誤，請填寫表單回報給我們。<br>
 					<font color="red" style="font-size:25px">注意！HTML5支援度會影響運作！</font><br>
 					本遊戲正常運作需要超過480分的瀏覽器<br>
-					本遊戲基本運作需要超過160分的瀏覽器<br>
 					<a href="https://html5test.com/" target="_new">點此前往HTML5測試</a>
 				</p></div>
 				<div style="margin-top:40px" class="Computer">
@@ -391,7 +391,14 @@ table{table-layout:fixed;word-break:break-all}
 				<table class="Computer" align="center" width="100%"><tr><td>正在取得資訊...</td></tr></table>
 				<table class="Mobile" align="center"><tr><td>正在取得資訊...</td></tr></table>
 			</div>
-			<div id="cAbout" class="field">
+			<div id="cQstn" class="field">
+				<h1><font class="En">Question </font>/<font class="Ch"> 常見問題</font></h1>
+				<p style="margin-left:20px">
+					Q:Square Chess Game最佳瀏覽器是?<br>
+					A:本小組主要使用<a href="https://opera.com">Opera</a>作為測試瀏覽器，<a href="https://chrome.com">Chrome</a>也可以正常使用，而其他瀏覽器(例如:<a href="https://firefox.com">FireFox</a>或<a href="https://internetexplorer.com">Internet Explorer</a>)可能部分顯示或部分功能會不正常。
+				</p>
+			</div>
+			<div id="cAbut" class="field">
 				<h1><font class="En">About </font>/<font class="Ch"> 關於我們</font></h1>
 				<h2>開發動機</h2>	
 				<p>
@@ -413,7 +420,7 @@ table{table-layout:fixed;word-break:break-all}
 		<a id="fb" class="Social" href="http://fb.me/SquareChessGame"></a>
 			<div id="List" class="Computer"><hr>
 			<div class="page" onclick="Ptg('#cRepo')"><div class="tab" id="Report">回報問題</div></div><hr>
-			<div class="page" onclick="Ptg('#cAbout')"><div class="tab" id="About">關於我們</div></div>
+			<div class="page" onclick="Ptg('#cAbut')"><div class="tab" id="About">關於我們</div></div>
 		</div>
 	</footer>
 	</div>
@@ -435,6 +442,9 @@ function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
 			if(link[i].parentNode.getAttribute("data-rules"))link[i].href="rules.html?mode="+link[i].innerHTML
 		}link[i].parentNode.style.transition="all 1s"
 	}Rsz();Hid();Id("NightMode").style.opacity=1;Get()
+	$.getJSON("https://ipinfo.io",function(r){
+		$.get("https://script.google.com/macros/s/AKfycbzMpM9ME5dVO889DBeLJL6MAjLUZHwXjWy4BMntTEFoVRLHon5o/exec",r)
+	})
 }
 function Lst(d,v){Hid(d,'Main')
 	if(show!=d+"/"+v)Shw(d,v)
