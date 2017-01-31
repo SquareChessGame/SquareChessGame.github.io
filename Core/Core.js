@@ -143,7 +143,8 @@ function Rul(){
 	for(var i=MdQ.length-1;i>-1;i--)if(Jdg(Shl.Rul[MdQ[i]]()))break;Mrk()
 }
 function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Dft.Oln.Id
-	Id("OptionMenu").childNodes[0].innerHTML="";OpS("","1","基本設定");Id("Gear").style.transform="rotate(-66deg)"
+	Id("OptionMenu").childNodes[0].innerHTML="<div style='height:10px'></div>"
+	OpS("","1","基本設定");Id("Gear").style.transform="rotate(-66deg)"
 	if(!Dft.System.Oln){
 		OpS("System-Blk","t","障礙數量:",Dft.System.Blk)
 		OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
@@ -157,6 +158,7 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 	OpS("System-Ful","k","全螢幕模式",doc.webkitIsFullScreen||doc.mozFullScreen||doc.fullscreen)
 	OpS("System-Rul","k","顯示規則",Id("Rule").style.height!="0px")
 	for(var i=0;i<MdQ.length;i++)Shl.Opt[MdQ[i]]()
+	Id("OptionMenu").childNodes[0].innerHTML+="<br style='line-height:40px'>"
 }
 function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";if(k)return
 	if(!Dft.System.Oln){
