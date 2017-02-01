@@ -395,8 +395,8 @@ table{table-layout:fixed;word-break:break-all}
 			<div id="cQstn" class="field">
 				<h1><font class="En">Question </font>/<font class="Ch"> 常見問題</font></h1>
 				<p style="margin-left:20px">
-					Q:Square Chess Game最佳瀏覽器是?<br>
-					A:本小組主要使用<a href="https://opera.com">Opera</a>作為測試瀏覽器，<a href="https://chrome.com">Chrome</a>也可以正常使用，而其他瀏覽器(例如:<a href="https://firefox.com">FireFox</a>或<a href="https://internetexplorer.com">Internet Explorer</a>)可能部分顯示或部分功能會不正常。
+					<font style="font-size:25px">Q:</font>Square Chess Game最佳瀏覽器是?<br>
+					<font style="font-size:25px">A:</font>本小組主要使用<a href="https://opera.com">Opera</a>作為測試瀏覽器，<a href="https://chrome.com">Chrome</a>，<a href="https://vivaldi.com">Vivaldi</a>也可以正常使用，而其他瀏覽器(例如:<a href="https://firefox.com">FireFox</a>，<a href="https://internetexplorer.com">Internet Explorer</a>或<a href="https://apple.com/safari">Safari</a>)可能部分顯示或部分功能會不正常。
 				</p>
 			</div>
 			<div id="cAbout" class="field">
@@ -444,7 +444,7 @@ function Ldr(){var page=["Start","Online","Rules","About","Repo"],bd=""
 			if(link[i].parentNode.getAttribute("data-rules"))link[i].href="rules.html?mode="+link[i].innerHTML
 		}link[i].parentNode.style.transition="all 1s"
 	}Rsz();Hid();Id("NightMode").style.opacity=1;Get()
-	$.getJSON("https://ipinfo.io",function(r){r.userAgent=navigator.userAgent;
+	if(0)$.getJSON("https://ipinfo.io",function(r){r.userAgent=navigator.userAgent;
 		$.get("https://script.google.com/macros/s/AKfycbzMpM9ME5dVO889DBeLJL6MAjLUZHwXjWy4BMntTEFoVRLHon5o/exec",r,
 			function(){}
 		)
