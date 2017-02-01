@@ -83,7 +83,7 @@ footer{
 	text-decoration:none;overflow:hidden;
 }
 .tab{background-color:#758f9b;overflow:hidden}
-#pStart,#pAbout,#pOnline,#pReport,#pRules,.pTab{
+#pStart,#pAbout,#pOnline,#pRepo,#pRules,.pTab{
 	background-position:right 5px;
 	background-size:30px 30px;
 	background-repeat:no-repeat;
@@ -107,8 +107,8 @@ article div div{height:auto;width:auto;float:none}
 #pAbout:hover{background-image:url(Pics/Abouth.gif)}
 #pOnline{background-image:url(Pics/Online.gif)}
 #pOnline:hover{background-image:url(Pics/Onlineh.gif)}
-#pReport{background-image:url(Pics/Report.gif)}
-#pReport:hover{background-image:url(Pics/Reporth.gif)}
+#pRepo{background-image:url(Pics/Report.gif)}
+#pRepo:hover{background-image:url(Pics/Repoh.gif)}
 #pRules{background-image:url(Pics/Rules.gif)}
 #pRules:hover{background-image:url(Pics/Rulesh.gif)}
 .pTab{background-image:url(Pics/Down.gif)}
@@ -269,8 +269,9 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-rules="Main" onclick="Lst('rules','OSub')" class="pTab"><a>其他系列</a></div>
 					<div data-rules="OSub"><a>Gomoku</a></div>
 					<div data-rules="OSub"><a>GoLike</a></div>
-				<div id="pAbout" class="pPage" onclick="Mnu();Ptg('#cAbut')">關於我們</div>
-				<div id="pReport" class="pPage" onclick="Mnu();Ptg('#cRepo')">回報問題</div>
+				<div id="pAbout" class="pPage" onclick="Mnu();Ptg('#cAbout')">關於我們</div>
+				<div id="pRepo" class="pPage" onclick="Mnu();Ptg('#cRepo')">回報問題</div>
+				<div id="pRemx" class="pPage" onclick="Mnu();location='remix.html'">混合模式</div>
 			</div>
 		</div>
 	</header>
@@ -337,7 +338,7 @@ table{table-layout:fixed;word-break:break-all}
 				</div>
 			</div>
 			<div id="cRepo" class="field2">
-				<h1><font class="En">Report </font>/<font class="Ch"> 回報問題或給予評論</font></h1>
+				<h1><font class="En">Repo </font>/<font class="Ch"> 回報問題或給予評論</font></h1>
 				<div><p>
 					軟體故障和錯誤偶爾會發生於以上線的遊戲。<br>
 					如果您發現問題或是錯誤，請填寫表單回報給我們。<br>
@@ -398,7 +399,7 @@ table{table-layout:fixed;word-break:break-all}
 					A:本小組主要使用<a href="https://opera.com">Opera</a>作為測試瀏覽器，<a href="https://chrome.com">Chrome</a>也可以正常使用，而其他瀏覽器(例如:<a href="https://firefox.com">FireFox</a>或<a href="https://internetexplorer.com">Internet Explorer</a>)可能部分顯示或部分功能會不正常。
 				</p>
 			</div>
-			<div id="cAbut" class="field">
+			<div id="cAbout" class="field">
 				<h1><font class="En">About </font>/<font class="Ch"> 關於我們</font></h1>
 				<h2>開發動機</h2>	
 				<p>
@@ -419,8 +420,9 @@ table{table-layout:fixed;word-break:break-all}
 		<a id="tw" class="Social" href="http://twitter.com/SquareChessGame"></a>
 		<a id="fb" class="Social" href="http://fb.me/SquareChessGame"></a>
 			<div id="List" class="Computer"><hr>
-			<div class="page" onclick="Ptg('#cRepo')"><div class="tab" id="Report">回報問題</div></div><hr>
-			<div class="page" onclick="Ptg('#cAbut')"><div class="tab" id="About">關於我們</div></div>
+			<div class="page" onclick="Ptg('#cRepo')"><div class="tab" id="Repo">回報問題</div></div><hr>
+			<div class="page" onclick="Ptg('#cAbout')"><div class="tab" id="About">關於我們</div></div><hr>
+			<div class="page" onclick="location='remix.html'"><div class="tab" id="Remix">混合模式</div></div>
 		</div>
 	</footer>
 	</div>
@@ -428,7 +430,7 @@ table{table-layout:fixed;word-break:break-all}
 <script src="Core/Mgbx.js"></script>
 <script>
 var link=$("#lLst div a,.page div a"),show="",page=$(".field,.field2"),input=0
-function Ldr(){var page=["Start","Online","Rules","About","Report"],bd=""
+function Ldr(){var page=["Start","Online","Rules","About","Repo"],bd=""
 	for(var i=0;i<5;i++){
 		Id(page[i]).style.height="40px"
 		Id("p"+page[i]).style.height="40px"
