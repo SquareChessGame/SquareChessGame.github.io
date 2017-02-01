@@ -1,5 +1,4 @@
-Shl.Ara.Kingdom=[]
-Dft.Kingdom={Ara:1,Lmt:1,Kdm:10}
+Shl.Ara.Kingdom=[];Dft.Kingdom={Ara:1,Lmt:1,Kdm:10}
 Shl.Rul.Kingdom=function(){var ara=[[],[],[]],vct=[],cds=Sel("All"),scr={K:[0,0],P:[0,0]}
 	for(var i=0;i<cds.length;i++){if(vct.indexOf(cds[i])>-1)continue
 		var map=Map(cds[i]),sym=Qre(cds[i],"Sym");vct=vct.concat(map);ara[sym].push(map)
@@ -22,13 +21,11 @@ Shl.Mrk.Kingdom=function(){
 }
 Shl.Brd.Kingdom=function(){}
 Shl.Adn.Kingdom=function(){}
-Shl.Ckr.Kingdom=function(crd){if(Tn<2&&Sel("C3:G7").indexOf(crd)>-1&&Dft.Kingdom.Lmt)return 0;return 1}
+Shl.Ckr.Kingdom=function(){}
 Shl.Opt.Kingdom=function(){
 	OpS("","1","Kingdom設定")
 	if(!Dft.System.Oln)OpS("Kingdom-Kdm","t","王國大小:",Dft.Kingdom.Kdm)
-	OpS("","2","輔助標記")
-	OpS("Kingdom-Ara","k","雙方區域",Dft.Kingdom.Ara)
-	OpS("Kingdom-Lmt","k","首回限制",Dft.Kingdom.Lmt)
+	OpS("","2","輔助標記");OpS("Kingdom-Ara","k","雙方區域",Dft.Kingdom.Ara)
 }
 Shl.OpK.Kingdom=function(){
 	Dft.Kingdom.Ara=Id("Kingdom-Ara").checked

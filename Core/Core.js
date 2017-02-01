@@ -8,7 +8,7 @@
 	},Dft={
 		Set:1,Tn:0,Blk:[],Win:0,Crd:"",Dir:"",
 		Oln:{Typ:"",Id:"",Rgt:0,Cln:1,MdN:"",Msg:0,CkN:"",MSw:1},
-		System:{Blk:0,Nxt:0,iTn:0,Qsr:0,Oln:0,Gst:0}
+		System:{Blk:0,Nxt:0,iTn:0,Qsr:0,Oln:0,Gst:0,Lmt:0}
 	},
 	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{},Ato:{}}
@@ -112,7 +112,7 @@ function Rec(brd){var res="";Dft.Win=0
 function Lmt(crd,sym){if(Qre(crd,"Sym")!=2)return 1;if(typeof sym=="undefined")sym=Tn%2
 	for(var i=MdQ.length-1;i>-1;i--)if(Shl.Lmt[MdQ[i]](crd,sym))return 1;return 0
 }
-function Ckr(crd){if(Qre(crd,"Sym")!=2)return 0
+function Ckr(crd){if(Qre(crd,"Sym")!=2||Tn<2&&Sel("C3:G7").indexOf(crd)>-1&&Dft.System.Lmt)return 0
 	for(var i=MdQ.length-1;i>-1;i--){var ckr=Shl.Ckr[MdQ[i]](crd)
 		if(ckr==2)return 1;else if(!ckr)return 0
 	}return 1
@@ -151,6 +151,7 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 		OpS("System-Oln","k","線上對戰",Dft.System.Oln)
 	}else Oln.Opt()
 	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1)OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
+	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Scheme")>-1||MdQ.indexOf("Kingdom")>-1)OpS("System-Lmt","k","首回限制",Dft.System.Lmt)
 	OpS("System-iTn","k","上回設置",Dft.System.iTn)
 	OpS("System-Gst","k","手勢操作",Dft.System.Gst)
 	if($("#Recrd").width()>10)OpS("System-Rec","k","顯示過程",Id("Recrd").style.display!="none")
@@ -177,8 +178,9 @@ function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";i
 	}
 	if(Id("System-Rul").checked)Ctl("RSw",1);else Ctl("RSw",0)
 	if(Id("System-Rec")&&!Id("System-Rec").checked)Id("Recrd").style.display="none";else Id("Recrd").style.display=""
-	if(Id("System-Nxt"))Dft.System.Nxt=Id("System-Nxt").checked;Dft.System.Gst=Id("System-Gst").checked;
-	Dft.System.iTn=Id("System-iTn").checked;if(Dft.Tn==Tn)Cln();Mrk();Ctl("Rul")
+	if(Id("System-Nxt"))Dft.System.Nxt=Id("System-Nxt").checked;Dft.System.Gst=Id("System-Gst").checked
+	if(Id("System-Lmt"))Dft.System.Lmt=Id("System-Lmt").checked;Dft.System.iTn=Id("System-iTn").checked
+	if(Dft.Tn==Tn)Cln();Mrk();Ctl("Rul")
 }
 function OpS(id,typ,til,dft){var input="",ck="",mg=10,ls=Id("OptionMenu").childNodes[0].childNodes
 	if(dft)ck="checked";
