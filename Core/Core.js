@@ -12,12 +12,12 @@
 	},
 	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{},Ato:{}}
-function Ldr(){Mbx.Ldr();
-	if(!location.search||location.search.substr(0,6)!="?mode="){Mbx("要求格式錯誤",function(){location="remix.html"})}
-	var mdN=location.search.replace("?mode=","")
-	Id("NightMode").style.opacity=1;setTimeout("doc.body.style.backgroundColor='black'",1000)
-	while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie","")
-	$("#Rsw div")[0].innerHTML=doc.title;Dft.Oln.MdN=doc.title;MdQ=mdN.replace("Square.","").split(":");MdL(0)
+function Ldr(){Mbx.Ldr();Id("NightMode").style.opacity=1;setTimeout("doc.body.style.backgroundColor='black'",1000)
+	if(!location.search||location.search.substr(0,6)!="?mode=")Mbx("要求格式錯誤",function(){location="index.html"})
+	else{var mdN=location.search.replace("?mode=","")
+		while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":");doc.title=mdN.replace(":Newbie","")
+		$("#Rsw div")[0].innerHTML=doc.title;Dft.Oln.MdN=doc.title;MdQ=mdN.replace("Square.","").split(":");MdL(0)
+	}
 }
 function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 	var md=doc.createElement("script");md.src="Mode/"+MdQ[v]+".js"
