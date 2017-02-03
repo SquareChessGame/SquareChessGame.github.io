@@ -32,7 +32,7 @@ body{margin:0px;cursor:default}
 #Help:hover{height:150px;width:300px}
 </style>
 </head>
-<body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
+<body>
 	<noscript>您的瀏覽器可能不支援JavaScript或是尚未啟動該功能，本網站需要使用JavaScript才能正常運作。</noscript>
 	<div id="NightMode" style="opacity:0;top:0px">
 		<div class="title" style="transform:scale(1.5)" id="t1"></div>
@@ -49,6 +49,7 @@ body{margin:0px;cursor:default}
 			點選Random可隨機導向至一個模式<br>
 			點選Select可選擇導向至一個模式
 		</div>
+		<div id="Home" style="position:absolute;top:10px;right:10px;color:#48585f"><a href="index.html">回首頁</a></div>
 		<div id="Rule" style="height:0px;position:fixed;top:5px;left:5px;z-index:4">
 			<ul></ul>
 			<div id="Rulec" onclick="Id('Rule').style.height='0px'"></div>
@@ -133,5 +134,6 @@ function CrU(){
 	setTimeout("CrU()",500)
 }
 Mbx.Ldr()
+$(window).load(function(){Ldr()}).keydown(function(){KDw(event)}).resize(Rsz())
 </script>
 </html>

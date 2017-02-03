@@ -23,7 +23,7 @@ article div{margin:0px 20px;float:left}
 article{overflow:auto;user-select:text;-ms-user-select:text;-moz-user-select:text;-webkit-user-select:text;}
 </style>
 </head>
-<body onload="Ldr()" onresize="Rsz()">
+<body>
 	<noscript>您的瀏覽器可能不支援JavaScript或是尚未啟動該功能，本網站需要使用JavaScript才能正常運作。</noscript>
 	<header onclick="location='index.html'">
 		<div id="bk">回首頁</div>
@@ -74,5 +74,6 @@ function Rsz(){
 	var sz=Math.floor($("article div").width()/9);if(sz>Math.floor($("article").height()/9))sz=Math.floor($("article").height()/9)
 	$(".bt").css("width",sz+"px").css("height",sz+"px").css("font-size",(sz-15)+"px");Mbx.Rsz()
 }
+$(window).load(function(){Ldr()}).resize(function(){Rsz()})
 </script>
 </html>

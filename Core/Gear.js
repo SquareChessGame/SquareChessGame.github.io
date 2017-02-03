@@ -1,6 +1,12 @@
 ﻿var Oln={}
-function Req(Typ,Jcd,id){Dft.Oln.CkN=RJC();Dft.Set=0;if(!id)id=""
-	var req={
+function Req(Typ,Jcd,id){
+	if(Typ=="M"){Dft.Oln.Pbl=1
+		firebase.database().ref("Matchs").once("value",function(r){var room=r.val(),t=""
+			for(var i in room)if(room[i].ModeName==Dft.Oln.MdN)location="index.html?"+Dft.Oln.MdN+"/"+i
+			Mbx("暫無該模式的房間，自行建立房間等待別人加入?",function(){Req("R")},function(){Opt()})
+		})
+		return
+	}Dft.Oln.CkN=RJC();Dft.Set=0;if(!id)id="";var req={
 		ModeName:doc.title,BoardContent:"",LastActive:new Date().getTime(),CheckNum:Dft.Oln.CkN,PlayerX:"N",Message:{Content:""},PlayerCk:{O:"Y",X:"N"}
 	}
 	if(Jcd)id=Jcd
@@ -31,8 +37,10 @@ function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
 }
 function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 	if(!v){location.hash=Dft.Oln.Id;if(Dft.Oln.Typ=="O")Dft.Set=1
-		if(Dft.Oln.Typ!="V"){
-			Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:1})
+		if(Dft.Oln.Typ!="V"){console.log(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl)
+			if(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl){
+				firebase.database().ref("Matchs/"+Dft.Oln.Id).update({ModeName:Dft.Oln.MdN})
+			}Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:1})
 			firebase.database().ref("Battle/"+Dft.Oln.Id+"/PlayerCk").on("value",function(r){
 				var req={CheckNum:Dft.Oln.CkN,PlayerCk:{}}
 				req.PlayerCk[Dft.Oln.Typ]="Y";req.PlayerCk[Enm(Dft.Oln.Typ)]=r.val()[Enm(Dft.Oln.Typ)]
@@ -63,6 +71,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 				Ctl("MSw",Dft.Oln.MSw);Id("msgc").scrollTop=Id("msgc").scrollHeight
 				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1){
 					$(".join").css("display","none");OpK(1)
+					firebase.database().ref("Matchs/"+Dft.Oln.Id).remove()
 				}
 				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間","棋盤資料異常"]
 					for(var i=0;i<ssm.length;i++){
@@ -92,6 +101,7 @@ function Joi(){
 }
 Oln.Opt=function(){Id("msgr").style.opacity=0
 	if(!Dft.Oln.Id){
+		OpS("ORg-2/ORg","r","隨機配對",Dft.Oln.Rgt==2)
 		OpS("ORg-0/ORg","r","註冊房間",Dft.Oln.Rgt==0)
 		OpS("ORg-1/ORg","r","加入房間",Dft.Oln.Rgt==1)
 	}else{if(Tn<2)Id("msgr").style.opacity=1
@@ -99,8 +109,12 @@ Oln.Opt=function(){Id("msgr").style.opacity=0
 	}OpS("Oln-MSw","k","訊息窗彈出",Dft.Oln.MSw)
 }
 Oln.OpK=function(){
-	if(!Dft.Oln.Id){if(Id("ORg-0").checked)Req("R");else Req("J")}
-	Dft.Oln.MSw=Id("Oln-MSw").checked
+	if(!Dft.Oln.Id){
+		if(Id("ORg-0").checked)Req("R")
+		else if(Id("ORg-1").checked)Req("J")
+		else if(Id("ORg-2").checked)Req("M")
+		if(Id("OPb").checked)Dft.Oln.Pbl=1;else Dft.Oln.Pbl=0
+	}Dft.Oln.MSw=Id("Oln-MSw").checked
 }
 Oln.Ffb=function(){
 	(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0]

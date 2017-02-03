@@ -139,7 +139,7 @@ p a,table a{text-decoration:underline}
 table{table-layout:fixed;word-break:break-all}
 </style>
 </head>
-<body onresize="Rsz()" onload="Ldr()" onkeydown="KDw(event)">
+<body>
 	<noscript>您的瀏覽器可能不支援JavaScript或是尚未啟動該功能，本網站需要使用JavaScript才能正常運作。</noscript>
 	<div id="NightMode" style="opacity:0">
 	<header>
@@ -590,5 +590,6 @@ function Del(w){if(w==0)return Mbx("無法刪除標題",function(){})
 		{dele:w,cnct:t},function(r){Mbx(r,function(){Get()})}
 	)}catch(e){Mbx("刪除失敗,重試?",function(){Del(w)},function(){})}},function(t){Get()},"")
 }Mbx.Ldr()
+$(window).load(function(){Ldr()}).resize(function(){Rsz()}).keydown(function(){KDw(event)})
 </script>
 </html>
