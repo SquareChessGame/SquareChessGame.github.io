@@ -1,11 +1,21 @@
 ﻿var Oln={}
 function Req(Typ,Jcd,id){
 	if(Typ=="M"){Dft.Oln.Pbl=1
-		firebase.database().ref("Matchs").once("value",function(r){var room=r.val(),t=""
-			for(var i in room)if(room[i].ModeName==Dft.Oln.MdN)location="index.html?"+Dft.Oln.MdN+"/"+i
-			Mbx("暫無該模式的房間，自行建立房間等待別人加入?",function(){Req("R")},function(){Opt()})
-		})
-		return
+		firebase.database().ref("Matchs").once("value",function(r){var room=r.val(),t="",dir=[]
+			for(var i in room)if(room[i].ModeName==Dft.Oln.MdN)dir.push(i)
+			if(dir.length==0)Mbx("暫無該模式的房間，自行建立房間等待別人加入?",function(){Req("R")},function(){Opt()})
+			else{
+				var dirid=dir[Math.floor(dir.length*Math.random())]
+				firebase.database().ref("Matchs/"+dirid).remove(function(){Mbx("正在驗證...成功後將自動導向")
+					setTimeout(function(){firebase.database().ref("Matchs/"+dirid).once("value",
+						function(r){console.log(r.val())
+							if(r.val()!=null)location="index.html?"+Dft.Oln.MdN+"/"+dirid
+							else Mbx("驗證失敗，繼續進行隨機配對?",function(){Req("M")},function(){})
+						}
+					)},1000)
+				})
+			}
+		});return
 	}Dft.Oln.CkN=RJC();Dft.Set=0;if(!id)id="";var req={
 		ModeName:doc.title,BoardContent:"",LastActive:new Date().getTime(),CheckNum:Dft.Oln.CkN,PlayerX:"N",Message:{Content:""},PlayerCk:{O:"Y",X:"N"}
 	}
@@ -40,6 +50,9 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 		if(Dft.Oln.Typ!="V"){
 			if(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl){
 				firebase.database().ref("Matchs/"+Dft.Oln.Id).update({ModeName:Dft.Oln.MdN})
+				firebase.database().ref("Matchs/"+Dft.Oln.Id).on("value",function(){
+					firebase.database().ref("Matchs/"+Dft.Oln.Id).update({ModeName:Dft.Oln.MdN})
+				})
 			}Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:1})
 			firebase.database().ref("Battle/"+Dft.Oln.Id+"/PlayerCk").on("value",function(r){
 				var req={CheckNum:Dft.Oln.CkN,PlayerCk:{}}
@@ -69,9 +82,8 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 			if(r.val()&&Id("msgc").innerHTML!=r.val()){var msg=r.val().Content;if(msg=="")return
 				Id("msgc").innerHTML=msg;Dft.Oln.Msg++;Atn()
 				Ctl("MSw",Dft.Oln.MSw);Id("msgc").scrollTop=Id("msgc").scrollHeight
-				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1){
-					$(".join").css("display","none");OpK(1)
-					firebase.database().ref("Matchs/"+Dft.Oln.Id).remove()
+				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1&&Dft.Oln.PrX){
+					$(".join").css("display","none");OpK(1);Dft.Oln.PrX=0
 				}
 				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間","棋盤資料異常"]
 					for(var i=0;i<ssm.length;i++){

@@ -1,12 +1,12 @@
-function Mbx(m,a,b,v,s,r){$("#Mbx,#Mbxv").css("display","");$("#Mbxt,#Mbxp,#MbxbN").css("display","none")
-	Id("Mbxc").childNodes[0].innerHTML=m;Id("Mbxt").readonly=""
-	$("#MbxbY").unbind('click').click(function(){
+function Mbx(m,a,b,v,s,r){$("#Mbx,#Mbxv").css("display","");$("#Mbxt,#Mbxp,#MbxbN,#MbxbY").css("display","none")
+	Id("Mbxc").childNodes[0].innerHTML=m;Id("Mbxt").readonly="";if(r)Id("Mbxs").readOnly="true"
+	if(a)$("#MbxbY").unbind('click').click(function(){
 		switch(typeof v){
-			case"object":Mbx.inp=Id("Mbxs").value;if(r)Id("Mbxs").readOnly="true";break
+			case"object":Mbx.inp=Id("Mbxs").value;break
 			case"string":Mbx.inp=Id("Mbxt").value;break
 		}Mbx.Exe(a)
-	})
-	if(b){Id("MbxbN").style.display="";$("#MbxbN").unbind('click').click(function(){Mbx.Exe(b)})}
+	}).css("display","")
+	if(b)$("#MbxbN").unbind('click').click(function(){Mbx.Exe(b)}).css("display","")
 	switch(typeof v){
 		case"string":Id("Mbxt").style.display="";Id("Mbxt").value=v;break
 		case"object":Mbx.stq=v;Id("Mbxp").style.display="";if(!s)s=0;Id("Mbxs").value=v[s];break
