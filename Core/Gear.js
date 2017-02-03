@@ -101,18 +101,18 @@ function Joi(){
 }
 Oln.Opt=function(){Id("msgr").style.opacity=0
 	if(!Dft.Oln.Id){
-		OpS("ORg-2/ORg","r","隨機配對",Dft.Oln.Rgt==2)
-		OpS("ORg-0/ORg","r","註冊房間",Dft.Oln.Rgt==0)
-		OpS("ORg-1/ORg","r","加入房間",Dft.Oln.Rgt==1)
+		OpS("ORg-0/ORg","r","隨機配對",Dft.Oln.Rgt==0)
+		OpS("ORg-1/ORg","r","註冊房間",Dft.Oln.Rgt==1)
+		OpS("ORg-2/ORg","r","加入房間",Dft.Oln.Rgt==2)
 	}else{if(Tn<2)Id("msgr").style.opacity=1
 		Id("OptionMenu").childNodes[0].innerHTML+="<label style='margin-left:10px'><input type='text' readonly value='"+Dft.Oln.Id+"' style='font-size:inherit;width:200px;text-align:center;height:21px'/></label><br>"
 	}OpS("Oln-MSw","k","訊息窗彈出",Dft.Oln.MSw)
 }
 Oln.OpK=function(){
 	if(!Dft.Oln.Id){
-		if(Id("ORg-0").checked)Req("R")
-		else if(Id("ORg-1").checked)Req("J")
-		else if(Id("ORg-2").checked)Req("M")
+		if(Id("ORg-0").checked)Req("M")
+		else if(Id("ORg-1").checked)Req("R")
+		else Req("J")
 		if(Id("OPb").checked)Dft.Oln.Pbl=1;else Dft.Oln.Pbl=0
 	}Dft.Oln.MSw=Id("Oln-MSw").checked
 }
