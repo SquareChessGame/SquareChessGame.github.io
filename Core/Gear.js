@@ -37,7 +37,7 @@ function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
 }
 function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 	if(!v){location.hash=Dft.Oln.Id;if(Dft.Oln.Typ=="O")Dft.Set=1
-		if(Dft.Oln.Typ!="V"){console.log(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl)
+		if(Dft.Oln.Typ!="V"){
 			if(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl){
 				firebase.database().ref("Matchs/"+Dft.Oln.Id).update({ModeName:Dft.Oln.MdN})
 			}Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:1})
@@ -100,7 +100,7 @@ function Joi(){
 	}else Req("J",location.hash.replace("#",""))
 }
 Oln.Opt=function(){Id("msgr").style.opacity=0
-	if(!Dft.Oln.Id){
+	if(!Dft.Oln.Id){Dft.Set=0
 		OpS("ORg-0/ORg","r","隨機配對",Dft.Oln.Rgt==0)
 		OpS("ORg-1/ORg","r","註冊房間",Dft.Oln.Rgt==1)
 		OpS("ORg-2/ORg","r","加入房間",Dft.Oln.Rgt==2)
@@ -113,7 +113,6 @@ Oln.OpK=function(){
 		if(Id("ORg-0").checked)Req("M")
 		else if(Id("ORg-1").checked)Req("R")
 		else Req("J")
-		if(Id("OPb").checked)Dft.Oln.Pbl=1;else Dft.Oln.Pbl=0
 	}Dft.Oln.MSw=Id("Oln-MSw").checked
 }
 Oln.Ffb=function(){
