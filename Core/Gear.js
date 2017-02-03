@@ -9,8 +9,11 @@ function Req(Typ,Jcd,id){
 				firebase.database().ref("Matchs/"+dirid).remove(function(){Mbx("正在驗證...成功後將自動導向")
 					setTimeout(function(){firebase.database().ref("Matchs/"+dirid).once("value",
 						function(r){console.log(r.val())
-							if(r.val()!=null)location="index.html?"+Dft.Oln.MdN+"/"+dirid
-							else Mbx("驗證失敗，繼續進行隨機配對?",function(){Req("M")},function(){})
+						if(r.val()!=null){
+							location.hash=dirid;Joi();Mbx.Exe(function(){
+								firebase.database().ref("Matchs/"+dirid).remove()
+							})
+						}else Mbx("驗證失敗，繼續進行隨機配對?",function(){Req("M")},function(){})
 						}
 					)},1000)
 				})
@@ -27,7 +30,7 @@ function Req(Typ,Jcd,id){
 		if(Typ=="R")firebase.database().ref("Battle/"+id).update(req)
 		firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
 			if(Typ=="R"){var url="http://squarechessgame.github.io/?"+doc.title+"/"+id
-				Mbx("註冊成功,貼給朋友即可開始對戰,點選確定可用QRCode掃描或以Messenger傳送連結加入房間",function(){Opt()},function(){},url)
+				if(!Dft.Oln.Pbl)Mbx("註冊成功,貼給朋友即可開始對戰,點選確定可用QRCode掃描或以Messenger傳送連結加入房間",function(){Opt()},function(){},url)
 				Id("msgr").childNodes[1].setAttribute("data-href",url);Oln.Ffb();Ini()
 				Id("QR").style.background="url(http://chart.apis.google.com/chart?cht=qr&chs=150x150&chl="+url+")"
 			}else if(Typ=="J"&&r.val()=="N"){
@@ -83,7 +86,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 				Id("msgc").innerHTML=msg;Dft.Oln.Msg++;Atn()
 				Ctl("MSw",Dft.Oln.MSw);Id("msgc").scrollTop=Id("msgc").scrollHeight
 				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1&&Dft.Oln.PrX){
-					$(".join").css("display","none");OpK(1);Dft.Oln.PrX=0
+					$(".join").css("display","none");OpK(1);Dft.Oln.PrX=0;
 				}
 				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間","棋盤資料異常"]
 					for(var i=0;i<ssm.length;i++){
@@ -121,7 +124,7 @@ Oln.Opt=function(){Id("msgr").style.opacity=0
 	}OpS("Oln-MSw","k","訊息窗彈出",Dft.Oln.MSw)
 }
 Oln.OpK=function(){
-	if(!Dft.Oln.Id){
+	if(!Dft.Oln.Id){Dft.Oln.Pbl=0
 		if(Id("ORg-0").checked)Req("M")
 		else if(Id("ORg-1").checked)Req("R")
 		else Req("J")
