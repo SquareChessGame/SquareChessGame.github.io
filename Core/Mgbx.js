@@ -8,7 +8,7 @@ function Mbx(m,a,b,v,s,r){$("#Mbx,#Mbxv").css("display","");$("#Mbxt,#Mbxp,#Mbxb
 	}).css("display","")
 	if(b)$("#MbxbN").unbind('click').click(function(){Mbx.Exe(b)}).css("display","")
 	switch(typeof v){
-		case"string":Id("Mbxt").style.display="";Id("Mbxt").value=v;break
+		case"string":Id("Mbxt").style.display="";Id("Mbxt").value=v;Id("Mbxt").focus();break
 		case"object":Mbx.stq=v;Id("Mbxp").style.display="";if(!s)s=0;Id("Mbxs").value=v[s];break
 	}Id("Mbx").style.display=""
 }
