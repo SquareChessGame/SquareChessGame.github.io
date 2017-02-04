@@ -31,7 +31,7 @@ function Req(Typ,Jcd,id){
 		firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
 			if(Typ=="R"){var url="http://squarechessgame.github.io/?"+doc.title+"/"+id
 				if(!Dft.Oln.Pbl){Id("cpy").setAttribute("data-clipboard-text",url)
-					Mbx("註冊成功,貼給朋友即可開始對戰,點選確定可用QRCode掃描或以Messenger傳送連結加入房間",
+					Mbx("註冊成功,貼給朋友即可開始對戰,點選確定可用QRCode掃描或以Messenger傳送連結加入房間,點按取消可複製網址",
 					function(){Opt()},function(){Id("cpy").click()},url)
 				}
 				Id("msgr").childNodes[1].setAttribute("data-href",url);Oln.Ffb();Ini()
