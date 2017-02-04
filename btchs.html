@@ -13,6 +13,7 @@
 <title>Square Chess Game</title>
 <script src="Impo/jquery.min.js"></script>
 <script src="Impo/jquery.mobile-1.4.5.min.js"></script>
+<script src="Impo/clipboard.min.js"></script>
 <script src="Impo/js.cookie.js"></script>
 <script src="Impo/firebase.js"></script>
 <script src="Core/Prun.js"></script>
@@ -25,6 +26,7 @@
 </head>
 <body>
 	<noscript>您的瀏覽器可能不支援JavaScript或是尚未啟動該功能，本網站需要使用JavaScript才能正常運作。</noscript>
+	<input type="hidden" id="cpy" data-clipboard-text=""/>
 	<div id="NightMode" style="opacity:0">
 		<header onclick="Ctl('Hom')"><div id="LdB"></div>Square Chess Game</header>
 		<div style="display:table-cell;height:100%;vertical-align:middle">
@@ -65,4 +67,5 @@
 </body>
 <div id="fb-root"></div>
 <script src="Core/Mgbx.js"></script>
+<script>new Clipboard("#cpy").on("error",function(){Mbx("無法複製")})</script>
 </html>

@@ -8,12 +8,12 @@ function Req(Typ,Jcd,id){
 				var dirid=dir[Math.floor(dir.length*Math.random())]
 				firebase.database().ref("Matchs/"+dirid).remove(function(){Mbx("正在驗證...成功後將自動導向")
 					setTimeout(function(){firebase.database().ref("Matchs/"+dirid).once("value",
-						function(r){console.log(r.val())
-						if(r.val()!=null){
-							location.hash=dirid;Joi();Mbx.Exe(function(){
-								firebase.database().ref("Matchs/"+dirid).remove()
-							})
-						}else Mbx("驗證失敗，繼續進行隨機配對?",function(){Req("M")},function(){})
+						function(r){
+							if(r.val()!=null){
+								location.hash=dirid;Joi();Mbx.Exe(function(){
+									firebase.database().ref("Matchs/"+dirid).remove()
+								})
+							}else Mbx("驗證失敗，繼續進行隨機配對?",function(){Req("M")},function(){})
 						}
 					)},1000)
 				})
@@ -30,7 +30,10 @@ function Req(Typ,Jcd,id){
 		if(Typ=="R")firebase.database().ref("Battle/"+id).update(req)
 		firebase.database().ref("Battle/"+id+"/PlayerX").once("value",function(r){
 			if(Typ=="R"){var url="http://squarechessgame.github.io/?"+doc.title+"/"+id
-				if(!Dft.Oln.Pbl)Mbx("註冊成功,貼給朋友即可開始對戰,點選確定可用QRCode掃描或以Messenger傳送連結加入房間",function(){Opt()},function(){},url)
+				if(!Dft.Oln.Pbl){Id("cpy").setAttribute("data-clipboard-text",url)
+					Mbx("註冊成功,貼給朋友即可開始對戰,點選確定可用QRCode掃描或以Messenger傳送連結加入房間",
+					function(){Opt()},function(){Id("cpy").click()},url)
+				}
 				Id("msgr").childNodes[1].setAttribute("data-href",url);Oln.Ffb();Ini()
 				Id("QR").style.background="url(http://chart.apis.google.com/chart?cht=qr&chs=150x150&chl="+url+")"
 			}else if(Typ=="J"&&r.val()=="N"){
