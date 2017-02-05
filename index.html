@@ -108,7 +108,7 @@ article div div{height:auto;width:auto;float:none}
 #pOnline{background-image:url(Pics/Online.gif)}
 #pOnline:hover{background-image:url(Pics/Onlineh.gif)}
 #pRepo{background-image:url(Pics/Report.gif)}
-#pRepo:hover{background-image:url(Pics/Repoh.gif)}
+#pRepo:hover{background-image:url(Pics/Reporth.gif)}
 #pRules{background-image:url(Pics/Rules.gif)}
 #pRules:hover{background-image:url(Pics/Rulesh.gif)}
 .pTab{background-image:url(Pics/Down.gif)}
@@ -271,7 +271,7 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-rules="OSub"><a>GoLike</a></div>
 				<div id="pAbout" class="pPage" onclick="Mnu();Ptg('#cAbout')">關於我們</div>
 				<div id="pRepo" class="pPage" onclick="Mnu();Ptg('#cRepo')">回報問題</div>
-				<div id="pRemx" class="pPage" onclick="Mnu();location='remix.html'">混合模式</div>
+				<div id="pRemix" class="pPage" onclick="Mnu();location='remix.html'">混合模式</div>
 			</div>
 		</div>
 	</header>
@@ -430,8 +430,8 @@ table{table-layout:fixed;word-break:break-all}
 <script src="Core/Mgbx.js"></script>
 <script>
 var link=$("#lLst div a,.page div a"),show="",page=$(".field,.field2"),input=0
-function Ldr(){var page=["Start","Online","Rules","About","Repo"],bd=""
-	for(var i=0;i<5;i++){
+function Ldr(){var page=["Start","Online","Rules","About","Repo","Remix"],bd=""
+	for(var i=0;i<page.length;i++){
 		Id(page[i]).style.height="40px"
 		Id("p"+page[i]).style.height="40px"
 	}
