@@ -91,7 +91,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1&&Dft.Oln.PrX){
 					$(".join").css("display","none");OpK(1);Dft.Oln.PrX=0;
 				}
-				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間","棋盤資料異常"]
+				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間","O方關閉房間","X方關閉房間","棋盤資料異常"]
 					for(var i=0;i<ssm.length;i++){
 						while(msg.search('<div style="text-align:center">-'+ssm[i]+'-</div>')>-1)msg=msg.replace('<div style="text-align:center">-'+ssm[i]+'-</div>',"")
 					}

@@ -201,4 +201,4 @@ function Jdg(msg){
 function Log(vlu){Id("Recrd").innerHTML=""
 	for(var i=1;i<Tn+1;i++)Id("Recrd").innerHTML+="<div>第"+i+"回合:"+Sqr.Sym[(i-1)%2]+"方將符號設置於"+Hst.Crd[i]+"</div>";Id("Recrd").scrollTop=Id("Recrd").scrollHeight
 }
-$(window).load(function(){Ldr()}).resize(function(){Rsz()}).mouseover(function(event){MsO(event)}).keydown(function(event){KDw(event)}).keyup(function(event){KUp(event)}).contextmenu(function(){event.preventDefault()}).scroll(function(){Rsz()})
+$(window).load(function(){Ldr()}).resize(function(){Rsz()}).mouseover(function(event){MsO(event)}).keydown(function(event){KDw(event)}).keyup(function(event){KUp(event)}).contextmenu(function(){event.preventDefault()}).scroll(function(){Rsz()}).on("beforeunload",function(){if(Tn!=Dft.Tn)return "棋局尚未結束，確定離開?"}).on("unload",function(){if(Msg)Msg(Dft.Oln.Typ+"方關閉網頁",1)})
