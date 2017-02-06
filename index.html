@@ -15,7 +15,7 @@ if(location.search.length>10){
 <script src="Impo/jquery.min.js"></script>
 <script src="Core/Prun.js"></script>
 <style>@import "Core/Face.css";
-body:after{content:url(Pics/Closeh.gif) url(Pics/Abouth.gif) url(Pics/Downh.gif) url(Pics/Onlineh.gif) url(Pics/Rulesh.gif) url(Pics/Starth.gif) url(Pics/fbh.gif) url(Pics/gph.gif) url(Pics/twh.gif);display:none}
+body:after{content:url(Pics/Closeh.png) url(Pics/Abouth.png) url(Pics/Downh.gif) url(Pics/Onlineh.png) url(Pics/Rulesh.png) url(Pics/Starth.png) url(Pics/fbh.png) url(Pics/gph.png) url(Pics/twh.png) url(Pics/gth.png);display:none}
 input[type=radio]{zoom:1.5}
 footer{
 	left:0px;
@@ -66,7 +66,7 @@ footer{
 	background-position:center center;
 }
 #LstB{
-	background-image:url(Pics/List.gif);
+	background-image:url(Pics/List.png);
 	background-size:25px 25px;
 	background-repeat:no-repeat;
 	width:40px;height:40px;
@@ -83,7 +83,7 @@ footer{
 	text-decoration:none;overflow:hidden;
 }
 .tab{background-color:#758f9b;overflow:hidden}
-#pStart,#pAbout,#pOnline,#pRepo,#pRules,.pTab{
+#pStart,#pAbout,#pOnline,#pRepo,#pRules,#pRemix,.pTab{
 	background-position:right 5px;
 	background-size:30px 30px;
 	background-repeat:no-repeat;
@@ -101,26 +101,30 @@ h1 .Ch{letter-spacing:3px}
 article div div{height:auto;width:auto;float:none}
 #cImag{background-image:url(Pics/chsbd.png);background-repeat:no-repeat;background-position:center center;}
 .field,.field2{overflow:auto;margin-top:20px;font-size:20px;letter-spacing:2px;line-height:1.2}
-#pStart{background-image:url(Pics/Start.gif)}
-#pStart:hover{background-image:url(Pics/Starth.gif)}
-#pAbout{background-image:url(Pics/About.gif)}
-#pAbout:hover{background-image:url(Pics/Abouth.gif)}
-#pOnline{background-image:url(Pics/Online.gif)}
-#pOnline:hover{background-image:url(Pics/Onlineh.gif)}
-#pRepo{background-image:url(Pics/Report.gif)}
-#pRepo:hover{background-image:url(Pics/Reporth.gif)}
-#pRules{background-image:url(Pics/Rules.gif)}
-#pRules:hover{background-image:url(Pics/Rulesh.gif)}
+#pStart{background-image:url(Pics/Start.png)}
+#pStart:hover{background-image:url(Pics/Starth.png)}
+#pAbout{background-image:url(Pics/About.png)}
+#pAbout:hover{background-image:url(Pics/Abouth.png)}
+#pOnline{background-image:url(Pics/Online.png)}
+#pOnline:hover{background-image:url(Pics/Onlineh.png)}
+#pRepo{background-image:url(Pics/Report.png)}
+#pRepo:hover{background-image:url(Pics/Reporth.png)}
+#pRemix{background-image:url(Pics/Remix.png)}
+#pRemix:hover{background-image:url(Pics/Remixh.png)}
+#pRules{background-image:url(Pics/Rules.png)}
+#pRules:hover{background-image:url(Pics/Rulesh.png)}
 .pTab{background-image:url(Pics/Down.gif)}
 .pTab:hover{background-image:url(Pics/Downh.gif)}
 #lLst div{overflow:auto;height:280px}
 #lLst div div:hover{background-color:#99bccc}
-#fb{background-image:url(Pics/fb.gif)}
-#tw{background-image:url(Pics/tw.gif)}
-#gp{background-image:url(Pics/gp.gif)}
-#fb:hover{background-image:url(Pics/fbh.gif)}
-#tw:hover{background-image:url(Pics/twh.gif)}
-#gp:hover{background-image:url(Pics/gph.gif)}
+#fb{background-image:url(Pics/fb.png)}
+#tw{background-image:url(Pics/tw.png)}
+#gp{background-image:url(Pics/gp.png)}
+#gt{background-image:url(Pics/gt.png)}
+#fb:hover{background-image:url(Pics/fbh.png)}
+#tw:hover{background-image:url(Pics/twh.png)}
+#gp:hover{background-image:url(Pics/gph.png)}
+#gt:hover{background-image:url(Pics/gth.png)}
 input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-height:1.2;margin-top:20px}
 .con{
 	height:50px;background-color:#758f9b;width:50px;border-radius:25px;position:relative;overflow:visible;transition:all 2s;margin-top:10px;font-size:16px
@@ -416,9 +420,10 @@ table{table-layout:fixed;word-break:break-all}
 	<div id="Mbx"></div><div id="Mbxv"></div>
 	<footer>
 		<div id="Copy">&copy 2016 Square Chess Game.</div>
-		<a id="gp" class="Social" onclick="Mbx('即將登場',function(){})"></a>
-		<a id="tw" class="Social" href="http://twitter.com/SquareChessGame"></a>
 		<a id="fb" class="Social" href="http://fb.me/SquareChessGame"></a>
+		<a id="tw" class="Social" href="http://twitter.com/SquareChessGame"></a>
+		<a id="gt" class="Social" href="http://github.com/SquareChessGame"></a>
+		<a id="gp" class="Social" onclick="Mbx('即將登場',function(){})"></a>
 			<div id="List" class="Computer"><hr>
 			<div class="page" onclick="Ptg('#cRepo')"><div class="tab" id="Repo">回報問題</div></div><hr>
 			<div class="page" onclick="Ptg('#cAbout')"><div class="tab" id="About">關於我們</div></div><hr>
@@ -506,10 +511,10 @@ function Rsz(){var UA=navigator.userAgent;Mbx.Rsz()
 function Mnu(v){
 	if(Tag("header")[0].style.height=="320px"||v){
 		Tag("header")[0].style.height="40px";Hid()
-		Id("LstB").style.backgroundImage="url(Pics/List.gif)"
+		Id("LstB").style.backgroundImage="url(Pics/List.png)"
 	}else{
 		Tag("header")[0].style.height="320px"
-		Id("LstB").style.backgroundImage="url(Pics/Close.gif)"
+		Id("LstB").style.backgroundImage="url(Pics/Close.png)"
 	}
 }
 function Rpt(btn){var t="r-",m=new Date();if($(window).width()<830)t="mr-"
