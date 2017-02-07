@@ -66,7 +66,7 @@ function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else return Mbx(msg
 		Adn();Rul();Hst.Brd[Tn]=Rec();Dft.Tn=Tn;Sel.Now("N")
 	}
 }
-function Set(crd){if(!Dft.Set)return;var ckr=Ckr(crd)
+function Set(crd){if(!Dft.Set||crd.length!=2)return;var ckr=Ckr(crd,1)
 	if(Dft.System.Qsr)ckr=!Lmt(crd)
 	if(ckr){
 		Qre(crd,"Sym",Tn%2);Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec();Sel.Now("N");Log();Dft.Win=0
@@ -112,10 +112,10 @@ function Rec(brd){var res="";Dft.Win=0
 function Lmt(crd,sym){if(Qre(crd,"Sym")!=2)return 1;if(typeof sym=="undefined")sym=Tn%2
 	for(var i=MdQ.length-1;i>-1;i--)if(Shl.Lmt[MdQ[i]](crd,sym))return 1;return 0
 }
-function Ckr(crd){if(Qre(crd,"Sym")!=2||Tn<2&&Sel("C3:G7").indexOf(crd)>-1&&Dft.System.Lmt)return 0
-	for(var i=MdQ.length-1;i>-1;i--){var ckr=Shl.Ckr[MdQ[i]](crd)
+function Ckr(crd,set){
+	for(var i=MdQ.length-1;i>-1;i--){var ckr=Shl.Ckr[MdQ[i]](crd,set)
 		if(ckr==2)return 1;else if(!ckr)return 0
-	}return 1
+	}return 1;if(Qre(crd,"Sym")!=2||Tn<2&&Sel("C3:G7").indexOf(crd)>-1&&Dft.System.Lmt)return 0
 }
 function Mrk(){Brd();var nxc=BJd()
 	if(Dft.System.Nxt){nxc=nxc.concat(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==(Tn+1)%2)return 1}))
