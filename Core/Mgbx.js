@@ -1,10 +1,10 @@
 function Mbx(m,a,b,v,s,r){$("#Mbx,#Mbxv").css("display","");$("#Mbxt,#Mbxp,#MbxbN,#MbxbY").css("display","none")
 	Id("Mbxc").childNodes[0].innerHTML=m;Id("Mbxt").readonly="";if(r)Id("Mbxs").readOnly="true"
-	if(a)$("#MbxbY").unbind('click').click(function(){
+	if(a)$("#MbxbY").unbind('click').click(function(){var k=1
 		switch(typeof v){
-			case"object":Mbx.inp=Id("Mbxs").value;break
+			case"object":if(v.indexOf(Id("Mbxs").value)>-1)Mbx.inp=Id("Mbxs").value;else k=0;break
 			case"string":Mbx.inp=Id("Mbxt").value;break
-		}Mbx.Exe(a)
+		}if(k)Mbx.Exe(a);else(Mbx("無此參數",function(){Mbx(m,a,b,v,s,r)}))
 	}).css("display","")
 	if(b)$("#MbxbN").unbind('click').click(function(){Mbx.Exe(b)}).css("display","")
 	switch(typeof v){

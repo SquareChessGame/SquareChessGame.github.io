@@ -11,10 +11,10 @@ Shl.Ckr.Fallen=function(crd,set){var mcd=crd
 		if(Qre(crd,"Sym")==Tn%2)return 1
 	}).length>Dft.Fallen.Fln)Mbx("去除對方符號",function(crd){
 		Qre([crd,mcd],["Sym","BgC","FtC"],[4,12,2]);Tn++;
-		Hst.Crd[Tn]=mcd;Rul();Hst.Brd[Tn]=Rec();Sel.Now("N");Log()
+		Hst.Crd[Tn]=Hst.Crd[Tn-2];Rul();Hst.Brd[Tn]=Rec();Sel.Now("N");Log()
 		if(Dft.System.Oln)Upl(Hst.Brd[Tn]+"/"+Tn+"/"+Hst.Crd[Tn])
 	},function(){},Flt(Sel("All"),function(crd){
-		if(Qre(crd,"Sym")==(Tn+1)%2)return 1;return 0
+		if(Qre(crd,"Sym")==(Tn+1)%2&&Hst.Crd[Tn]!=crd)return 1;return 0
 	}));return 1
 }
 Shl.Opt.Fallen=function(){
