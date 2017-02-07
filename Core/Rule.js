@@ -50,7 +50,8 @@ var Rls={
 			"國土",
 			"A1:I4",
 			"A6:I9",
-			"反射區將產生符號"
+			"反射區將產生符號",
+			"一起變成殭屍"
 		],
 		[
 			function(){var cds="#E4,#E6,#D4,#D5,#D6,#F4,#F5,#F6";Rls.Brd.Scp("#E5:S:O|"+cds+":B:slateblue|Ogn|"+cds+":B:slateblue")},
@@ -144,6 +145,9 @@ var Rls={
 			},
 			function(){
 				Rls.Brd.Scp("#A5,#B5,#C5,#D5,#E5,#F5,#G5,#H5,#I5:B:dimgray|#E4:S:O|#E7:S:X|#F3:S:O|#F7:S:O|#F7:S:|#F7:S:O")
+			},
+			function(){
+				Rls.Brd.Scp("#A1,#A2,#A3,#A4,#A5:S:X/#C1,#C2,#C3,#C4,#C5:S:O|#A1,#C5:S:Z/#A1,#C5:F:red/#A1,#C5:B:black")
 			}
 		]
 	]
@@ -261,6 +265,9 @@ Rls.System=function(r){
 	for(var j=0;j<spc.n.length;j++)for(var i=0;i<r.length;i++)if(r[i].search(spc.n[j])>-1){
 		r=Rls.add(r,spc.n[j]+"即"+spc.d[j]);break
 	}return r
+}
+Rls.Fallen=function(r){
+	r=Rls.add(r,"在我方回合可點選我方符號，選擇一對方符號一起變成殭屍");return r
 }
 Rls.Brd=function(s,t,v){var ob=$(s)
 	switch(t){
