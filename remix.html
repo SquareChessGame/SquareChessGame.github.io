@@ -86,12 +86,14 @@ function Rsz(){
 }
 function Srt(v){
 	var Mod=[
-		"Square.Kingdom","Connect:Mirror",
-		"Adapter:Invert","Divider:Anomal",
-		"Connect:Defend","Kingdom:Anomal",
-		"Connect:Castle","Adapter:Attack",
-		"Adapter:Follow","Connect:GoLike",
-		"Adapter:Gomoku"
+		"Square.Kingdom","Kingdom:Anomal",
+		"Connect:Scheme","Connect:Defend",
+		"Connect:Mirror","Connect:GoLike",
+		"Connect:Castle","Divider:Anomal",
+		"Divider:Fallen","Adapter:Fallen",
+		"Adapter:Invert","Adapter:Attack",
+		"Adapter:Follow","Adapter:Gomoku",
+		"Blocker:Fallen"
 	]
 	if(!v){Id("t3").style.opacity=0
 		for(var i=1;i<100;i++){
