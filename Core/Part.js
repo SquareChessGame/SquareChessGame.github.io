@@ -116,8 +116,7 @@ function Cnt(){var ara={O:[],X:[],P:[]},ser=0,brd=Rec();ara.O.All=[];ara.X.All=[
 			for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
 				var crd=Chr(cd1)+cd2;if(Qre(crd,"Sym")!=2)continue
 				if(!Lmt(crd,i)){ara[Sqr.Sym[i]][s].push(crd);ara[Sqr.Sym[i]].All.push(crd)}
-			}if(ara[Sqr.Sym[i]][s].length==0)break
-			for(var j=0;j<ara[Sqr.Sym[i]][s].length;j++)Qre(ara[Sqr.Sym[i]][s][j],"Sym",i);s++
+			}if(ara[Sqr.Sym[i]][s].length==0)break;Qre(ara[Sqr.Sym[i]][s],"Sym",i);s++
 		}Rec(brd);if(s>ser)ser=s
 	}
 	for(var i=0;i<ser;i++){ara.P[i]=[];for(var j=0;j<2;j++)if(!ara[Sqr.Sym[j]][i])ara[Sqr.Sym[j]][i]=[]
