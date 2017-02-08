@@ -7,4 +7,4 @@ Shl.Adn.Newbie=function(){}
 Shl.Ckr.Newbie=function(crd){return 1}
 Shl.Opt.Newbie=function(){}
 Shl.OpK.Newbie=function(){}
-Dft.System.Nxt=1;Ctl("RSw",1)
+Dft.System.Nxt=1;if(MdQ.indexOf("Fallen")>-1)Dft.Fallen.MbS=1;Ctl("RSw",1)
