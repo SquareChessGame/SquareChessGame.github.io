@@ -1,8 +1,13 @@
-Shl.Ara.Connect=[];Dft.Connect={Ara:0,QJd:1,Rul:0}
+Shl.Ara.Connect=[];Dft.Connect={Ara:0,QJd:1,Rul:0,Ori:0}
 Shl.Rul.Connect=function(){return Ara.Rul("Connect",Cnt())}
 Shl.Lmt.Connect=function(crd,sym){
 	var cd8=Crd(crd,"8");Hst.Rut[Tn]=[];if(Tn<2)return 0
-	Hst.Rut[Tn]=Flt(Crd(crd,"8"),function(crd){if(Id(crd))if(Qre(crd,"Sym")==sym)return 1;return 0})
+	Hst.Rut[Tn]=Flt(Crd(crd,"8"),function(crd){
+		if(Id(crd)){
+			if(Dft.Connect.Ori){if(Map(Hst.Crd[sym+1]).indexOf(crd)>-1)return 1
+			}else if(Qre(crd,"Sym")==sym)return 1;return 0
+		}
+	})
 	return !Hst.Rut[Tn].length>0
 }
 Shl.Mrk.Connect=function(){Ara.Mrk("Connect")}
