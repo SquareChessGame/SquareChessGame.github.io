@@ -111,14 +111,15 @@ function Ser(crd){
 	return Hst.Crd.indexOf(crd)
 }
 function Cnt(){var ara={O:[],X:[],P:[]},ser=0,brd=Rec();ara.O.All=[];ara.X.All=[];ara.P.All=[]
+	var wth=new Date().getTime()
 	for(var i=0;i<2;i++){var s=0
 		while(1){ara[Sqr.Sym[i]][s]=[]
-			for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
-				var crd=Chr(cd1)+cd2;if(Qre(crd,"Sym")!=2)continue
+			for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){var crd=Chr(cd1)+cd2
+				if(Qre(crd,"Sym")!=2||ara[Sqr.Sym[i]].All.indexOf(crd)>-1)continue
 				if(!Lmt(crd,i)){ara[Sqr.Sym[i]][s].push(crd);ara[Sqr.Sym[i]].All.push(crd)}
-			}if(ara[Sqr.Sym[i]][s].length==0)break;Qre(ara[Sqr.Sym[i]][s],"Sym",i);s++
+			}if(ara[Sqr.Sym[i]][s].length==0)break;Qre(ara[Sqr.Sym[i]][s],"Sym",i,1);s++
 		}Rec(brd);if(s>ser)ser=s
-	}
+	}console.log("search:"+(new Date().getTime()-wth))
 	for(var i=0;i<ser;i++){ara.P[i]=[];for(var j=0;j<2;j++)if(!ara[Sqr.Sym[j]][i])ara[Sqr.Sym[j]][i]=[]
 		ara.P[i]=ara.P[i].concat(Flt(ara.O[i],function(crd){if(ara.X[i].indexOf(crd)>-1)return 1}))
 	}ara.P.All=Flt(ara.O.All,function(crd){if(ara.X.All.indexOf(crd)>-1)return 1})

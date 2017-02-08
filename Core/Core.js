@@ -10,7 +10,7 @@
 		Oln:{Typ:"",Id:"",Rgt:0,Cln:1,MdN:"",Msg:0,CkN:"",MSw:1,PrX:1},
 		System:{Blk:0,Nxt:0,iTn:0,Qsr:0,Oln:0,Gst:0,Lmt:0}
 	},
-	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},
+	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},Sdx={},
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{},Ato:{}}
 function Ldr(){Mbx.Ldr();Id("NightMode").style.opacity=1;setTimeout("doc.body.style.backgroundColor='black'",1000)
 	if(!location.search||location.search.substr(0,6)!="?mode=")Mbx("要求格式錯誤",function(){location="index.html"})
@@ -67,13 +67,14 @@ function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else return Mbx(msg
 	}
 }
 function Set(crd){if(!Dft.Set||crd.length!=2)return;var ckr=Ckr(crd,1)
+	var wth=new Date().getTime()
 	if(Dft.System.Qsr)ckr=!Lmt(crd)
 	if(ckr){
 		Qre(crd,"Sym",Tn%2);Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec();Sel.Now("N");Log();Dft.Win=0
 		Hst.Brd.splice(Tn+1,Hst.Brd.length-Tn);if(Dft.System.Oln)Upl(Hst.Brd[Tn]+"/"+Tn+"/"+Hst.Crd[Tn])
 	}else if(Id("O0").style.display=="")Sel.Now("B")
 }
-function Qre(crd,atr,typ){var res=[],ckr=0
+function Qre(crd,atr,typ,sdx){var res=[],ckr=0
 	if(typ&&typeof typ!="object"&&Asc(typ+"")>64)typ=Asc(typ+"")-55
 	if(typeof crd=="object"){
 		for(var i=0;i<crd.length;i++)res=res.concat(Qre(crd[i],atr,typ));return res
@@ -88,14 +89,13 @@ function Qre(crd,atr,typ){var res=[],ckr=0
 		case"Opa":
 			if(ckr)Id(crd).style.opacity=typ;break
 		case"Sym":
-			if(ckr)Id(crd).innerHTML=Sqr.Sym[typ];
-			res=res.concat(Sqr.Sym.indexOf(Id(crd).innerHTML));break
+			if(ckr){res=res.concat(typ)
+				if(!sdx)Id(crd).innerHTML=Sqr.Sym[typ];Sdx[crd]=Sqr.Sym[typ]
+			}else res=res.concat(Sqr.Sym.indexOf(Sdx[crd]));break
 		case"FtC":
-			if(ckr)Id(crd).style.color=Sqr.FtC[typ];
-			res=res.concat(Sqr.FtC.indexOf(Id(crd).style.color));break
+			if(ckr)Id(crd).style.color=Sqr.FtC[typ];break
 		case"BgC":
-			if(ckr)Id(crd).style.backgroundColor=Sqr.BgC[typ];
-			res=res.concat(Sqr.BgC.indexOf(Id(crd).style.backgroundColor))
+			if(ckr)Id(crd).style.backgroundColor=Sqr.BgC[typ]
 	}
 	for(var i=0;i<res.length;i++)if(res[i]>9)res[i]=Chr(res[i]+55)
 	if(res.length>1)return res;return res[0]
