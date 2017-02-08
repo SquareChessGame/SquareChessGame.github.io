@@ -8,7 +8,7 @@
 	},Dft={
 		Set:1,Tn:0,Blk:[],Win:0,Crd:"",Dir:"",
 		Oln:{Typ:"",Id:"",Rgt:0,Cln:1,MdN:"",Msg:0,CkN:"",MSw:1,PrX:1},
-		System:{Blk:0,Nxt:0,iTn:0,Qsr:0,Oln:0,Gst:0,Lmt:0}
+		System:{Blk:0,Nxt:0,iTn:0,Qsr:0,Oln:0,Gst:0,Lmt:0,Per:1}
 	},
 	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},Sdx={},
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{},Ato:{}}
@@ -147,8 +147,9 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 	OpS("","1","基本設定");Id("Gear").style.transform="rotate(-66deg)"
 	if(!Dft.System.Oln){
 		OpS("System-Blk","t","障礙數量:",Dft.System.Blk)
-		OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
 		OpS("System-Oln","k","線上對戰",Dft.System.Oln)
+		OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
+		OpS("System-Per","k","提升效能",Dft.System.Per)
 	}else Oln.Opt()
 	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Kingdom")>-1)OpS("System-Lmt","k","首回限制",Dft.System.Lmt)
 	OpS("System-iTn","k","上回設置",Dft.System.iTn)
@@ -163,10 +164,11 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 }
 function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";if(k)return
 	if(!Dft.System.Oln){
+		if(Id("System-Oln").checked)location="btchs.html"+location.search
 		if(Val(Id("System-Blk").value)!=NaN&&Id("System-Blk").value!="")Dft.System.Blk=Val(Id("System-Blk").value)
 		if(Dft.System.Blk>27)Dft.System.Blk=27
-		if(Id("System-Oln").checked)location="btchs.html"+location.search
 		Dft.System.Qsr=Id("System-Qsr").checked
+		Dft.System.Per=Id("System-Per").checked
 	}else Oln.OpK();for(i=0;i<MdQ.length;i++)Shl.OpK[MdQ[i]]()
 	if(Id("System-Nit").checked)Id("NightMode").style.opacity=0.3;else Id("NightMode").style.opacity=1
 	if(Id("System-Ful").checked){

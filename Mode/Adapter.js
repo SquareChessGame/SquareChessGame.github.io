@@ -1,5 +1,5 @@
 Shl.Ara.Adapter=[];Dft.Adapter={Ara:0,QJd:1}
-Shl.Rul.Adapter=function(){return Ara.Rul("Adapter",Cnt())}
+Shl.Rul.Adapter=function(){return Ara.Rul("Adapter",Cnt("Adapter"))}
 Shl.Lmt.Adapter=function(crd,sym){
 	var vtQ=Vct("Q"),vt28=Vct("28");Hst.Rut[Tn]=[];if(Tn<2)return 0
 	for(var i=0;i<8;i++){

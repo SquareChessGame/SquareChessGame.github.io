@@ -13,6 +13,7 @@ Shl.Ckr.Fallen=function(crd,set){var mcd=crd
 		if(Tn%2==Qre(crd,"Sym")&&Dft.Fallen.MbS)Mbx("去除對方符號",
 			function(crd){Fln(mcd,crd)},function(){},Flt(Sel("All"),function(crd){
 			if(Qre(crd,"Sym")==(Tn+1)%2){
+				if(MdQ.indexOf("Connect")>-1)for(var i=0;i<2;i++)if((crd+mcd).search(Hst.Crd[i])>-1)return 0
 				if(Hst.Crd[Tn]==crd&&MdQ.indexOf("Follow")>-1)return 0;return 1
 			}return 0
 		}))
@@ -30,7 +31,9 @@ Shl.OpK.Fallen=function(){
 	Dft.Fallen.MbS=!Id("Fallen-MbS").checked
 	if(Dft.Fallen.Fln<5)Dft.Fallen.Fln=5
 }
-function Fln(mcd,crd){if(Hst.Crd[Tn]==crd&&MdQ.indexOf("Follow")>-1)return 0
+function Fln(mcd,crd){
+	if(Hst.Crd[Tn]==crd&&MdQ.indexOf("Follow")>-1)return 0
+	if(MdQ.indexOf("Connect")>-1)for(var i=0;i<2;i++)if((crd+mcd).search(Hst.Crd[i])>-1)return 0
 	Qre([crd,mcd],["Sym","BgC","FtC"],[4,12,2]);Tn++;Dft.Fallen.Crd=""
 	Hst.Crd[Tn]=Hst.Crd[Tn-2];Rul();Hst.Brd[Tn]=Rec();Sel.Now("N");Log()
 	if(Dft.System.Oln)Upl(Hst.Brd[Tn]+"/"+Tn+"/"+Hst.Crd[Tn])
