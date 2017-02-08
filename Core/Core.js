@@ -115,7 +115,7 @@ function Lmt(crd,sym){if(Qre(crd,"Sym")!=2)return 1;if(typeof sym=="undefined")s
 function Ckr(crd,set){
 	for(var i=MdQ.length-1;i>-1;i--){var ckr=Shl.Ckr[MdQ[i]](crd,set)
 		if(ckr==2)return 1;else if(!ckr)return 0
-	}return 1;if(Qre(crd,"Sym")!=2||Tn<2&&Sel("C3:G7").indexOf(crd)>-1&&Dft.System.Lmt)return 0
+	}if(Qre(crd,"Sym")!=2||Tn<2&&Sel("C3:G7").indexOf(crd)>-1&&Dft.System.Lmt)return 0;return 1
 }
 function Mrk(){Brd();var nxc=BJd()
 	if(Dft.System.Nxt){nxc=nxc.concat(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==(Tn+1)%2)return 1}))
