@@ -24,6 +24,6 @@ Shl.Opt.Castle=function(){
 	OpS("Castle-Ara","k","雙方區域",Dft.Castle.Ara)
 }
 Shl.OpK.Castle=function(){
-	if(Dft.Connect)Dft.Connect.Rnd=0
+	if(Dft.Connect)Dft.Connect.Rul=0
 	Dft.Castle.Ara=Id("Castle-Ara").checked
 }

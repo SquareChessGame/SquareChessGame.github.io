@@ -36,7 +36,7 @@ Shl.Opt.Connect=function(){
 }
 Shl.OpK.Connect=function(){
 	if(!Dft.System.Oln){Dft.Connect.Ori=Id("Connect-Ori").checked
+		if(Dft.Connect.Ori)Dft.System.Per=1
 		for(var i=0;i<3;i++)if(Id("Connect-Rul-"+i).checked)Dft.Connect.Rul=i
-	}
-	Ara.OpK("Connect")
+	}Ara.OpK("Connect");if(Dft.Connect.Ori&&Dft.Connect.QJd>1)Dft.Connect.QJd=1
 }

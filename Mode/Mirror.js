@@ -27,4 +27,5 @@ Shl.OpK.Mirror=function(v){
 	if(Dft.Connect)Dft.Connect.Rul=0;if(v)return
 	if(!Dft.System.Oln&&Val(Id("Mirror-ToM").value)!=NaN&&Id("Mirror-ToM").value!="")Dft.Mirror.ToM=Val(Id("Mirror-ToM").value)
 	if(Dft.Mirror.ToM<4)Dft.Mirror.ToM=4
+	if(Dft.Mirror.ToM>10)Dft.Mirror.ToM=10
 };Shl.OpK.Mirror(1)

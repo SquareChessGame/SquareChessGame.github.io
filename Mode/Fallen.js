@@ -30,6 +30,7 @@ Shl.OpK.Fallen=function(){
 	if(!Dft.System.Oln&&Val(Id("Fallen-Fln").value)!=NaN&&Id("Fallen-Fln").value!="")Dft.Fallen.Fln=Val(Id("Fallen-Fln").value)
 	Dft.Fallen.MbS=!Id("Fallen-MbS").checked
 	if(Dft.Fallen.Fln<5)Dft.Fallen.Fln=5
+	if(Dft.Fallen.Fln>10)Dft.Fallen.Fln=10
 }
 function Fln(mcd,crd){
 	if(Hst.Crd[Tn]==crd&&MdQ.indexOf("Follow")>-1)return 0

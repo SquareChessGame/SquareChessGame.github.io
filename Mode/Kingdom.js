@@ -32,4 +32,5 @@ Shl.OpK.Kingdom=function(){
 	Dft.Kingdom.Lmt=Id("Kingdom-Lmt").checked
 	if(!Dft.System.Oln&&Val(Id("Kingdom-Kdm").value)!=NaN&&Id("Kingdom-Kdm").value!="")Dft.Kingdom.Kdm=Val(Id("Kingdom-Kdm").value)
 	if(Dft.Kingdom.Kdm<3)Dft.Kingdom.Kdm=3
+	if(Dft.Kingdom.Kdm>15)Dft.Kingdom.Kdm=15
 }

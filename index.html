@@ -141,6 +141,8 @@ input,textarea{border-bottom:1px solid;font-size:20px;letter-spacing:2px;line-he
 p a,table a{text-decoration:underline}
 #cComt table{border:1px}
 table{table-layout:fixed;word-break:break-all}
+#cQstn td{border-bottom:solid 1px #48585f;}
+#cQstn th{border-bottom:solid 3px #48585f;}
 </style>
 </head>
 <body>
@@ -405,8 +407,45 @@ table{table-layout:fixed;word-break:break-all}
 			<div id="cQstn" class="field">
 				<h1><font class="En">Question </font>/<font class="Ch"> 常見問題</font></h1>
 				<p style="margin-left:20px">
-					<font style="font-size:25px">Q:</font>Square Chess Game最佳瀏覽器是?<br>
-					<font style="font-size:25px">A:</font>本小組主要使用<a href="https://opera.com">Opera</a>作為測試瀏覽器，<a href="https://chrome.com">Chrome</a>，<a href="https://vivaldi.com">Vivaldi</a>也可以正常使用，而其他瀏覽器(例如:<a href="https://firefox.com">FireFox</a>，<a href="https://internetexplorer.com">Internet Explorer</a>或<a href="https://apple.com/safari">Safari</a>)可能部分顯示或部分功能會不正常。
+					<font style="font-size:25px">Q:</font>遊戲模式無法正常載入?<br>
+					<font style="font-size:25px">A:</font>本小組主要使用<a href="https://opera.com">Opera</a>作為測試瀏覽器，<a href="https://chrome.com">Chrome</a>，<a href="https://vivaldi.com">Vivaldi</a>也可以正常使用，而其他瀏覽器(例如:<a href="https://firefox.com">FireFox</a>，<a href="https://internetexplorer.com">Internet Explorer</a>或<a href="https://apple.com/safari">Safari</a>)可能部分顯示或部分功能會不正常，建議安裝前面所提到的瀏覽器。<br>
+					<font style="font-size:25px">Q:</font>功能無法設定?<br>
+					<font style="font-size:25px">A:</font>可能是功能間無法相容，因此會取消設定。建議調整部分的設定，會發生衝突的設定如下：
+					<table align="center" width="90%">
+						<tr align="left">
+							<th>衝突設定項目</th><th width="60%">設定名稱</th>
+						</tr>
+						<tr>
+							<td>不支援快速判定中級</td><td>Blocker,Anomal,ByLine</td>
+						</tr>
+						<tr>
+							<td>不支援快速查詢</td>	<td>Blocker,Anomal,Invert,Forbid,Follow,ByLine</td>
+						</tr>
+						<tr>
+							<td>不支援Connect隨機設置</td><td>Attack,Castle</td>
+						</tr>
+						<tr align="left">
+							<th>固定設定項目</th><th>設定名稱</th>
+						</tr>
+						<tr>
+							<td>開啟原生規則固定提升效能，快速判定固定為初級</td><td>Connect</td>
+						</tr>
+						<tr>
+							<td>感染回合必須小於30，大於10</td><td>Zombie</td>
+						</tr>
+						<tr>
+							<td>障礙數量固定為18</td><td>Scheme</td>
+						</tr>
+						<tr>
+							<td>反射回合必須小於10，大於4</td><td>Mirror</td>
+						</tr>
+						<tr>
+							<td>王國大小必須小於15，大於3</td><td>Kingdom</td>
+						</tr>
+						<tr>
+							<td>保留符號必須小於10，大於5</td><td>Fallen</td>
+						</tr>
+					</table>
 				</p>
 			</div>
 			<div id="cAbout" class="field">

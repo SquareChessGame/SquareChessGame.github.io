@@ -1,4 +1,4 @@
-Shl.Ara.Zombie=[];Dft.Zombie={ToZ:10}
+Shl.Ara.Zombie=[];Dft.Zombie={ToZ:20}
 Shl.Rul.Zombie=function(){
 	if(Tn>Dft.Zombie.ToZ)Qre(Flt(Sel("All"),
 	function(crd){var key=Qre(crd,"Sym"),cds=Qre(Crd(crd,"8"),"Sym");if(key==2)return 0
@@ -19,4 +19,5 @@ Shl.Opt.Zombie=function(){
 Shl.OpK.Zombie=function(){
 	if(!Dft.System.Oln&&Val(Id("Zombie-ToZ").value)!=NaN&&Id("Zombie-ToZ").value!="")Dft.Zombie.ToZ=Val(Id("Zombie-ToZ").value)
 	if(Dft.Zombie.ToZ<10)Dft.Zombie.ToZ=10
+	if(Dft.Zombie.ToZ>30)Dft.Zombie.ToZ=30
 }
