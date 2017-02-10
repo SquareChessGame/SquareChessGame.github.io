@@ -24,19 +24,16 @@ Shl.Adn.Connect=function(){Tn+=2
 			}
 	}
 }
-Shl.Ckr.Connect=function(crd){Dft.Connect.Net=[];return Ara.Ckr("Connect",crd)}
+Shl.Ckr.Connect=function(crd){return Ara.Ckr("Connect",crd)}
 Shl.Opt.Connect=function(){
 	OpS("","1","Connect設定")
 	if(!Dft.System.Oln){OpS("","2","固定設置")
-		OpS("Connect-Ori","k","原生規則",Dft.Connect.Ori)
 		OpS("Connect-Rul-0/Connect-Rul","r","無設置",Dft.Connect.Rul==0)
 		OpS("Connect-Rul-1/Connect-Rul","r","隨機設置一型",Dft.Connect.Rul==1)
 		OpS("Connect-Rul-2/Connect-Rul","r","隨機設置二型",Dft.Connect.Rul==2)
 	}Ara.Opt("Connect")
 }
 Shl.OpK.Connect=function(){
-	if(!Dft.System.Oln){Dft.Connect.Ori=Id("Connect-Ori").checked
-		if(Dft.Connect.Ori)Dft.System.Per=1
-		for(var i=0;i<3;i++)if(Id("Connect-Rul-"+i).checked)Dft.Connect.Rul=i
-	}Ara.OpK("Connect");if(Dft.Connect.Ori&&Dft.Connect.QJd>1)Dft.Connect.QJd=1
+	if(!Dft.System.Oln)for(var i=0;i<3;i++)if(Id("Connect-Rul-"+i).checked)Dft.Connect.Rul=i
+	Ara.OpK("Connect")
 }

@@ -195,9 +195,11 @@ Rls.Forbid=function(r){
 	r=Rls.add(r,"符號不得設置於私區");return r
 }
 Rls.Divider=function(r){var jdg=1
-	r=Rls.ext(r,Rls.Set[0],Rls.Set[1]);if(Rls.dft)jdg=Dft.Divider.QJd
-	r=Rls.add(r,"符號須設置於我方符號米字，設置路徑間不得有對方符號")
-	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
+	r=Rls.ext(r,Rls.Set[0],Rls.Set[1]);if(Rls.dft){jdg=Dft.Divider.QJd
+		if(Dft.Divider.Ori)r=Rls.add(r,"將第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
+	}r=Rls.add(r,"符號須設置於我方符號米字，設置路徑間不得有對方符號")
+	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4])
+	return r
 }
 Rls.Zombie=function(r){var tun=10;if(Rls.dft)tun=Dft.Zombie.ToZ
 	r=Rls.add(r,"第"+tun+"回合後，若雙方符號接觸將變成殭屍符號");r=Rls.add(r,"對方符號不存在時獲勝");return r
@@ -212,7 +214,9 @@ Rls.Anomal=function(r){
 	r=Rls.add(r,"空白區域被符號包圍時，空白區域將產生私區");return r
 }
 Rls.Adapter=function(r){var jdg=1
-	r=Rls.ext(r,Rls.Set[0],Rls.Set[1]);if(Rls.dft)jdg=Dft.Adapter.QJd
+	r=Rls.ext(r,Rls.Set[0],Rls.Set[1]);if(Rls.dft){jdg=Dft.Adapter.QJd
+		if(Dft.Adapter.Ori)r=Rls.add(r,"將第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
+	}
 	r=Rls.add(r,"符號須設置於我方符號口字，設置路徑間不得有對方符號")
 	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
 }

@@ -149,7 +149,9 @@ Ara.Rul=function(shl,ara){Shl.Ara[shl]=ara
 }
 Ara.Opt=function(shl){
 	OpS("","2","輔助標記");OpS(shl+"-Ara","k","雙方區域",Dft[shl].Ara)
-	if(!Dft.System.Oln){OpS("","2","判定方式")
+	if(!Dft.System.Oln){OpS("","2","特殊規則")
+		OpS(shl+"-Ori","k","樹狀規則",Dft[shl].Ori)
+		OpS("","2","判定方式")
 		OpS(shl+"-QJd-0/"+shl+"-QJd","r","不進行快速判定",Dft[shl].QJd==0)
 		OpS(shl+"-QJd-1/"+shl+"-QJd","r","快速判定初級",Dft[shl].QJd==1)
 		OpS(shl+"-QJd-2/"+shl+"-QJd","r","快速判定中級",Dft[shl].QJd==2)
@@ -157,15 +159,17 @@ Ara.Opt=function(shl){
 	}
 }
 Ara.OpK=function(shl){
+	Dft[shl].Ori=Id(shl+"-Ori").checked;if(Dft[shl].Ori)Dft.System.Per=1
 	Dft[shl].Ara=Id(shl+"-Ara").checked
 	if(!Dft.System.Oln)for(var i=0;i<4;i++)if(Id(shl+"-QJd-"+i).checked)Dft[shl].QJd=i
+	if(Dft[shl].Ori&&Dft[shl].QJd>1)Dft[shl].QJd=1
 }
 Ara.Mrk=function(shl){
 	if(Dft[shl].Ara)for(cd1=65;cd1<74;cd1++)for(cd2=1;cd2<10;cd2++)for(sym=0;sym<2;sym++){
 		if(Shl.Ara[shl][Sqr.Sym[sym]].All.indexOf(Chr(cd1)+cd2)>-1)Qre(Chr(cd1)+cd2,"BgC",sym+3)
 	}
 }
-Ara.Ckr=function(shl,crd){
+Ara.Ckr=function(shl,crd){Dft[shl].Net=[]
 	return Shl.Ara[shl][Sqr.Sym[Tn%2]][0].indexOf(crd)>-1||Shl.Ara[shl].P[0].indexOf(crd)>-1
 }
 Ara.AJd=function(shl,ara){var sot={O:[],X:[],P:[]};sot.O.All=[];sot.X.All=[];sot.P.All=[]
@@ -226,5 +230,5 @@ function Net(crd,shl,sym){var net=[crd],res=[]
 		for(var i=0;i<net.length;i++){
 			Shl.Lmt[shl](net[i],sym,1);nt=nt.concat(Hst.Rut[Tn])
 		}net=Flt(nt,function(crd){if(res.indexOf(crd)<0)return 1})
-	}return res
+	}Hst.Rut[Tn]=[];return res
 }
