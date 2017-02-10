@@ -159,9 +159,11 @@ Ara.Opt=function(shl){
 	}
 }
 Ara.OpK=function(shl){
-	Dft[shl].Ori=Id(shl+"-Ori").checked;if(Dft[shl].Ori)Dft.System.Per=1
 	Dft[shl].Ara=Id(shl+"-Ara").checked
-	if(!Dft.System.Oln)for(var i=0;i<4;i++)if(Id(shl+"-QJd-"+i).checked)Dft[shl].QJd=i
+	if(!Dft.System.Oln){
+		for(var i=0;i<4;i++)if(Id(shl+"-QJd-"+i).checked)Dft[shl].QJd=i
+		Dft[shl].Ori=Id(shl+"-Ori").checked;if(Dft[shl].Ori)Dft.System.Per=1
+	}
 	if(Dft[shl].Ori&&Dft[shl].QJd>1)Dft[shl].QJd=1
 }
 Ara.Mrk=function(shl){

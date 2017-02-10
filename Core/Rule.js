@@ -265,10 +265,10 @@ Rls.Newbie=function(r){
 Rls.Fallen=function(r){var fln=5;if(Rls.dft)tun=Dft.Fallen.fln
 	r=Rls.add(r,"第"+fln+"回合後，在我方回合可點選我方符號，選擇一對方符號一起變成殭屍");return r
 }
-Rls.Enhance=function(r){var jdg=1
+Rls["Connect-Origin"]=function(r){var jdg=1
 	r=Rls.ext(r,Rls.Set[0],Rls.Set[1])
-	if(Rls.dft){jdg=Dft.Enhance.QJd
-		switch(Dft.Enhance.Rul){
+	if(Rls.dft){jdg=Dft["Connect-Origin"].QJd
+		switch(Dft["Connect-Origin"].Rul){
 			case 1:
 				r=Rls.add(r,"O方符號將隨機設置於E4,E6,F5,D5")
 				r=Rls.add(r,"X方符號將隨機設置於F4,D4,F6,D6")
@@ -277,7 +277,7 @@ Rls.Enhance=function(r){var jdg=1
 				r=Rls.add(r,"雙方符號將隨機設置於E3,E7,G5,C5")
 			break
 		}
-		if(Dft.Enhance.Ori)r=Rls.add(r,"將第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
+		if(Dft["Connect-Origin"].Ori)r=Rls.add(r,"將第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
 	}r=Rls.add(r,"符號可設置於我方符號周圍")
 	r=Rls.add(r,"符號可設置於我方符號口字，設置路徑間不得有對方符號")
 	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
