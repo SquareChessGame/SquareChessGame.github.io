@@ -118,7 +118,7 @@ function Cnt(shl){var ara={O:[],X:[],P:[]},ser=0,brd=Rec();ara.O.All=[];ara.X.Al
 				if(Qre(crd,"Sym")!=2||ara[Sqr.Sym[i]].All.indexOf(crd)>-1)continue
 				if(!Lmt(crd,i)){ara[Sqr.Sym[i]][s].push(crd);ara[Sqr.Sym[i]].All.push(crd)}
 			}if(ara[Sqr.Sym[i]][s].length==0)break;Qre(ara[Sqr.Sym[i]][s],"Sym",i,1);s++
-		}Rec(brd);if(s>ser)ser=s
+		}Rec(brd);if(s>ser)ser=s;if(Dft[shl].Net)Dft[shl].Net=[]
 	}
 	for(var i=0;i<ser;i++){ara.P[i]=[];for(var j=0;j<2;j++)if(!ara[Sqr.Sym[j]][i])ara[Sqr.Sym[j]][i]=[]
 		ara.P[i]=ara.P[i].concat(Flt(ara.O[i],function(crd){if(ara.X[i].indexOf(crd)>-1)return 1}))
@@ -220,4 +220,11 @@ Map.Bdr=function(cds,ckr,odr,typ){if(!typ)typ="4";var res=[]
 }
 function Idt(grp,ckr){
 	if(typeof ckr=="undefined")ckr=grp[0];for(var i=0;i<grp.length;i++)if(grp[i]!=ckr)return 0;return 1
+}
+function Net(crd,shl,sym){var net=[crd],res=[]
+	while(net.length){var nt=[];res=res.concat(net)
+		for(var i=0;i<net.length;i++){
+			Shl.Lmt[shl](net[i],sym,1);nt=nt.concat(Hst.Rut[Tn])
+		}net=Flt(nt,function(crd){if(res.indexOf(crd)<0)return 1})
+	}return res
 }

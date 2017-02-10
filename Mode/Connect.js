@@ -1,11 +1,11 @@
-Shl.Ara.Connect=[];Dft.Connect={Ara:0,QJd:1,Rul:0,Ori:0,Map:[]}
+Shl.Ara.Connect=[];Dft.Connect={Ara:0,QJd:1,Rul:0,Ori:0,Net:[]}
 Shl.Rul.Connect=function(){return Ara.Rul("Connect",Cnt("Connect"))}
-Shl.Lmt.Connect=function(crd,sym){var mcd=crd
+Shl.Lmt.Connect=function(crd,sym,ori){var mcd=crd
 	var cd8=Crd(crd,"8");Hst.Rut[Tn]=[];if(Tn<2)return 0
 	Hst.Rut[Tn]=Flt(Crd(crd,"8"),function(crd){
 		if(Id(crd)){
-			if(Dft.Connect.Ori){if(!Dft.Connect.Map.length)Dft.Connect.Map=Map(Hst.Crd[(Tn%2)+1],(Tn%2),"8")
-				if(Dft.Connect.Map.indexOf(crd)>-1)return 1
+			if(Dft.Connect.Ori&&!ori){if(!Dft.Connect.Net.length)Dft.Connect.Net=Net(Hst.Crd[sym+1],"Connect",sym)
+				if(Dft.Connect.Net.indexOf(crd)>-1)return 1
 			}else if(Qre(crd,"Sym")==sym)return 1;return 0
 		}
 	});return !Hst.Rut[Tn].length>0
@@ -24,7 +24,7 @@ Shl.Adn.Connect=function(){Tn+=2
 			}
 	}
 }
-Shl.Ckr.Connect=function(crd){Dft.Connect.Map=[];return Ara.Ckr("Connect",crd)}
+Shl.Ckr.Connect=function(crd){Dft.Connect.Net=[];return Ara.Ckr("Connect",crd)}
 Shl.Opt.Connect=function(){
 	OpS("","1","Connect設定")
 	if(!Dft.System.Oln){OpS("","2","固定設置")

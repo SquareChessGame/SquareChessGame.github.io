@@ -18,7 +18,7 @@ Shl.Lmt.Adapter=function(crd,sym){
 		if(Qre(Crd(crd,vt28[i],1),"Sym")==sym){
 			var vts=Crd(crd,Mid(vt28[i],0,vt28[i].length/2),1),s=Qre(vts,"Sym")
 			if(s==2||s==sym)Hst.Rut[Tn]=Hst.Rut[Tn].concat(crd)
-		};if(Hst.Rut[Tn].indexOf(crd)>-1&&MdQ.indexOf("Follow")<0)return 0
+		}if(Hst.Rut[Tn].indexOf(crd)>-1&&MdQ.indexOf("Follow")<0&&Dft.System.Per)return 0
 	}return !Hst.Rut[Tn].length>0
 }
 Shl.Mrk.Adapter=function(){Ara.Mrk("Adapter")}

@@ -67,7 +67,6 @@ function Cln(msg,tgt){if(!tgt)tgt="";var ckr=0;if(!msg)ckr=1;else return Mbx(msg
 	}
 }
 function Set(crd){if(!Dft.Set||crd.length!=2)return;var ckr=Ckr(crd,1)
-	var wth=new Date().getTime()
 	if(Dft.System.Qsr)ckr=!Lmt(crd)
 	if(ckr){
 		Qre(crd,"Sym",Tn%2);Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec();Sel.Now("N");Log();Dft.Win=0
