@@ -22,10 +22,9 @@ Shl.Lmt.Adapter=function(crd,sym,ori){
 		if(Qre(Crd(crd,vt28[i],1),"Sym")==sym){
 			var vts=Crd(crd,Mid(vt28[i],0,vt28[i].length/2),1),s=Qre(vts,"Sym")
 			if(s==2||s==sym)if(k(Crd(crd,vt28[i],1)))cds.push(Crd(crd,vt28[i],1))
-		}
-		Hst.Rut[Tn]=Hst.Rut[Tn].concat(cds)
+		}Hst.Rut[Tn]=Hst.Rut[Tn].concat(cds)
 		if(Hst.Rut[Tn].length&&MdQ.indexOf("Follow")<0&&Dft.System.Per&&!Dft.Adapter.Ori)return 0
-	}if(Hst.Rut[Tn].length){console.log(crd);console.log(Hst.Rut[Tn])}
+	}
 	return !Hst.Rut[Tn].length>0
 }
 Shl.Mrk.Adapter=function(){Ara.Mrk("Adapter")}
