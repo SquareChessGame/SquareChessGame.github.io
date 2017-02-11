@@ -144,7 +144,7 @@ function Brd(){Qre(Sel("All"),["FtC","BgC"],[0,0]);Qre(Sel("All"),"Opa",1)
 }
 function Adn(){
 	for(var i=0;i<MdQ.length;i++)Shl.Adn[MdQ[i]]()
-	if(Dft.System.Blk){var s=Dft.System.Blk
+	if(Dft.System.Blk&&(!Dft.System.Oln||Dft.Oln.Typ=="O")){var s=Dft.System.Blk
 		while(s){var cd1=Math.floor(Rnd()*9)+65,cd2=Math.floor(Rnd()*9)+1
 			if((cd1+cd2)%2==0&&Qre(Chr(cd1)+cd2,"Sym")==2&&Dft.Blk.indexOf(Chr(cd1)+cd2)<0){Qre(Chr(cd1)+cd2,["Sym","BgC"],[3,2]);s--}
 		}

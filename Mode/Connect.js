@@ -13,7 +13,7 @@ Shl.Lmt.Connect=function(crd,sym,ori){var mcd=crd
 Shl.Mrk.Connect=function(){Ara.Mrk("Connect")}
 Shl.Brd.Connect=function(){}
 Shl.Adn.Connect=function(){Tn+=2
-	switch(Dft.Connect.Rul){
+	if(!Dft.System.Oln||Dft.Oln.Typ=="O")switch(Dft.Connect.Rul){
 		case 0:Tn=0;break
 		case 1:var Os=Crd("E5","4")[Math.floor(Rnd()*4)],Xs=Crd("E5","X")[Math.floor(Rnd()*4)]
 			Hst.Crd[1]=Os;Qre(Os,"Sym",0);Hst.Crd[2]=Xs;Qre(Xs,"Sym",1);break
