@@ -47,7 +47,7 @@ function Req(Typ,Jcd,id){
 	})
 }
 function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
-	Dft.Set=0;var req={CheckNum:Dft.Oln.CkN,BoardContent:cnt,ModeName:Dft.Oln.MdN};Atn(Dft.Oln.MdN)
+	Dft.Set=0;var req={CheckNum:Dft.Oln.CkN,BoardContent:cnt,ModeName:Dft.Oln.MdN}Atn(Dft.Oln.MdN)
 	req.LastActive=new Date().getTime()
 	firebase.database().ref("Battle/"+Dft.Oln.Id).update(req);Dft.Oln.Cln=1
 }
@@ -104,7 +104,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 		})
 	}
 }
-function Atn(v){
+function Atn(v){if(v.search("/")>-1)v=v.split("/")[0]
 	if(v)doc.title=v
 	else if(doc.title[doc.title.length-1]==")")doc.title=doc.title.split("(")[0]
 	if(Dft.Oln.Msg>0)doc.title+="("+Dft.Oln.Msg+")";Tag("header")[0].innerHTML=doc.title
