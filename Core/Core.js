@@ -152,7 +152,7 @@ function Adn(){
 	}
 }
 function Rul(){
-	for(var i=MdQ.length-1;i>-1;i--)if(Jdg(Shl.Rul[MdQ[i]]()))break;Mrk()
+	for(var i=MdQ.length-1;i>-1;i--)if(Shl.Rul[MdQ[i]])if(Jdg(Shl.Rul[MdQ[i]]()))break;Mrk()
 }
 function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Dft.Oln.Id
 	Id("OptionMenu").childNodes[0].innerHTML="<div style='height:10px'></div>"

@@ -7,13 +7,9 @@
 <link href="Pics/Icon.png" rel="shortcut icon">
 <title>Square Chess Game</title>
 <script>
-if(location.search){
-	if(location.search.search("@")>-1){
-		var spt=location.search.replace("?","").replace("%40","@").split("@")
-		location="btchs.html?mode="+spt[0]+"#"+spt[1]
-	}else{
-		location="chess.html?mode="+location.search.replace("?","")
-	}
+if(location.search.length>10){
+	var spt=location.search.replace("?","").replace("%40","@").split("@")
+	location="btchs.html?mode="+spt[0]+"#"+spt[1]
 }
 </script>
 <script src="Impo/jquery.min.js"></script>
