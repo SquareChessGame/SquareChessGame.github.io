@@ -162,7 +162,7 @@ Ara.OpK=function(shl){Dft[shl].Ara=Id(shl+"-Ara").checked
 	if(!Dft.System.Oln){
 		for(var i=0;i<4;i++)if(Id(shl+"-QJd-"+i).checked)Dft[shl].QJd=i
 		Dft[shl].Ori=Id(shl+"-Ori").checked;if(Dft[shl].Ori)Dft.System.Per=1
-	}if(Dft[shl].Ori)Dft[shl].QJd=0
+	}if(Dft.System.Per)Dft[shl].QJd=0
 }
 Ara.Mrk=function(shl){
 	if(Dft[shl].Ara)for(cd1=65;cd1<74;cd1++)for(cd2=1;cd2<10;cd2++)for(sym=0;sym<2;sym++){
