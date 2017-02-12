@@ -112,7 +112,8 @@ function Ctl(t,v){if(t=="Udo"||t=="Rdo")if(v&&v.length==3)return;Sel.Now("N")
 		case"Rul":Id("Rule").childNodes[3].innerHTML=Rls.Lst(MdQ)
 		if(MdQ.indexOf("Newbie")<0)Id("Rule").childNodes[3].innerHTML+="<li><font onclick='Srt(0)' color='blue' style='cursor:pointer'>點此查看詳盡圖解</li>"
 		;break
-		case"Rpt":try{firebase.database()}catch(e){Svr()}
+		case"Rpt":if(!navigator.onLine){Mbx("未在線上，無法即時回報",function(){});break}
+			try{firebase.database()}catch(e){Svr()}
 			Mbx("輸入當時遇到的情況",function(St){
 				if(St.length<1)Mbx("無任何陳述，重試?",function(){Ctl("Rpt")},function(){})
 				else Rpt(St)
