@@ -1,4 +1,4 @@
-Shl.Ara["Connect-Origin"]=[];Dft["Connect-Origin"]={Ara:0,QJd:1,Rul:0,Ori:0,Net:[]}
+Shl.Ara["Connect-Origin"]=[];Dft["Connect-Origin"]={Ara:0,QJd:1,Rul:0,Ori:1,Net:[]}
 Shl.Rul["Connect-Origin"]=function(){return Ara.Rul("Connect-Origin",Cnt("Connect-Origin"))}
 Shl.Lmt["Connect-Origin"]=function(crd,sym,ori){var mcd=crd
 	var cd8=Crd(crd,"8"),vtQ=Vct("Q"),vt28=Vct("28");Hst.Rut[Tn]=[];if(Tn<2)return 0
