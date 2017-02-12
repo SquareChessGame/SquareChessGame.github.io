@@ -17,7 +17,7 @@ function Ldr(){Mbx.Ldr();Id("NightMode").style.opacity=1;setTimeout("doc.body.st
 	else{var mdN=location.search.replace("?mode=","")
 		while(Instr(mdN,"%3A")>-1)mdN=mdN.replace("%3A",":")
 		var md=[mdN];if(mdN.search("/")>-1)md=md[0].split("/")
-		if(md[1])MdC=md[1].split("|");doc.title=md[0]
+		if(md[1])MdC=md[1].split(";");doc.title=md[0]
 		$("#Rsw div")[0].innerHTML=doc.title;Dft.Oln.MdN=mdN
 		MdQ=md[0].replace("Square.","").split(":");MdL(0)
 	}
@@ -32,7 +32,7 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 			Zmb:"Zombie",Flw:"Follow",Anm:"Anomal",Cst:"Castle",Ivt:"Invert",GmK:"Gomoku",GoL:"GoLike"
 		}
 		for(var i=0;i<MdC.length;i++){
-			var c=MdC[i].split("."),v=c[1].split(":")
+			var c=MdC[i].split("."),v=c[1].split("=")
 			Dft[cmd[c[0]]][v[0]]=Val(v[1])
 		}
 		Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
