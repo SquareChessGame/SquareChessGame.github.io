@@ -171,6 +171,7 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 	OpS("System-Nit","k","夜間模式",Id("NightMode").style.opacity!=1)
 	OpS("System-Ful","k","全螢幕模式",doc.webkitIsFullScreen||doc.mozFullScreen||doc.fullscreen)
 	OpS("System-Rul","k","顯示規則",Id("Rule").style.height!="0px")
+	OpS("System-Rpt","k","回報錯誤",0)
 	for(var i=0;i<MdQ.length;i++)if(Shl.Opt[MdQ[i]])Shl.Opt[MdQ[i]]()
 	Id("OptionMenu").childNodes[0].innerHTML+="<br style='line-height:40px'>"
 }
@@ -195,6 +196,7 @@ function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";i
 	if(Id("System-Nxt"))Dft.System.Nxt=Id("System-Nxt").checked;Dft.System.Gst=Id("System-Gst").checked
 	if(Id("System-Lmt"))Dft.System.Lmt=Id("System-Lmt").checked;Dft.System.iTn=Id("System-iTn").checked
 	if(Dft.Tn==Tn)Cln();for(i=0;i<MdQ.length;i++)if(Shl.OpK[MdQ[i]])Shl.OpK[MdQ[i]]();Mrk();Ctl("Rul")
+	if(Id("System-Rpt").checked)Ctl("Rpt")
 }
 function OpS(id,typ,til,dft){var input="",ck="",mg=10,ls=Id("OptionMenu").childNodes[0].childNodes
 	if(dft)ck="checked";
