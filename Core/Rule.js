@@ -164,7 +164,7 @@ Rls.Connect=function(r){var jdg=1
 				r=Rls.add(r,"雙方符號將隨機設置於E3,E7,G5,C5")
 			break
 		}
-		if(Dft.Connect.Ori)r=Rls.add(r,"將第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
+		if(Dft.Connect.Ori)r=Rls.add(r,"第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
 	}r=Rls.add(r,"符號須設置於我方符號周圍")
 	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
 }
@@ -196,7 +196,7 @@ Rls.Forbid=function(r){
 }
 Rls.Divider=function(r){var jdg=1
 	r=Rls.ext(r,Rls.Set[0],Rls.Set[1]);if(Rls.dft){jdg=Dft.Divider.QJd
-		if(Dft.Divider.Ori)r=Rls.add(r,"將第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
+		if(Dft.Divider.Ori)r=Rls.add(r,"第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
 	}r=Rls.add(r,"符號須設置於我方符號米字，設置路徑間不得有對方符號")
 	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4])
 	return r
@@ -215,7 +215,7 @@ Rls.Anomal=function(r){
 }
 Rls.Adapter=function(r){var jdg=1
 	r=Rls.ext(r,Rls.Set[0],Rls.Set[1]);if(Rls.dft){jdg=Dft.Adapter.QJd
-		if(Dft.Adapter.Ori)r=Rls.add(r,"將第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
+		if(Dft.Adapter.Ori)r=Rls.add(r,"第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
 	}
 	r=Rls.add(r,"符號須設置於我方符號口字，設置路徑間不得有對方符號")
 	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
@@ -277,7 +277,7 @@ Rls["Connect-Origin"]=function(r){var jdg=1
 				r=Rls.add(r,"雙方符號將隨機設置於E3,E7,G5,C5")
 			break
 		}
-		if(Dft["Connect-Origin"].Ori)r=Rls.add(r,"將第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
+		if(Dft["Connect-Origin"].Ori)r=Rls.add(r,"第一回合的符號視為根，所有的符號最終必須連接至根才可設置符號")
 	}r=Rls.add(r,"符號可設置於我方符號周圍")
 	r=Rls.add(r,"符號可設置於我方符號口字，設置路徑間不得有對方符號")
 	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
