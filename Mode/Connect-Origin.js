@@ -35,7 +35,6 @@ Shl.Lmt["Connect-Origin"]=function(crd,sym,ori){var mcd=crd
 	return !Hst.Rut[Tn].length>0
 }
 Shl.Mrk["Connect-Origin"]=function(){Ara.Mrk("Connect-Origin")}
-Shl.Brd["Connect-Origin"]=function(){}
 Shl.Adn["Connect-Origin"]=function(){Tn+=2
 	if(!Dft.System.Oln||Dft.Oln.Typ=="O")switch(Dft["Connect-Origin"].Rul){
 		case 0:Tn=0;break

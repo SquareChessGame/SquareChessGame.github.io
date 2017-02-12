@@ -16,16 +16,12 @@ Shl.Lmt.Divider=function(crd,sym,ori){var mcd=crd
 	}return !Hst.Rut[Tn].length>0
 }
 Shl.Mrk.Divider=function(){Ara.Mrk("Divider")}
-Shl.Brd.Divider=function(){}
-Shl.Adn.Divider=function(){}
 Shl.Ckr.Divider=function(crd){return Ara.Ckr("Divider",crd)}
 Shl.Opt.Divider=function(){
-	OpS("","1","Divider設定")
-	if(Dft.System.Oln)OpS("Divider-Ori","k","原生規則",Dft.Divider.Ori)
-	Ara.Opt("Divider")
+	OpS("","1","Divider設定");Ara.Opt("Divider")
 }
 Shl.OpK.Divider=function(){
 	if(!Dft.System.Oln){Dft.Divider.Ori=Id("Divider-Ori").checked
 		if(Dft.Divider.Ori)Dft.System.Per=1
-	}Ara.OpK("Divider");if(Dft.Divider.Ori&&Dft.Divider.QJd>1)Dft.Divider.QJd=1
+	}Ara.OpK("Divider")
 }

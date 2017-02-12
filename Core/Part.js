@@ -137,7 +137,7 @@ function Ara(grp,typ){
 		case">":if(ara.length>Val(typ[2]))return 1;return 0
 	}
 }
-Ara.Rul=function(shl,ara){Shl.Ara[shl]=ara
+Ara.Rul=function(shl,ara){Shl.Ara[shl]=ara;if(!ara.P[0])ara.P[0]=[]
 	for(var i=0;i<2;i++)if(ara[Sqr.Sym[i]][0].length==0&&ara.P[0].length==0)ck=1
 	if(Tn>2&&Tn%2==0){var ck=0
 		switch(Dft[shl].QJd){
@@ -158,13 +158,11 @@ Ara.Opt=function(shl){
 		OpS(shl+"-QJd-3/"+shl+"-QJd","r","快速判定高級",Dft[shl].QJd==3)
 	}
 }
-Ara.OpK=function(shl){
-	Dft[shl].Ara=Id(shl+"-Ara").checked
+Ara.OpK=function(shl){Dft[shl].Ara=Id(shl+"-Ara").checked
 	if(!Dft.System.Oln){
 		for(var i=0;i<4;i++)if(Id(shl+"-QJd-"+i).checked)Dft[shl].QJd=i
 		Dft[shl].Ori=Id(shl+"-Ori").checked;if(Dft[shl].Ori)Dft.System.Per=1
-	}
-	if(Dft[shl].Ori&&Dft[shl].QJd>1)Dft[shl].QJd=1
+	}if(Dft[shl].Ori)Dft[shl].QJd=0
 }
 Ara.Mrk=function(shl){
 	if(Dft[shl].Ara)for(cd1=65;cd1<74;cd1++)for(cd2=1;cd2<10;cd2++)for(sym=0;sym<2;sym++){
@@ -172,7 +170,9 @@ Ara.Mrk=function(shl){
 	}
 }
 Ara.Ckr=function(shl,crd){Dft[shl].Net=[]
-	return Shl.Ara[shl][Sqr.Sym[Tn%2]][0].indexOf(crd)>-1||Shl.Ara[shl].P[0].indexOf(crd)>-1
+	if(Shl.Ara[shl][Sqr.Sym[Tn%2]][0])return Shl.Ara[shl][Sqr.Sym[Tn%2]][0].indexOf(crd)>-1
+	if(Shl.Ara[shl].P[0])return Shl.Ara[shl].P[0].indexOf(crd)>-1
+	return !Lmt(crd,Tn%2)
 }
 Ara.AJd=function(shl,ara){var sot={O:[],X:[],P:[]};sot.O.All=[];sot.X.All=[];sot.P.All=[]
 	for(var cd1=65;cd1<74;cd1++){
@@ -198,11 +198,11 @@ Ara.PFu=function(){
 function Enm(sym){
 	if(sym=="O")return "X";else if(sym=="X") return "O";else return ""
 }
-function BJd(){var nxt=[],nxn=[]
+function BJd(){var nxt=[],nxn=[],dwn=0
 	for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
-		if(!Ckr(Chr(cd1)+cd2)){var sym=Qre(Chr(cd1)+cd2,"Sym");if(sym==2)nxn.push(Chr(cd1)+cd2)}
+		if(!Ckr(Chr(cd1)+cd2)){var sym=Qre(Chr(cd1)+cd2,"Sym");if(sym==2)nxn.push(Chr(cd1)+cd2);else dwn++}
 		else nxt.push(Chr(cd1)+cd2)
-	}if(nxt.length==0&&Tn>2&&Tn!=81&&!Dft.Win)Jdg(Sqr.Sym[(Tn+1)%2]+"獲勝");return nxn
+	}if(dwn==81)Jdg("平手");else if(nxt.length==0&&Tn>2&&Tn!=81&&!Dft.Win)Jdg(Sqr.Sym[(Tn+1)%2]+"獲勝");return nxn
 }
 function Map(crd,sym,typ){if(!typ)typ="4";if(!sym)sym=Qre(Sel(crd),"Sym")
 	if(typeof sym!="object")sym=[sym]

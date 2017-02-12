@@ -14,15 +14,11 @@ Shl.Rul.Defend=function(){
 		if(!Ara(Shl.Ara.Defend[i],Sqr.Sym[(s+1)%2]+">0")&&Ara(Shl.Ara.Defend[i],Sqr.Sym[s]+">4"))return Sqr.Sym[s]+"獲勝"
 	}
 }
-Shl.Lmt.Defend=function(){return 0}
 Shl.Mrk.Defend=function(){var clr=[5,10,6,11,9]
 	if(Dft.Defend.Ara)for(var i=0;i<Shl.Ara.Defend.length;i++){var s=i;if(s>4)s-=5
 		Qre(Shl.Ara.Defend[i],"BgC",clr[s])
 	}
 }
-Shl.Brd.Defend=function(){}
-Shl.Adn.Defend=function(){}
-Shl.Ckr.Defend=function(crd){return 1}
 Shl.Opt.Defend=function(){
 	OpS("","1","Defend設定");OpS("","2","輔助標記")
 	OpS("Defend-Ara","k","分割區塊",Dft.Defend.Ara)

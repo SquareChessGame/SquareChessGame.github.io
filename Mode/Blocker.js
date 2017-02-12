@@ -1,11 +1,6 @@
 Shl.Ara.Blocker=[];Dft.Blocker={Ara:1,QJd:3,AJd:0}
-Shl.Rul.Blocker=function(){
-	return Ara.Rul("Blocker",Blk())
-}
-Shl.Lmt.Blocker=function(crd,sym){}
+Shl.Rul.Blocker=function(){return Ara.Rul("Blocker",Blk())}
 Shl.Mrk.Blocker=function(){Ara.Mrk("Blocker")}
-Shl.Brd.Blocker=function(){}
-Shl.Adn.Blocker=function(){}
 Shl.Ckr.Blocker=function(crd){
 	return Shl.Ara.Blocker[Sqr.Sym[(Tn+1)%2]].All.indexOf(crd)<0
 }
@@ -17,9 +12,9 @@ Shl.Opt.Blocker=function(){
 		OpS("Blocker-AJd-2/Blocker-AJd","r","共有",Dft.Blocker.AJd==2)
 	}Ara.Opt("Blocker")
 }
-Shl.OpK.Blocker=function(){
+Shl.OpK.Blocker=function(v){Dft.System.Qsr=0;if(v)return
 	if(!Dft.System.Oln)for(var i=0;i<3;i++)if(Id("Blocker-AJd-"+i).checked)Dft.Blocker.AJd=i
-	Ara.OpK("Blocker");if(Shl.Ara.Blocker.QJd==2)Shl.Ara.Blocker.QJd=3;Dft.System.Qsr=0
+	Ara.OpK("Blocker");if(Shl.Ara.Blocker.QJd==2)Shl.Ara.Blocker.QJd=3
 }
 function Blk(){var ara={O:[],X:[]};ara.O.age=[];ara.X.age=[]
 	for(var cd1=65;cd1<73;cd1++)for(cd2=1;cd2<9;cd2++){var key=Qre(Chr(cd1)+cd2,"Sym");if(key==2||cd1==72&&cd2==9)continue
@@ -37,4 +32,4 @@ function Blk(){var ara={O:[],X:[]};ara.O.age=[];ara.X.age=[]
 			}
 		}
 	}return Ara.AJd("Blocker",ara)
-}
+};Shl.OpK.Blocker(1)

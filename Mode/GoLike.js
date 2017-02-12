@@ -8,13 +8,9 @@ Shl.Rul.GoLike=function(){var ara=[],cds=Sel("All"),vst=[],ckr=[0,0];if(Tn<2)ret
 	for(var i=0;i<cds.length;i++){var sym=Qre(cds[i],"Sym");ckr[sym]++}
 	if(!ckr[0]||!ckr[1]||Tn==81)return Scr(ckr[0],ckr[1])
 }
-Shl.Lmt.GoLike=function(){}
 Shl.Mrk.GoLike=function(){
 	Qre(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==4)return 1;return 0}),["BgC","FtC"],[12,2])
 }
-Shl.Brd.GoLike=function(){}
-Shl.Adn.GoLike=function(){}
-Shl.Ckr.GoLike=function(){return 1}
 Shl.Opt.GoLike=function(){
 	OpS("","1","GoLike設定")
 	OpS("GoLike-MJg","k","同符號包圍",Dft.GoLike.MJg)

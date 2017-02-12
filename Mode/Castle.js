@@ -6,7 +6,6 @@ for(var i=0;i<2;i++)Dft.Blk=Dft.Blk.concat(Shl.Ara.Castle[i])
 Shl.Rul.Castle=function(){
 	for(var i=0;i<2;i++)if(Ara(Shl.Ara.Castle[i],Sqr.Sym[i]+"F")||Ara(Shl.Ara.Castle[i],Sqr.Sym[(i+1)%2]+">0"))return Sqr.Sym[(i+1)%2]+"獲勝"
 }
-Shl.Lmt.Castle=function(){return 0}
 Shl.Mrk.Castle=function(){
 	if(Dft.Castle.Ara){
 		for(var i=0;i<2;i++){
@@ -16,14 +15,12 @@ Shl.Mrk.Castle=function(){
 		}
 	}
 }
-Shl.Brd.Castle=function(){}
 Shl.Adn.Castle=function(){Qre(["D2","G1"],"Sym",0);Qre(["C9","F8"],"Sym",1);Hst.Crd[1]="D2";Hst.Crd[2]="C9";Hst.Crd[3]="G1";Hst.Crd[4]="F8";Tn+=4}
-Shl.Ckr.Castle=function(crd){return 1}
 Shl.Opt.Castle=function(){
 	OpS("","1","Castle設定");OpS("","2","輔助標記")
 	OpS("Castle-Ara","k","雙方區域",Dft.Castle.Ara)
 }
-Shl.OpK.Castle=function(){
-	if(Dft.Connect)Dft.Connect.Rul=0
+Shl.OpK.Castle=function(v){
+	if(Dft.Connect)Dft.Connect.Rul=0;if(v)return
 	Dft.Castle.Ara=Id("Castle-Ara").checked
-}
+};Shl.OpK.Castle(1)

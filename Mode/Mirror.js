@@ -7,9 +7,6 @@ Shl.Rul.Mirror=function(){var Mir=[Sel("A1:I4"),Sel("A6:I9")]
 		}
 	}
 }
-Shl.Lmt.Mirror=function(){}
-Shl.Mrk.Mirror=function(){}
-Shl.Brd.Mirror=function(){}
 Shl.Adn.Mirror=function(){
 	Qre(Sel("5"),"Sym",3)
 }

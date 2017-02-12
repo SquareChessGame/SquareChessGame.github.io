@@ -5,13 +5,9 @@ Shl.Rul.Zombie=function(){
 		if(cds.indexOf((key+1)%2)>-1)return 1;return 0
 	}),"Sym",4)
 }
-Shl.Lmt.Zombie=function(){}
 Shl.Mrk.Zombie=function(){
 	Qre(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==4)return 1;return 0}),["BgC","FtC"],[12,2])
 }
-Shl.Brd.Zombie=function(){}
-Shl.Adn.Zombie=function(){}
-Shl.Ckr.Zombie=function(crd){return 1}
 Shl.Opt.Zombie=function(){
 	OpS("","1","Zombie設定")
 	if(!Dft.System.Oln)OpS("Zombie-ToZ","t","感染回合:",Dft.Zombie.ToZ)

@@ -10,7 +10,6 @@ Shl.Rul.Kingdom=function(){var ara=[[],[],[]],vct=[],cds=Sel("All"),scr={K:[0,0]
 		else return Scr(scr.P[0],scr.P[1])
 	}
 }
-Shl.Lmt.Kingdom=function(){}
 Shl.Mrk.Kingdom=function(){
 	if(Dft.Kingdom.Ara)for(var i=0;i<2;i++){
 		var cds=Shl.Ara.Kingdom[i]
@@ -19,9 +18,6 @@ Shl.Mrk.Kingdom=function(){
 		}
 	}
 }
-Shl.Brd.Kingdom=function(){}
-Shl.Adn.Kingdom=function(){}
-Shl.Ckr.Kingdom=function(){}
 Shl.Opt.Kingdom=function(){
 	OpS("","1","Kingdom設定")
 	if(!Dft.System.Oln)OpS("Kingdom-Kdm","t","王國大小:",Dft.Kingdom.Kdm)

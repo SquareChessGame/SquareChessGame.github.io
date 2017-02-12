@@ -2,10 +2,7 @@ Shl.Ara.ByLine=[];Dft.ByLine={Ara:1,QJd:1,AJd:0}
 Shl.Rul.ByLine=function(){
 	return Ara.Rul("ByLine",Lin())
 }
-Shl.Lmt.ByLine=function(crd,sym){}
 Shl.Mrk.ByLine=function(){Ara.Mrk("ByLine")}
-Shl.Brd.ByLine=function(){}
-Shl.Adn.ByLine=function(){}
 Shl.Ckr.ByLine=function(crd){
 	return Shl.Ara.ByLine[Sqr.Sym[(Tn+1)%2]].All.indexOf(crd)<0
 }
@@ -17,9 +14,9 @@ Shl.Opt.ByLine=function(){
 		OpS("ByLine-AJd-2/ByLine-AJd","r","共有",Dft.ByLine.AJd==2)
 	}Ara.Opt("ByLine")
 }
-Shl.OpK.ByLine=function(){
+Shl.OpK.ByLine=function(v){Dft.System.Qsr=0;if(v)return
 	if(!Dft.System.Oln)for(var i=0;i<3;i++)if(Id("ByLine-AJd-"+i).checked)Dft.ByLine.AJd=i
-	Ara.OpK("ByLine");if(Shl.Ara.ByLine.QJd==2)Shl.Ara.ByLine.QJd=3;Dft.System.Qsr=0
+	Ara.OpK("ByLine");if(Shl.Ara.ByLine.QJd==2)Shl.Ara.ByLine.QJd=3
 }
 function Lin(){var ara={O:[],X:[]};ara.O.age=[];ara.X.age=[]
 	for(var cd1=65;cd1<74;cd1++)for(cd2=1;cd2<10;cd2++){
@@ -38,4 +35,4 @@ function Lin(){var ara={O:[],X:[]};ara.O.age=[];ara.X.age=[]
 			}
 		}
 	}return Ara.AJd("ByLine",ara)
-}
+};Shl.OpK.ByLine(1)

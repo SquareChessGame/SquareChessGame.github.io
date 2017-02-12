@@ -11,7 +11,6 @@ Shl.Rul.Gomoku=function(){var c5=[[Sel("A1:I5"),"B"],[Sel("A1:E9"),"R"],[Sel("A1
 		}
 	}if(chs[0].length==0&&chs[1].length==0)return "平手";Shl.Ara.Gomoku=chs
 }
-Shl.Lmt.Gomoku=function(){}
 Shl.Mrk.Gomoku=function(){var sym=Tn%2
 	if(Dft.Gomoku.Ara==1)sym=(Tn+1)%2
 	if(Dft.Gomoku.Ara!=2)for(var i=0;i<Shl.Ara.Gomoku[sym].length;i++){var s=0
@@ -19,7 +18,6 @@ Shl.Mrk.Gomoku=function(){var sym=Tn%2
 		Qre(Shl.Ara.Gomoku[sym][i],"BgC",9)
 	}
 }
-Shl.Brd.Gomoku=function(){}
 Shl.Adn.Gomoku=function(){if(Dft.Gomoku.Pro){Qre("E5","Sym",0);Tn=1}}
 Shl.Ckr.Gomoku=function(crd){if(Tn==2&&Dft.Gomoku.Pro&&Sel("C3:G7").indexOf(crd)>-1)return 0;return 1}
 Shl.Opt.Gomoku=function(){

@@ -28,8 +28,6 @@ Shl.Lmt.Adapter=function(crd,sym,ori){
 	return !Hst.Rut[Tn].length>0
 }
 Shl.Mrk.Adapter=function(){Ara.Mrk("Adapter")}
-Shl.Brd.Adapter=function(){}
-Shl.Adn.Adapter=function(){}
 Shl.Ckr.Adapter=function(crd){return Ara.Ckr("Adapter",crd)}
 Shl.Opt.Adapter=function(){
 	OpS("","1","Adapter設定");Ara.Opt("Adapter")

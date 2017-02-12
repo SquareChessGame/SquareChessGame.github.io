@@ -1,11 +1,7 @@
 Shl.Ara.Fallen=[];Dft.Fallen={Fln:5,Crd:"",MbS:0}
-Shl.Rul.Fallen=function(){}
-Shl.Lmt.Fallen=function(){}
 Shl.Mrk.Fallen=function(){
 	Qre(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==4)return 1;return 0}),["BgC","FtC"],[12,2])
 }
-Shl.Brd.Fallen=function(){}
-Shl.Adn.Fallen=function(){}
 Shl.Ckr.Fallen=function(crd,set){var mcd=crd
 	if(set&&Flt(Sel("All"),
 		function(crd){if(Qre(crd,"Sym")==Tn%2)return 1}).length>Dft.Fallen.Fln

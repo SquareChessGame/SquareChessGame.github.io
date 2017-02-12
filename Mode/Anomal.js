@@ -2,18 +2,15 @@ Shl.Ara.Anomal=[];Dft.Anomal={Ara:1,QJd:1}
 Shl.Rul.Anomal=function(){
 	return Ara.Rul("Anomal",Anm())
 }
-Shl.Lmt.Anomal=function(crd,sym){}
 Shl.Mrk.Anomal=function(){Ara.Mrk("Anomal")}
-Shl.Brd.Anomal=function(){}
-Shl.Adn.Anomal=function(){}
 Shl.Ckr.Anomal=function(crd){
 	return Shl.Ara.Anomal[Sqr.Sym[(Tn+1)%2]].All.indexOf(crd)<0
 }
 Shl.Opt.Anomal=function(){
 	OpS("","1","Anomal設定");Ara.Opt("Anomal")
 }
-Shl.OpK.Anomal=function(){
-	Ara.OpK("Anomal");if(Shl.Ara.Anomal.QJd==2)Shl.Ara.Anomal.QJd=3;Dft.System.Qsr=0
+Shl.OpK.Anomal=function(v){Dft.System.Qsr=0;if(v)return
+	Ara.OpK("Anomal");if(Shl.Ara.Anomal.QJd==2)Shl.Ara.Anomal.QJd=3
 }
 function Anm(){
 	var ara={O:[[]],X:[[]],P:[]},cds=Sel("All"),vst=[];ara.O.All=[],ara.X.All=[]
@@ -28,4 +25,4 @@ function Anm(){
 	ara.P[0]=Flt(Sel("All"),function(crd){
 		return ara.O.All.indexOf(crd)<0&&ara.X.All.indexOf(crd)<0&&Qre(crd,"Sym")==2
 	});ara.P.All=ara.P[0];return ara
-}
+};Shl.OpK.Anomal(1)
