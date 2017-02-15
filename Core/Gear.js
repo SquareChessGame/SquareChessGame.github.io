@@ -57,7 +57,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 			if(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl){
 				firebase.database().ref("Matchs/"+Dft.Oln.Id).update({ModeName:Dft.Oln.MdN})
 				firebase.database().ref("Matchs/"+Dft.Oln.Id).on("value",function(){
-					firebase.database().ref("Matchs/"+Dft.Oln.Id).update({ModeName:Dft.Oln.MdN})
+					if(Dft.Oln.Pbl)firebase.database().ref("Matchs/"+Dft.Oln.Id).update({ModeName:Dft.Oln.MdN})
 				})
 			}Cookies.set(Dft.Oln.Id,Dft.Oln.CkN+"/"+Dft.Oln.Typ,{expires:1})
 			firebase.database().ref("Battle/"+Dft.Oln.Id+"/PlayerCk").on("value",function(r){

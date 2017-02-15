@@ -228,4 +228,4 @@ function DeB(id){try{firebase.database()}catch(e){Svr()}
 		}Mbx(ij.State,function(){Ctl("Rdo",Hst.Crd[Hst.Crd.length-1])})
 	})
 }
-$(window).load(function(){Ldr()}).resize(function(){Rsz()}).mouseover(function(event){MsO(event)}).keydown(function(event){KDw(event)}).keyup(function(event){KUp(event)}).contextmenu(function(){event.preventDefault()}).scroll(function(){Rsz()}).on("beforeunload",function(){if(Tn!=Dft.Tn)return "棋局尚未結束，確定離開?"}).on("unload",function(){if(Msg)Msg(Dft.Oln.Typ+"方關閉網頁",1)})
+$(window).load(function(){Ldr()}).resize(function(){Rsz()}).mouseover(function(event){MsO(event)}).keydown(function(event){KDw(event)}).keyup(function(event){KUp(event)}).contextmenu(function(){event.preventDefault()}).scroll(function(){Rsz()}).on("beforeunload",function(){if(Tn!=Dft.Tn)return "棋局尚未結束，確定離開?"}).on("unload",function(){if(Msg){if(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl){Dft.Oln.Pbl=0;firebase.database().ref("Matchs/"+Dft.Oln.Id).remove()}Msg(Dft.Oln.Typ+"方關閉網頁",1)}})
