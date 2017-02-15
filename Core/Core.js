@@ -88,10 +88,10 @@ function Set(crd){if(!Dft.Set||crd.length!=2)return;var ckr=Ckr(crd,1)
 function Qre(crd,atr,typ,sdx){var res=[],ckr=0
 	if(typ&&typeof typ!="object"&&Asc(typ+"")>64)typ=Asc(typ+"")-55
 	if(typeof crd=="object"){
-		for(var i=0;i<crd.length;i++)res=res.concat(Qre(crd[i],atr,typ));return res
+		for(var i=0;i<crd.length;i++)res=res.concat(Qre(crd[i],atr,typ,sdx));return res
 	}else if(typeof atr=="object"){
 		for(var i=0;i<atr.length;i++){
-			if(typeof typ=="object")res=res.concat(Qre(crd,atr[i],typ[i]))
+			if(typeof typ=="object")res=res.concat(Qre(crd,atr[i],typ[i],sdx))
 			else res=res.concat(Qre(crd,atr[i]))
 		}return res
 	}

@@ -1,6 +1,6 @@
 function Crd(crd,vct,ovl){var x=0,y=0,ox=0,oy=0;vct=Vct(vct)
 	if(typeof vct=="object"){
-		for(var i=0;i<vct.length;i++)vct[i]=Crd(crd,vct[i]);return vct
+		for(var i=0;i<vct.length;i++)vct[i]=Crd(crd,vct[i],ovl);return vct
 	}
 	for(var i in vct)switch(vct[i]){
 		case"F":y--;break
