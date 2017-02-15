@@ -46,8 +46,8 @@ function Req(Typ,Jcd,id){
 		});if(Notification&&Notification.permission!="granted")Notification.requestPermission()
 	})
 }
-function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return
-	Dft.Set=0;var req={CheckNum:Dft.Oln.CkN,BoardContent:cnt,ModeName:Dft.Oln.MdN};Atn(Dft.Oln.MdN)
+function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return;if(!cnt)cnt=Tn
+	Dft.Set=0;var req={CheckNum:Dft.Oln.CkN,BoardContent:[cnt,Hst],ModeName:Dft.Oln.MdN};Atn(Dft.Oln.MdN)
 	req.LastActive=new Date().getTime()
 	firebase.database().ref("Battle/"+Dft.Oln.Id).update(req);Dft.Oln.Cln=1
 }
@@ -66,21 +66,20 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 				firebase.database().ref("Battle/"+Dft.Oln.Id).update(req)
 			});Oln.Ckr()
 		}
-		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",function(r){
-			var brd=r.val().split("/")
-			if(brd[0].length<81&&(Dft.Oln.Cln||Dft.Oln.Typ=="V")){
-				if(brd[0]){Ini(1);Mbx(brd[0],function(){if(Dft.Oln.Typ=="O")Dft.Set=1;else Dft.Set=0})}
-			}else if(brd[1]||Dft.Oln.Typ=="V"){var cd=brd[2],bd=brd[0],tn=Val(brd[1]),k=0
-				if(Hst.Brd[Tn]&&Hst.Crd[Tn])if(Dft.Oln.Typ!="V"){var c=(Asc(cd[0])-65)*9+Val(cd[1])-1
-					if((tn%2+"23").toString().search(bd[c])<0&&tn>=Tn&&BJd().indexOf(cd)<0)k=1
-					else{Msg("棋盤資料異常",1)
-						Upl(Hst.Brd[Tn]+"/"+Tn+Hst.Crd[Tn])
+		firebase.database().ref("Battle/"+Dft.Oln.Id+"/BoardContent").on("value",function(r){var d=r.val()
+			if(d){var tn=d[0],hst=d[1]
+				if(Val(tn).toString()=="NaN"&&(Dft.Oln.Cln||Dft.Oln.Typ=="V")){
+					if(tn){Ini(1);Mbx(tn,function(){if(Dft.Oln.Typ=="O")Dft.Set=1;else Dft.Set=0})}
+				}else if(Val(tn).toString()!="NaN"||Dft.Oln.Typ=="V"){var k=1,c=["Brd","Crd"]
+					for(var i=0;i<c.length;i++)for(var j in hst[c[i]]){
+						if(!Hst[c[i]][Val(j)])Hst[c[i]][Val(j)]=hst[c[i]][j]
+						else if(Hst[c[i]][Val(j)]!=hst[c[i]][j]){k=0;Msg("棋盤資料異常",1)}
 					}
-				}else k=1
-				if(k){Hst.Brd[brd[1]]=brd[0];Hst.Crd[brd[1]]=brd[2];Rec(brd[0]);Tn=Val(brd[1]);Rul()
-					if(Dft.Oln.Typ!="V"&&Sqr.Sym[(Val(brd[1])%2)]==Dft.Oln.Typ){
-						Dft.Set=1;Atn("輪到你下了");Sel.Now("N");Log()
-					}else Dft.Set=0
+					if(k){Rec(Val(tn));Rul()
+						if(Dft.Oln.Typ!="V"&&Sqr.Sym[(Val(tn)%2)]==Dft.Oln.Typ){
+							Dft.Set=1;Atn("輪到你下了");Sel.Now("N");Log()
+						}else Dft.Set=0
+					}
 				}
 			}
 		})

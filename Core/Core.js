@@ -82,7 +82,7 @@ function Set(crd){if(!Dft.Set||crd.length!=2)return;var ckr=Ckr(crd,1)
 	if(Dft.System.Qsr)ckr=!Lmt(crd)
 	if(ckr){
 		Qre(crd,"Sym",Tn%2);Tn++;Hst.Crd[Tn]=crd;Rul();Hst.Brd[Tn]=Rec();Sel.Now("N");Log();Dft.Win=0
-		Hst.Brd.splice(Tn+1,Hst.Brd.length-Tn);if(Dft.System.Oln)Upl(Hst.Brd[Tn]+"/"+Tn+"/"+Hst.Crd[Tn])
+		Hst.Brd.splice(Tn+1,Hst.Brd.length-Tn);if(Dft.System.Oln)Upl()
 	}else if(Id("O0").style.display=="")Sel.Now("B")
 }
 function Qre(crd,atr,typ,sdx){var res=[],ckr=0
