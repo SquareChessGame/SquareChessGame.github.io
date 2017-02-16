@@ -103,7 +103,7 @@ function Sel(typ,ord){
 	return Hst.Sel[typ]
 }
 function Flt(grp,ord){var res=[]
-	for(var i=0;i<grp.length;i++){var odr=ord(grp[i])
+	for(var i=0;i<grp.length;i++){var odr=ord(grp[i],res)
 		if(odr==2)return res;else if(odr)res.push(grp[i])
 	}return res
 }

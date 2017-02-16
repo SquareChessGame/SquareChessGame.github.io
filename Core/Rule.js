@@ -282,6 +282,9 @@ Rls["Connect-Origin"]=function(r){var jdg=1
 	r=Rls.add(r,"符號可設置於我方符號口字，設置路徑間不得有對方符號")
 	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
 }
+Rls.Reversi=function(r){
+	return r
+}
 Rls.System=function(r){
 	if(Rls.dft&&Dft.System.Blk)r=Rls.add(r,"將產生"+Dft.System.Blk+"個障礙物")
 	var spc={
