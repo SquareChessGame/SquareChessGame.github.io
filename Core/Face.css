@@ -16,6 +16,7 @@ noscript{color:#48585f;font-size:20px}
   font-family:Centaur;
   src:url(../Font/Centaur.ttf);
 }
+.ui-icon-loading{opacity:0}
 ::selection{background:#758f9b;color:white}
 ::-moz-selection{background:#758f9b;color:white}
 ::-webkit-selection{background:#758f9b;color:white}
