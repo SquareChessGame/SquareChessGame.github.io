@@ -29,7 +29,7 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 		var cmd={Sys:"System",
 			Cnt:"Connect",Blk:"Blocker",Div:"Divider",Kdm:"Kingdom",Adp:"Adapter",CtO:"Connect-Origin",
 			Atk:"Attack",Def:"Defend",ByL:"ByLine",Fln:"Fallen",Mir:"Mirror",Sch:"Scheme",Fbd:"Forbid",
-			Zmb:"Zombie",Flw:"Follow",Anm:"Anomal",Cst:"Castle",Ivt:"Invert",GmK:"Gomoku",GoL:"GoLike"
+			Zmb:"Zombie",Flw:"Follow",Anm:"Anomal",Cst:"Castle",Ivt:"Invert",GmK:"Gomoku",GoL:"GoLike",RvL:"RvLike"
 		}
 		for(var i=0;i<MdC.length;i++){
 			var c=MdC[i].split("."),v=c[1].split("=")
@@ -134,8 +134,8 @@ function Mrk(){Brd();var nxc=BJd()
 		Qre(nxc,"Opa",0.2)
 	}
 	if(Dft.System.iTn){Qre(Hst.Crd[Tn],"FtC",1);Qre(Hst.Crd[Tn-1],"FtC",1)}
-	for(var i=0;i<MdQ.length;i++)if(Shl.Mrk[MdQ[i]])Shl.Mrk[MdQ[i]]()
 	Qre(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==3)return 1;return 0}),"BgC",2)
+	for(var i=0;i<MdQ.length;i++)if(Shl.Mrk[MdQ[i]])Shl.Mrk[MdQ[i]]()
 }
 function Brd(){Qre(Sel("All"),["FtC","BgC"],[0,0]);Qre(Sel("All"),"Opa",1)
 	var ord=function(crd){
@@ -165,7 +165,7 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 		if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Kingdom")>-1)if(!Dft.System.Oln)OpS("System-Lmt","k","首回限制",Dft.System.Lmt)
 	}else Oln.Opt()
 	OpS("System-iTn","k","上回設置",Dft.System.iTn)
-	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Reversi")>-1)OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
+	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("RvLike")>-1)OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
 	OpS("System-Gst","k","手勢操作",Dft.System.Gst)
 	if($("#Recrd").width()>10)OpS("System-Rec","k","顯示過程",Id("Recrd").style.display!="none")
 	OpS("System-Nit","k","夜間模式",Id("NightMode").style.opacity!=1)
@@ -212,7 +212,7 @@ function OpS(id,typ,til,dft){var input="",ck="",mg=10,ls=Id("OptionMenu").childN
 	}Id("OptionMenu").childNodes[0].innerHTML+="<label style='margin-left:"+mg+"px'>"+input+"</label><br>"
 }
 function Jdg(msg){
-	if(msg){Log(msg);if(Dft.System.Oln)Upl(msg);else Cln(msg+",是否再來一局?");Dft.Win=1;return 1}
+	if(msg){Log();if(Dft.System.Oln)Upl(msg);else Cln(msg+",是否再來一局?");Dft.Win=1;return 1}
 }
 function Log(vlu){Id("Recrd").innerHTML=""
 	for(var i=1;i<Tn+1;i++)Id("Recrd").innerHTML+="<div>第"+i+"回合:"+Sqr.Sym[(i-1)%2]+"方將符號設置於"+Hst.Crd[i]+"</div>";Id("Recrd").scrollTop=Id("Recrd").scrollHeight

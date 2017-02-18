@@ -51,7 +51,8 @@ var Rls={
 			"A1:I4",
 			"A6:I9",
 			"反射區將產生符號",
-			"一起變成殭屍"
+			"一起變成殭屍",
+			"夾棋"
 		],
 		[
 			function(){var cds="#E4,#E6,#D4,#D5,#D6,#F4,#F5,#F6";Rls.Brd.Scp("#E5:S:O|"+cds+":B:slateblue|Ogn|"+cds+":B:slateblue")},
@@ -148,6 +149,9 @@ var Rls={
 			},
 			function(){
 				Rls.Brd.Scp("#A1,#A2,#A3,#A4,#A5:S:X/#C1,#C2,#C3,#C4,#C5:S:O|#A1,#C5:S:Z/#A1,#C5:F:red/#A1,#C5:B:black")
+			},
+			function(){
+				Rls.Brd.Scp("#E4:S:O/#E4:B:indianred|#E5:S:X/#E5:B:lightskyblue|#E6:S:O/#E6:B:indianred|#E5:B:indianred|#E5:B:lightskyblue|#E5:B:indianred")
 			}
 		]
 	]
@@ -282,9 +286,11 @@ Rls["Connect-Origin"]=function(r){var jdg=1
 	r=Rls.add(r,"符號可設置於我方符號口字，設置路徑間不得有對方符號")
 	r=Rls.add(r,Rls.Jdg[jdg]);r=Rls.add(r,Rls.Jdg[4]);return r
 }
-Rls.Reversi=function(r){
+Rls.RvLike=function(r){
+	r=Rls.add(r,"符號需設置於可夾棋處")
 	return r
 }
+Rls.Origin=function(r){return r}
 Rls.System=function(r){
 	if(Rls.dft&&Dft.System.Blk)r=Rls.add(r,"將產生"+Dft.System.Blk+"個障礙物")
 	var spc={

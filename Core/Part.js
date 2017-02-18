@@ -202,7 +202,7 @@ function BJd(){var nxt=[],nxn=[],dwn=0
 	for(var cd1=65;cd1<74;cd1++)for(var cd2=1;cd2<10;cd2++){
 		if(!Ckr(Chr(cd1)+cd2)){var sym=Qre(Chr(cd1)+cd2,"Sym");if(sym==2)nxn.push(Chr(cd1)+cd2);else dwn++}
 		else nxt.push(Chr(cd1)+cd2)
-	}if(dwn==81)Jdg("平手");else if(nxt.length==0&&Tn>2&&Tn!=81&&!Dft.Win)Jdg(Sqr.Sym[(Tn+1)%2]+"獲勝");return nxn
+	}if(!Dft.Win){if(dwn==81)Jdg("平手");else if(nxt.length==0&&Tn>2&&Tn!=81)Jdg(Sqr.Sym[(Tn+1)%2]+"獲勝")}return nxn
 }
 function Map(crd,sym,typ){if(!typ)typ="4";if(!sym)sym=Qre(Sel(crd),"Sym")
 	if(typeof sym!="object")sym=[sym]

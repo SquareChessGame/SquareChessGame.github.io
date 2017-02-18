@@ -7,12 +7,12 @@
 <link href="Pics/Icon.png" rel="shortcut icon">
 <title>Square Chess Game</title>
 <script>
-if(location.search){
-	if(location.search.search("@")>-1){
-		var spt=location.search.replace("?","").replace("%40","@").split("@")
+if(location.search){var n=location.search.replace("%40","@")
+	if(n.search("@")>-1){
+		var spt=n.replace("?","").split("@")
 		location="btchs.html?mode="+spt[0]+"#"+spt[1]
 	}else{
-		location="chess.html?mode="+location.search.replace("?","")
+		location="chess.html?mode="+n.replace("?","")
 	}
 }
 </script>
@@ -177,6 +177,7 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-rules="Main" onclick="Lst('rules','OSub')" class="tab"><a>其他系列</a></div>
 					<div data-rules="OSub"><a>Gomoku</a></div>
 					<div data-rules="OSub"><a>GoLike</a></div>
+					<div data-rules="OSub"><a>RvLike</a></div>
 			</div><hr>
 			<div class="page">
 				<div class="tab" id="Online" onclick="Lst('btchs','Main')">線上對戰</div>
@@ -199,6 +200,7 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-btchs="Main" onclick="Lst('btchs','OSub')" class="tab"><a>其他系列</a></div>
 					<div data-btchs="OSub"><a>Gomoku</a></div>
 					<div data-btchs="OSub"><a>GoLike</a></div>
+					<div data-btchs="OSub"><a>RvLike</a></div>
 			</div><hr>
 			<div class="page">
 				<div class="tab" id="Start" onclick="Lst('chess','Main')">開始遊戲</div>
@@ -221,6 +223,7 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-chess="Main" onclick="Lst('chess','OSub')" class="tab"><a>其他系列</a></div>
 					<div data-chess="OSub"><a>Gomoku</a></div>
 					<div data-chess="OSub"><a>GoLike</a></div>
+					<div data-chess="OSub"><a>RvLike</a></div>
 			</div>
 		</div>
 		<div id="LstB" class="Mobile" onclick="Mnu()" style="display:none"></div>
@@ -246,6 +249,7 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-chess="Main" onclick="Lst('chess','OSub')" class="pTab"><a>其他系列</a></div>
 					<div data-chess="OSub"><a>Gomoku</a></div>
 					<div data-chess="OSub"><a>GoLike</a></div>
+					<div data-chess="OSub"><a>RvLike</a></div>
 				<div id="pOnline" onclick="Lst('btchs','Main')" class="pPage">線上對戰</div>
 					<div data-btchs="Main" onclick="Lst('btchs','CSub')" class="pTab"><a>Connect系列</a></div>
 					<div data-btchs="CSub"><a>Square.Connect</a></div>
@@ -266,6 +270,7 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-btchs="Main" onclick="Lst('btchs','OSub')" class="pTab"><a>其他系列</a></div>
 					<div data-btchs="OSub"><a>Gomoku</a></div>
 					<div data-btchs="OSub"><a>GoLike</a></div>
+					<div data-btchs="OSub"><a>RvLike</a></div>
 				<div id="pRules" onclick="Lst('rules','Main')" class="pPage">遊戲說明</div>
 					<div data-rules="Main" onclick="Lst('rules','CSub')" class="pTab"><a>Connect系列</a></div>
 					<div data-rules="CSub"><a>Square.Connect</a></div>
@@ -286,6 +291,7 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-rules="Main" onclick="Lst('rules','OSub')" class="pTab"><a>其他系列</a></div>
 					<div data-rules="OSub"><a>Gomoku</a></div>
 					<div data-rules="OSub"><a>GoLike</a></div>
+					<div data-rules="OSub"><a>RvLike</a></div>
 				<div id="pAbout" class="pPage" onclick="Mnu();Ptg('#cAbout')">關於我們</div>
 				<div id="pRepo" class="pPage" onclick="Mnu();Ptg('#cRepo')">回報問題</div>
 				<div id="pRemix" class="pPage" onclick="Mnu();location='remix.html'">混合模式</div>
