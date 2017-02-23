@@ -149,7 +149,7 @@ Oln.Ckr=function(){
 function Msg(msg,sys){Dft.Oln.Msg=-1
 	firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").once("value",function(r){var msgo=r.val().Content,m=[],r="",t=Dft.Oln.Typ
 		for(var i in msgo)m.push(msgo[i]);if(sys)t="S";m[m.length]=[t,msg]
-		if(m[m.length-1][0]!=m[m.length-2][0]&&m[m.length-1][1]!=m[m.length-2][1])firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/Content/"+(m.length-1)).update(m[m.length-1])
+		if(m.length<3||m[m.length-1][0]!=m[m.length-2][0]&&m[m.length-1][1]!=m[m.length-2][1])firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/Content/"+(m.length-1)).update(m[m.length-1])
 	})
 }window.addEventListener("offline",function(){Mbx("已離線",function(){})})
 Svr()
