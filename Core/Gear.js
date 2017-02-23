@@ -51,7 +51,7 @@ function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return;if(!cnt)cnt=
 	req.LastActive=new Date().getTime()
 	firebase.database().ref("Battle/"+Dft.Oln.Id).update(req);Dft.Oln.Cln=1
 }
-function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
+function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0;if(Dft.Oln.Typ="O")Atn("由你先下")
 	if(!v){location.hash=Dft.Oln.Id;if(Dft.Oln.Typ=="O")Dft.Set=1
 		if(Dft.Oln.Typ!="V"){
 			if(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl){
