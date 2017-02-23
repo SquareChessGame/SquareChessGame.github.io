@@ -83,22 +83,20 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 				}
 			}
 		})
-		firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").on("value",function(r){
-			if(r.val()&&Id("msgc").innerHTML!=r.val()){var msg=r.val().Content;if(msg=="")return
-				Id("msgc").innerHTML=msg;Dft.Oln.Msg++;Atn()
-				Ctl("MSw",Dft.Oln.MSw);Id("msgc").scrollTop=Id("msgc").scrollHeight
-				if(msg.search('<div style="text-align:center">-X方已加入-</div>')>-1&&Dft.Oln.PrX){
-					$(".join").css("display","none");OpK(1);Dft.Oln.PrX=0;
+		firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").on("value",function(r){var ms=r.val().Content,r="",msg=[]
+			for(var i in ms)msg.push(ms[i]);if(msg.length==0)return
+			for(var i=0;i<msg.length;i++){if(msg[i][1]=="X方已加入"&&msg[i][0]=="S"&&Dft.Oln.PrX){$(".join").css("display","none");OpK(1);Dft.Oln.PrX=0}
+				switch(msg[i][0]){
+					case"S":r+="<div style=\"text-align:center\">-"+msg[i][1]+"-</div>";break
+					case Dft.Oln.Typ:r+="<div style=\"text-align:right\">"+msg[i][1]+":"+Dft.Oln.Typ+"</div>";break
+					default:r+="<div>"+msg[i][0]+":"+msg[i][1]+"</div>"
 				}
-				if(Notification){var ssm=["X方已加入","O方可能離線","X方可能離線","O方恢復房間","X方恢復房間","O方關閉房間","X方關閉房間","棋盤資料異常"]
-					for(var i=0;i<ssm.length;i++){
-						while(msg.search('<div style="text-align:center">-'+ssm[i]+'-</div>')>-1)msg=msg.replace('<div style="text-align:center">-'+ssm[i]+'-</div>',"")
-					}
-					var m=msg.split("<br>")
-					if(m.length>1&&m[m.length-2][0]!=Dft.Oln.Typ)var n=new Notification("即時訊息",{
-						body:m[m.length-2],icon:"Pics/Icon.png"
-					})
-				}
+			}Id("msgc").innerHTML=r;Dft.Oln.Msg++;Atn()
+			Ctl("MSw",Dft.Oln.MSw);Id("msgc").scrollTop=Id("msgc").scrollHeight
+			if(Notification){
+				if(msg.length>1&&msg[msg.length-1][0]!=Dft.Oln.Typ)var n=new Notification("即時訊息",{
+					body:msg[msg.length-1][1],icon:"Pics/Icon.png"
+				})
 			}
 		})
 	}
@@ -149,17 +147,9 @@ Oln.Ckr=function(){
 	})
 }
 function Msg(msg,sys){Dft.Oln.Msg=-1
-	firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").once("value",function(r){var msgo=r.val().Content
-		if(!msgo)msgo="";var stp=msg+"<br>";if(sys)stp='<div style="text-align:center">-'+msg+"-</div>"
-		var rms=msgo.split(stp)
-		if(rms.length==1||!(rms[rms.length-1]=="")){
-			if(!sys)firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").update({
-				Content:msgo+Dft.Oln.Typ+":"+msg+"<br>"
-			})
-			else firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").update({
-				Content:msgo+'<div style="text-align:center">-'+msg+"-</div>"
-			})
-		}
+	firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").once("value",function(r){var msgo=r.val().Content,m=[],r="",t=Dft.Oln.Typ
+		for(var i in msgo)m.push(msgo[i]);if(sys)t="S";m[m.length]=[t,msg]
+		firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/Content/"+(m.length-1)).update(m[m.length-1])
 	})
 }window.addEventListener("offline",function(){Mbx("已離線",function(){})})
 Svr()
