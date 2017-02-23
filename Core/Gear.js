@@ -88,7 +88,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0
 			for(var i=0;i<msg.length;i++){if(msg[i][1]=="X方已加入"&&msg[i][0]=="S"&&Dft.Oln.PrX){$(".join").css("display","none");OpK(1);Dft.Oln.PrX=0}
 				switch(msg[i][0]){
 					case"S":r+="<div style=\"text-align:center\">-"+msg[i][1]+"-</div>";break
-					case Dft.Oln.Typ:r+="<div style=\"text-align:right\">"+msg[i][1]+":"+Dft.Oln.Typ+"</div>";break
+					case Dft.Oln.Typ:r+="<div style=\"text-align:right\">"+msg[i][1]+"</div>";break
 					default:r+="<div>"+msg[i][0]+":"+msg[i][1]+"</div>"
 				}
 			}Id("msgc").innerHTML=r;Dft.Oln.Msg++;Atn()
@@ -149,7 +149,7 @@ Oln.Ckr=function(){
 function Msg(msg,sys){Dft.Oln.Msg=-1
 	firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").once("value",function(r){var msgo=r.val().Content,m=[],r="",t=Dft.Oln.Typ
 		for(var i in msgo)m.push(msgo[i]);if(sys)t="S";m[m.length]=[t,msg]
-		firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/Content/"+(m.length-1)).update(m[m.length-1])
+		if(m[m.length-1][0]!=m[m.length-2][0]&&m[m.length-1][1]!=m[m.length-2][1])firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/Content/"+(m.length-1)).update(m[m.length-1])
 	})
 }window.addEventListener("offline",function(){Mbx("已離線",function(){})})
 Svr()
