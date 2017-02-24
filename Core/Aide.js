@@ -35,12 +35,14 @@ function KDw(e){
 				else if(k>48&&k<58||k>96&&k<106){var num=Chr(k);if(k>96)num=Chr(k-48)
 					if(m.style.width!="0px"){
 						if(!Dft.System.Oln)switch(Val(num)){
+							case 0:location="index.html";break
 							case 1:Ctl("Cln");break
 							case 2:Ctl("Udo");break
 							case 3:Ctl("Rdo");break
 							case 4:Ctl("Gto");break
 							case 5:Opt();break
 						}else switch(Val(num)){
+							case 0:location="index.html";break
 							case 1:Ctl("Gvp");break
 							case 2:Opt();break
 						}

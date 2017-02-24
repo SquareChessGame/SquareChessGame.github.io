@@ -292,9 +292,9 @@ table{table-layout:fixed;word-break:break-all}
 					<div data-rules="OSub"><a>Gomoku</a></div>
 					<div data-rules="OSub"><a>GoLike</a></div>
 					<div data-rules="OSub"><a>RvLike</a></div>
-				<div id="pAbout" class="pPage" onclick="Mnu();Ptg('#cAbout')">關於我們</div>
-				<div id="pRepo" class="pPage" onclick="Mnu();Ptg('#cRepo')">回報問題</div>
-				<div id="pRemix" class="pPage" onclick="Mnu();location='remix.html'">混合模式</div>
+				<div id="pAbout" class="pPage" onclick="Mnu(1);Ptg('#cAbout')">關於我們</div>
+				<div id="pRepo" class="pPage" onclick="Mnu(1);Ptg('#cRepo')">回報問題</div>
+				<div id="pRemix" class="pPage" onclick="Mnu(1);location='remix.html'">混合模式</div>
 			</div>
 		</div>
 	</header>
@@ -609,10 +609,13 @@ function KDw(e){var art=Id("Mbx").style.display!="none";if(!input&&!art)e.preven
 		}else{Hid();show=""}
 	}if(input)return
 	if(show.length==0){
+		if(k==48||k==96)Id("Home").click()
 		if(k==49||k==97)Lst('chess','Main')
 		if(k==50||k==98)Lst('btchs','Main')
 		if(k==51||k==99)Lst('rules','Main')
 		if(k==52||k==100)location="remix.html"
+		if(k==53||k==101)Id("pAbout").click()
+		if(k==54||k==102)Id("pRepo").click()
 	}else{var p=show.split("/")
 		switch(p[1]){
 			case"Main":
