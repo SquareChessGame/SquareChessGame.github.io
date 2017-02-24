@@ -595,13 +595,20 @@ function Rpt(btn){var t="r-",m=new Date();if($(window).width()<830)t="mr-"
 function Ptg(t){
 	$("#Content").animate({scrollTop:$(t).offset().top-40+$("#Content")[0].scrollTop},1000)
 }
-function KDw(e){var art=Id("Mbx").style.display!="none";if(!input&&!art)e.preventDefault()
+function KDw(e){var art=Id("Mbx").style.display!="none";if(!input&&!art||k==33||k==34||k==35||k==36)e.preventDefault()
 	var k=e.which,c=e.ctrlKey
+	if(k==33)$('#Content').animate({scrollTop:$('#Content')[0].scrollTop-100},0)
+	if(k==34)$('#Content').animate({scrollTop:$('#Content')[0].scrollTop+100},0)
+	if(k==35)$('#Content').animate({scrollTop:$('#Content')[0].scrollHeight},500)
+	if(k==36)$('#Content').animate({scrollTop:0},500)
 	if(k==13){
 		if(art)$("#MbxbY")[0].click()
 		else if(Id("r-titl").value!="")Rpt(Id("r-send"))
 	}
-	if(c&&k==82){Ptg('#cRepo');Id("r-titl").focus()}
+	if(c&&k==82||k==45){Ptg('#cRepo');Id("r-titl").focus()}
+	if(k==46){var c=["m",""],t=["titl","resp","cont"]
+		for(var i=0;i<c.length;i++)for(var j=0;j<t.length;j++)Id(c[i]+"r-"+t[j]).value=""
+	}
 	if(k==27){
 		if(art)$("#MbxbN")[0].click()
 		else if(input){
