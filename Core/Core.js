@@ -176,14 +176,17 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 	Id("OptionMenu").childNodes[0].innerHTML+="<br style='line-height:40px'>"
 	var ipt=Tag("input")
 	for(var i=0;i<ipt.length;i++){
-		ipt[i].addEventListener("focus",function(){
-			this.style.transform="scale(1.2,1.2)"
-			this.parentNode.style.color="#48585f"
-		})
-		ipt[i].addEventListener("blur",function(){
-			this.style.transform=""
-			this.parentNode.style.color=""
-		})
+		var fc=function(s){
+			s.style.transform="scale(1.2,1.2)"
+			s.parentNode.style.color="#48585f"
+		},bl=function(s){
+			s.style.transform=""
+			s.parentNode.style.color=""
+		}
+		ipt[i].addEventListener("focus",function(){fc(this)})
+		ipt[i].addEventListener("blur",function(){bl(this)})
+		ipt[i].parentNode.addEventListener("mouseover",function(){fc(this.childNodes[0])})
+		ipt[i].parentNode.addEventListener("mouseout",function(){bl(this.childNodes[0])})
 	}
 	Id("System-Blk").focus()
 }
