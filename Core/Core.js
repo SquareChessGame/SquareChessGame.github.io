@@ -174,6 +174,18 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 	OpS("System-Rpt","k","回報錯誤",0)
 	for(var i=0;i<MdQ.length;i++)if(Shl.Opt[MdQ[i]])Shl.Opt[MdQ[i]]()
 	Id("OptionMenu").childNodes[0].innerHTML+="<br style='line-height:40px'>"
+	var ipt=Tag("input")
+	for(var i=0;i<ipt.length;i++){
+		ipt[i].addEventListener("focus",function(){
+			this.style.transform="scale(1.2,1.2)"
+			this.parentNode.style.color="#48585f"
+		})
+		ipt[i].addEventListener("blur",function(){
+			this.style.transform=""
+			this.parentNode.style.color=""
+		})
+	}
+	Id("System-Blk").focus()
 }
 function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";if(k==1)return
 	if(!Dft.System.Oln){
