@@ -37,14 +37,7 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 		}
 		Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
 		if(typeof Ini!="undefined"){Dft.System.Oln=1;Joi()
-			Id("Files").onchange=function(){
-				Rdr(this.files,function(input,file){
-					if(file.type.search("image")>-1)Msg("<img src=\""+input+"\" width=\"150\" style=\"box-shadow:5px 5px 2px gray;margin-top:10px;border-radius:10px\"/>",0,1)
-					else if(file.type.search("audio")>-1)Msg("<audio style=\"margin-top:10px;width:150px\" controls><source src=\""+input+"\"/>你的瀏覽器不支援audio標籤</audio>",0,1)
-					else if(file.type.search("video")>-1)Msg("<video style=\"margin-top:10px;width:150px\" controls><source src=\""+input+"\"/>你的瀏覽器不支援video標籤</video>",0,1)
-					else Msg("<a download=\""+file.name+"\" href="+input+" style=\"text-decoration:underline\">"+file.name+"</a>",0,1)
-				},"DataURL")
-			}
+			Id("Files").onchange=function(){Prc(this.files)}
 		}
 	}
 	md.onerror=function(){Mbx("模式可能被移除或不存在",function(){location="remix.html"})}
@@ -113,6 +106,14 @@ function Rdr(fls,fnc,typ){if(Dft.System.Oln&&typ!="DataURL")return;Mbx("正在�
 	}
 	rd.onload=function(){fnc(this.result,file);Mbx.Exe(function(){})}
 	rd.onerror=function(){Mbx("讀取異常",function(){})};rd["readAs"+typ](fls[0])
+}
+function Prc(f){
+	Rdr(f,function(input,file){
+		if(file.type.search("image")>-1)Msg("<img src=\""+input+"\" width=\"150\" style=\"box-shadow:5px 5px 2px gray;margin-top:10px;border-radius:10px\"/>",0,1)
+		else if(file.type.search("audio")>-1)Msg("<audio style=\"margin-top:10px;width:150px\" controls><source src=\""+input+"\"/>你的瀏覽器不支援audio標籤</audio>",0,1)
+		else if(file.type.search("video")>-1)Msg("<video style=\"margin-top:10px;width:150px\" controls><source src=\""+input+"\"/>你的瀏覽器不支援video標籤</video>",0,1)
+		else Msg("<a download=\""+file.name+"\" href="+input+" style=\"text-decoration:underline\">"+file.name+"</a>",0,1)
+	},"DataURL")
 }
 function Set(crd){if(!Dft.Set||crd.length!=2)return;var ckr=Ckr(crd,1)
 	if(Dft.System.Qsr)ckr=!Lmt(crd)
@@ -279,4 +280,4 @@ function DeB(id){try{firebase.database()}catch(e){Svr()}
 		}Mbx(ij.State,function(){Ctl("Rdo",Hst.Crd[Hst.Crd.length-1])})
 	})
 }
-$(window).load(function(){Ldr()}).resize(function(){Rsz()}).mouseover(function(event){MsO(event)}).keydown(function(event){KDw(event)}).keyup(function(event){KUp(event)}).contextmenu(function(){event.preventDefault()}).scroll(function(){Rsz()}).on("beforeunload",function(){if(Tn!=Dft.Tn)return "棋局尚未結束，確定離開?"}).on("unload",function(){if(Msg){if(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl){Dft.Oln.Pbl=0;firebase.database().ref("Matchs/"+Dft.Oln.Id).remove()}Msg(Dft.Oln.Typ+"方關閉網頁",1)}}).on("dragover",function(e){e.preventDefault()}).on("drop",function(e){e.preventDefault();Rdr(e.originalEvent.dataTransfer.files)})
+$(window).load(function(){Ldr()}).resize(function(){Rsz()}).mouseover(function(event){MsO(event)}).keydown(function(event){KDw(event)}).keyup(function(event){KUp(event)}).contextmenu(function(){event.preventDefault()}).scroll(function(){Rsz()}).on("beforeunload",function(){if(Tn!=Dft.Tn)return "棋局尚未結束，確定離開?"}).on("unload",function(){if(Msg){if(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl){Dft.Oln.Pbl=0;firebase.database().ref("Matchs/"+Dft.Oln.Id).remove()}Msg(Dft.Oln.Typ+"方關閉網頁",1)}}).on("dragover",function(e){e.preventDefault()}).on("drop",function(e){e.preventDefault();if(Dft.System.Oln)Prc(e.originalEvent.dataTransfer.files);else Rdr(e.originalEvent.dataTransfer.files)})
