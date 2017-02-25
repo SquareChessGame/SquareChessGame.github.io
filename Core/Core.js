@@ -38,8 +38,10 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 		Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
 		if(typeof Ini!="undefined"){Dft.System.Oln=1;Joi()
 			Id("Files").onchange=function(){
-				Rdr(this.files,function(input,file){
+				Rdr(this.files,function(input,file){location=input
 					if(file.type.search("image")>-1)Msg("<img src=\""+input+"\" width=\"150\" style=\"box-shadow:5px 5px 2px gray;margin-top:10px;border-radius:10px\"/>",0,1)
+					else if(file.type.search("audio")>-1)Msg("<audio style=\"margin-top:10px;width:150px\" controls><source src=\""+input+"\"/>你的瀏覽器不支援audio標籤</audio>",0,1)
+					else if(file.type.search("video")>-1)Msg("<video style=\"margin-top:10px;width:150px\" controls><source src=\""+input+"\"/>你的瀏覽器不支援video標籤</video>",0,1)
 					else Msg("<a download=\""+file.name+"\" href="+input+" style=\"text-decoration:underline\">"+file.name+"</a>",0,1)
 				},"DataURL")
 			}
