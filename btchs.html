@@ -46,7 +46,9 @@
 			</div>
 			<div id="Recrd"></div>
 			<div id="Message" style="position:fixed;bottom:0px;right:0px;width:250px;height:25px;overflow:hidden;z-index:2">
-				<div style="background-color:#758f9b;height:25px;line-height:25px;position:absolute;top:0px;width:100%;left:0px;font-weight:bold;z-index:3" onclick="Ctl('MSw')">即時訊息</div>
+				<div style="background-color:#758f9b;height:25px;line-height:25px;position:absolute;top:0px;width:100%;left:0px;font-weight:bold;z-index:3" onclick="Ctl('MSw')">即時訊息
+					<div style="float:right;font-size:10px;color:white" onclick="Id('Files').click();Ctl('MSw')">上傳檔案</div>
+				</div>
 				<div id="msgc"></div>
 				<input type="text" id="msgs"/>
 				<div id="send" onclick="Ctl('Msg')">送出</div>
@@ -63,6 +65,7 @@
 		</div>
 		<div id="Rsw" onclick="Ctl('RSw',1)" title="顯示規則" style="overflow:hidden"><div></div></div>
 		<div id="Mbx"></div><div id="Mbxv"></div><div id="Gear" onclick="if(Id('Setting').style.height=='0px')Opt();else OpK(1)" title="進行設定"></div>
+		<input type="file" style="display:none" id="Files"/>
 	</div>
 </body>
 <div id="fb-root"></div>

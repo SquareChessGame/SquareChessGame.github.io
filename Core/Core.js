@@ -36,7 +36,13 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 			Dft[cmd[c[0]]][v[0]]=Val(v[1])
 		}
 		Id("LdA").style.display="none";Itf();Rsz();Cln();Id("LdB").style.opacity=0
-		if(typeof Ini!="undefined"){Dft.System.Oln=1;Joi()}
+		if(typeof Ini!="undefined"){Dft.System.Oln=1;Joi()
+			Id("Files").onchange=function(){
+				Rdr(this.files,function(input,file){
+					if(file.type.search("image")>-1)Msg("<img src=\""+input+"\" width=\"150\" style=\"box-shadow:5px 5px 2px gray;margin-right:10px;margin-top:10px;border-radius:10px\"/>",0,1)
+				},"DataURL")
+			}
+		}
 	}
 	md.onerror=function(){Mbx("模式可能被移除或不存在",function(){location="remix.html"})}
 	doc.body.appendChild(md)
@@ -68,7 +74,7 @@ function Itf(){var bd=""
 	$("#UI").swipe(function(e){var arw=e.swipestart.coords[0]-e.swipestop.coords[0]
 		if(!Dft.System.Gst)return;if(arw>0)Ctl("Udo");else if(arw<0)Ctl("Rdo")
 	})
-	if(!Dft.System.Oln)Id("Files").onchange=function(){Rdr(this.files)}
+	Id("Files").onchange=function(){Rdr(this.files)}
 	$(".bt").click(function(){Set(this.id)})
 	$(".bt").dblclick(function(){if(Dft.System.Gst)Ctl("Udo",this.id)})
 	$(".bt").on("taphold contextmenu",function(){if(this.id=="Cln")Opt();else if(this.id=="Udo")Ctl("Gto");else if(Dft.System.Gst)Ctl("Rdo",this.id)});Opt();OpK(2)
@@ -94,15 +100,16 @@ function Wtr(v){
 		doc.body.appendChild(BackUper);BackUper.click();doc.body.removeChild(BackUper)
 	}
 }
-function Rdr(fls){if(Dft.System.Oln)return;Mbx("正在裝載中...")
-	var rd=new FileReader()
-	rd.onload=function(){var cfg=this.result.split("\r\n")
+function Rdr(fls,fnc,typ){if(Dft.System.Oln&&typ!="DataURL")return;Mbx("正在裝載中...");if(!typ)typ="Text"
+	var rd=new FileReader(),file=fls[0];if(!fnc)fnc=function(input){var cfg=input.split("\r\n")
 		if(cfg[0]!=Dft.Oln.MdN){Mbx("模式錯誤",function(){});return}
 		for(var i=1;i<cfg.length-1;i++){var spt=cfg[i].split("=")
 			if((spt[1].length>80||isNaN(Val(spt[1])))&&spt[1]!="true"&&spt[1]!="false")eval(spt[0]+"=\""+spt[1]+"\"")
 			else eval(spt[0]+"="+Val(spt[1]));Rec(Hst.Brd.length-1)
-		}Mbx.Exe(function(){})
-	};rd.onerror=function(){Mbx("讀取異常",function(){})};rd.readAsText(fls[0])
+		}
+	}
+	rd.onload=function(){fnc(this.result,file);Mbx.Exe(function(){})}
+	rd.onerror=function(){Mbx("讀取異常",function(){})};rd["readAs"+typ](fls[0])
 }
 function Set(crd){if(!Dft.Set||crd.length!=2)return;var ckr=Ckr(crd,1)
 	if(Dft.System.Qsr)ckr=!Lmt(crd)
@@ -200,7 +207,7 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 	OpS("System-Rpt","k","回報錯誤",0);OpS("System-Rec","k","遊戲紀錄",Dft.System.Rec)
 	for(var i=0;i<MdQ.length;i++)if(Shl.Opt[MdQ[i]])Shl.Opt[MdQ[i]]()
 	Id("OptionMenu").childNodes[0].innerHTML+="<br style='line-height:40px'>"
-	var ipt=Tag("input")
+	var ipt=doc.querySelectorAll("#OptionMenu input")
 	for(var i=0;i<ipt.length;i++){
 		var fc=function(s){
 			s.style.transform="scale(1.2,1.2)"
@@ -214,7 +221,7 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 		ipt[i].parentNode.addEventListener("mouseover",function(){fc(this.childNodes[0])})
 		ipt[i].parentNode.addEventListener("mouseout",function(){bl(this.childNodes[0])})
 	}
-	Id("System-Blk").focus()
+	if(Id("System-Blk"))Id("System-Blk").focus()
 }
 function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";if(k==1)return
 	if(!Dft.System.Oln){

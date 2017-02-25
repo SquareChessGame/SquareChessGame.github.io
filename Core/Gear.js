@@ -51,7 +51,7 @@ function Upl(cnt){if(Dft.Oln.Typ=="V"||!Dft.Oln.Id||!Dft.Set)return;if(!cnt)cnt=
 	req.LastActive=new Date().getTime()
 	firebase.database().ref("Battle/"+Dft.Oln.Id).update(req);Dft.Oln.Cln=1
 }
-function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0;if(Dft.Oln.Typ="O")Atn("由你先下")
+function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0;if(Dft.Oln.Typ=="O")Atn("由你先下")
 	if(!v){location.hash=Dft.Oln.Id;if(Dft.Oln.Typ=="O")Dft.Set=1
 		if(Dft.Oln.Typ!="V"){
 			if(Dft.Oln.Typ=="O"&&Dft.Oln.Pbl){
@@ -146,8 +146,13 @@ Oln.Ckr=function(){
 		setTimeout("Oln.Ckr()",10000)
 	})
 }
-function Msg(msg,sys){Dft.Oln.Msg=-1
-	firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").once("value",function(r){var msgo=r.val().Content,m=[],r="",t=Dft.Oln.Typ
+function Msg(msg,sys,spi){Dft.Oln.Msg=-1
+	if(!spi){
+		while(msg.search(">")>-1)msg.replace(">","&gt")
+		while(msg.search("<")>-1)msg.replace("<","&lt")
+	}
+	firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").once("value",function(r){
+		var msgo=r.val().Content,m=[],r="",t=Dft.Oln.Typ
 		for(var i in msgo)m.push(msgo[i]);if(sys)t="S";m[m.length]=[t,msg]
 		if(m.length<3||m[m.length-1][0]!=m[m.length-2][0]&&m[m.length-1][1]!=m[m.length-2][1])firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/Content/"+(m.length-1)).update(m[m.length-1])
 	})
