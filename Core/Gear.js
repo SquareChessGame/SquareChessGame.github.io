@@ -88,7 +88,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0;if(Dft.Oln
 			for(var i=0;i<msg.length;i++){if(msg[i][1]=="X方已加入"&&msg[i][0]=="S"&&Dft.Oln.PrX){$(".join").css("display","none");OpK(1);Dft.Oln.PrX=0}
 				switch(msg[i][0]){
 					case"S":r+="<div style=\"text-align:center\">-"+msg[i][1]+"-</div>";break
-					case Dft.Oln.Typ:r+="<div style=\"text-align:right\">"+msg[i][1]+"</div>";break
+					case Dft.Oln.Typ:r+="<div style=\"text-align:right;margin-right:10px\">"+msg[i][1]+"</div>";break
 					default:r+="<div>"+msg[i][0]+":"+msg[i][1]+"</div>"
 				}
 			}Id("msgc").innerHTML=r;Dft.Oln.Msg++;Atn()
@@ -148,8 +148,8 @@ Oln.Ckr=function(){
 }
 function Msg(msg,sys,spi){Dft.Oln.Msg=-1
 	if(!spi){
-		while(msg.search(">")>-1)msg.replace(">","&gt")
-		while(msg.search("<")>-1)msg.replace("<","&lt")
+		while(msg.search(">")>-1)msg=msg.replace(">","&gt")
+		while(msg.search("<")>-1)msg=msg.replace("<","&lt")
 	}
 	firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").once("value",function(r){
 		var msgo=r.val().Content,m=[],r="",t=Dft.Oln.Typ

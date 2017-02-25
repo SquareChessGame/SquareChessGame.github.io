@@ -39,7 +39,8 @@ function MdL(v){Id("LdB").style.width=(100-Math.floor(v/MdQ.length))+"%"
 		if(typeof Ini!="undefined"){Dft.System.Oln=1;Joi()
 			Id("Files").onchange=function(){
 				Rdr(this.files,function(input,file){
-					if(file.type.search("image")>-1)Msg("<img src=\""+input+"\" width=\"150\" style=\"box-shadow:5px 5px 2px gray;margin-right:10px;margin-top:10px;border-radius:10px\"/>",0,1)
+					if(file.type.search("image")>-1)Msg("<img src=\""+input+"\" width=\"150\" style=\"box-shadow:5px 5px 2px gray;margin-top:10px;border-radius:10px\"/>",0,1)
+					else Msg("<a download=\""+file.name+"\" href="+input+" style=\"text-decoration:underline\">"+file.name+"</a>",0,1)
 				},"DataURL")
 			}
 		}
