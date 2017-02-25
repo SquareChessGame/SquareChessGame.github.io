@@ -33,12 +33,14 @@
 					<div id="Rulec" onclick="Ctl('RSw')"></div>
 					<ul></ul>
 				</div>
-				<div id="menu" style="left:0px;top:40px;width:0px;height:240px;overflow:hidden;z-index:2">
+				<div id="menu" style="left:0px;top:40px;width:0px;height:280px;overflow:hidden;z-index:2">
 					<div class="list" onclick="Ctl('Cln')" title="清除棋盤">Clean</div>
 					<div class="list" onclick="Ctl('Udo')" title="到上一步">Undo</div>
 					<div class="list" onclick="Ctl('Rdo')" title="到下一步">Redo</div>
 					<div class="list" onclick="Ctl('Gto')" title="到指定步">Goto</div>
 					<div class="list" onclick="Opt()" title="功能選單">Addons</div>
+					<div class="list" onclick="Id('Files').click()" title="輸入設定">Input</div>
+					<div class="list" onclick="Wtr(1)" title="輸出設定">Output</div>
 				</div>
 			</div>
 			<div id="Recrd"></div>
@@ -51,6 +53,7 @@
 		</div>
 		<div id="Rsw" onclick="Ctl('RSw',1)" title="顯示規則"><div></div></div>
 		<div id="Mbx"></div><div id="Mbxv"></div><div id="Gear" onclick="if(Id('Setting').style.height=='0px')Opt();else OpK(1)" title="進行設定"></div>
+		<input type="file" style="display:none" id="Files"/>
 	</div>
 </body>
 <script src="Core/Mgbx.js"></script>

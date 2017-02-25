@@ -41,6 +41,8 @@ function KDw(e){
 							case 3:Ctl("Rdo");break
 							case 4:Ctl("Gto");break
 							case 5:Opt();break
+							case 6:Id('Files').click();break
+							case 7:Wtr();break
 						}else switch(Val(num)){
 							case 0:location="index.html";break
 							case 1:Ctl("Gvp");break
