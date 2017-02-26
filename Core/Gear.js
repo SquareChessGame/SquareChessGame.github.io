@@ -89,7 +89,7 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0;if(Dft.Oln
 				if(v>l){
 					if(Notification&&Dft.Oln.MsQ[l].Id!=Dft.Oln.Typ)var s=new Notification("即時訊息",{
 						body:Dft.Oln.MsQ[l],icon:"Pics/Icon.png"
-					})
+					});return
 				}
 				if(typeof Dft.Oln.MsQ[v]=="undefined"){
 					firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/"+v).once("value",function(r){
