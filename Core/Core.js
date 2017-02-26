@@ -96,16 +96,17 @@ function Wtr(v){
 		doc.body.appendChild(BackUper);BackUper.click();doc.body.removeChild(BackUper)
 	}
 }
-function Rdr(fls,fnc,typ){if(Dft.System.Oln&&typ!="DataURL")return;Mbx("正在裝載中...");if(!typ)typ="Text"
+function Rdr(fls,fnc,typ){if(Dft.System.Oln&&typ!="DataURL")return;if(!typ)typ="Text"
 	var rd=new FileReader(),file=fls[0];if(!fnc)fnc=function(input){var cfg=input.split("\r\n")
 		if(cfg[0]!=Dft.Oln.MdN){Mbx("模式錯誤",function(){});return}
 		for(var i=1;i<cfg.length-1;i++){var spt=cfg[i].split("=")
 			if((spt[1].length>80||isNaN(Val(spt[1])))&&spt[1]!="true"&&spt[1]!="false")eval(spt[0]+"=\""+spt[1]+"\"")
-			else eval(spt[0]+"="+Val(spt[1]));Rec(Hst.Brd.length-1)
-		}
+			else eval(spt[0]+"="+Val(spt[1]));Rec(Hst.Brd.length-1);
+		}setTimeout(function(){console.log(0);Mbx.Exe(function(){})},500)
 	}
-	rd.onload=function(){fnc(this.result,file);Mbx.Exe(function(){})}
-	rd.onerror=function(){Mbx("讀取異常",function(){})};rd["readAs"+typ](fls[0])
+	rd.onload=function(){fnc(this.result,file)}
+	rd.onerror=function(){Mbx("讀取異常",function(){})}
+	Mbx("正在裝載中...");rd["readAs"+typ](fls[0])
 }
 function Prc(f){
 	Rdr(f,function(input,file){
