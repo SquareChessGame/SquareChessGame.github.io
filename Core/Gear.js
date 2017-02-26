@@ -83,22 +83,46 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0;if(Dft.Oln
 				}
 			}
 		})
-		firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").on("value",function(r){var ms=r.val().Content,r="",msg=[]
-			for(var i in ms)msg.push(ms[i]);if(msg.length==0)return
-			for(var i=0;i<msg.length;i++){if(msg[i][1]=="X方已加入"&&msg[i][0]=="S"&&Dft.Oln.PrX){$(".join").css("display","none");OpK(1);Dft.Oln.PrX=0}
-				switch(msg[i][0]){
-					case"S":r+="<div style=\"text-align:center\">-"+msg[i][1]+"-</div>";break
-					case Dft.Oln.Typ:r+="<div style=\"text-align:right;margin-right:10px\">"+msg[i][1]+"</div>";break
-					default:r+="<div>"+msg[i][0]+":"+msg[i][1]+"</div>"
+		firebase.database().ref("Battle/"+Dft.Oln.Id+"/MessageLength").on("value",function(r){var l=r.val()
+			if(!l)return;else l=l.count
+			var get=function(v){MSw()
+				if(v>l){
+					if(Notification&&Dft.Oln.MsQ[l].Id!=Dft.Oln.Typ)var s=new Notification("即時訊息",{
+						body:Dft.Oln.MsQ[l],icon:"Pics/Icon.png"
+					})
 				}
-			}Id("msgc").innerHTML=r;Dft.Oln.Msg++;Atn()
-			Ctl("MSw",Dft.Oln.MSw);Id("msgc").scrollTop=Id("msgc").scrollHeight
-			if(Notification){
-				if(msg.length>1&&msg[msg.length-1][0]!=Dft.Oln.Typ)var n=new Notification("即時訊息",{
-					body:msg[msg.length-1][1],icon:"Pics/Icon.png"
-				})
-			}
+				if(typeof Dft.Oln.MsQ[v]=="undefined"){
+					firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/"+v).once("value",function(r){
+						Dft.Oln.MsQ[v]=r.val();get(v+1)
+					})
+				}else get(v+1)
+			};get(0);Dft.Oln.Msg++;Atn();Ctl("MSw",Dft.Oln.MSw)
 		})
+	}
+}
+function MSw(){var msg=Dft.Oln.MsQ
+	for(var i=0;i<msg.length;i++){if(!msg[i]||Id("Msg-"+i))continue
+		if(Dft.Oln.PrX&&msg[i].Msg=="X方已加入"&&msg[i].Id=="S"){$(".join").css("display","none");OpK(1);Dft.Oln.PrX=0}
+		var enmsg=MSw.EnC(msg[i].Msg),r=""
+		switch(msg[i].Id){
+			case"S":r="<div style=\"text-align:center\" id=\""+"Msg-"+i+"\">-"+enmsg+"-</div>";break
+			case Dft.Oln.Typ:r="<div style=\"text-align:right;margin-right:10px\" id=\""+"Msg-"+i+"\">"+enmsg+"</div>";break
+			default:r="<div style=\"margin-left:10px\" id=\""+"Msg-"+i+"\">"+msg[i].Id+":"+enmsg+"</div>"
+		}if(Id("Msg-0"))$("#Msg-"+(i-1)).after(r);else $("#msgc").append(r)
+	}Id("msgc").scrollTop=Id("msgc").scrollHeight
+}
+MSw.EnC=function(obj){var r="",n=0
+	if(typeof obj=="string")return obj
+	while(1){if(obj.content[n])r+=obj.content[n];else break;n++}
+	switch(obj.type){
+		case"image":
+			return "<img src=\""+r+"\" width=\"150\" style=\"box-shadow:5px 5px 2px gray;margin-top:10px;border-radius:10px\"/>"
+		case"audio":
+			return "<audio style=\"margin-top:10px;width:150px\" controls><source src=\""+r+"\"/>你的瀏覽器不支援audio標籤</audio>"
+		case"video":
+			return "<video style=\"margin-top:10px;width:150px\" controls><source src=\""+r+"\"/>你的瀏覽器不支援video標籤</video>"
+		default:
+			return "<a download=\""+obj.name+"\" href="+r+" style=\"text-decoration:underline\">"+obj.name+"</a>"
 	}
 }
 function Atn(v){if(v&&v.search("/")>-1)v=v.split("/")[0]
@@ -146,15 +170,19 @@ Oln.Ckr=function(){
 		setTimeout("Oln.Ckr()",10000)
 	})
 }
-function Msg(msg,sys,spi){Dft.Oln.Msg=-1
-	if(!spi){
-		while(msg.search(">")>-1)msg=msg.replace(">","&gt")
-		while(msg.search("<")>-1)msg=msg.replace("<","&lt")
+function Msg(msg,sys){Dft.Oln.Msg=-1;var upd={Msg:msg}
+	if(sys)upd.Id="S";else upd.Id=Dft.Oln.Typ
+	if(typeof upd.Msg=="string"){
+		while(upd.Msg.search(">")>-1)upd.Msg=upd.Msg.replace("&","&amp")
+		while(upd.Msg.search(">")>-1)upd.Msg=upd.Msg.replace(">","&gt")
+		while(upd.Msg.search("<")>-1)upd.Msg=upd.Msg.replace("<","&lt")
 	}
-	firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message").once("value",function(r){
-		var msgo=r.val().Content,m=[],r="",t=Dft.Oln.Typ
-		for(var i in msgo)m.push(msgo[i]);if(sys)t="S";m[m.length]=[t,msg]
-		if(m.length<3||m[m.length-1][0]!=m[m.length-2][0]&&m[m.length-1][1]!=m[m.length-2][1])firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/Content/"+(m.length-1)).update(m[m.length-1])
+	firebase.database().ref("Battle/"+Dft.Oln.Id+"/MessageLength").once("value",function(r){var l=r.val()
+		if(!l)l=-1;else l=l.count
+		if(l!=-1&&Dft.Oln.MsQ[l])if(upd.Msg==Dft.Oln.MsQ[l].Msg&&upd.Id==Dft.Oln.MsQ[l].Id)return
+		
+		firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/"+(l+1)).update(upd)
+		firebase.database().ref("Battle/"+Dft.Oln.Id+"/MessageLength").update({count:l+1})
 	})
 }window.addEventListener("offline",function(){Mbx("已離線",function(){})})
 Svr()
