@@ -109,7 +109,7 @@ function MSw(){var msg=Dft.Oln.MsQ
 			case Dft.Oln.Typ:r="<div style=\"text-align:right;margin-right:10px\" id=\""+"Msg-"+i+"\">"+enmsg+"</div>";break
 			default:r="<div style=\"margin-left:10px\" id=\""+"Msg-"+i+"\">"+msg[i].Id+":"+enmsg+"</div>"
 		}if(Id("Msg-0"))$("#Msg-"+(i-1)).after(r);else $("#msgc").append(r)
-	}Id("msgc").scrollTop=Id("msgc").scrollHeight
+	}if(Id("Message").style.height=="25px")Id("msgc").scrollTop=Id("msgc").scrollHeight
 }
 MSw.EnC=function(obj){var r="",n=0
 	if(typeof obj=="string")return obj
