@@ -85,11 +85,11 @@ function Ini(v){Dft.System.Oln=0;Cln();Dft.System.Oln=1;Dft.Oln.Cln=0;if(Dft.Oln
 		})
 		firebase.database().ref("Battle/"+Dft.Oln.Id+"/MessageLength").on("value",function(r){var l=r.val()
 			if(!l)return;else l=l.count
-			var get=function(v){MSw()
+			var get=function(v){MSw();Ctl("MSw",Dft.Oln.MSw)
 				if(v>l){
 					if(Notification&&Dft.Oln.MsQ[l].Id!=Dft.Oln.Typ)var s=new Notification("即時訊息",{
 						body:Dft.Oln.MsQ[l],icon:"Pics/Icon.png"
-					});Dft.Oln.Msg++;Atn();Ctl("MSw",1);return
+					});Dft.Oln.Msg++;Atn();return
 				}
 				if(typeof Dft.Oln.MsQ[v]=="undefined"){
 					firebase.database().ref("Battle/"+Dft.Oln.Id+"/Message/"+v).once("value",function(r){
@@ -125,7 +125,7 @@ MSw.EnC=function(obj){var r="",n=0
 			return "<a download=\""+obj.name+"\" href="+r+" style=\"text-decoration:underline\">"+obj.name+"</a>"
 	}
 }
-function Atn(v){if(v&&v.search("/")>-1)v=v.split("/")[0];Dft.Oln.MSw=0
+function Atn(v){if(v&&v.search("/")>-1)v=v.split("/")[0]
 	if(v)doc.title=v
 	else if(doc.title[doc.title.length-1]==")")doc.title=doc.title.split("(")[0]
 	if(Dft.Oln.Msg>0)doc.title+="("+Dft.Oln.Msg+")";Tag("header")[0].innerHTML=doc.title
