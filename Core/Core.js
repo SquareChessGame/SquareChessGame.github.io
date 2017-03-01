@@ -102,7 +102,7 @@ function Rdr(fls,fnc,typ){if(Dft.System.Oln&&typ!="DataURL")return;if(!typ)typ="
 		for(var i=1;i<cfg.length-1;i++){var spt=cfg[i].split("=")
 			if((spt[1].length>80||isNaN(Val(spt[1])))&&spt[1]!="true"&&spt[1]!="false")eval(spt[0]+"=\""+spt[1]+"\"")
 			else eval(spt[0]+"="+Val(spt[1]));Rec(Hst.Brd.length-1);
-		}setTimeout(function(){console.log(0);Mbx.Exe(function(){})},500)
+		}setTimeout(function(){Mbx.Exe(function(){})},500)
 	}
 	rd.onload=function(){fnc(this.result,file)}
 	rd.onerror=function(){Mbx("讀取異常",function(){})}
