@@ -1,4 +1,4 @@
-function MsO(e){var v=1,p=0
+﻿function MsO(e){var v=1,p=0
 	if(e.pageX<$("#Board").offset().left)p=0
 	else if(e.pageX>$("#Board").offset().left+$("#Board").width())p=1
 	else v=0;Mnu(v,p)
@@ -141,4 +141,17 @@ function RJC(s){var r="",t=[];if(!s)s=10;s++
 }
 function Svr(){
 	eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('B 8(){c s="m";n(!(s.e("d")<0))s=s.1("d","f");s=s.1("l","k");s=s.1("h","q");s=s.1("p","o");s=s.1("b","g");s=s.1("b","j");s=s.1("i","r");s=s.1("9","9-D");C s}c 7={E:8(),H:"5-6-4-2.F.3",G:"A://5-6-4-2.v.3",u:"5-6-4-2.t.3",w:"z"};y.x(7);8=a;7=a',44,44,'|replace|91|com|game|square|chess|config|cfaK|8I|null|tz|var|AA|search|AIA|tzh|yA|qh|tzxiQq|AIzaSy|AI|AAA|while|9z_UKLVGFhgEndt|9z|yAkW9zz|qh2b8||appspot|storageBucket|firebaseio|messagingSenderId|initializeApp|firebase|757542166819|https|function|return|Z2e|apiKey|firebaseapp|databaseURL|authDomain'.split('|'),0,{}))
+}
+function FbM(){
+	$(document).ready(function() {
+		$.ajaxSetup({ cache: true });
+		$.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+			FB.init({
+				appId: '1841080689499907',
+				version: 'v2.8' // or v2.1, v2.2, v2.3, ...
+			});     
+			$('#loginbutton,#feedbutton').removeAttr('disabled');
+			FB.getLoginStatus(function(){console.log(arguments[0])});
+  		});
+	});
 }
