@@ -1,4 +1,4 @@
-Shl.Ara["Connect-Origin"]=[];Dft["Connect-Origin"]={Ara:0,QJd:1,Rul:0,Ori:1,Net:[]}
+Shl.Ara["Connect-Origin"]=[];Dft["Connect-Origin"]={Ara:0,QJd:1,Rul:0,Ori:1,Net:[],Fst:1}
 Shl.Rul["Connect-Origin"]=function(){return Ara.Rul("Connect-Origin",Cnt("Connect-Origin"))}
 Shl.Lmt["Connect-Origin"]=function(crd,sym,ori){var mcd=crd
 	var cd8=Crd(crd,"8"),vtQ=Vct("Q"),vt28=Vct("28");Hst.Rut[Tn]=[];if(Tn<2)return 0
@@ -34,7 +34,9 @@ Shl.Lmt["Connect-Origin"]=function(crd,sym,ori){var mcd=crd
 	}
 	return !Hst.Rut[Tn].length>0
 }
-Shl.Mrk["Connect-Origin"]=function(){Ara.Mrk("Connect-Origin")}
+Shl.Mrk["Connect-Origin"]=function(){
+	Ara.Mrk("Connect-Origin");if(Dft["Connect-Origin"].Fst){Qre([Hst.Crd[1],Hst.Crd[2]],"FtC",3)}
+}
 Shl.Adn["Connect-Origin"]=function(){Tn+=2
 	if(!Dft.System.Oln||Dft.Oln.Typ=="O")switch(Dft["Connect-Origin"].Rul){
 		case 0:Tn=0;break
@@ -50,6 +52,7 @@ Shl.Adn["Connect-Origin"]=function(){Tn+=2
 Shl.Ckr["Connect-Origin"]=function(crd){return Ara.Ckr("Connect-Origin",crd)}
 Shl.Opt["Connect-Origin"]=function(){
 	OpS("","1","Connect-Origin設定")
+	OpS("Connect-Origin-Fst","k","首回設置",Dft["Connect-Origin"].Fst)
 	if(!Dft.System.Oln){OpS("","2","固定設置")
 		OpS("Connect-Origin-Rul-0/Connect-Origin-Rul","r","無設置",Dft["Connect-Origin"].Rul==0)
 		OpS("Connect-Origin-Rul-1/Connect-Origin-Rul","r","隨機設置一型",Dft["Connect-Origin"].Rul==1)
@@ -58,5 +61,5 @@ Shl.Opt["Connect-Origin"]=function(){
 }
 Shl.OpK["Connect-Origin"]=function(){
 	if(!Dft.System.Oln)for(var i=0;i<3;i++)if(Id("Connect-Origin-Rul-"+i).checked)Dft["Connect-Origin"].Rul=i
-	Ara.OpK("Connect-Origin")
+	Ara.OpK("Connect-Origin");Dft["Connect-Origin"].Fst=Id("Connect-Origin-Fst").checked
 }
