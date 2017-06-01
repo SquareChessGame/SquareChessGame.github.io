@@ -149,8 +149,10 @@ Ara.Rul=function(shl,ara){Shl.Ara[shl]=ara;if(!ara.P[0])ara.P[0]=[]
 }
 Ara.Opt=function(shl){
 	OpS("","2","輔助標記");OpS(shl+"-Ara","k","雙方區域",Dft[shl].Ara)
-	if(!Dft.System.Oln){OpS("","2","特殊規則")
-		OpS(shl+"-Ori","k","樹狀規則",Dft[shl].Ori)
+	if(!Dft.System.Oln){
+		if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Kingdom")>-1){
+			OpS("","2","特殊規則");OpS(shl+"-Ori","k","樹狀規則",Dft[shl].Ori)
+		}
 		OpS("","2","判定方式")
 		OpS(shl+"-QJd-0/"+shl+"-QJd","r","不進行快速判定",Dft[shl].QJd==0)
 		OpS(shl+"-QJd-1/"+shl+"-QJd","r","快速判定初級",Dft[shl].QJd==1)
@@ -161,7 +163,7 @@ Ara.Opt=function(shl){
 Ara.OpK=function(shl){Dft[shl].Ara=Id(shl+"-Ara").checked
 	if(!Dft.System.Oln){
 		for(var i=0;i<4;i++)if(Id(shl+"-QJd-"+i).checked)Dft[shl].QJd=i
-		Dft[shl].Ori=Id(shl+"-Ori").checked;if(Dft[shl].Ori)Dft.System.Per=1
+		if(Id(shl+"-Ori"))Dft[shl].Ori=Id(shl+"-Ori").checked;if(Dft[shl].Ori)Dft.System.Per=1
 	}if(Dft.System.Per)Dft[shl].QJd=0
 }
 Ara.Mrk=function(shl){
