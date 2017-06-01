@@ -8,7 +8,7 @@
 	},Dft={
 		Set:1,Tn:0,Blk:[],Win:0,Crd:"",Dir:"",
 		Oln:{Typ:"",Id:"",Rgt:0,Cln:1,MdN:"",Msg:0,CkN:"",MSw:1,PrX:1,MsQ:[],Mup:0},
-		System:{Blk:0,Nxt:0,iTn:0,Qsr:0,Oln:0,Gst:0,Lmt:0,Per:0,Rec:0}
+		System:{Blk:0,Nxt:0,iTn:0,Qsr:0,Oln:0,Gst:0,Lmt:0,Per:0,Rec:0,Fst:0},
 	},
 	Hst={Brd:[],Crd:[],Sel:[],Rut:[]},Sdx={},
 	Shl={Rul:{},Lmt:{},Brd:{},Mrk:{},Adn:{},Ara:{},Ckr:{},Opt:{},OpK:{},Rls:{},Ato:{}}
@@ -172,6 +172,7 @@ function Mrk(){Brd();var nxc=BJd()
 		Qre(nxc,"Opa",0.2)
 	}
 	if(Dft.System.iTn){Qre(Hst.Crd[Tn],"FtC",1);Qre(Hst.Crd[Tn-1],"FtC",1)}
+	if(Dft.System.Fst){Qre([Hst.Crd[1],Hst.Crd[2]],"FtC",2)}
 	Qre(Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==3)return 1;return 0}),"BgC",2)
 	for(var i=0;i<MdQ.length;i++)if(Shl.Mrk[MdQ[i]])Shl.Mrk[MdQ[i]]()
 }
@@ -200,7 +201,9 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 		OpS("System-Oln","k","線上對戰",Dft.System.Oln)
 		OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
 		OpS("System-Per","k","提升效能",Dft.System.Per)
-		if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Kingdom")>-1)if(!Dft.System.Oln)OpS("System-Lmt","k","首回限制",Dft.System.Lmt)
+		if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Kingdom")>-1){
+			if(!Dft.System.Oln)OpS("System-Lmt","k","首回限制",Dft.System.Lmt);OpS("System-Fst","k","首回標記",Dft.System.Fst);
+		}
 	}else Oln.Opt()
 	OpS("System-iTn","k","上回設置",Dft.System.iTn)
 	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("RvLike")>-1)OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
@@ -248,6 +251,7 @@ function OpK(k){Id("Setting").style.height="0px";Id("Gear").style.transform="";i
 	if(Id("System-Cor")&&!Id("System-Cor").checked)Id("Recrd").style.display="none";else Id("Recrd").style.display=""
 	if(Id("System-Nxt"))Dft.System.Nxt=Id("System-Nxt").checked;Dft.System.Gst=Id("System-Gst").checked
 	if(Id("System-Lmt"))Dft.System.Lmt=Id("System-Lmt").checked;Dft.System.iTn=Id("System-iTn").checked
+	if(Id("System-Fst"))Dft.System.Fst=Id("System-Fst").checked;
 	if(Dft.Tn==Tn)Cln();for(i=0;i<MdQ.length;i++)if(Shl.OpK[MdQ[i]])Shl.OpK[MdQ[i]]();Mrk();Ctl("Rul")
 	if(Id("System-Rpt").checked)Ctl("Rpt");Dft.System.Rec=Id("System-Rec").checked
 }
