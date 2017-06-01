@@ -202,7 +202,8 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 		OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
 		OpS("System-Per","k","提升效能",Dft.System.Per)
 		if(Cnt.Oth()||MdQ.indexOf("Kingdom")>-1){
-			if(!Dft.System.Oln)OpS("System-Lmt","k","首回限制",Dft.System.Lmt);OpS("System-Fst","k","首回標記",Dft.System.Fst);
+			if(!Dft.System.Oln)OpS("System-Lmt","k","首回限制",Dft.System.Lmt);
+			if(Cnt.Oth())OpS("System-Fst","k","首回標記",Dft.System.Fst);
 		}
 	}else Oln.Opt()
 	OpS("System-iTn","k","上回設置",Dft.System.iTn)
