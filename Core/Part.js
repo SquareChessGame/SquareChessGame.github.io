@@ -151,7 +151,7 @@ Ara.Opt=function(shl){
 	OpS("","2","輔助標記");OpS(shl+"-Ara","k","雙方區域",Dft[shl].Ara)
 	if(!Dft.System.Oln){
 		if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Kingdom")>-1){
-			OpS("","2","特殊規則");OpS(shl+"-Ori","k","樹狀規則",Dft[shl].Ori)
+			OpS("","2","特殊規則");OpS(shl+"-Ori","k","樹狀規則",Dft[shl].Ori);OpS(shl+"-NdN","k","斷線標記",Dft[shl].NdN)
 		}
 		OpS("","2","判定方式")
 		OpS(shl+"-QJd-0/"+shl+"-QJd","r","不進行快速判定",Dft[shl].QJd==0)
@@ -169,7 +169,15 @@ Ara.OpK=function(shl){Dft[shl].Ara=Id(shl+"-Ara").checked
 Ara.Mrk=function(shl){
 	if(Dft[shl].Ara)for(cd1=65;cd1<74;cd1++)for(cd2=1;cd2<10;cd2++)for(sym=0;sym<2;sym++){
 		if(Shl.Ara[shl][Sqr.Sym[sym]].All.indexOf(Chr(cd1)+cd2)>-1)Qre(Chr(cd1)+cd2,"BgC",sym+3)
+	};
+	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Kingdom")>-1){
+		if(Dft[shl].NdN)for(var i=0;i<2;i++){
+			var al=Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==i)return 1;return 0}),
+			nt=Net(Hst.Crd[i],shl,i);
+			Qre((Flt(al,function(crd){if(nt.indexOf(crd)<0)return 1;return 0})),"Opa",0.5)
+		}
 	}
+}
 }
 Ara.Ckr=function(shl,crd){Dft[shl].Net=[]
 	if(Shl.Ara[shl][Sqr.Sym[Tn%2]][0])return Shl.Ara[shl][Sqr.Sym[Tn%2]][0].indexOf(crd)>-1
