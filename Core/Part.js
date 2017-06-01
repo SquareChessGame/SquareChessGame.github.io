@@ -125,6 +125,9 @@ function Cnt(shl){var ara={O:[],X:[],P:[]},ser=0,brd=Rec();ara.O.All=[];ara.X.Al
 	}ara.P.All=Flt(ara.O.All,function(crd){if(ara.X.All.indexOf(crd)>-1)return 1})
 	for(var i=0;i<2;i++)ara[Sqr.Sym[i]].All=Flt(ara[Sqr.Sym[i]].All,function(crd){if(ara.P.All.indexOf(crd)<0)return 1});return ara
 }
+Cnt.Oth=function(){
+	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1)return 1;return 0
+}
 function Scr(opt,xpt){
 	if(opt>xpt)return "O獲勝";if(xpt>opt)return "X獲勝";return "平手"
 }
@@ -150,7 +153,7 @@ Ara.Rul=function(shl,ara){Shl.Ara[shl]=ara;if(!ara.P[0])ara.P[0]=[]
 Ara.Opt=function(shl){
 	OpS("","2","輔助標記");OpS(shl+"-Ara","k","雙方區域",Dft[shl].Ara)
 	if(!Dft.System.Oln){
-		if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Kingdom")>-1){
+		if(Cnt.Oth()){
 			OpS("","2","特殊規則");OpS(shl+"-Ori","k","樹狀規則",Dft[shl].Ori);OpS(shl+"-NdN","k","斷線標記",Dft[shl].NdN)
 		}
 		OpS("","2","判定方式")
@@ -170,7 +173,7 @@ Ara.Mrk=function(shl){
 	if(Dft[shl].Ara)for(cd1=65;cd1<74;cd1++)for(cd2=1;cd2<10;cd2++)for(sym=0;sym<2;sym++){
 		if(Shl.Ara[shl][Sqr.Sym[sym]].All.indexOf(Chr(cd1)+cd2)>-1)Qre(Chr(cd1)+cd2,"BgC",sym+3)
 	}
-	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Kingdom")>-1){
+	if(Cnt.Oth()){
 		if(Dft[shl].NdN)for(var i=0;i<2;i++){
 			var al=Flt(Sel("All"),function(crd){if(Qre(crd,"Sym")==i)return 1;return 0}),
 			nt=Net(Hst.Crd[i],shl,i);
