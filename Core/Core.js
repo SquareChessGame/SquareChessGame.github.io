@@ -1,4 +1,4 @@
-﻿var Tn=0,MdQ=[],MdC=[],Sqr={
+var Tn=0,MdQ=[],MdC=[],Sqr={
 		Sym:["O","X",""," ","Z"],FtC:["","blue","red"],
 		BgC:[
 			"white","lightgray","dimgray","indianred","lightskyblue",
@@ -201,12 +201,12 @@ function Opt(){Id("Setting").style.height=($(window).height()-40)+"px";var id=Df
 		OpS("System-Oln","k","線上對戰",Dft.System.Oln)
 		OpS("System-Qsr","k","加速查詢",Dft.System.Qsr)
 		OpS("System-Per","k","提升效能",Dft.System.Per)
-		if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Kingdom")>-1){
+		if(Cnt.Oth()||MdQ.indexOf("Kingdom")>-1){
 			if(!Dft.System.Oln)OpS("System-Lmt","k","首回限制",Dft.System.Lmt);OpS("System-Fst","k","首回標記",Dft.System.Fst);
 		}
 	}else Oln.Opt()
 	OpS("System-iTn","k","上回設置",Dft.System.iTn)
-	if(MdQ.indexOf("Connect")>-1||MdQ.indexOf("Divider")>-1||MdQ.indexOf("Adapter")>-1||MdQ.indexOf("Connect-Origin")>-1||MdQ.indexOf("RvLike")>-1)OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
+	if(Cnt.Oth()||MdQ.indexOf("RvLike")>-1)OpS("System-Nxt","k","次回設置",Dft.System.Nxt)
 	OpS("System-Gst","k","手勢操作",Dft.System.Gst)
 	if($("#Recrd").width()>10)OpS("System-Cor","k","顯示過程",Id("Recrd").style.display!="none")
 	OpS("System-Nit","k","夜間模式",Id("NightMode").style.opacity!=1)
