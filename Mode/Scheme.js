@@ -26,5 +26,4 @@ Shl.Opt.Scheme=function(){
 Shl.OpK.Scheme=function(){
 	Dft.System.Blk=18
 	Dft.Scheme.Ara=Id("Scheme-Ara").checked
-	Dft.Scheme.Lmt=Id("Scheme-Lmt").checked
 }
